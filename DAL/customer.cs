@@ -14,7 +14,7 @@ namespace IDAL
             public string Name { set; get; }
             public int PhoneNumber { set; get; }
             public double Longitude { set; get; }
-            public double Laditude { set; get; }
+            public double Latitude { set; get; }
         }
-        \}
+        }
 }

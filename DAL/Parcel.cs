@@ -10,16 +10,18 @@ namespace IDAL
     {
         public struct Parcel
         {
-            int Id;
-            int SenderId;
-            int TargetId;
-            WeightCatigories Weight;
-            Proirities Priority;
-            datetime Requested;
-            int DronrId;
-            datetime Scheduled;
-            datetime PickedUp;
-            datetime Datetime;
+            public int Id { set; get; }
+            public int SenderId { set; get; }
+            public int TargetId { set; get; }
+            public Proirities Priority { set; get; }
+            public WeightCatigories Weight { set; get; }
+            public DateTime Requested { set; get; }
+            public int DronrId { set; get; }
+            public DateTime Scheduled { set; get; }
+            public DateTime PickedUp { set; get; }
+            public DateTime Datetime { set; get; }
         }
+           
+           
     }
 }
