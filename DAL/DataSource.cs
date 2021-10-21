@@ -5,13 +5,19 @@ namespace DalObject
 {
     internal class DataSource
     {
-        Drone[] droneArr = new Drone[10];
-        Parcel[] parcelArr = new Parcel[1000];
-        Station[] stationArr = new Station[5];
-        customer[] customerArr = new customer[100];
+      //  Drone[] droneArr = new Drone[10];
+       // Parcel[] parcelArr = new Parcel[1000];
+       // Station[] stationArr = new Station[10];//we first wrote 5 but we dont want to be limmited therefor we expanded altho we have to check if its ok
+       // customer[] customerArr = new customer[100];
+         internal static list<Drone> drones =new list<Drone>;
+         internal static list<Parcel> drones =new list<Drone>;
+         internal static list<Station> drones =new list<Drone>;
+         internal static list<customer> drones =new list<Drone>;
+        // internal static list<Drone> drones =new list<Drone>;// maybe drone charges
 
         internal class Config
         {
+            //eliezer only did parcel and number id- y??
             internal static int droneI = 0;
             internal static int parcelI = 0;
             internal static int baseStationI = 0;
@@ -114,5 +120,20 @@ namespace DalObject
             dataS.parcelArr[9].Weight = WeightCatigories.avergae;
             dataS.parcelArr[9].Priority = Proirities.emergency;
         }
+
+        public DalObject()
+        {
+            DataSource.Initialize();
+        }
+        public static void addStation(int id1,int name1, double longi,double lati,int charge)//findout if the sattion name is supposed to be string or int
+        {
+            DataSource s=new Station();
+            s.id=id1;
+            s.name=name1;
+            s.latitude=longi;
+
+
+        }
     }
+
 }

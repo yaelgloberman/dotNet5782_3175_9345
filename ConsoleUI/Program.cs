@@ -7,7 +7,7 @@ namespace ConsoleUI
             static void Main(string[] args)
             {
             //IDAL.DO.BaseStation baseStasion = new IDAL.DO.BaseStation();
-            int userC;
+            int userA;
            // BusList BL = new BusList();
             Console.WriteLine("Menue: ");
             Console.WriteLine("press 1 to add a drone");
@@ -27,8 +27,17 @@ namespace ConsoleUI
             {
                 case.MainChoice.add:
                     {
+                        Console.WriteLine("enter a station id");
+                        userA=int.Parse(Console.ReadLine());
+                        //add some sort of array that contains all the satations
+                        // we are thinking of changeing to lists and not array
 
                     }
+                    case.MainChoices.update:
+                    {
+                        
+                    }
+
             }
 
 
