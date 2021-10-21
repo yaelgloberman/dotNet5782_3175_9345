@@ -10,7 +10,8 @@ namespace IDAL
     {
         public enum WeightCatigories { light, avergae,heavy };
         public enum DroneStatuses { available,maintenance,shipping };
-       public enum Proirities { regular,fast,emergency };
-       
+        public enum Proirities { regular,fast,emergency };
+        public enum MainChoice { add = 1, update, models, list, exit };
+
     }
 }

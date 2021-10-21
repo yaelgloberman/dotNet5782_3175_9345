@@ -13,7 +13,7 @@ namespace DalObject
         internal class Config
         {
             internal static int droneI = 0;
-            internal static int packageI = 0;
+            internal static int parcelI = 0;
             internal static int baseStationI = 0;
             internal static int clientI = 0;
             // internal static int C = 0;
@@ -48,52 +48,51 @@ namespace DalObject
             dataS.droneArr[4].Status = DroneStatuses.maintenance;
             for (int i = Config.baseStationI; i < 2; i++)
             {
-                dataS.stationArr[i].Id= r.Next(1000);
+                dataS.stationArr[i].Id = r.Next(1000);
                 dataS.stationArr[i].name = r.Next(6);
                 dataS.stationArr[i].Latitude = r.Next(-100, 100);
                 dataS.stationArr[i].Longitude = r.Next(-100, 100);
             }
-            dataS.baseStationArr[0].NameBaseStation = "Station1";
-            dataS.baseStationArr[0].NameBaseStation = "Station2";
+            dataS.stationArr[0].name = 1;
+            dataS.stationArr[0].name = 2;
             for (int i = Config.clientI; i < 10; i++)
             {
                 dataS.customerArr[i].Id = r.Next(99999999, 10000000);
                 dataS.customerArr[i].Latitude = r.Next(-100, 100);
                 dataS.customerArr[i].Longitude = r.Next(-100, 100);
             }
-            dataS.customerArr[0].Name = "jo";
-            dataS.customerArr[0].PhoneNumber = "058-2457908";
-            dataS.customerArr[0].Name = "keley";
-            dataS.customerArr[0].PhoneNumber = "050-2447328";
-            dataS.customerArr[0].Name = "nely";
-            dataS.customerArr[0].PhoneNumber = "053-3457668";
-            dataS.customerArr[0].Name = "pj";
-            dataS.customerArr[0].PhoneNumber = "058-2477919";
-            dataS.customerArr[0].Name = "pazit";
-            dataS.customerArr[0].PhoneNumber = "053-9467738";
-            dataS.customerArr[0].Name = "gal";
-            dataS.customerArr[0].PhoneNumber = "058-2450008";
-            dataS.customerArr[0].Name = "magen";
-            dataS.customerArr[0].PhoneNumber = "054-3337908";
-            dataS.customerArr[0].Name = "ely";
-            dataS.customerArr[0].PhoneNumber = "058-2422208";
-            dataS.customerArr[0].Name = "code";
-            dataS.customerArr[0].PhoneNumber = 058-2412128;
-            dataS.customerArr[0].Name = "jame";
-            dataS.customerArr[0].PhoneNumber = "050-3456908";
-            for (int i = Config.packageI; i < 10; i++)
+            dataS.customerArr[0].Name = "Shifra";
+            dataS.customerArr[0].PhoneNumber = 0586503993;
+            dataS.customerArr[0].Name = "Yael";
+            dataS.customerArr[0].PhoneNumber = 0525140409;
+            dataS.customerArr[0].Name = "Alex";
+            dataS.customerArr[0].PhoneNumber = 0502894536;
+            dataS.customerArr[0].Name = "Yaeli";
+            dataS.customerArr[0].PhoneNumber = 0527703139;
+            dataS.customerArr[0].Name = "Chani";
+            dataS.customerArr[0].PhoneNumber = 0526673322;
+            dataS.customerArr[0].Name = "Bezalel";
+            dataS.customerArr[0].PhoneNumber = 0524070888;
+            dataS.customerArr[0].Name = "Shimi";
+            dataS.customerArr[0].PhoneNumber = 0587703153;
+            dataS.customerArr[0].Name = "Adina";
+            dataS.customerArr[0].PhoneNumber = 0533493551;
+            dataS.customerArr[0].Name = "Rina";
+            dataS.customerArr[0].PhoneNumber = 0548670887;
+            dataS.customerArr[0].Name = "Kineret";
+            dataS.customerArr[0].PhoneNumber = 0586275356;
+            for (int i = Config.parcelI; i < 10; i++)
             {
-                
-                dataS.parcelArr[i].SenderId = dataS.clientArr[r.Next(6)].Id;
-                dataS.parcelArr[i].TargetId = dataS.clientArr[r.Next(6)].Id;
-                dataS.parcelArr[i].IdDrone = dataS.droneArr[r.Next(6)].IdDrone;
-                dataS.parcelArr[i].DeliveryTime = new DateTime(2021, r.Next(1, 13), r.Next(1, 32), r.Next(24), r.Next(61), r.Next(61));
-                dataS.parcelArr[i].AssignmentTime = new DateTime(2021, r.Next(1, 13), r.Next(1, 32), r.Next(24), r.Next(61), r.Next(61));
-                dataS.parcelArr[i].PickupTime = new DateTime(2021, r.Next(1, 13), r.Next(1, 32), r.Next(24), r.Next(61), r.Next(61));
-                dataS.parcelArr[i].ArrivalTime = new DateTime(2021, r.Next(1, 13), r.Next(1, 32), r.Next(24), r.Next(61), r.Next(61));
 
+                dataS.parcelArr[i].SenderId = dataS.customerArr[r.Next(6)].Id;
+                dataS.parcelArr[i].TargetId = dataS.customerArr[r.Next(6)].Id;
+                dataS.parcelArr[i].Id = dataS.droneArr[r.Next(6)].Id;
+                dataS.parcelArr[i].Requested = new DateTime(2021, r.Next(1, 13), r.Next(1, 32), r.Next(24), r.Next(61), r.Next(61));
+                dataS.parcelArr[i].Scheduled = new DateTime(2021, r.Next(1, 13), r.Next(1, 32), r.Next(24), r.Next(61), r.Next(61));
+                dataS.parcelArr[i].PickedUp = new DateTime(2021, r.Next(1, 13), r.Next(1, 32), r.Next(24), r.Next(61), r.Next(61));
+                dataS.parcelArr[i].Datetime = new DateTime(2021, r.Next(1, 13), r.Next(1, 32), r.Next(24), r.Next(61), r.Next(61));
             }
-           
+
             dataS.parcelArr[0].Weight = WeightCatigories.heavy;
             dataS.parcelArr[0].Priority = Proirities.regular;
             dataS.parcelArr[1].Weight = WeightCatigories.light;
@@ -114,13 +113,6 @@ namespace DalObject
             dataS.parcelArr[8].Priority = Proirities.fast;
             dataS.parcelArr[9].Weight = WeightCatigories.avergae;
             dataS.parcelArr[9].Priority = Proirities.emergency;
-            
-
-
-
-
+        }
     }
-
-
 }
-
