@@ -29,26 +29,26 @@ namespace DAL
             int num = r.Next();
             public static void Initialize(DataSource dataS)
             {
-              
-                private static void CreateStation()
+
+                private static void CreateStation()//why private?
                 {
-                    for (int i=0;i<2;i++)
+                    for (int i = 0; i < 2; i++)
                     {
-                        stations.Add(new Station
+                        stations.Add(new Station()//added ()
                         {
-                            id = r.Next(111111, 8888888),
+                           id = r.Next(111111, 8888888),
                             name = r.Next(1, 1000),
                             longitude = getRandomCordinates(34, 8),
                             latitude = getRandomCordinates(29, 6),
                             chargeSlots = r.Next(5, 100)
                         });
-                        
-
-                        }
 
 
-                        }
                     }
+
+
+                }
+            }
                 }
                 
              

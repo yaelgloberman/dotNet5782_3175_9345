@@ -26,6 +26,14 @@ namespace DalObject
             DataSource.drones.Add(new Drone());
 
         }
+        public static void addCustomer()
+        {
+            DataSource.customers.Add(new customer());
+        }
+        public static void addParcel()
+        {
+            DataSource.parcels.Add(new Parcel());
+        }
 
     }
 
