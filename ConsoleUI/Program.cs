@@ -55,7 +55,7 @@ namespace ConsoleUI
                             {
                                 case addChoice.STATION:
                                     {
-                                       // IDAL.DO.Station temp = new IDAL.DO.Station();
+                                        // IDAL.DO.Station temp = new IDAL.DO.Station();
                                         Console.WriteLine("enter a station id");
                                         userA = int.Parse(Console.ReadLine());
                                         //.id = userA;
@@ -80,40 +80,56 @@ namespace ConsoleUI
                                         Console.WriteLine("enter Model");
                                         temp.Model = Console.ReadLine();
                                         Console.WriteLine("enter  a number from 1-3 describing its max weight, 3 is the heaviest");//go over the phraising
-                                        IDAL.DO.WeightCatigories weight = (IDAL.DO.WeightCatigories)int.Parse(Console.ReadLine());
+                                        temp.MaxWeight = (IDAL.DO.WeightCatigories)int.Parse(Console.ReadLine());
                                         Console.WriteLine("enter the batery status");
-                                        double tmpBateryStatus = double.Parse(Console.ReadLine());
+                                        temp.BateryStatus = double.Parse(Console.ReadLine());
                                         Console.WriteLine("enter the current drone status");//have to go over to see if i did it right
-                                        IDAL.DO.DroneStatuses tmpDroneStatuses = (IDAL.DO.DroneStatuses)int.Parse(Console.ReadLine());
-                                        temp.Id = tmpId;
-                                        temp.Model = tmpModel;
-                                        temp.MaxWeight = weight;
-                                        temp.BateryStatus = tmpBateryStatus;
-                                        temp.Status = tmpDroneStatuses;
+                                        temp.Status = (IDAL.DO.DroneStatuses)int.Parse(Console.ReadLine());
                                         DalObject.DalObject.addDrone(temp);
                                     }
                                     break;
                                 case addChoice.CUSTOMER:
                                     {
-                                        // IDAL.DO.Station temp = new IDAL.DO.Station();
-                                        Console.WriteLine("enter the customer");
-                                        userID = int.Parse(Console.ReadLine());
-                                        Console.WriteLine("enter name");
-                                        int name1 = int.Parse(Console.ReadLine());
-                                        Console.WriteLine("enter longitude");
-                                        double longitude1 = double.Parse(Console.ReadLine());
+                                        IDAL.DO.customer temp = new IDAL.DO.customer();
+                                        Console.WriteLine("enter the customers id");
+                                        temp.Id = int.Parse(Console.ReadLine());
+                                        Console.WriteLine("enter the customers name");
+                                        temp.Name = Console.ReadLine();
+                                        Console.WriteLine("enter the customers phonenumber");
+                                        temp.PhoneNumber = int.Parse(Console.ReadLine());//might have to check validity of 05 
                                         Console.WriteLine("enter latitude");
-                                        double latitude1 = double.Parse(Console.ReadLine());
-                                        Console.WriteLine("enter charge slots");
-                                        int chargeSlots1 = int.Parse(Console.ReadLine());
+                                        temp.Latitude = double.Parse(Console.ReadLine());
+                                        Console.WriteLine("enter the customers longitude");
+                                        temp.Longitude = int.Parse(Console.ReadLine());
                                         //temp.set(userA)
-                                        DalObject.DalObject.addStation(userA, name1, longitude1, latitude1, chargeSlots1);
+                                        DalObject.DalObject.addCustomer(temp);
 
                                     }
+
                                     break;
                                 case addChoice.PARCEL:
+                                    {
+                                        IDAL.DO.Parcel temp = new IDAL.DO.Parcel();
+                                        Console.WriteLine("enter thye senders id");
+                                        temp.Id = int.Parse(Console.ReadLine());
+                                        Console.WriteLine("enter the target id");
+                                        temp.TargetId = int.Parse(Console.ReadLine());
+                                        Console.WriteLine("enetr its urgency: press 1 for regular press 2 for fast and press 3 for emergency");
+                                        temp.Priority = (IDAL.DO.Proirities)int.Parse(Console.ReadLine());//might have to check validity of 05 
+                                        Console.WriteLine("enter the weight of the package");//not sure if i should do it with enum or have to do tkinut kelet
+                                        temp.Weight = (IDAL.DO.WeightCatigories)int.Parse(Console.ReadLine());
+                                        //do i have to do all the time entering or is that in the print function??\
+                                        //Console.WriteLine("enter the time the packge was requested");
+                                        //Console.WriteLine("enter the time it was schedrules ");
+                                        //Console.WriteLine("enter the drone id ");
+                                        //Console.WriteLine("enter the drone id ");
+                                        DalObject.DalObject.addParcel(temp);
+                                    }
+                                
+                      
+                            
                                     break;
-                                default:
+                                default://what is the default????
                                     break;
                             }
                         }
