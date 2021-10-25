@@ -9,7 +9,6 @@ namespace ConsoleUI
         {
             //IDAL.DO.BaseStation baseStasion = new IDAL.DO.BaseStation();
             int userA;
-            //BL = new BusList();
             Console.WriteLine("Menue: ");
             Console.WriteLine("press 1 to add a drone");
             Console.WriteLine("press 2 to update");
@@ -34,18 +33,32 @@ namespace ConsoleUI
                 {
                     case MainChoice.add:
                         {
+                            IDAL.DO.Station temp = new IDAL.DO.Station();
                             Console.WriteLine("enter a station id");
                             userA = int.Parse(Console.ReadLine());
+                            temp.id = userA;
                             Console.WriteLine("enter name");
                             int name1 =int.Parse(Console.ReadLine());
+                            Console.WriteLine("enter longitude");
+                            double longitude1 = double.Parse(Console.ReadLine());
                             Console.WriteLine("enter latitude");
                             double latitude1 = double.Parse(Console.ReadLine());
-                            DalObject.DalObject.
+                            Console.WriteLine("enter charge slots");
+                            int chargeSlots1 = int.Parse(Console.ReadLine());
+                            //temp.set(userA)
+                            DalObject.DalObject.addStation(userA, name1, longitude1, latitude1, chargeSlots1);
 
-
+                            
                         }
                         break;
                     case MainChoice.update:
+                        {
+                            //how is this supposed to look as the output
+                            IDAL.DO.Parcel p = new IDAL.DO.Parcel();
+                            Console.WriteLine("enter the id of the parcel you want to update");
+                            Console.WriteLine();
+                            DalObject.DalObject.updateDrone(p);
+                        }
                         break;
                     case MainChoice.models:
                         break;

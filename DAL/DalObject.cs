@@ -11,12 +11,7 @@ namespace DalObject
     {
         public DalObject()
         {
-            DataSource a=new DataSource();
-            DataSource.Initialize(a)
-           {
-
-
-           }
+            DataSource.Initialize();
         }
         public static void addStation(int id1, int name1, double longi, double lati, int charge)//findout if the sattion name is supposed to be string or int
         {
@@ -39,7 +34,32 @@ namespace DalObject
         {
             DataSource.parcels.Add(new Parcel());
         }
-
+        public static void updateParcel(Parcel p)
+        {
+            for (int i = 0; i < DataSource.drones.Count; i++)
+            {
+                if (DataSource.drones[i].Status == (IDAL.DO.DroneStatuses.available))
+                {
+                    p.DronrId = DataSource.drones[i].Id;  //not sure abt it
+                    //return DataSource.drones[i];
+                }
+                else
+                    Console.WriteLine("there are no availble drones");
+            }
+        }
+        public static void updateDrone(Drone d)
+        {
+            for (int i = 0; i < DataSource.parcels.Count; i++)
+            {
+                if (DataSource.parcels[i].DronrId == )
+                {
+                    d.DronrId = DataSource.drones[i].Id;  //not sure abt it
+                    //return DataSource.drones[i];
+                }
+                else
+                    Console.WriteLine("there are no availble drones");
+            }
+        }
     }
 
 

@@ -27,7 +27,8 @@ namespace DAL
             }
             static Random r = new Random();
             int num = r.Next();
-            public static void Initialize(DataSource dataS)
+            //DataSource dataS
+            public static void Initialize()
             {
                 static void CreateStation()//why private?
                 {
@@ -35,7 +36,7 @@ namespace DAL
                     {
                         stations.Add(new Station()//added ()
                         {
-                            id = r.Next(111111, 8888888),
+                            id = r.Next(111111111, 999999999),
                             name = r.Next(1, 1000),
                             longitude = getRandomCordinates(34, 8),
                             latitude = getRandomCordinates(29, 6),
@@ -49,7 +50,7 @@ namespace DAL
                     {
                         drones.Add(new Drone()
                         {
-                            Id = r.Next(111111, 8888888),
+                            Id = r.Next(111111111, 999999999),
                             Model = "Model" + i,
                             MaxWeight = (IDAL.DO.WeightCatigories)r.Next(1, 3),
                             //BateryStatus =(IDAL.DO.r.Next(IDAL.DO.)
@@ -58,9 +59,45 @@ namespace DAL
                     }
 
                 }
+                static void createCustomer()
+                {
+                    for (int i = 0; i < 100; i++)
+                    {
+                        customers.Add(new customer()
+                        {
+                            Id = r.Next(111111111, 999999999),
+                            Name = "Name" + i,
+                            PhoneNumber = 05 + r.Next(0, 9) + -+r.Next(111111111, 999999999),
+                            Longitude = getRandomCordinates(34, 8),
+                            Latitude = getRandomCordinates(29, 6),
+                        });
 
+                    }
+                }
+                static void createParcel()
+                {
+                    for (int i = 0; i < 1000; i++)
+                    {
+                        parcels.Add(new Parcel()
+                        {
+                            Id = r.Next(111111111, 999999999),
+                            SenderId = r.Next(111111111, 999999999),
+                            TargetId = r.Next(111111111, 999999999),
+                            Priority = (IDAL.DO.Proirities)r.Next(1, 3),
+                            Weight = (IDAL.DO.WeightCatigories)r.Next(1, 3),
+                            DronrId = r.Next(111111111, 999999999),
+                            Requested = DateTime.Now,
+                            Scheduled = DateTime.Now,
+                            PickedUp = DateTime.Now,
+                            Datetime = DateTime.Now,
+                        });
+                        Config.parcelSerial++;
+                        Config.numberId++;
+                    }
+                }
             }
-           
         }
     }
+}
+
 
