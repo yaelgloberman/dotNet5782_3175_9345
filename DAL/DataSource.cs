@@ -25,37 +25,42 @@ namespace DAL
                 internal static int parcelSerial = 0;
                 internal static int numberId;
             }
-            Random r = new Random();
+            static Random r = new Random();
             int num = r.Next();
             public static void Initialize(DataSource dataS)
             {
-
-                private static void CreateStation()//why private?
+                static void CreateStation()//why private?
                 {
                     for (int i = 0; i < 2; i++)
                     {
                         stations.Add(new Station()//added ()
                         {
-                           id = r.Next(111111, 8888888),
+                            id = r.Next(111111, 8888888),
                             name = r.Next(1, 1000),
                             longitude = getRandomCordinates(34, 8),
                             latitude = getRandomCordinates(29, 6),
                             chargeSlots = r.Next(5, 100)
                         });
-
-
+                    }
+                }
+                static void CreateDrone()
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        drones.Add(new Drone()
+                        {
+                            Id = r.Next(111111, 8888888),
+                            Model = "Model" + i,
+                            MaxWeight = (IDAL.DO.WeightCatigories)r.Next(1, 3),
+                            //BateryStatus =(IDAL.DO.r.Next(IDAL.DO.)
+                            Status = (IDAL.DO.DroneStatuses)r.Next(1, 3),
+                        });
                     }
 
-
                 }
+
             }
-                }
-                
-             
-
-
-
+           
         }
-
     }
-}
+

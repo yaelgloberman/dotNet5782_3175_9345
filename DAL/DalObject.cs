@@ -11,7 +11,12 @@ namespace DalObject
     {
         public DalObject()
         {
-            DataSource.Initialize();
+            DataSource a=new DataSource();
+            DataSource.Initialize(a)
+           {
+
+
+           }
         }
         public static void addStation(int id1, int name1, double longi, double lati, int charge)//findout if the sattion name is supposed to be string or int
         {
