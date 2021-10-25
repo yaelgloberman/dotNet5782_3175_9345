@@ -2,8 +2,9 @@
 
 namespace ConsoleUI
 {
-    public enum MainChoice { add = 1, update, models, list, exit };
+    public enum MainChoice { add = 1, update, display, list, exit };
     public enum addChoice {STATION=1, DRONE,CUSTOMER,PARCEL};
+    public enum displayChoice {STATION=1,DRONE,CUSTOMER,PARCEL };
     class Program
     {
         static void Main(string[] args)
@@ -13,7 +14,7 @@ namespace ConsoleUI
             Console.WriteLine("Menue: ");
             Console.WriteLine("press 1 to add an object");
             Console.WriteLine("press 2 to update");
-            Console.WriteLine("press 3 to display");
+            Console.WriteLine("press 3 for display");
             Console.WriteLine("press 4 to see lists ");
             Console.WriteLine("press 5 to exit");
             MainChoice choice;
@@ -144,7 +145,64 @@ namespace ConsoleUI
                             DalObject.DalObject.updateDrone(p);
                         }
                         break;
-                    case MainChoice.models:
+                    case MainChoice.display:
+                        {
+                            Console.WriteLine("what would you like to display?");
+                            Console.WriteLine("enter 1 to display station");
+                            Console.WriteLine("enter 2 to display drone");
+                            Console.WriteLine("enter 3 to display customer");
+                            Console.WriteLine("enter 4 to display parcel");
+                            bool isB;
+                            string str = Console.ReadLine();
+                            //בדיקת תקינות קלט-have to go over that 
+                            isB = int.TryParse(str, out int error1);
+                            int num1;
+                            displayChoice choice1;
+                            if (isB)
+                                num1 = int.Parse(str);
+                            else
+                                num1 = -1;
+                            choice1 = (displayChoice)num1;
+                            switch (choice1)
+                            {
+                                case displayChoice.STATION:
+                                    {
+                                        
+                                        Console.WriteLine("enter the station's id");
+                                        int stationID = int.Parse(Console.ReadLine());
+                                        IDAL.DO.Station currentStation = new IDAL.DO.Station();
+                                        currentStation = DalObject.DalObject.findStation(stationID);
+                                        if (currentStation.id==0)
+                                            Console.WriteLine("this station dosent exist");
+                                        else
+                                        {
+                                            Console.WriteLine("stations ID:"+currentStation.id," stations name" +currentStation.name, " stations longitude" +currentStation.longitude, "stations latitude"+currentStation.latitude);//im not sure how to print this?
+                                        }
+                                    }
+                                    break;
+                                case displayChoice.DRONE:
+                                    {
+
+                                        Console.WriteLine("enter the drone's id");
+                                        int droneID = int.Parse(Console.ReadLine());
+                                        IDAL.DO.Drone currentDrone = new IDAL.DO.Drone();
+                                        currentDrone = DalObject.DalObject.findDrone(droneID);
+                                        if (currentDrone.Id == 0)
+                                            Console.WriteLine("this drone dosent exist");
+                                        else
+                                        {
+                                            Console.WriteLine("Drone ID:" + currentDrone.Id, " Drone model" + currentDrone.Model, " Drone longitude" + currentStation.longitude, "stations latitude" + currentStation.latitude);//im not sure how to print this?
+                                        }
+                                    }
+                                    break;
+                                case displayChoice.CUSTOMER://literal copy paste from the others - waiting  to make sure that it debugs
+                                    break;
+                                case displayChoice.PARCEL:
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
                         break;
                     case MainChoice.list:
                         break;

@@ -60,6 +60,26 @@ namespace DalObject
                     Console.WriteLine("there are no availble drones");
             }
         }
+        public static Station findStation(int id)//is it static?
+        {
+            Station empty = new Station();
+            for (int i = 0; i < DataSource.stations.Count(); i++)
+            {
+                if (DataSource.stations[i].id == id)
+                    return DataSource.stations[i];
+            }
+            return empty;///im trying to return null
+        }
+        public static Drone findDrone(int id)//is it static?
+        {
+            Drone empty = new Drone();
+            for (int i = 0; i < DataSource.stations.Count(); i++)
+            {
+                if (DataSource.drones[i].Id == id)
+                    return DataSource.drones[i];
+            }
+            return empty;///im trying to return null
+        }
     }
 
 
