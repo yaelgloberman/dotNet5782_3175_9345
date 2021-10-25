@@ -55,10 +55,10 @@ namespace ConsoleUI
                             {
                                 case addChoice.STATION:
                                     {
-                                        IDAL.DO.Station temp = new IDAL.DO.Station();
+                                       // IDAL.DO.Station temp = new IDAL.DO.Station();
                                         Console.WriteLine("enter a station id");
                                         userA = int.Parse(Console.ReadLine());
-                                        temp.id = userA;
+                                        //.id = userA;
                                         Console.WriteLine("enter name");
                                         int name1 = int.Parse(Console.ReadLine());
                                         Console.WriteLine("enter longitude");
@@ -76,25 +76,40 @@ namespace ConsoleUI
                                     {
                                         IDAL.DO.Drone temp = new IDAL.DO.Drone();
                                         Console.WriteLine("enter a drone  id");
-                                        int tmpId= int.Parse(Console.ReadLine());
-                                        temp.Id = tmpId;
+                                        temp.Id = int.Parse(Console.ReadLine());
                                         Console.WriteLine("enter Model");
-                                        string tmpModel = Console.ReadLine();
+                                        temp.Model = Console.ReadLine();
                                         Console.WriteLine("enter  a number from 1-3 describing its max weight, 3 is the heaviest");//go over the phraising
                                         IDAL.DO.WeightCatigories weight = (IDAL.DO.WeightCatigories)int.Parse(Console.ReadLine());
                                         Console.WriteLine("enter the batery status");
                                         double tmpBateryStatus = double.Parse(Console.ReadLine());
                                         Console.WriteLine("enter the current drone status");//have to go over to see if i did it right
                                         IDAL.DO.DroneStatuses tmpDroneStatuses = (IDAL.DO.DroneStatuses)int.Parse(Console.ReadLine());
-                                        //temp.set(userA)
-                                        DalObject.DalObject.addStation(userA, name1, longitude1, latitude1, chargeSlots1);
-                                                public struct Drone
-        {
-           
-
-        }
+                                        temp.Id = tmpId;
+                                        temp.Model = tmpModel;
+                                        temp.MaxWeight = weight;
+                                        temp.BateryStatus = tmpBateryStatus;
+                                        temp.Status = tmpDroneStatuses;
+                                        DalObject.DalObject.addDrone(temp);
+                                    }
                                     break;
                                 case addChoice.CUSTOMER:
+                                    {
+                                        // IDAL.DO.Station temp = new IDAL.DO.Station();
+                                        Console.WriteLine("enter the customer");
+                                        userID = int.Parse(Console.ReadLine());
+                                        Console.WriteLine("enter name");
+                                        int name1 = int.Parse(Console.ReadLine());
+                                        Console.WriteLine("enter longitude");
+                                        double longitude1 = double.Parse(Console.ReadLine());
+                                        Console.WriteLine("enter latitude");
+                                        double latitude1 = double.Parse(Console.ReadLine());
+                                        Console.WriteLine("enter charge slots");
+                                        int chargeSlots1 = int.Parse(Console.ReadLine());
+                                        //temp.set(userA)
+                                        DalObject.DalObject.addStation(userA, name1, longitude1, latitude1, chargeSlots1);
+
+                                    }
                                     break;
                                 case addChoice.PARCEL:
                                     break;

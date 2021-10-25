@@ -21,9 +21,9 @@ namespace DalObject
             s.latitude = longi;
             DataSource.stations.Add(s);
         }
-        public static void addDrone(/*int id ,string model,IDAL.DO.WeightCatigories weight, double BateryStatus,IDAL.DO.DroneStatuses status*/)
+        public static void addDrone(Drone d)
         {
-            DataSource.drones.Add(new Drone());
+            DataSource.drones.Add(d);
 
         }
         public static void addCustomer()
