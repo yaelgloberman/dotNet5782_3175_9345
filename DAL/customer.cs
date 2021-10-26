@@ -15,6 +15,11 @@ namespace IDAL
             public int PhoneNumber { set; get; }
             public double Longitude { set; get; }
             public double Latitude { set; get; }
+            public override string ToString()
+            {
+                return string.Format($"id: {Id}, Name: {Name}, Phone Number: {PhoneNumber}, Longitude: {Longitude}  Latitude: {Latitude} ");
+
+            }
         }
         }
 }

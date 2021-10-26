@@ -3,8 +3,8 @@
 namespace ConsoleUI
 {
     public enum MainChoice { add = 1, update, display, list, exit };
-    public enum addChoice {STATION=1, DRONE,CUSTOMER,PARCEL};
-    public enum displayChoice {STATION=1,DRONE,CUSTOMER,PARCEL };
+    public enum addChoice { STATION = 1, DRONE, CUSTOMER, PARCEL };
+    public enum catigoryChoice { STATION = 1, DRONE, CUSTOMER, PARCEL };
     class Program
     {
         static void Main(string[] args)
@@ -46,15 +46,15 @@ namespace ConsoleUI
                             //בדיקת תקינות קלט-have to go over that 
                             isB = int.TryParse(str, out int error1);
                             int num1;
-                            addChoice choice1;
+                            catigoryChoice choice1;
                             if (isB)
                                 num1 = int.Parse(str);
                             else
                                 num1 = -1;
-                            choice1 = (addChoice)num1;
+                            choice1 = (catigoryChoice)num1;
                             switch (choice1)
                             {
-                                case addChoice.STATION:
+                                case catigoryChoice.STATION:
                                     {
                                         // IDAL.DO.Station temp = new IDAL.DO.Station();
                                         Console.WriteLine("enter a station id");
@@ -73,7 +73,7 @@ namespace ConsoleUI
 
                                     }
                                     break;
-                                case addChoice.DRONE:
+                                case catigoryChoice.DRONE:
                                     {
                                         IDAL.DO.Drone temp = new IDAL.DO.Drone();
                                         Console.WriteLine("enter a drone  id");
@@ -89,7 +89,7 @@ namespace ConsoleUI
                                         DalObject.DalObject.addDrone(temp);
                                     }
                                     break;
-                                case addChoice.CUSTOMER:
+                                case catigoryChoice.CUSTOMER:
                                     {
                                         IDAL.DO.customer temp = new IDAL.DO.customer();
                                         Console.WriteLine("enter the customers id");
@@ -108,7 +108,7 @@ namespace ConsoleUI
                                     }
 
                                     break;
-                                case addChoice.PARCEL:
+                                case catigoryChoice.PARCEL:
                                     {
                                         IDAL.DO.Parcel temp = new IDAL.DO.Parcel();
                                         Console.WriteLine("enter thye senders id");
@@ -126,9 +126,9 @@ namespace ConsoleUI
                                         //Console.WriteLine("enter the drone id ");
                                         DalObject.DalObject.addParcel(temp);
                                     }
-                                
-                      
-                            
+
+
+
                                     break;
                                 default://what is the default????
                                     break;
@@ -157,30 +157,30 @@ namespace ConsoleUI
                             //בדיקת תקינות קלט-have to go over that 
                             isB = int.TryParse(str, out int error1);
                             int num1;
-                            displayChoice choice1;
+                            catigoryChoice choice1;
                             if (isB)
                                 num1 = int.Parse(str);
                             else
                                 num1 = -1;
-                            choice1 = (displayChoice)num1;
+                            choice1 = (catigoryChoice)num1;
                             switch (choice1)
                             {
-                                case displayChoice.STATION:
+                                case catigoryChoice.STATION:
                                     {
-                                        
+
                                         Console.WriteLine("enter the station's id");
                                         int stationID = int.Parse(Console.ReadLine());
                                         IDAL.DO.Station currentStation = new IDAL.DO.Station();
                                         currentStation = DalObject.DalObject.findStation(stationID);
-                                        if (currentStation.id==0)
+                                        if (currentStation.id == 0)
                                             Console.WriteLine("this station dosent exist");
                                         else
                                         {
-                                            Console.WriteLine("stations ID:"+currentStation.id," stations name" +currentStation.name, " stations longitude" +currentStation.longitude, "stations latitude"+currentStation.latitude);//im not sure how to print this?
+                                            Console.WriteLine(currentStation.ToString());//im not sure how to print this?
                                         }
                                     }
                                     break;
-                                case displayChoice.DRONE:
+                                case catigoryChoice.DRONE:
                                     {
 
                                         Console.WriteLine("enter the drone's id");
@@ -191,13 +191,13 @@ namespace ConsoleUI
                                             Console.WriteLine("this drone dosent exist");
                                         else
                                         {
-                                            Console.WriteLine("Drone ID:" + currentDrone.Id, " Drone model" + currentDrone.Model, " Drone longitude" + currentStation.longitude, "stations latitude" + currentStation.latitude);//im not sure how to print this?
+                                            Console.WriteLine(currentDrone.ToString());
                                         }
                                     }
                                     break;
-                                case displayChoice.CUSTOMER://literal copy paste from the others - waiting  to make sure that it debugs
+                                case catigoryChoice.CUSTOMER://literal copy paste from the others - waiting  to make sure that it debugs
                                     break;
-                                case displayChoice.PARCEL:
+                                case catigoryChoice.PARCEL:
                                     break;
                                 default:
                                     break;
@@ -205,8 +205,46 @@ namespace ConsoleUI
                         }
                         break;
                     case MainChoice.list:
+                        {
+                            Console.WriteLine("what would you like to display?");
+                            Console.WriteLine("enter 1 to display station");
+                            Console.WriteLine("enter 2 to display drone");
+                            Console.WriteLine("enter 3 to display customer");
+                            Console.WriteLine("enter 4 to display parcel");
+                            bool isB;
+                            string str = Console.ReadLine();
+                            //בדיקת תקינות קלט-have to go over that 
+                            isB = int.TryParse(str, out int error1);
+                            int num1;
+                            catigoryChoice choice1;
+                            if (isB)
+                                num1 = int.Parse(str);
+                            else
+                                num1 = -1;
+                            choice1 = (catigoryChoice)num1;
+                            switch (choice1)
+                            {
+                                case catigoryChoice.STATION:
+                                    {
+
+                                        
+                                    }
+                                    break;
+                                case catigoryChoice.DRONE:
+                                    break;
+                                case catigoryChoice.CUSTOMER:
+                                    break;
+                                case catigoryChoice.PARCEL:
+                                    break;
+                                default:
+                                    break;
+                            }
+                        
+             
+                        }
                         break;
                     case MainChoice.exit:
+  
                         break;
                     default:
                         break;

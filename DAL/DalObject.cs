@@ -80,6 +80,23 @@ namespace DalObject
             }
             return empty;///im trying to return null
         }
+        public static List<Station> stationList()
+        {
+            return DataSource.stations;
+        }
+        public static List<Drone> droneList()
+        {
+            return DataSource.drones;
+        }
+        public static List<customer> customerList()
+        {
+            return DataSource.customers;
+        }
+        public static List<Parcel> ParcelList()
+        {
+            return DataSource.parcels;
+        }
+
     }
 
 

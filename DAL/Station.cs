@@ -11,7 +11,13 @@ namespace IDAL
             public double longitude { set; get; }
             public double latitude { set; get; }
             public int chargeSlots { set; get; }
+            public override string ToString()
+            {
+                return string.Format($"id: {id}, Name: {name}, Longitude: {longitude}, Latitude: {latitude} charge Slots: {chargeSlots}");
+
+            }
         }
-        
+  
+
     }
 }
