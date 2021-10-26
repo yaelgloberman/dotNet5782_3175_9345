@@ -2,27 +2,32 @@
 
 namespace ConsoleUI
 {
-    public enum MainChoice { add = 1, update, display, list, exit }
+    public enum MainChoice { add = 1, update, display, list, exit };
     public enum catigoryChoice { STATION = 1, DRONE, CUSTOMER, PARCEL };
-    public enum update { updateDrone = 1, UpdateDrone, DeliveryPackageCustomer, SendToCharge , printAvailableChrgingStations }
-
+    public enum update { updateDrone = 1, UpdateDrone, DeliveryPackageCustomer, SendToCharge , printAvailableChrgingStations };
+  
     class Program
     {
+       static  DalObject.DalObject Data;
         static void Main(string[] args)
         {
+            Data = new DalObject.DalObject();
             //IDAL.DO.BaseStation baseStasion = new IDAL.DO.BaseStation();
             int userA;
-            Console.WriteLine("Menue: ");
-            Console.WriteLine("press 1 to add an object");
-            Console.WriteLine("press 2 to update");
-            Console.WriteLine("press 3 for display");
-            Console.WriteLine("press 4 to see lists ");
-            Console.WriteLine("press 5 to exit");
+
             MainChoice choice;
             bool b;
             string s;
+           
             do
             {
+                
+                Console.WriteLine("Menue: ");
+                Console.WriteLine("press 1 to add an object");
+                Console.WriteLine("press 2 to update");
+                Console.WriteLine("press 3 for display");
+                Console.WriteLine("press 4 to see lists ");
+                Console.WriteLine("press 5 to exit");
                 Console.WriteLine("enter a number between 1-5");
                 s = Console.ReadLine();
                 b = int.TryParse(s, out int error);
@@ -37,7 +42,7 @@ namespace ConsoleUI
 
                     case MainChoice.add:
                         {
-                            DalObject.DalObject.MenuPrint();
+                            Data.MenuPrint("add");
                             bool isB;
                             string str = Console.ReadLine();
                             //בדיקת תקינות קלט-have to go over that 
@@ -66,7 +71,7 @@ namespace ConsoleUI
                                         Console.WriteLine("enter charge slots");
                                         int chargeSlots1 = int.Parse(Console.ReadLine());
                                         //temp.set(userA)
-                                        DalObject.DalObject.addStation(userA, name1, longitude1, latitude1, chargeSlots1);
+                                        Data.addStation(userA, name1, longitude1, latitude1, chargeSlots1);
 
                                     }
                                     break;
@@ -83,7 +88,7 @@ namespace ConsoleUI
                                         temp.BateryStatus = double.Parse(Console.ReadLine());
                                         Console.WriteLine("enter the current drone status");//have to go over to see if i did it right
                                         temp.Status = (IDAL.DO.DroneStatuses)int.Parse(Console.ReadLine());
-                                        DalObject.DalObject.addDrone(temp);
+                                        Data.addDrone(temp);
                                     }
                                     break;
                                 case catigoryChoice.CUSTOMER:
@@ -99,8 +104,7 @@ namespace ConsoleUI
                                         temp.Latitude = double.Parse(Console.ReadLine());
                                         Console.WriteLine("enter the customers longitude");
                                         temp.Longitude = int.Parse(Console.ReadLine());
-                                        //temp.set(userA)
-                                        DalObject.DalObject.addCustomer(temp);
+                                        Data.addCustomer(temp);
 
                                     }
 
@@ -113,7 +117,7 @@ namespace ConsoleUI
                                         Console.WriteLine("enter the target id");
                                         temp.TargetId = int.Parse(Console.ReadLine());
                                         Console.WriteLine("enetr its urgency: press 1 for regular press 2 for fast and press 3 for emergency");
-                                        while (int.Parse(Console.ReadLine())>3)
+                                        while (int.Parse(Console.ReadLine()) > 3)
                                         {
                                             Console.WriteLine("ERROR re-enter");
                                         }
@@ -123,24 +127,24 @@ namespace ConsoleUI
                                         Console.WriteLine("enter the drone id ");
                                         temp.DroneId = int.Parse(Console.ReadLine());
                                         Console.WriteLine("enter the time the packge was requested");
-
+                                        temp.Requested = DateTime.Parse(Console.ReadLine());
                                         Console.WriteLine("enter the time it was schedrules ");
-
+                                        temp.Scheduled = DateTime.Parse(Console.ReadLine());
                                         Console.WriteLine("enter the time it was Picked up  ");
-
+                                        temp.PickedUp = DateTime.Parse(Console.ReadLine());
                                         Console.WriteLine("enter the time it was date time ");
-                                        DalObject.DalObject.addParcel(temp);
+                                        temp.Datetime = DateTime.Parse(Console.ReadLine());
+                                        Data.addParcel(temp);
                                     }
-                                    break;
-                                default://what is the default????
-                                    break;
+
+      
                             }
                         }
                         break;
                     case MainChoice.update:
                         {
 
-                            DalObject.DalObject.MenuPrint();
+                            Data.MenuPrint("update");
                             bool isB;
                             string str = Console.ReadLine();
                             //בדיקת תקינות קלט-have to go over that 
@@ -174,12 +178,12 @@ namespace ConsoleUI
                                         Console.WriteLine("enter the drone id,station id");
                                         int idDrone = int.Parse(Console.ReadLine());
                                         int idStation = int.Parse(Console.ReadLine());
-                                        DalObject.DalObject.SendToCharge(idDrone, idStation);
+                                        Data.SendToCharge(idDrone, idStation);
                                     }
                                     break;
                                 case update.printAvailableChrgingStations:
                                     {
-                                        DalObject.DalObject.printAvailableChrgingStations();
+                                        Data.printAvailableChrgingStations();
                                     }
                                     break;
                                 default:
@@ -190,7 +194,7 @@ namespace ConsoleUI
 
                     case MainChoice.display:
                         {
-                            DalObject.DalObject.MenuPrint();
+                            Data.MenuPrint("display");
                             bool isB;
                             string str = Console.ReadLine();
                             //בדיקת תקינות קלט-have to go over that 
@@ -210,7 +214,7 @@ namespace ConsoleUI
                                         Console.WriteLine("enter the station's id");
                                         int stationID = int.Parse(Console.ReadLine());
                                         IDAL.DO.Station currentStation = new IDAL.DO.Station();
-                                        currentStation = DalObject.DalObject.findStation(stationID);
+                                        currentStation = Data.findStation(stationID);
                                         if (currentStation.id == 0)
                                             Console.WriteLine("this station dosent exist");
                                         else
@@ -225,7 +229,7 @@ namespace ConsoleUI
                                         Console.WriteLine("enter the drone's id");
                                         int droneID = int.Parse(Console.ReadLine());
                                         IDAL.DO.Drone currentDrone = new IDAL.DO.Drone();
-                                        currentDrone = DalObject.DalObject.findDrone(droneID);
+                                        currentDrone = Data.findDrone(droneID);
                                         if (currentDrone.Id == 0)
                                             Console.WriteLine("this drone dosent exist");
                                         else
@@ -241,7 +245,7 @@ namespace ConsoleUI
                                         Console.WriteLine("enter the customer's id");
                                         int customerID = int.Parse(Console.ReadLine());
                                         IDAL.DO.customer currentCustomer = new IDAL.DO.customer();
-                                        currentCustomer = DalObject.DalObject.findCustomer(customerID);
+                                        currentCustomer = Data.findCustomer(customerID);
                                         if (currentCustomer.Id == 0)
                                             Console.WriteLine("this customer dosent exist");
                                         else
@@ -256,7 +260,7 @@ namespace ConsoleUI
                                         Console.WriteLine("enter the parcel's id");
                                         int parcelID = int.Parse(Console.ReadLine());
                                         IDAL.DO.Parcel currentParcel = new IDAL.DO.Parcel();
-                                        currentParcel = DalObject.DalObject.findParcel(parcelID);
+                                        currentParcel = Data.findParcel(parcelID);
                                         if (currentParcel.Id == 0)
                                             Console.WriteLine("this customer dosent exist");
                                         else
@@ -272,7 +276,7 @@ namespace ConsoleUI
                         break;
                     case MainChoice.list:
                         {
-                            DalObject.DalObject.MenuPrint();
+                            Data.MenuPrint("print all of");
                             bool isB;
                             string str = Console.ReadLine();
                             //בדיקת תקינות קלט-have to go over that 
@@ -288,22 +292,22 @@ namespace ConsoleUI
                             {
                                 case catigoryChoice.STATION:
                                     {
-                                        DalObject.DalObject.printStationList();
+                                        Data.printStationList();
                                     }
                                     break;
                                 case catigoryChoice.DRONE:
                                     {
-                                        DalObject.DalObject.printDroneList();
+                                        Data.printDroneList();
                                     }
                                     break;
                                 case catigoryChoice.CUSTOMER:
                                     {
-                                        DalObject.DalObject.printCustomerList();
+                                        Data.printCustomerList();
                                     }
                                     break;
                                 case catigoryChoice.PARCEL:
                                     {
-                                        DalObject.DalObject.printParcelList();
+                                        Data.printParcelList();
                                     }
                                     break;
                                 default:

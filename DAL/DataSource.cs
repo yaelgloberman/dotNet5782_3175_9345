@@ -26,10 +26,10 @@ namespace DAL
             //DataSource dataS
             public static void Initialize()
             {
-                createCustomer();
-                CreateDrone();
-                CreateParcel();
-                CreateStation();
+                DataSource.createCustomer();
+                DataSource.CreateDrone();
+                DataSource.CreateParcel();
+                DataSource.CreateStation();
             }
             static void CreateStation()//why private?
             {
@@ -39,8 +39,8 @@ namespace DAL
                     {
                         id = r.Next(111111111, 999999999),
                         name = r.Next(1, 1000),
-                        longitude = r.Next(34,8),/*getRandomCordinates(34, 8)*/
-                        latitude = r.Next(29,6),//getRandomCordinates(29, 6),
+                        longitude = r.Next(8,34),/*getRandomCordinates(34, 8)*/
+                        latitude = r.Next(6,29),//getRandomCordinates(29, 6),
                         chargeSlots = r.Next(5, 100)
                     });
                 }
@@ -66,11 +66,11 @@ namespace DAL
                 {
                     customers.Add(new customer()
                     {
-                        Id = r.Next(111111111, 999999999),
+                        Id = r.Next(11111111,99999999),
                         Name = "Name" + i,
                         PhoneNumber = 05 + r.Next(0, 9) + -+r.Next(111111111, 999999999),
-                        Longitude = r.Next(34, 8),//getRandomCordinates(34, 8),
-                        Latitude = r.Next(29, 6)// getRandomCordinates(29, 6),
+                        Longitude = r.Next(8, 32),//getRandomCordinates(34, 8),
+                        Latitude = r.Next(6, 29)// getRandomCordinates(29, 6),
 
                     });
                 }
