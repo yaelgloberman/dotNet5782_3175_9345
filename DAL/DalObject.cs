@@ -34,31 +34,46 @@ namespace DalObject
         {
             DataSource.parcels.Add(p);
         }
+        public static void updatingParcelToDrone(Parcel p,Drone d)
+        {
+            p.DroneId = d.Id;
+            p.Scheduled = DateTime.Today;
+            d.Status = (DroneStatuses)2;
+        }
         public static void updateParcel(Parcel p)
         {
             for (int i = 0; i < DataSource.drones.Count; i++)
             {
                 if (DataSource.drones[i].Status == (IDAL.DO.DroneStatuses.available))
                 {
-                    p.DronrId = DataSource.drones[i].Id;  //not sure abt it
-                    //return DataSource.drones[i];
+
+                    p.DroneId = DataSource.drones[i].Id;
+                    IDAL.DO.Drone tmp = DataSource.drones[i];
+                    tmp.Status = DroneStatuses.shipping;
+                    DataSource.drones[i] = tmp;
                 }
                 else
                     Console.WriteLine("there are no availble drones");
             }
         }
-        public static void updateDrone(Drone d)
+        public static void updateDrone(int droneId)
         {
-            for (int i = 0; i < DataSource.parcels.Count; i++)
-            {
-                if (DataSource.parcels[i].DronrId == )
-                {
-                    d.DronrId = DataSource.drones[i].Id;  //not sure abt it
-                    //return DataSource.drones[i];
-                }
-                else
-                    Console.WriteLine("there are no availble drones");
-            }
+            DataSource.drones.ForEach(d => { if (d.Id == droneId) d.Status = DroneStatuses.shipping; }); // redo i
+        }
+        /*public static void DeliveryPackageCustomer(int parcelId)
+        {
+            DataSource.parcels.ForEach(p => { if (p.Id == parcelId) p.Status = DroneStatuses.maintenance; }); // redo it
+        }*/
+        public static void SendToCharge(int droneId,int sationId)
+        {
+            DataSource.drones.ForEach(d => { if (d.Id == droneId) d.Status = DroneStatuses.maintenance; });
+            IDAL.DO.droneCharges dCharge = new droneCharges();
+            dCharge.StationId = sationId;//we have to make sure that we dont need to update the station id in the drone charges
+        }
+        public static void releaseDroneStation(int droneId)
+        {
+            DataSource.drones.ForEach(d => { if (d.Id == droneId) d.Status = DroneStatuses.available; });
+            //אולי צרך לעדכן גם את התחנת בסיס שאין שם יותר רחפן
         }
         public static Station findStation(int id)//is it static?
         {
@@ -80,25 +95,60 @@ namespace DalObject
             }
             return empty;///im trying to return null
         }
-        public static List<Station> stationList()
+        public static customer findCustomer(int id)//is it static?
         {
-            return DataSource.stations;
+            customer empty = new customer();
+            for (int i = 0; i < DataSource.customers.Count(); i++)
+            {
+                if (DataSource.customers[i].Id == id)
+                    return DataSource.customers[i];
+            }
+            return empty;
         }
-        public static List<Drone> droneList()
+        public static Parcel findParcel(int id)//is it static?
         {
-            return DataSource.drones;
+            Parcel empty = new Parcel();
+            for (int i = 0; i < DataSource.parcels.Count(); i++)
+            {
+                if (DataSource.parcels[i].Id == id)
+                    return DataSource.parcels[i];
+            }
+            return empty;
         }
-        public static List<customer> customerList()
+        public static void printStationList()
         {
-            return DataSource.customers;
+            DataSource.stations.ForEach(s => { Console.WriteLine(s.ToString()); });
         }
-        public static List<Parcel> ParcelList()
+        public static void printDroneList()
         {
-            return DataSource.parcels;
+            DataSource.drones.ForEach(d => { Console.WriteLine(d.ToString()); });
+        }
+        public static void printCustomerList()
+        {
+            DataSource.customers.ForEach(c=> { Console.WriteLine(c.ToString()); });
+        }
+        public static void printParcelList()
+        {
+            DataSource.parcels.ForEach(p => { Console.WriteLine(p.ToString()); });
+        }
+        public static void printParcelWDrone()
+        {
+            DataSource.parcels.ForEach(p => {if(p.DroneId==0) Console.WriteLine(p.ToString()); });
+        }
+        public static void printAvailableChrgingStations()
+        {
+            DataSource.stations.ForEach(s => {if(s.chargeSlots>0)s.ToString(); });
+        }
+        public static void MenuPrint()
+        {
+            Console.WriteLine("what would you like to add?");
+            Console.WriteLine("enter 1 to add station");
+            Console.WriteLine("enter 2 to add drone");
+            Console.WriteLine("enter 3 to add customer");
+            Console.WriteLine("enter 4 to add parcel");
         }
 
     }
-
-
+    
 
 }

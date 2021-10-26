@@ -2,9 +2,10 @@
 
 namespace ConsoleUI
 {
-    public enum MainChoice { add = 1, update, display, list, exit };
-    public enum addChoice { STATION = 1, DRONE, CUSTOMER, PARCEL };
+    public enum MainChoice { add = 1, update, display, list, exit }
     public enum catigoryChoice { STATION = 1, DRONE, CUSTOMER, PARCEL };
+    public enum update { updateDrone = 1, UpdateDrone, DeliveryPackageCustomer, SendToCharge , printAvailableChrgingStations }
+
     class Program
     {
         static void Main(string[] args)
@@ -36,11 +37,7 @@ namespace ConsoleUI
 
                     case MainChoice.add:
                         {
-                            Console.WriteLine("what would you like to add?");
-                            Console.WriteLine("enter 1 to add station");
-                            Console.WriteLine("enter 2 to add drone");
-                            Console.WriteLine("enter 3 to add customer");
-                            Console.WriteLine("enter 4 to add parcel");
+                            DalObject.DalObject.MenuPrint();
                             bool isB;
                             string str = Console.ReadLine();
                             //בדיקת תקינות קלט-have to go over that 
@@ -52,7 +49,7 @@ namespace ConsoleUI
                             else
                                 num1 = -1;
                             choice1 = (catigoryChoice)num1;
-                            switch (choice1)
+                            switch (choice1) //add
                             {
                                 case catigoryChoice.STATION:
                                     {
@@ -116,42 +113,84 @@ namespace ConsoleUI
                                         Console.WriteLine("enter the target id");
                                         temp.TargetId = int.Parse(Console.ReadLine());
                                         Console.WriteLine("enetr its urgency: press 1 for regular press 2 for fast and press 3 for emergency");
-                                        temp.Priority = (IDAL.DO.Proirities)int.Parse(Console.ReadLine());//might have to check validity of 05 
+                                        while (int.Parse(Console.ReadLine())>3)
+                                        {
+                                            Console.WriteLine("ERROR re-enter");
+                                        }
+                                        temp.Priority = (IDAL.DO.Proirities)int.Parse(Console.ReadLine());
                                         Console.WriteLine("enter the weight of the package");//not sure if i should do it with enum or have to do tkinut kelet
                                         temp.Weight = (IDAL.DO.WeightCatigories)int.Parse(Console.ReadLine());
-                                        //do i have to do all the time entering or is that in the print function??\
-                                        //Console.WriteLine("enter the time the packge was requested");
-                                        //Console.WriteLine("enter the time it was schedrules ");
-                                        //Console.WriteLine("enter the drone id ");
-                                        //Console.WriteLine("enter the drone id ");
+                                        Console.WriteLine("enter the drone id ");
+                                        temp.DroneId = int.Parse(Console.ReadLine());
+                                        Console.WriteLine("enter the time the packge was requested");
+
+                                        Console.WriteLine("enter the time it was schedrules ");
+
+                                        Console.WriteLine("enter the time it was Picked up  ");
+
+                                        Console.WriteLine("enter the time it was date time ");
                                         DalObject.DalObject.addParcel(temp);
                                     }
-
-
-
                                     break;
                                 default://what is the default????
                                     break;
                             }
                         }
-
                         break;
                     case MainChoice.update:
                         {
-                            //how is this supposed to look as the output
-                            IDAL.DO.Parcel p = new IDAL.DO.Parcel();
-                            Console.WriteLine("enter the id of the parcel you want to update");
-                            Console.WriteLine();
-                            DalObject.DalObject.updateDrone(p);
+
+                            DalObject.DalObject.MenuPrint();
+                            bool isB;
+                            string str = Console.ReadLine();
+                            //בדיקת תקינות קלט-have to go over that 
+                            isB = int.TryParse(str, out int error1);
+                            int num1;
+                            update choice1;
+                            if (isB)
+                                num1 = int.Parse(str);
+                            else
+                                num1 = -1;
+                            choice1 = (update)num1;
+                            switch (choice1)
+                            {
+                                /*case update.updateDrone:
+                                    {
+                                        DalObject.DalObject.updateDrone();
+                                    }
+                                    break;
+                                case update.UpdateDrone:
+                                    {
+
+                                    }
+                                    break;
+                                case update.DeliveryPackageCustomer:
+                                    {
+                                        DalObject.DalObject.DeliveryPackageCustomer();
+                                    }
+                                    break;*/
+                                case update.SendToCharge:
+                                    {
+                                        Console.WriteLine("enter the drone id,station id");
+                                        int idDrone = int.Parse(Console.ReadLine());
+                                        int idStation = int.Parse(Console.ReadLine());
+                                        DalObject.DalObject.SendToCharge(idDrone, idStation);
+                                    }
+                                    break;
+                                case update.printAvailableChrgingStations:
+                                    {
+                                        DalObject.DalObject.printAvailableChrgingStations();
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
                         }
-                        break;
+
                     case MainChoice.display:
                         {
-                            Console.WriteLine("what would you like to display?");
-                            Console.WriteLine("enter 1 to display station");
-                            Console.WriteLine("enter 2 to display drone");
-                            Console.WriteLine("enter 3 to display customer");
-                            Console.WriteLine("enter 4 to display parcel");
+                            DalObject.DalObject.MenuPrint();
                             bool isB;
                             string str = Console.ReadLine();
                             //בדיקת תקינות קלט-have to go over that 
@@ -176,7 +215,7 @@ namespace ConsoleUI
                                             Console.WriteLine("this station dosent exist");
                                         else
                                         {
-                                            Console.WriteLine(currentStation.ToString());//im not sure how to print this?
+                                            Console.WriteLine(currentStation.ToString());
                                         }
                                     }
                                     break;
@@ -195,9 +234,36 @@ namespace ConsoleUI
                                         }
                                     }
                                     break;
-                                case catigoryChoice.CUSTOMER://literal copy paste from the others - waiting  to make sure that it debugs
+                                case catigoryChoice.CUSTOMER:
+
+                                    {
+
+                                        Console.WriteLine("enter the customer's id");
+                                        int customerID = int.Parse(Console.ReadLine());
+                                        IDAL.DO.customer currentCustomer = new IDAL.DO.customer();
+                                        currentCustomer = DalObject.DalObject.findCustomer(customerID);
+                                        if (currentCustomer.Id == 0)
+                                            Console.WriteLine("this customer dosent exist");
+                                        else
+                                        {
+                                            Console.WriteLine(currentCustomer.ToString());
+                                        }
+                                    }
                                     break;
                                 case catigoryChoice.PARCEL:
+                                    {
+
+                                        Console.WriteLine("enter the parcel's id");
+                                        int parcelID = int.Parse(Console.ReadLine());
+                                        IDAL.DO.Parcel currentParcel = new IDAL.DO.Parcel();
+                                        currentParcel = DalObject.DalObject.findParcel(parcelID);
+                                        if (currentParcel.Id == 0)
+                                            Console.WriteLine("this customer dosent exist");
+                                        else
+                                        {
+                                            Console.WriteLine(currentParcel.ToString());
+                                        }
+                                    }
                                     break;
                                 default:
                                     break;
@@ -206,11 +272,7 @@ namespace ConsoleUI
                         break;
                     case MainChoice.list:
                         {
-                            Console.WriteLine("what would you like to display?");
-                            Console.WriteLine("enter 1 to display station");
-                            Console.WriteLine("enter 2 to display drone");
-                            Console.WriteLine("enter 3 to display customer");
-                            Console.WriteLine("enter 4 to display parcel");
+                            DalObject.DalObject.MenuPrint();
                             bool isB;
                             string str = Console.ReadLine();
                             //בדיקת תקינות קלט-have to go over that 
@@ -226,30 +288,36 @@ namespace ConsoleUI
                             {
                                 case catigoryChoice.STATION:
                                     {
-
-                                        
+                                        DalObject.DalObject.printStationList();
                                     }
                                     break;
                                 case catigoryChoice.DRONE:
+                                    {
+                                        DalObject.DalObject.printDroneList();
+                                    }
                                     break;
                                 case catigoryChoice.CUSTOMER:
+                                    {
+                                        DalObject.DalObject.printCustomerList();
+                                    }
                                     break;
                                 case catigoryChoice.PARCEL:
+                                    {
+                                        DalObject.DalObject.printParcelList();
+                                    }
                                     break;
                                 default:
                                     break;
                             }
-                        
-             
+
                         }
                         break;
                     case MainChoice.exit:
-  
                         break;
                     default:
                         break;
-                }
-            } while (true);//wrong boolian phrase just trying to minimuze errors - HAVE TO COME BACK TO FIX!! otherwise there will be an infinate loop
+                } 
+            } while (choice != (MainChoice.exit));
         }
     }
 }
