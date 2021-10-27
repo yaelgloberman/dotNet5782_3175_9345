@@ -166,9 +166,8 @@ namespace ConsoleUI
                                         Console.WriteLine("Enter the parcel ID to attribute: ");
                                         input = Console.ReadLine();
                                         int.TryParse(input, out parcelId);
-                                        IDAL.DO.Drone d = DalObject.DalObject.getDrone(droneId);
-                                        
-                                     }
+                                        Data.attribute(droneId, parcelId);  
+                                    }
                                     break;
                                 case update.PickUpPackageByDrone:
                                     {
