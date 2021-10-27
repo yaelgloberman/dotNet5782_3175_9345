@@ -139,31 +139,23 @@ namespace DalObject
             drone.Id = droneId;
             return drone;
         }
+        public List<Station>stationList()
+        {
+            return DataSource.stations;
+        }
+        public List<Drone> droneList()
+        {
+            return DataSource.drones;
+        }
+        public List<customer> customerList()
+        {
+            return DataSource.customers;
+        }
+        public List<Parcel> parcelList()
+        {
+            return DataSource.parcels;
+        }
 
-        public void printStationList()
-        {
-            DataSource.stations.ForEach(s => { Console.WriteLine(s.ToString()); });
-        }
-        public void printDroneList()
-        {
-            DataSource.drones.ForEach(d => { Console.WriteLine(d.ToString()); });
-        }
-        public void printCustomerList()
-        {
-            DataSource.customers.ForEach(c=> { Console.WriteLine(c.ToString()); });
-        }
-        public void printParcelList()
-        {
-            DataSource.parcels.ForEach(p => { Console.WriteLine(p.ToString()); });
-        }
-        public void printParcelWDrone()
-        {
-            DataSource.parcels.ForEach(p => {if(p.DroneId==0) Console.WriteLine(p.ToString()); });
-        }
-        public void printAvailableChrgingStations()
-        {
-            DataSource.stations.ForEach(s => {if(s.chargeSlots>0)s.ToString(); });
-        }
         public void MenuPrint(string action)
         {
             Console.WriteLine($"what would you like to {action}?");

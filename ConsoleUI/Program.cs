@@ -3,7 +3,7 @@
 namespace ConsoleUI
 {
     public enum MainChoice { add = 1, update, display, list, exit };
-    public enum catigoryChoice { STATION = 1, DRONE, CUSTOMER, PARCEL };
+    public enum CategoryChoice { STATION = 1, DRONE, CUSTOMER, PARCEL };
     public enum update { attribute = 1, PickUpPackageByDrone, DeliveryPackageCustomer, SendToCharge , printAvailableChrgingStations };
   
     class Program
@@ -47,15 +47,15 @@ namespace ConsoleUI
                             string str = Console.ReadLine();
                             isB = int.TryParse(str, out int error1);
                             int num1;
-                            catigoryChoice choice1;
+                            CategoryChoice choice1;
                             if (isB)
                                 num1 = int.Parse(str);
                             else
                                 num1 = -1;
-                            choice1 = (catigoryChoice)num1;
+                            choice1 = (CategoryChoice)num1;
                             switch (choice1) //add
                             {
-                                case catigoryChoice.STATION:
+                                case CategoryChoice.STATION:
                                     {
                                         // IDAL.DO.Station temp = new IDAL.DO.Station();
                                         Console.WriteLine("enter a station id");
@@ -74,7 +74,7 @@ namespace ConsoleUI
 
                                     }
                                     break;
-                                case catigoryChoice.DRONE:
+                                case CategoryChoice.DRONE:
                                     {
                                         IDAL.DO.Drone temp = new IDAL.DO.Drone();
                                         Console.WriteLine("enter a drone  id");
@@ -90,7 +90,7 @@ namespace ConsoleUI
                                         Data.addDrone(temp);
                                     }
                                     break;
-                                case catigoryChoice.CUSTOMER:
+                                case CategoryChoice.CUSTOMER:
                                     {
                                         IDAL.DO.customer temp = new IDAL.DO.customer();
                                         Console.WriteLine("enter the customers id");
@@ -106,9 +106,8 @@ namespace ConsoleUI
                                         Data.addCustomer(temp);
 
                                     }
-
                                     break;
-                                    case catigoryChoice.PARCEL:
+                                case CategoryChoice.PARCEL:
                                     {
                                         IDAL.DO.Parcel temp = new IDAL.DO.Parcel();
                                         Console.WriteLine("enter thye senders id");
@@ -135,6 +134,7 @@ namespace ConsoleUI
                                         temp.Datetime = DateTime.Parse(Console.ReadLine());
                                         Data.addParcel(temp);
                                     }
+                                    break;
 
       
                             }
@@ -184,7 +184,7 @@ namespace ConsoleUI
                                     break;
                                 case update.DeliveryPackageCustomer:
                                     {
-                                        DalObject.DalObject.DeliveryPackageCustomer();
+                                       // Data.DeliveryPackageCustomer();
                                     }
                                     break;
                                 case update.SendToCharge:
@@ -197,7 +197,7 @@ namespace ConsoleUI
                                     break;
                                 case update.printAvailableChrgingStations:
                                     {
-                                        Data.printAvailableChrgingStations();
+                                      //  Data.printAvailableChrgingStations();
                                     }
                                     break;
                                 default:
@@ -215,15 +215,15 @@ namespace ConsoleUI
                             //בדיקת תקינות קלט-have to go over that 
                             isB = int.TryParse(str, out int error1);
                             int num1;
-                            catigoryChoice choice1;
+                            CategoryChoice choice1;
                             if (isB)
                                 num1 = int.Parse(str);
                             else
                                 num1 = -1;
-                            choice1 = (catigoryChoice)num1;
+                            choice1 = (CategoryChoice)num1;
                             switch (choice1)
                             {
-                                case catigoryChoice.STATION:
+                                case CategoryChoice.STATION:
                                     {
 
                                         Console.WriteLine("enter the station's id");
@@ -238,7 +238,7 @@ namespace ConsoleUI
                                         }
                                     }
                                     break;
-                                case catigoryChoice.DRONE:
+                                case CategoryChoice.DRONE:
                                     {
 
                                         Console.WriteLine("enter the drone's id");
@@ -253,7 +253,7 @@ namespace ConsoleUI
                                         }
                                     }
                                     break;
-                                case catigoryChoice.CUSTOMER:
+                                case CategoryChoice.CUSTOMER:
 
                                     {
 
@@ -269,7 +269,7 @@ namespace ConsoleUI
                                         }
                                     }
                                     break;
-                                case catigoryChoice.PARCEL:
+                                case CategoryChoice.PARCEL:
                                     {
 
                                         Console.WriteLine("enter the parcel's id");
@@ -297,32 +297,32 @@ namespace ConsoleUI
                             //בדיקת תקינות קלט-have to go over that 
                             isB = int.TryParse(str, out int error1);
                             int num1;
-                            catigoryChoice choice1;
+                            CategoryChoice choice1;
                             if (isB)
                                 num1 = int.Parse(str);
                             else
                                 num1 = -1;
-                            choice1 = (catigoryChoice)num1;
+                            choice1 = (CategoryChoice)num1;
                             switch (choice1)
                             {
-                                case catigoryChoice.STATION:
+                                case CategoryChoice.STATION:
                                     {
-                                        Data.printStationList();
+                                        Data.stationList().ForEach(s => { Console.WriteLine(s.ToString()); }); ;
                                     }
                                     break;
-                                case catigoryChoice.DRONE:
+                                case CategoryChoice.DRONE:
                                     {
-                                        Data.printDroneList();
+                                        Data.droneList().ForEach(s => { Console.WriteLine(s.ToString()); }); ;
                                     }
                                     break;
-                                case catigoryChoice.CUSTOMER:
+                                case CategoryChoice.CUSTOMER:
                                     {
-                                        Data.printCustomerList();
+                                        Data.customerList().ForEach(s => { Console.WriteLine(s.ToString()); }); ;
                                     }
                                     break;
-                                case catigoryChoice.PARCEL:
+                                case CategoryChoice.PARCEL:
                                     {
-                                        Data.printParcelList();
+                                        Data.parcelList().ForEach(s => { Console.WriteLine(s.ToString()); }); ;
                                     }
                                     break;
                                 default:
