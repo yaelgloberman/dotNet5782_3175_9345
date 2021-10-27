@@ -4,7 +4,7 @@ namespace ConsoleUI
 {
     public enum MainChoice { add = 1, update, display, list, exit };
     public enum catigoryChoice { STATION = 1, DRONE, CUSTOMER, PARCEL };
-    public enum update { updateDrone = 1, UpdateDrone, DeliveryPackageCustomer, SendToCharge , printAvailableChrgingStations };
+    public enum update { attribute = 1, PickUpPackageByDrone, DeliveryPackageCustomer, SendToCharge , printAvailableChrgingStations };
   
     class Program
     {
@@ -45,7 +45,6 @@ namespace ConsoleUI
                             Data.MenuPrint("add");
                             bool isB;
                             string str = Console.ReadLine();
-                            //בדיקת תקינות קלט-have to go over that 
                             isB = int.TryParse(str, out int error1);
                             int num1;
                             catigoryChoice choice1;
@@ -109,7 +108,7 @@ namespace ConsoleUI
                                     }
 
                                     break;
-                                case catigoryChoice.PARCEL:
+                                    case catigoryChoice.PARCEL:
                                     {
                                         IDAL.DO.Parcel temp = new IDAL.DO.Parcel();
                                         Console.WriteLine("enter thye senders id");
@@ -147,7 +146,6 @@ namespace ConsoleUI
                             Data.MenuPrint("update");
                             bool isB;
                             string str = Console.ReadLine();
-                            //בדיקת תקינות קלט-have to go over that 
                             isB = int.TryParse(str, out int error1);
                             int num1;
                             update choice1;
@@ -158,21 +156,38 @@ namespace ConsoleUI
                             choice1 = (update)num1;
                             switch (choice1)
                             {
-                                /*case update.updateDrone:
+                                case update.attribute:
                                     {
-                                        DalObject.DalObject.updateDrone();
-                                    }
+                                        Console.WriteLine("Enter the dronws ID:\n");
+                                        int droneId;
+                                        int parcelId;
+                                        string input = Console.ReadLine();
+                                        int.TryParse(input, out droneId);
+                                        Console.WriteLine("Enter the parcel ID to attribute: ");
+                                        input = Console.ReadLine();
+                                        int.TryParse(input, out parcelId);
+                                        IDAL.DO.Drone d = DalObject.DalObject.getDrone(droneId);
+                                        
+                                     }
                                     break;
-                                case update.UpdateDrone:
+                                case update.PickUpPackageByDrone:
                                     {
-
+                                        Console.WriteLine("Enter the dronws ID:\n");
+                                        int droneId;
+                                        int parcelId;
+                                        string input = Console.ReadLine();
+                                        int.TryParse(input, out droneId);
+                                        Console.WriteLine("Enter the parcel ID: ");
+                                        input = Console.ReadLine();
+                                        int.TryParse(input, out parcelId);
+                                        Data.PickUpPackageByDrone(droneId, parcelId);
                                     }
                                     break;
                                 case update.DeliveryPackageCustomer:
                                     {
                                         DalObject.DalObject.DeliveryPackageCustomer();
                                     }
-                                    break;*/
+                                    break;
                                 case update.SendToCharge:
                                     {
                                         Console.WriteLine("enter the drone id,station id");
@@ -194,7 +209,8 @@ namespace ConsoleUI
 
                     case MainChoice.display:
                         {
-                            Data.MenuPrint("display");
+                            Data.MenuPrint("870ד" +
+                                "[==");
                             bool isB;
                             string str = Console.ReadLine();
                             //בדיקת תקינות קלט-have to go over that 

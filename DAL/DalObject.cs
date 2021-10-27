@@ -34,36 +34,54 @@ namespace DalObject
         {
             DataSource.parcels.Add(p);
         }
-        public  void updatingParcelToDrone(Parcel p,Drone d)
+        public void attribute(int dID, int pID)
         {
-            p.DroneId = d.Id;
-            p.Scheduled = DateTime.Today;
-            d.Status = (DroneStatuses)2;
+            IDAL.DO.Parcel tmpP = new Parcel();
+            IDAL.DO.Drone tmpD = new Drone();
+            int i = 0;
+            int j = 0;
+            for (; i < DataSource.parcels.Count; i++)
+            {
+                if (DataSource.parcels[i].Id == pID)
+                {
+                    tmpP = DataSource.parcels[i];
+                }
+            }
+            for (; j < DataSource.drones.Count; j++)
+            {
+                if (DataSource.drones[j].Id == dID)
+                {
+                    tmpD = DataSource.drones[j];
+                }
+            }
+            tmpP.Id = tmpD.Id;
+            tmpP.Scheduled=DateTime.Today;
+            tmpD.Status = (DroneStatuses)2;
+            DataSource.parcels[i] = tmpP;
+            DataSource.drones[j] = tmpD;
+            
         }
-        public  void updateParcel(Parcel p)
+        public void PickUpPackageByDrone(int dID, int pID)
         {
+            for (int i = 0; i < DataSource.parcels.Count; i++)
+            {
+                if (DataSource.parcels[i].Id == pID)
+                {
+                    IDAL.DO.Parcel tmpP = DataSource.parcels[i];
+                    tmpP.PickedUp = DateTime.Today;
+                    DataSource.parcels[i] = tmpP;
+                }
+            }
             for (int i = 0; i < DataSource.drones.Count; i++)
             {
-                if (DataSource.drones[i].Status == (IDAL.DO.DroneStatuses.available))
+                if (DataSource.drones[i].Id == dID)
                 {
-
-                    p.DroneId = DataSource.drones[i].Id;
-                    IDAL.DO.Drone tmp = DataSource.drones[i];
-                    tmp.Status = DroneStatuses.shipping;
-                    DataSource.drones[i] = tmp;
+                    IDAL.DO.Drone tmpD = DataSource.drones[i];
+                    tmpD.Status = IDAL.DO.DroneStatuses.shipping;
+                    DataSource.drones[i] = tmpD;
                 }
-                else
-                    Console.WriteLine("there are no availble drones");
             }
         }
-        public  void updateDrone(int droneId)
-        {
-            DataSource.drones.ForEach(d => { if (d.Id == droneId) d.Status = DroneStatuses.shipping; }); // redo i
-        }
-        /*public static void DeliveryPackageCustomer(int parcelId)
-        {
-            DataSource.parcels.ForEach(p => { if (p.Id == parcelId) p.Status = DroneStatuses.maintenance; }); // redo it
-        }*/
         public  void SendToCharge(int droneId,int sationId)
         {
             DataSource.drones.ForEach(d => { if (d.Id == droneId) d.Status = DroneStatuses.maintenance; });
@@ -115,6 +133,13 @@ namespace DalObject
             }
             return empty;
         }
+        public Drone getDrone(int droneId)
+        {
+            Drone drone = new Drone();
+            drone.Id = droneId;
+            return drone;
+        }
+
         public void printStationList()
         {
             DataSource.stations.ForEach(s => { Console.WriteLine(s.ToString()); });
@@ -147,7 +172,7 @@ namespace DalObject
             Console.WriteLine($"enter 3 to {action} customer");
             Console.WriteLine($"enter 4 to {action} parcel");
         }
-
+        
     }
     
 
