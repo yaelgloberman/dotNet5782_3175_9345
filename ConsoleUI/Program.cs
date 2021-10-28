@@ -3,8 +3,9 @@
 namespace ConsoleUI
 {
     public enum MainChoice { add = 1, update, display, list, exit };
-    public enum CategoryChoice { STATION = 1, DRONE, CUSTOMER, PARCEL };
-    public enum update { attribute = 1, PickUpPackageByDrone, DeliveryPackageCustomer, SendToCharge , printAvailableChrgingStations };
+    public enum CategoryChoice { STATION = 1, DRONE, CUSTOMER, PARCEL};
+    public enum update { attribute = 1, PickUpPackageByDrone, DeliveryPackageCustomer, SendToCharge , releasingDrone };
+    public enum  printLists{ STATION = 1, DRONE, CUSTOMER, PARCEL,DISMATCHED_PACKAGES, AVAILABLE_SLOTS }
   
     class Program
     {
@@ -142,8 +143,11 @@ namespace ConsoleUI
                         break;
                     case MainChoice.update:
                         {
-
-                            Data.MenuPrint("update");
+                            Console.WriteLine($"what would you like to update?");
+                            Console.WriteLine($"enter 1 to match the parcel to a drone");
+                            Console.WriteLine($"enter 2 to update parcel when it was picked up");
+                            Console.WriteLine($"enter 3 to send a drone to be charged ");
+                            Console.WriteLine($"enter 4 to release a drone from a charging station");
                             bool isB;
                             string str = Console.ReadLine();
                             isB = int.TryParse(str, out int error1);
@@ -158,7 +162,7 @@ namespace ConsoleUI
                             {
                                 case update.attribute:
                                     {
-                                        Console.WriteLine("Enter the dronws ID:\n");
+                                        Console.WriteLine("Enter the drone ID:\n");
                                         int droneId;
                                         int parcelId;
                                         string input = Console.ReadLine();
@@ -184,20 +188,31 @@ namespace ConsoleUI
                                     break;
                                 case update.DeliveryPackageCustomer:
                                     {
-                                       // Data.DeliveryPackageCustomer();
+                                        Console.WriteLine("please enter your ID number");
+                                        int Cid = int.Parse(Console.ReadLine());
+                                        Console.WriteLine("please enter the ID number of your parcel");
+                                        int pId = int.Parse(Console.ReadLine());
+                                        Console.WriteLine("eneter level of priority");
+                                        IDAL.DO.Proirities proirity = (IDAL.DO.Proirities)int.Parse(Console.ReadLine());
+                                       Data.DeliveryPackageCustomer(Cid,pId, proirity);
                                     }
                                     break;
                                 case update.SendToCharge:
                                     {
-                                        Console.WriteLine("enter the drone id,station id");
-                                        int idDrone = int.Parse(Console.ReadLine());
+                                        Console.WriteLine("enter your drone id:");
+                                        int droneId = int.Parse(Console.ReadLine());
+                                        Console.WriteLine("enter the station id that you want to charge your drone at  from the list below:");
+                                        Data.stationList().ForEach(s => { if (s.chargeSlots > 0) Console.WriteLine(s.id+"\n"); });                                       
                                         int idStation = int.Parse(Console.ReadLine());
-                                        Data.SendToCharge(idDrone, idStation);
+                                        Data.SendToCharge(droneId,idStation);
                                     }
                                     break;
-                                case update.printAvailableChrgingStations:
+                                case update.releasingDrone:
                                     {
-                                      //  Data.printAvailableChrgingStations();
+                                        Console.WriteLine("please enter the dones ID number");
+                                        int dID = int.Parse(Console.ReadLine());
+                                        Data.releasingDrone(Data.findChargedDrone(dID));
+
                                     }
                                     break;
                                 default:
@@ -208,8 +223,7 @@ namespace ConsoleUI
 
                     case MainChoice.display:
                         {
-                            Data.MenuPrint("870ד" +
-                                "[==");
+                            Data.MenuPrint("display");
                             bool isB;
                             string str = Console.ReadLine();
                             //בדיקת תקינות קלט-have to go over that 
@@ -291,43 +305,56 @@ namespace ConsoleUI
                         break;
                     case MainChoice.list:
                         {
-                            Data.MenuPrint("print all of");
+                            Data.MenuPrint("to print the list of");
+                            Console.WriteLine($"enter 5 to o print the list of the parcels that arn't matched with a drone");
+                            Console.WriteLine($"enter 6 to o print the list of the stations that have available charging slots");
+                            Console.WriteLine("");
                             bool isB;
                             string str = Console.ReadLine();
                             //בדיקת תקינות קלט-have to go over that 
                             isB = int.TryParse(str, out int error1);
                             int num1;
-                            CategoryChoice choice1;
+                            printLists choice1;
                             if (isB)
                                 num1 = int.Parse(str);
                             else
                                 num1 = -1;
-                            choice1 = (CategoryChoice)num1;
+                            choice1 = (printLists)num1;
                             switch (choice1)
                             {
-                                case CategoryChoice.STATION:
+                                case printLists.STATION:
                                     {
-                                        Data.stationList().ForEach(s => { Console.WriteLine(s.ToString()); }); ;
+                                        Data.stationList().ForEach(s => { Console.WriteLine(s.ToString()+ "\n"); });
                                     }
                                     break;
-                                case CategoryChoice.DRONE:
+                                case printLists.DRONE:
                                     {
-                                        Data.droneList().ForEach(s => { Console.WriteLine(s.ToString()); }); ;
+                                        Data.droneList().ForEach(s => { Console.WriteLine(s.ToString()+ "\n"); });
                                     }
                                     break;
-                                case CategoryChoice.CUSTOMER:
+                                case printLists.CUSTOMER:
                                     {
-                                        Data.customerList().ForEach(s => { Console.WriteLine(s.ToString()); }); ;
+                                        Data.customerList().ForEach(s => { Console.WriteLine(s.ToString()+ "\n"); });
                                     }
                                     break;
-                                case CategoryChoice.PARCEL:
+                                case printLists.PARCEL:
                                     {
-                                        Data.parcelList().ForEach(s => { Console.WriteLine(s.ToString()); }); ;
+                                        Data.parcelList().ForEach(s => { Console.WriteLine(s.ToString()+ "\n"); });
+                                    }
+                                    break;
+                                case printLists.DISMATCHED_PACKAGES:
+                                    {
+                                        Data.parcelList().ForEach(p => { if (p.DroneId == 0) Console.WriteLine(p.Id + "\n"); });
+                                    }
+                                    break;
+                                case printLists.AVAILABLE_SLOTS:
+                                    {
+                                        Data.stationList().ForEach(s => { if (s.chargeSlots > 0) Console.WriteLine(s.id+ "\n"); });
                                     }
                                     break;
                                 default:
                                     break;
-                            }
+                            }     
 
                         }
                         break;

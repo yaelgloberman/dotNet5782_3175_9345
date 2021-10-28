@@ -34,6 +34,7 @@ namespace DalObject
         {
             DataSource.parcels.Add(p);
         }
+        //**************** update functions ***************************
         public void attribute(int dID, int pID)
         {
             IDAL.DO.Parcel tmpP = new Parcel();
@@ -82,17 +83,39 @@ namespace DalObject
                 }
             }
         }
-        public  void SendToCharge(int droneId,int sationId)
+        public  void SendToCharge(int droneId,int stationId)
         {
+            IDAL.DO.droneCharges dCharge = new droneCharges();          
             DataSource.drones.ForEach(d => { if (d.Id == droneId) d.Status = DroneStatuses.maintenance; });
-            IDAL.DO.droneCharges dCharge = new droneCharges();
-            dCharge.StationId = sationId;//we have to make sure that we dont need to update the station id in the drone charges
+            dCharge.StationId = stationId;
+            stationList().ForEach(s => { if (s.id == stationId) s.chargeSlots--; });
+            dCharge.droneId = droneId;
+            dCharge.StationId = stationId;
+            chargingDroneList().Add(dCharge);
         }
-        public  void releaseDroneStation(int droneId)
+        public  void releasingDrone(droneCharges dC)
         {
-            DataSource.drones.ForEach(d => { if (d.Id == droneId) d.Status = DroneStatuses.available; });
-            //אולי צרך לעדכן גם את התחנת בסיס שאין שם יותר רחפן
+            DataSource.drones.ForEach(d => { if (d.Id == dC.droneId) { d.Status = DroneStatuses.available; d.BateryStatus = 100; } });
+            DataSource.stations.ForEach(s => { if (s.id == dC.StationId) s.chargeSlots++; });
+            DataSource.chargingDrones.Remove(dC);
         }
+        public void DeliveryPackageCustomer(int cID,int pId,IDAL.DO.Proirities proirity)
+        {
+           parcelList().ForEach(p => { if (p.Id == pId) { p.TargetId = cID;p.Priority = proirity; }; });
+        }
+        public droneCharges findChargedDrone(int id)
+        {
+            droneCharges empty = new droneCharges();
+            for (int i = 0; i < DataSource.chargingDrones.Count(); i++)
+            {
+                if (DataSource.chargingDrones[i].droneId == id)
+                    return DataSource.chargingDrones[i];
+            }
+            return empty;
+        }
+
+
+        //********************** dispaly function *********************************
         public  Station findStation(int id)//is it static?
         {
             Station empty = new Station();
@@ -139,6 +162,9 @@ namespace DalObject
             drone.Id = droneId;
             return drone;
         }
+
+
+    //*********************** printing functions ****************************
         public List<Station>stationList()
         {
             return DataSource.stations;
@@ -155,13 +181,17 @@ namespace DalObject
         {
             return DataSource.parcels;
         }
-
+        public List<droneCharges> chargingDroneList()
+        {
+            return DataSource.chargingDrones;
+        }
+ 
         public void MenuPrint(string action)
         {
             Console.WriteLine($"what would you like to {action}?");
             Console.WriteLine($"enter 1 to {action} station");
-            Console.WriteLine($"enter 2 to {action} drone");
-            Console.WriteLine($"enter 3 to {action} customer");
+            Console.WriteLine($"enter 2 to {action} drones");
+            Console.WriteLine($"enter 3 to {action} customers");
             Console.WriteLine($"enter 4 to {action} parcel");
         }
         
