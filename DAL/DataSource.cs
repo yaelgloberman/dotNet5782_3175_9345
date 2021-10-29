@@ -87,7 +87,7 @@ namespace DAL
                         TargetId = r.Next(111111111, 999999999),
                         Priority = (IDAL.DO.Proirities)r.Next(1, 3),
                         Weight = (IDAL.DO.WeightCatigories)r.Next(1, 3),
-                        DroneId = r.Next(111111111, 999999999),
+                        DroneId = r.Next(0, 999999999),
                         Requested = DateTime.Now,
                         Scheduled = DateTime.Now,
                         PickedUp = DateTime.Now,

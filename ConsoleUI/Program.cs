@@ -362,6 +362,7 @@ namespace ConsoleUI
                         break;
                     default:
                         break;
+                 
                 } 
             } while (choice != (MainChoice.exit));
         }
