@@ -60,8 +60,8 @@ namespace DalObject
             tmpP.Id = tmpD.Id;
             tmpP.Scheduled=DateTime.Today;
             tmpD.Status = (DroneStatuses)2;
-            DataSource.parcels[i] = tmpP;
-            DataSource.drones[j] = tmpD;
+            DataSource.parcels.Add(tmpP);
+            DataSource.drones.Add(tmpD );
             
         }
         public void PickUpPackageByDrone(int dID, int pID)

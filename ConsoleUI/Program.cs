@@ -13,7 +13,6 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             Data = new DalObject.DalObject();
-            //IDAL.DO.BaseStation baseStasion = new IDAL.DO.BaseStation();
             int userA;
 
             MainChoice choice;
