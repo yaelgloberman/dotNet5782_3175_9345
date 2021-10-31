@@ -59,7 +59,6 @@ namespace DalObject
             tmpD.Status = (DroneStatuses)2;
             DataSource.parcels[i] = tmpP;
             DataSource.drones[j] = tmpD;
-            
         }
         public void PickUpPackageByDrone(int dID, int pID)
         {
