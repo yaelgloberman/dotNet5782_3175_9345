@@ -13,8 +13,10 @@ namespace DalObject
         {
             DataSource.Initialize();
         }
+        //*********************** add station functions******************************************//
         public  void addStation(int id1, int name1, double longi, double lati, int charge)//findout if the sattion name is supposed to be string or int
         {
+            // adding all the objects parts 
             Station s = new Station();
             s.id = id1;
             s.name = name1;
@@ -34,6 +36,7 @@ namespace DalObject
         {
             DataSource.parcels.Add(p);
         }
+        //**************** update functions ***************************
         public void attribute(int dID, int pID)
         {
             IDAL.DO.Parcel tmpP = new Parcel();
@@ -57,8 +60,9 @@ namespace DalObject
             tmpP.Id = tmpD.Id;
             tmpP.Scheduled=DateTime.Today;
             tmpD.Status = (DroneStatuses)2;
-            DataSource.parcels[i] = tmpP;
-            DataSource.drones[j] = tmpD;
+            DataSource.parcels.Add(tmpP);
+            DataSource.drones.Add(tmpD );
+            
         }
         public void PickUpPackageByDrone(int dID, int pID)
         {
@@ -81,17 +85,39 @@ namespace DalObject
                 }
             }
         }
-        public  void SendToCharge(int droneId,int sationId)
+        public  void SendToCharge(int droneId,int stationId)//update function that updates the station and drone when the drone is sent to chatge
         {
-            DataSource.drones.ForEach(d => { if (d.Id == droneId) d.Status = DroneStatuses.maintenance; });
-            IDAL.DO.droneCharges dCharge = new droneCharges();
-            dCharge.StationId = sationId;//we have to make sure that we dont need to update the station id in the drone charges
+            IDAL.DO.droneCharges dCharge = new droneCharges();  //creates a new drone object in the drone charges        
+            DataSource.drones.ForEach(d => { if (d.Id == droneId) d.Status = DroneStatuses.maintenance; });// changing the drones status
+            dCharge.StationId = stationId;//maching the drones id
+            stationList().ForEach(s => { if (s.id == stationId) s.chargeSlots--; });//less drone slots in the station
+            dCharge.droneId = droneId;
+            dCharge.StationId = stationId;
+            chargingDroneList().Add(dCharge);//adding the drone to the drone chargiong list
         }
-        public  void releaseDroneStation(int droneId)
+        public  void releasingDrone(droneCharges dC)//update function when we release a drone from its charging slot
         {
-            DataSource.drones.ForEach(d => { if (d.Id == droneId) d.Status = DroneStatuses.available; });
-            //אולי צרך לעדכן גם את התחנת בסיס שאין שם יותר רחפן
+            DataSource.drones.ForEach(d => { if (d.Id == dC.droneId) { d.Status = DroneStatuses.available; d.BateryStatus = 100; } });//changing the drone status
+            DataSource.stations.ForEach(s => { if (s.id == dC.StationId) s.chargeSlots++; });//increaseing the drone slots since the drone is finished charging
+            DataSource.chargingDrones.Remove(dC);//removing the drone from the drone charging list
         }
+        public void DeliveryPackageCustomer(int cID,int pId,IDAL.DO.Proirities proirity)//updating the drone when irt was called from the customer
+        {
+           parcelList().ForEach(p => { if (p.Id == pId) { p.TargetId = cID;p.Priority = proirity; }; });//its proiority is updated - going fast regular or emergency
+        }
+        public droneCharges findChargedDrone(int id)//finding a drone in the drone charging list
+        {
+            droneCharges empty = new droneCharges();
+            for (int i = 0; i < DataSource.chargingDrones.Count(); i++)
+            {
+                if (DataSource.chargingDrones[i].droneId == id)
+                    return DataSource.chargingDrones[i];// returnong the drone
+            }
+            return empty;
+        }
+
+
+        //********************** dispaly function *********************************
         public  Station findStation(int id)//is it static?
         {
             Station empty = new Station();
@@ -139,36 +165,37 @@ namespace DalObject
             return drone;
         }
 
-        public void printStationList()
+
+    //*********************** printing functions ****************************
+
+        //all the list functions below return the lists of the station drone parcel or customer that was created in the dtata source 
+        public List<Station>stationList()
         {
-            DataSource.stations.ForEach(s => { Console.WriteLine(s.ToString()); });
+            return DataSource.stations;
         }
-        public void printDroneList()
+        public List<Drone> droneList()
         {
-            DataSource.drones.ForEach(d => { Console.WriteLine(d.ToString()); });
+            return DataSource.drones;
         }
-        public void printCustomerList()
+        public List<customer> customerList()
         {
-            DataSource.customers.ForEach(c=> { Console.WriteLine(c.ToString()); });
+            return DataSource.customers;
         }
-        public void printParcelList()
+        public List<Parcel> parcelList()
         {
-            DataSource.parcels.ForEach(p => { Console.WriteLine(p.ToString()); });
+            return DataSource.parcels;
         }
-        public void printParcelWDrone()
+        public List<droneCharges> chargingDroneList()
         {
-            DataSource.parcels.ForEach(p => {if(p.DroneId==0) Console.WriteLine(p.ToString()); });
+            return DataSource.chargingDrones;
         }
-        public void printAvailableChrgingStations()
-        {
-            DataSource.stations.ForEach(s => {if(s.chargeSlots>0)s.ToString(); });
-        }
-        public void MenuPrint(string action)
+ 
+        public void MenuPrint(string action)//th menue that helps specify the main action 
         {
             Console.WriteLine($"what would you like to {action}?");
             Console.WriteLine($"enter 1 to {action} station");
-            Console.WriteLine($"enter 2 to {action} drone");
-            Console.WriteLine($"enter 3 to {action} customer");
+            Console.WriteLine($"enter 2 to {action} drones");
+            Console.WriteLine($"enter 3 to {action} customers");
             Console.WriteLine($"enter 4 to {action} parcel");
         }
         

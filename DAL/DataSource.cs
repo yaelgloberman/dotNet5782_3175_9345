@@ -15,7 +15,7 @@ namespace DAL
             internal static List<Parcel> parcels = new List<Parcel>();
             internal static List<Station> stations = new List<Station>();
             internal static List<customer> customers = new List<customer>();
-
+            internal static List<droneCharges> chargingDrones = new List<droneCharges>();
             internal class Config
             {
                 internal static int parcelSerial = 0;
@@ -54,7 +54,7 @@ namespace DAL
                         Id = r.Next(111111111, 999999999),
                         Model = "Model" + i,
                         MaxWeight = (IDAL.DO.WeightCatigories)r.Next(1, 3),
-                        //BateryStatus =(IDAL.DO.r.Next(IDAL.DO.)
+                        BateryStatus =r.Next(1,100),
                         Status = (IDAL.DO.DroneStatuses)r.Next(1, 3),
                     });
                 }
@@ -68,7 +68,7 @@ namespace DAL
                     {
                         Id = r.Next(11111111,99999999),
                         Name = "Name" + i,
-                        PhoneNumber = 05 + r.Next(0, 9) + -+r.Next(111111111, 999999999),
+                        PhoneNumber = r.Next(11111111, 99999999),
                         Longitude = r.Next(8, 32),//getRandomCordinates(34, 8),
                         Latitude = r.Next(6, 29)// getRandomCordinates(29, 6),
 
@@ -78,7 +78,7 @@ namespace DAL
 
             static void CreateParcel()
             {
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < 10; i++)
                 {
                     parcels.Add(new Parcel()
                     {
@@ -87,7 +87,7 @@ namespace DAL
                         TargetId = r.Next(111111111, 999999999),
                         Priority = (IDAL.DO.Proirities)r.Next(1, 3),
                         Weight = (IDAL.DO.WeightCatigories)r.Next(1, 3),
-                        DroneId = r.Next(111111111, 999999999),
+                        DroneId = r.Next(0, 999999999),
                         Requested = DateTime.Now,
                         Scheduled = DateTime.Now,
                         PickedUp = DateTime.Now,

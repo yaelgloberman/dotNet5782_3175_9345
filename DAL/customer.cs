@@ -17,9 +17,9 @@ namespace IDAL
             public double Latitude { set; get; }
             public override string ToString()
             {
-                return string.Format($"id: {Id}, Name: {Name}, Phone Number: {PhoneNumber}, Longitude: {Longitude}  Latitude: {Latitude} ");
+                return string.Format($"id: {Id}, Name: {Name}, Phone Number: 05{PhoneNumber}, Longitude: {Longitude}  Latitude: {Latitude} ");
 
             }
         }
-        }
+    }
 }

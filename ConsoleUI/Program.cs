@@ -3,8 +3,9 @@
 namespace ConsoleUI
 {
     public enum MainChoice { add = 1, update, display, list, exit };
-    public enum catigoryChoice { STATION = 1, DRONE, CUSTOMER, PARCEL };
-    public enum update { attribute = 1, PickUpPackageByDrone, DeliveryPackageCustomer, SendToCharge , printAvailableChrgingStations };
+    public enum CategoryChoice { STATION = 1, DRONE, CUSTOMER, PARCEL};
+    public enum update { attribute = 1, PickUpPackageByDrone, DeliveryPackageCustomer, SendToCharge , releasingDrone };
+    public enum  printLists{ STATION = 1, DRONE, CUSTOMER, PARCEL,DISMATCHED_PACKAGES, AVAILABLE_SLOTS }
   
     class Program
     {
@@ -12,7 +13,6 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             Data = new DalObject.DalObject();
-            //IDAL.DO.BaseStation baseStasion = new IDAL.DO.BaseStation();
             int userA;
 
             MainChoice choice;
@@ -47,15 +47,15 @@ namespace ConsoleUI
                             string str = Console.ReadLine();
                             isB = int.TryParse(str, out int error1);
                             int num1;
-                            catigoryChoice choice1;
+                            CategoryChoice choice1;
                             if (isB)
                                 num1 = int.Parse(str);
                             else
                                 num1 = -1;
-                            choice1 = (catigoryChoice)num1;
+                            choice1 = (CategoryChoice)num1;
                             switch (choice1) //add
                             {
-                                case catigoryChoice.STATION:
+                                case CategoryChoice.STATION:
                                     {
                                         // IDAL.DO.Station temp = new IDAL.DO.Station();
                                         Console.WriteLine("enter a station id");
@@ -74,7 +74,7 @@ namespace ConsoleUI
 
                                     }
                                     break;
-                                case catigoryChoice.DRONE:
+                                case CategoryChoice.DRONE:
                                     {
                                         IDAL.DO.Drone temp = new IDAL.DO.Drone();
                                         Console.WriteLine("enter a drone  id");
@@ -90,7 +90,7 @@ namespace ConsoleUI
                                         Data.addDrone(temp);
                                     }
                                     break;
-                                case catigoryChoice.CUSTOMER:
+                                case CategoryChoice.CUSTOMER:
                                     {
                                         IDAL.DO.customer temp = new IDAL.DO.customer();
                                         Console.WriteLine("enter the customers id");
@@ -106,9 +106,8 @@ namespace ConsoleUI
                                         Data.addCustomer(temp);
 
                                     }
-
                                     break;
-                                    case catigoryChoice.PARCEL:
+                                case CategoryChoice.PARCEL:
                                     {
                                         IDAL.DO.Parcel temp = new IDAL.DO.Parcel();
                                         Console.WriteLine("enter thye senders id");
@@ -135,6 +134,7 @@ namespace ConsoleUI
                                         temp.Datetime = DateTime.Parse(Console.ReadLine());
                                         Data.addParcel(temp);
                                     }
+                                    break;
 
       
                             }
@@ -142,8 +142,11 @@ namespace ConsoleUI
                         break;
                     case MainChoice.update:
                         {
-
-                            Data.MenuPrint("update");
+                            Console.WriteLine($"what would you like to update?");
+                            Console.WriteLine($"enter 1 to match the parcel to a drone");
+                            Console.WriteLine($"enter 2 to update parcel when it was picked up");
+                            Console.WriteLine($"enter 3 to send a drone to be charged ");
+                            Console.WriteLine($"enter 4 to release a drone from a charging station");
                             bool isB;
                             string str = Console.ReadLine();
                             isB = int.TryParse(str, out int error1);
@@ -158,7 +161,7 @@ namespace ConsoleUI
                             {
                                 case update.attribute:
                                     {
-                                        Console.WriteLine("Enter the dronws ID:\n");
+                                        Console.WriteLine("Enter the drone ID:\n");
                                         int droneId;
                                         int parcelId;
                                         string input = Console.ReadLine();
@@ -184,20 +187,31 @@ namespace ConsoleUI
                                     break;
                                 case update.DeliveryPackageCustomer:
                                     {
-                                        DalObject.DalObject.DeliveryPackageCustomer();
+                                        Console.WriteLine("please enter your ID number");
+                                        int Cid = int.Parse(Console.ReadLine());
+                                        Console.WriteLine("please enter the ID number of your parcel");
+                                        int pId = int.Parse(Console.ReadLine());
+                                        Console.WriteLine("eneter level of priority");
+                                        IDAL.DO.Proirities proirity = (IDAL.DO.Proirities)int.Parse(Console.ReadLine());
+                                       Data.DeliveryPackageCustomer(Cid,pId, proirity);
                                     }
                                     break;
                                 case update.SendToCharge:
                                     {
-                                        Console.WriteLine("enter the drone id,station id");
-                                        int idDrone = int.Parse(Console.ReadLine());
+                                        Console.WriteLine("enter your drone id:");
+                                        int droneId = int.Parse(Console.ReadLine());
+                                        Console.WriteLine("enter the station id that you want to charge your drone at  from the list below:");
+                                        Data.stationList().ForEach(s => { if (s.chargeSlots > 0) Console.WriteLine(s.id+"\n"); });                                       
                                         int idStation = int.Parse(Console.ReadLine());
-                                        Data.SendToCharge(idDrone, idStation);
+                                        Data.SendToCharge(droneId,idStation);
                                     }
                                     break;
-                                case update.printAvailableChrgingStations:
+                                case update.releasingDrone:
                                     {
-                                        Data.printAvailableChrgingStations();
+                                        Console.WriteLine("please enter the dones ID number");
+                                        int dID = int.Parse(Console.ReadLine());
+                                        Data.releasingDrone(Data.findChargedDrone(dID));
+
                                     }
                                     break;
                                 default:
@@ -208,22 +222,21 @@ namespace ConsoleUI
 
                     case MainChoice.display:
                         {
-                            Data.MenuPrint("870ד" +
-                                "[==");
+                            Data.MenuPrint("display");
                             bool isB;
                             string str = Console.ReadLine();
                             //בדיקת תקינות קלט-have to go over that 
                             isB = int.TryParse(str, out int error1);
                             int num1;
-                            catigoryChoice choice1;
+                            CategoryChoice choice1;
                             if (isB)
                                 num1 = int.Parse(str);
                             else
                                 num1 = -1;
-                            choice1 = (catigoryChoice)num1;
+                            choice1 = (CategoryChoice)num1;
                             switch (choice1)
                             {
-                                case catigoryChoice.STATION:
+                                case CategoryChoice.STATION:
                                     {
 
                                         Console.WriteLine("enter the station's id");
@@ -238,7 +251,7 @@ namespace ConsoleUI
                                         }
                                     }
                                     break;
-                                case catigoryChoice.DRONE:
+                                case CategoryChoice.DRONE:
                                     {
 
                                         Console.WriteLine("enter the drone's id");
@@ -253,7 +266,7 @@ namespace ConsoleUI
                                         }
                                     }
                                     break;
-                                case catigoryChoice.CUSTOMER:
+                                case CategoryChoice.CUSTOMER:
 
                                     {
 
@@ -269,7 +282,7 @@ namespace ConsoleUI
                                         }
                                     }
                                     break;
-                                case catigoryChoice.PARCEL:
+                                case CategoryChoice.PARCEL:
                                     {
 
                                         Console.WriteLine("enter the parcel's id");
@@ -291,43 +304,56 @@ namespace ConsoleUI
                         break;
                     case MainChoice.list:
                         {
-                            Data.MenuPrint("print all of");
+                            Data.MenuPrint("to print the list of");
+                            Console.WriteLine($"enter 5 to o print the list of the parcels that arn't matched with a drone");
+                            Console.WriteLine($"enter 6 to o print the list of the stations that have available charging slots");
+                            Console.WriteLine("");
                             bool isB;
                             string str = Console.ReadLine();
                             //בדיקת תקינות קלט-have to go over that 
                             isB = int.TryParse(str, out int error1);
                             int num1;
-                            catigoryChoice choice1;
+                            printLists choice1;
                             if (isB)
                                 num1 = int.Parse(str);
                             else
                                 num1 = -1;
-                            choice1 = (catigoryChoice)num1;
+                            choice1 = (printLists)num1;
                             switch (choice1)
                             {
-                                case catigoryChoice.STATION:
+                                case printLists.STATION:
                                     {
-                                        Data.printStationList();
+                                        Data.stationList().ForEach(s => { Console.WriteLine(s.ToString()+ "\n"); });
                                     }
                                     break;
-                                case catigoryChoice.DRONE:
+                                case printLists.DRONE:
                                     {
-                                        Data.printDroneList();
+                                        Data.droneList().ForEach(s => { Console.WriteLine(s.ToString()+ "\n"); });
                                     }
                                     break;
-                                case catigoryChoice.CUSTOMER:
+                                case printLists.CUSTOMER:
                                     {
-                                        Data.printCustomerList();
+                                        Data.customerList().ForEach(s => { Console.WriteLine(s.ToString()+ "\n"); });
                                     }
                                     break;
-                                case catigoryChoice.PARCEL:
+                                case printLists.PARCEL:
                                     {
-                                        Data.printParcelList();
+                                        Data.parcelList().ForEach(s => { Console.WriteLine(s.ToString()+ "\n"); });
+                                    }
+                                    break;
+                                case printLists.DISMATCHED_PACKAGES:
+                                    {
+                                        Data.parcelList().ForEach(p => { if (p.DroneId == 0) Console.WriteLine(p.Id + "\n"); });
+                                    }
+                                    break;
+                                case printLists.AVAILABLE_SLOTS:
+                                    {
+                                        Data.stationList().ForEach(s => { if (s.chargeSlots > 0) Console.WriteLine(s.id+ "\n"); });
                                     }
                                     break;
                                 default:
                                     break;
-                            }
+                            }     
 
                         }
                         break;
@@ -335,6 +361,7 @@ namespace ConsoleUI
                         break;
                     default:
                         break;
+                 
                 } 
             } while (choice != (MainChoice.exit));
         }
