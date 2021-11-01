@@ -88,10 +88,10 @@ namespace DalObject
         public void DeliveryPackageCustomer(int cID,int pId,IDAL.DO.Proirities proirity)//updating the drone when irt was called from the customer
         {
             IDAL.DO.Parcel tmpP = new Parcel();
-            IDAL.DO.customer tmpC = new customer();//hello
+            IDAL.DO.customer tmpC = new customer();
             tmpP = findParcel(pId);
             tmpC = findCustomer(cID);
-            DataSource.parcels.RemoveAll(m => m.Id == tmpP.Id);
+            DataSource.parcels.RemoveAll(m => m.Id == tmpP.Id);//removing the parcel with the given id
             tmpP.Priority = proirity;
             tmpP.TargetId = tmpC.Id;
             tmpP.Delivered = DateTime.Now;
