@@ -37,12 +37,12 @@ namespace DalObject
             DataSource.parcels.Add(p);
         }
         //**************** update functions ***************************
-        public void attribute(int dID, int pID)
+        public void attribute(int dID, int pID)//the function attribute parcel to drone
         {
-            IDAL.DO.Parcel tmpP = new Parcel();
-            IDAL.DO.Drone tmpD = new Drone();
+            IDAL.DO.Parcel tmpP = new Parcel();//creates a new parcel object
+            IDAL.DO.Drone tmpD = new Drone();// creates a new drone object 
             tmpP = findParcel(pID);
-            tmpD= findDrone(dID);
+            tmpD = findDrone(dID);
             DataSource.parcels.RemoveAll(m => m.Id == tmpP.Id);
             tmpP.DroneId = tmpD.Id;
             tmpP.Scheduled = DateTime.Now;
@@ -85,7 +85,7 @@ namespace DalObject
             DataSource.stations.ForEach(s => { if (s.id == dC.StationId) s.chargeSlots++; });//increaseing the drone slots since the drone is finished charging
             DataSource.chargingDrones.Remove(dC);//removing the drone from the drone charging list
         }
-        public void DeliveryPackageCustomer(int cID,int pId,IDAL.DO.Proirities proirity)//updating the drone when irt was called from the customer
+        public void DeliveryPackageCustomer(int cID, int pId, IDAL.DO.Proirities proirity)//updating the drone when irt was called from the customer
         {
             IDAL.DO.Parcel tmpP = new Parcel();
             IDAL.DO.customer tmpC = new customer();
@@ -96,7 +96,7 @@ namespace DalObject
             tmpP.TargetId = tmpC.Id;
             tmpP.Delivered = DateTime.Now;
             DataSource.parcels.Add(tmpP);
-           // parcelList().ForEach(p => { if (p.Id == pId) { p.TargetId = cID;p.Priority = proirity;p.Delivered = DateTime.Now; }; });//its proiority is updated - going fast regular or emergency
+            // parcelList().ForEach(p => { if (p.Id == pId) { p.TargetId = cID;p.Priority = proirity;p.Delivered = DateTime.Now; }; });//its proiority is updated - going fast regular or emergency
         }
         public droneCharges findChargedDrone(int id)//finding a drone in the drone charging list
         {
