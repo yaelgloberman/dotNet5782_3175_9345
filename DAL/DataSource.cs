@@ -91,7 +91,7 @@ namespace DAL
                         Requested = DateTime.Now,
                         Scheduled = DateTime.Now,
                         PickedUp = DateTime.Now,
-                        Datetime = DateTime.Now,
+                        Delivered = DateTime.Now,
                     });
                     Config.parcelSerial++;
                     Config.numberId++;

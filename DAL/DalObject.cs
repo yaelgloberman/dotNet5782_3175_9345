@@ -41,28 +41,12 @@ namespace DalObject
         {
             IDAL.DO.Parcel tmpP = new Parcel();
             IDAL.DO.Drone tmpD = new Drone();
-            int i = 0;
-            int j = 0;
-            for (; i < DataSource.parcels.Count; i++)
-            {
-                if (DataSource.parcels[i].Id == pID)
-                {
-                    tmpP = DataSource.parcels[i];
-                }
-            }
-            for (; j < DataSource.drones.Count; j++)
-            {
-                if (DataSource.drones[j].Id == dID)
-                {
-                    tmpD = DataSource.drones[j];
-                }
-            }
-            tmpP.Id = tmpD.Id;
-            tmpP.Scheduled=DateTime.Today;
-            tmpD.Status = (DroneStatuses)2;
+            tmpP = findParcel(pID);
+            tmpD= findDrone(dID);
+            DataSource.parcels.RemoveAll(m => m.Id == tmpP.Id);
+            tmpP.DroneId = tmpD.Id;
+            tmpP.Scheduled = DateTime.Now;
             DataSource.parcels.Add(tmpP);
-            DataSource.drones.Add(tmpD );
-            
         }
         public void PickUpPackageByDrone(int dID, int pID)
         {
@@ -71,7 +55,7 @@ namespace DalObject
                 if (DataSource.parcels[i].Id == pID)
                 {
                     IDAL.DO.Parcel tmpP = DataSource.parcels[i];
-                    tmpP.PickedUp = DateTime.Today;
+                    tmpP.PickedUp= DateTime.Now;
                     DataSource.parcels[i] = tmpP;
                 }
             }
@@ -103,7 +87,16 @@ namespace DalObject
         }
         public void DeliveryPackageCustomer(int cID,int pId,IDAL.DO.Proirities proirity)//updating the drone when irt was called from the customer
         {
-           parcelList().ForEach(p => { if (p.Id == pId) { p.TargetId = cID;p.Priority = proirity; }; });//its proiority is updated - going fast regular or emergency
+            IDAL.DO.Parcel tmpP = new Parcel();
+            IDAL.DO.customer tmpC = new customer();
+            tmpP = findParcel(pId);
+            tmpC = findCustomer(cID);
+            DataSource.parcels.RemoveAll(m => m.Id == tmpP.Id);
+            tmpP.Priority = proirity;
+            tmpP.TargetId = tmpC.Id;
+            tmpP.Delivered = DateTime.Now;
+            DataSource.parcels.Add(tmpP);
+           // parcelList().ForEach(p => { if (p.Id == pId) { p.TargetId = cID;p.Priority = proirity;p.Delivered = DateTime.Now; }; });//its proiority is updated - going fast regular or emergency
         }
         public droneCharges findChargedDrone(int id)//finding a drone in the drone charging list
         {

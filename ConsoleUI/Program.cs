@@ -110,15 +110,13 @@ namespace ConsoleUI
                                 case CategoryChoice.PARCEL:
                                     {
                                         IDAL.DO.Parcel temp = new IDAL.DO.Parcel();
-                                        Console.WriteLine("enter thye senders id");
+                                        Console.WriteLine("enter the parcel id");
                                         temp.Id = int.Parse(Console.ReadLine());
+                                        Console.WriteLine("enter the senders id");
+                                        temp.SenderId = int.Parse(Console.ReadLine());
                                         Console.WriteLine("enter the target id");
                                         temp.TargetId = int.Parse(Console.ReadLine());
-                                        Console.WriteLine("enetr its urgency: press 1 for regular press 2 for fast and press 3 for emergency");
-                                        while (int.Parse(Console.ReadLine()) > 3)
-                                        {
-                                            Console.WriteLine("ERROR re-enter");
-                                        }
+                                        Console.WriteLine("enetr its urgency: press 1 for regular press 2 for fast and press 3 for emergency");                                   
                                         temp.Priority = (IDAL.DO.Proirities)int.Parse(Console.ReadLine());
                                         Console.WriteLine("enter the weight of the package");//not sure if i should do it with enum or have to do tkinut kelet
                                         temp.Weight = (IDAL.DO.WeightCatigories)int.Parse(Console.ReadLine());
@@ -131,7 +129,7 @@ namespace ConsoleUI
                                         Console.WriteLine("enter the time it was Picked up  ");
                                         temp.PickedUp = DateTime.Parse(Console.ReadLine());
                                         Console.WriteLine("enter the time it was date time ");
-                                        temp.Datetime = DateTime.Parse(Console.ReadLine());
+                                        temp.Delivered = DateTime.Parse(Console.ReadLine());
                                         Data.addParcel(temp);
                                     }
                                     break;
@@ -145,8 +143,9 @@ namespace ConsoleUI
                             Console.WriteLine($"what would you like to update?");
                             Console.WriteLine($"enter 1 to match the parcel to a drone");
                             Console.WriteLine($"enter 2 to update parcel when it was picked up");
-                            Console.WriteLine($"enter 3 to send a drone to be charged ");
-                            Console.WriteLine($"enter 4 to release a drone from a charging station");
+                            Console.WriteLine($"enter 3 to deliver parcel to the customer ");
+                            Console.WriteLine($"enter 4 to send a drone to be charged ");
+                            Console.WriteLine($"enter 5 to release a drone from a charging station");
                             bool isB;
                             string str = Console.ReadLine();
                             isB = int.TryParse(str, out int error1);
@@ -174,7 +173,7 @@ namespace ConsoleUI
                                     break;
                                 case update.PickUpPackageByDrone:
                                     {
-                                        Console.WriteLine("Enter the dronws ID:\n");
+                                        Console.WriteLine("Enter the drones ID:\n");
                                         int droneId;
                                         int parcelId;
                                         string input = Console.ReadLine();
@@ -187,13 +186,13 @@ namespace ConsoleUI
                                     break;
                                 case update.DeliveryPackageCustomer:
                                     {
-                                        Console.WriteLine("please enter your ID number");
+                                        Console.WriteLine("please enter your customer ID number");
                                         int Cid = int.Parse(Console.ReadLine());
                                         Console.WriteLine("please enter the ID number of your parcel");
                                         int pId = int.Parse(Console.ReadLine());
                                         Console.WriteLine("eneter level of priority");
                                         IDAL.DO.Proirities proirity = (IDAL.DO.Proirities)int.Parse(Console.ReadLine());
-                                       Data.DeliveryPackageCustomer(Cid,pId, proirity);
+                                        Data.DeliveryPackageCustomer(Cid,pId, proirity);
                                     }
                                     break;
                                 case update.SendToCharge:

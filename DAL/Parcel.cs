@@ -19,10 +19,10 @@ namespace IDAL
             public DateTime Requested { set; get; }
             public DateTime Scheduled { set; get; }
             public DateTime PickedUp { set; get; }
-            public DateTime Datetime { set; get; }
+            public DateTime Delivered { set; get; }
             public override string ToString()
             {
-                return string.Format($"Id: {Id}, Sender Id: {SenderId}, Target Id: {TargetId}, Priority: {Priority},  Weight Catigory: {Weight},Priority: {Priority}, Drone Id: {DroneId}, Requested: {Requested}, Scheduled: {Scheduled}, PickedUp: {PickedUp}, Datetime: {Datetime}  ");
+                return string.Format($"Id: {Id}, Sender Id: {SenderId}, Target Id: {TargetId}, Priority: {Priority},  Weight Catigory: {Weight},Priority: {Priority}, Drone Id: {DroneId}, Requested: {Requested}, Scheduled: {Scheduled}, PickedUp: {PickedUp}, Datetime: {Delivered}  ");
 
             }
         }
