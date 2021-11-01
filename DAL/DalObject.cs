@@ -41,35 +41,35 @@ namespace DalObject
         {
             IDAL.DO.Parcel tmpP = new Parcel();//creates a new parcel object
             IDAL.DO.Drone tmpD = new Drone();// creates a new drone object 
-            tmpP = findParcel(pID);
-            tmpD = findDrone(dID);
-            DataSource.parcels.RemoveAll(m => m.Id == tmpP.Id);
-            tmpP.DroneId = tmpD.Id;
-            tmpP.Scheduled = DateTime.Now;
-            DataSource.parcels.Add(tmpP);
+            tmpP = findParcel(pID); //finding the parcel and puting the parcel into tmpP   
+            tmpD = findDrone(dID);//finding the drone and puting the drone into tmpD
+            DataSource.parcels.RemoveAll(m => m.Id == tmpP.Id);   //removing all the data from the place in the list the equal to tmpP id
+            tmpP.DroneId = tmpD.Id;  //attribute drones id to parcel 
+            tmpP.Scheduled = DateTime.Now; //changing the time to be right now
+            DataSource.parcels.Add(tmpP); //adding to the parcel list tmpP
         }
-        public void PickUpPackageByDrone(int dID, int pID)
+        public void PickUpPackageByDrone(int dID, int pID)// the function picking up the parcel bt the drone
         {
-            for (int i = 0; i < DataSource.parcels.Count; i++)
+            for (int i = 0; i < DataSource.parcels.Count; i++)  //iterat that goes through all the parcel list
             {
-                if (DataSource.parcels[i].Id == pID)
+                if (DataSource.parcels[i].Id == pID)// if the pId equal to the parcel list 
                 {
-                    IDAL.DO.Parcel tmpP = DataSource.parcels[i];
-                    tmpP.PickedUp= DateTime.Now;
-                    DataSource.parcels[i] = tmpP;
+                    IDAL.DO.Parcel tmpP = DataSource.parcels[i];  //puting into tmpP the parcel that equal to pID
+                    tmpP.PickedUp= DateTime.Now; //changing the time to be right now
+                    DataSource.parcels[i] = tmpP;//puting into the parcel list the new tmpP
                 }
             }
-            for (int i = 0; i < DataSource.drones.Count; i++)
+            for (int i = 0; i < DataSource.drones.Count; i++) //iterat that goes throe all the drone list
             {
-                if (DataSource.drones[i].Id == dID)
+                if (DataSource.drones[i].Id == dID) //iterat that goes through all the parcel list
                 {
-                    IDAL.DO.Drone tmpD = DataSource.drones[i];
-                    tmpD.Status = IDAL.DO.DroneStatuses.shipping;
-                    DataSource.drones[i] = tmpD;
+                    IDAL.DO.Drone tmpD = DataSource.drones[i];//puting into tmpD the drone that equal to dID
+                    tmpD.Status = IDAL.DO.DroneStatuses.shipping; //changing the status to shipping
+                    DataSource.drones[i] = tmpD; //puting into the drone list the new tmpD
                 }
             }
         }
-        public  void SendToCharge(int droneId,int stationId)//update function that updates the station and drone when the drone is sent to chatge
+        public void SendToCharge(int droneId,int stationId)//update function that updates the station and drone when the drone is sent to chatge
         {
             IDAL.DO.droneCharges dCharge = new droneCharges();  //creates a new drone object in the drone charges        
             DataSource.drones.ForEach(d => { if (d.Id == droneId) d.Status = DroneStatuses.maintenance; });// changing the drones status
@@ -89,14 +89,13 @@ namespace DalObject
         {
             IDAL.DO.Parcel tmpP = new Parcel();
             IDAL.DO.customer tmpC = new customer();
-            tmpP = findParcel(pId);
-            tmpC = findCustomer(cID);
+            tmpP = findParcel(pId); 
+            tmpC = findCustomer(cID);  
             DataSource.parcels.RemoveAll(m => m.Id == tmpP.Id);//removing the parcel with the given id
             tmpP.Priority = proirity;
             tmpP.TargetId = tmpC.Id;
             tmpP.Delivered = DateTime.Now;
             DataSource.parcels.Add(tmpP);
-            // parcelList().ForEach(p => { if (p.Id == pId) { p.TargetId = cID;p.Priority = proirity;p.Delivered = DateTime.Now; }; });//its proiority is updated - going fast regular or emergency
         }
         public droneCharges findChargedDrone(int id)//finding a drone in the drone charging list
         {
@@ -106,52 +105,52 @@ namespace DalObject
                 if (DataSource.chargingDrones[i].droneId == id)
                     return DataSource.chargingDrones[i];// returnong the drone
             }
-            return empty;
+            return empty;//if he didnd found return empty
         }
 
 
-        //********************** dispaly function *********************************
-        public  Station findStation(int id)//is it static?
+        /********************* dispaly function *********************************/
+        public  Station findStation(int id)    //function that gets id and finding the station in the station list and returns station 
         {
-            Station empty = new Station();
-            for (int i = 0; i < DataSource.stations.Count(); i++)
+            Station empty = new Station(); //creating a new station called empty
+            for (int i = 0; i < DataSource.stations.Count(); i++) //iterates that goes throught the stations list
             {
-                if (DataSource.stations[i].id == id)
-                    return DataSource.stations[i];
-            }
-            return empty;///im trying to return null
-        }
-        public Drone findDrone(int id)//is it static?
-        {
-            Drone empty = new Drone();
-            for (int i = 0; i < DataSource.stations.Count(); i++)
-            {
-                if (DataSource.drones[i].Id == id)
-                    return DataSource.drones[i];
-            }
-            return empty;///im trying to return null
-        }
-        public customer findCustomer(int id)//is it static?
-        {
-            customer empty = new customer();
-            for (int i = 0; i < DataSource.customers.Count(); i++)
-            {
-                if (DataSource.customers[i].Id == id)
-                    return DataSource.customers[i];
+                if (DataSource.stations[i].id == id)  //if the id of the stattion is the same as the list station
+                    return DataSource.stations[i];//return the station
             }
             return empty;
         }
-        public Parcel findParcel(int id)//is it static?
+        public Drone findDrone(int id)//function that gets id and finding the drone in the drones list and returns drone 
+        {
+            Drone empty = new Drone(); //creating a new drone called empty
+            for (int i = 0; i < DataSource.drones.Count(); i++)//iterates that goes throught the drones list
+            {
+                if (DataSource.drones[i].Id == id)//if the id of the drones is the same as the list drones
+                    return DataSource.drones[i];//return the drone
+            }
+            return empty;//if he didnd found return empty
+        }
+        public customer findCustomer(int id)//function that gets id and finding the customer in the customers list and returns customer
+        {
+            customer empty = new customer();//creating a new customer called empty
+            for (int i = 0; i < DataSource.customers.Count(); i++)//iterates that goes throught the customer list
+            {
+                if (DataSource.customers[i].Id == id)//if the id of the customer is the same as the list customers
+                    return DataSource.customers[i];//return customer
+            }
+            return empty; //if he didnd found return empty
+        }
+        public Parcel findParcel(int id)//function that gets id and finding the parcel in the parcels list and returns parcel
         {
             Parcel empty = new Parcel();
-            for (int i = 0; i < DataSource.parcels.Count(); i++)
+            for (int i = 0; i < DataSource.parcels.Count(); i++)//iterates that goes throught the parcel list
             {
-                if (DataSource.parcels[i].Id == id)
-                    return DataSource.parcels[i];
+                if (DataSource.parcels[i].Id == id)//if the id of the parcel is the same as the list parcels
+                    return DataSource.parcels[i];//return parcel
             }
-            return empty;
+            return empty;//if he didnd found return empty
         }
-        public Drone getDrone(int droneId)
+        public Drone getDrone(int droneId) //function that gets id and returns drone
         {
             Drone drone = new Drone();
             drone.Id = droneId;
