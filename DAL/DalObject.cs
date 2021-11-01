@@ -81,8 +81,17 @@ namespace DalObject
         }
         public  void releasingDrone(droneCharges dC)//update function when we release a drone from its charging slot
         {
-            DataSource.drones.ForEach(d => { if (d.Id == dC.droneId) { d.Status = DroneStatuses.available; d.BateryStatus = 100; } });//changing the drone status
-            DataSource.stations.ForEach(s => { if (s.id == dC.StationId) s.chargeSlots++; });//increaseing the drone slots since the drone is finished charging
+            IDAL.DO.Drone tmpD= new Drone();
+            IDAL.DO.Station tmpS = new Station();
+            tmpD = findDrone(dC.droneId);
+            tmpS = findStation(dC.StationId);
+            DataSource.drones.RemoveAll(m => m.Id == dC.droneId);//removing the parcel with the given id
+            DataSource.stations.RemoveAll(s => s.id == dC.StationId);
+            tmpD.Status = DroneStatuses.available;
+            tmpD.BateryStatus = 100;
+            droneList().Add(tmpD);
+            tmpS.chargeSlots++;
+            stationList().Add(tmpS);
             DataSource.chargingDrones.Remove(dC);//removing the drone from the drone charging list
         }
         public void DeliveryPackageCustomer(int cID, int pId, IDAL.DO.Proirities proirity)//updating the drone when irt was called from the customer
@@ -124,7 +133,7 @@ namespace DalObject
         public Drone findDrone(int id)//is it static?
         {
             Drone empty = new Drone();
-            for (int i = 0; i < DataSource.stations.Count(); i++)
+            for (int i = 0; i < DataSource.drones.Count(); i++)
             {
                 if (DataSource.drones[i].Id == id)
                     return DataSource.drones[i];
