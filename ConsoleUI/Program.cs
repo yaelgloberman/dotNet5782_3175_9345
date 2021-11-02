@@ -1,4 +1,6 @@
-﻿using System;
+﻿// shifra wexler 211349345
+// mini project 2021
+using System;
 
 namespace ConsoleUI
 {
@@ -11,9 +13,9 @@ namespace ConsoleUI
     {
        static  DalObject.DalObject Data;
         /// <summary>
-        /// 
+        /// the program conatins the data of a drones the user enters a number form the menue and  based on his choice could access or change the data about the drones,station,customers or the parcels
         /// </summary>
-        /// <param name="args"></param>
+     
         static void Main(string[] args)
         {
             Data = new DalObject.DalObject();
@@ -34,6 +36,7 @@ namespace ConsoleUI
                 Console.WriteLine("press 5 to exit");
                 Console.WriteLine("enter a number between 1-5");
                 s = Console.ReadLine();
+     
                 b = int.TryParse(s, out int error);
                 int num;
                 if (b)
@@ -223,7 +226,7 @@ namespace ConsoleUI
                             }
                             break;
                         }
-
+                        
                     case MainChoice.display:
                         {
                             Data.MenuPrint("display");
