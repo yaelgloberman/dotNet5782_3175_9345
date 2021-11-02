@@ -191,7 +191,7 @@ namespace DalObject
             return DataSource.chargingDrones;
         }
  
-        public void MenuPrint(string action)//th menue that helps specify the main action 
+        public void MenuPrint(string action)//the menue that helps specify the main action 
         {
             Console.WriteLine($"what would you like to {action}?");
             Console.WriteLine($"enter 1 to {action} station");

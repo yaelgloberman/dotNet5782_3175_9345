@@ -11,7 +11,7 @@ namespace DAL
         internal class DataSource
         {
 
-            internal static List<Drone> drones = new List<Drone>();
+            internal static List<Drone> drones = new List<Drone>(); //creating new list calls
             internal static List<Parcel> parcels = new List<Parcel>();
             internal static List<Station> stations = new List<Station>();
             internal static List<customer> customers = new List<customer>();
@@ -23,7 +23,15 @@ namespace DAL
             }
             static Random r = new Random();
             int num = r.Next();
-            //DataSource dataS
+            /// <summary>
+            /// function that gets cordinates and return the fordinate with floating point
+            /// </summary>
+            /// <param name="cordinate"></param>
+            /// <returns></returns>
+            private static double getRandomCordinates(double cordinate) 
+            {
+                return cordinate + r.NextDouble() / 10;
+            }
             public static void Initialize()
             {
                 DataSource.createCustomer();

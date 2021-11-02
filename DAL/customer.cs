@@ -8,14 +8,14 @@ namespace IDAL
 {
     namespace DO
     {
-        public struct customer
+        public struct customer   
         {
             public int Id { set; get; }
             public string Name { set; get; }
             public int PhoneNumber { set; get; }
             public double Longitude { set; get; }
             public double Latitude { set; get; }
-            public override string ToString()
+            public override string ToString() 
             {
                 return string.Format($"id: {Id}, Name: {Name}, Phone Number: 05{PhoneNumber}, Longitude: {Longitude}  Latitude: {Latitude} ");
 

@@ -13,7 +13,7 @@ namespace IDAL
             public int Id { set; get; }
             public string Model { set; get; }
             public WeightCatigories MaxWeight { set; get; }
-            public double BateryStatus { set; get; }     //צריך לחשוב איך עושים רמת טעינה 
+            public double BateryStatus { set; get; }    
             public DroneStatuses Status { set; get; }
             public override string ToString()
             {
