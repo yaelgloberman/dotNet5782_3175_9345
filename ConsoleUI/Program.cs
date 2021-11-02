@@ -84,15 +84,19 @@ namespace ConsoleUI
                                     break;
                                 case CategoryChoice.DRONE:
                                     {
+                                        int id;
+                                        double longitude, latitude, bateryStatus;
                                         IDAL.DO.Drone temp = new IDAL.DO.Drone();
                                         Console.WriteLine("enter a drone  id");
-                                        temp.id = int.Parse(Console.ReadLine());
+                                        int.TryParse(Console.ReadLine(),out id);
+                                        temp.id = id;
                                         Console.WriteLine("enter Model");
                                         temp.model = Console.ReadLine();
                                         Console.WriteLine("enter  a number from 1-3 describing its max weight, 3 is the heaviest");//go over the phraising
                                         temp.maxWeight = (IDAL.DO.WeightCatigories)int.Parse(Console.ReadLine());
                                         Console.WriteLine("enter the batery status");
-                                        temp.bateryStatus = double.Parse(Console.ReadLine());
+                                        double.TryParse(Console.ReadLine(),out bateryStatus);
+                                        temp.bateryStatus = bateryStatus;
                                         Console.WriteLine("enter the current drone status");//have to go over to see if i did it right
                                         temp.status = (IDAL.DO.DroneStatuses)int.Parse(Console.ReadLine());
                                         Data.addDrone(temp);
@@ -102,37 +106,48 @@ namespace ConsoleUI
                                     break;
                                 case CategoryChoice.CUSTOMER:
                                     {
+                                        int id, phoneNumber;
+                                        double longitude, latitude;
                                         IDAL.DO.customer temp = new IDAL.DO.customer();
                                         Console.WriteLine("enter the customers id");
-                                        temp.id = int.Parse(Console.ReadLine());
+                                        int.TryParse(Console.ReadLine(),out id);
+                                        temp.id = id;
                                         Console.WriteLine("enter the customers name");
                                         temp.name = Console.ReadLine();
                                         Console.WriteLine("enter the customers phonenumber");
-                                        temp.phoneNumber = int.Parse(Console.ReadLine());//might have to check validity of 05 
+                                        int.TryParse(Console.ReadLine(),out phoneNumber);
+                                        temp.phoneNumber = phoneNumber;
                                         Console.WriteLine("enter the customers longitude");
-                                        temp.longitude = double.Parse(Console.ReadLine());
+                                        double.TryParse(Console.ReadLine(),out longitude);
+                                        temp.longitude = longitude;
                                         Console.WriteLine("enter latitude");
-                                        temp.latitude = double.Parse(Console.ReadLine());
+                                        double.TryParse(Console.ReadLine(),out latitude);
+                                        temp.latitude = latitude;
                                         Data.addCustomer(temp);
 
                                     }
                                     break;
                                 case CategoryChoice.PARCEL:
                                     {
+                                        int parcelId,senderId, targetId, droneId;
                                         IDAL.DO.Parcel temp = new IDAL.DO.Parcel();
                                         Console.WriteLine("enter the parcel id");
-                                        temp.id = int.Parse(Console.ReadLine());
+                                        int.TryParse(Console.ReadLine(),out parcelId);
+                                        temp.id= parcelId;
                                         Console.WriteLine("enter the senders id");
-                                        temp.senderId = int.Parse(Console.ReadLine());
+                                        int.TryParse(Console.ReadLine(),out senderId);
+                                        temp.senderId = senderId;
                                         Console.WriteLine("enter the target id");
-                                        temp.targetId = int.Parse(Console.ReadLine());
+                                        int.TryParse(Console.ReadLine(),out targetId);
+                                        temp.targetId = targetId;
                                         Console.WriteLine("enetr its urgency: press 1 for regular press 2 for fast and press 3 for emergency");                                   
                                         temp.priority = (IDAL.DO.Proirities)int.Parse(Console.ReadLine());
                                         Console.WriteLine("enter the weight of the package");//not sure if i should do it with enum or have to do tkinut kelet
                                         temp.weight = (IDAL.DO.WeightCatigories)int.Parse(Console.ReadLine());
                                         Console.WriteLine("enter the drone id ");
-                                        temp.droneId = int.Parse(Console.ReadLine());
-                                        Console.WriteLine("enter the time the packge was requested");
+                                        int.TryParse(Console.ReadLine(),out droneId);
+                                        temp.droneId = droneId;
+                                       Console.WriteLine("enter the time the packge was requested");
                                         temp.requested = DateTime.Parse(Console.ReadLine());
                                         Console.WriteLine("enter the time it was schedrules ");
                                         temp.scheduled = DateTime.Parse(Console.ReadLine());
@@ -143,8 +158,6 @@ namespace ConsoleUI
                                         Data.addParcel(temp);
                                     }
                                     break;
-
-      
                             }
                         }
                         break;
@@ -217,10 +230,10 @@ namespace ConsoleUI
                                     break;
                                 case update.releasingDrone:
                                     {
+                                        int dId;
                                         Console.WriteLine("please enter the dones ID number");
-                                        int dID = int.Parse(Console.ReadLine());
-                                        Data.releasingDrone(Data.findChargedDrone(dID));
-
+                                        int.TryParse(Console.ReadLine(),out dId);
+                                        Data.releasingDrone(Data.findChargedDrone(dId));
                                     }
                                     break;
                                 default:
