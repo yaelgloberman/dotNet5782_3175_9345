@@ -15,7 +15,8 @@ namespace IDAL
             /// function that returning the latitude in base 60
             /// </summary>
             /// <param name="lat"></param>
-            /// <returns></returns>
+            /// <returns></returns> 
+            /// //
             public static string getBase60Lat(double lat)
             {
                 string ch;
