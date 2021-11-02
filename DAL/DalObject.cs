@@ -11,10 +11,20 @@ namespace DalObject
     {
         public DalObject()
         {
-            DataSource.Initialize();
+            DataSource.Initialize();///intialize constructor for the data object ib the nmain.
         }
         //*********************** add station functions******************************************//
-        public  void addStation(int id1, int name1, double longi, double lati, int charge)//findout if the sattion name is supposed to be string or int
+        /// <summary>
+        /// adding station functions 
+     ////  the functions recieve an object and add it to the list
+     //// or the variables and create a matching aobject and add it
+        /// </summary>
+        /// <param name="id1"></param>
+        /// <param name="name1"></param>
+        /// <param name="longi"></param>
+        /// <param name="lati"></param>
+        /// <param name="charge"></param>
+        public  void addStation(int id1, int name1, double longi, double lati, int charge)
         {
             // adding all the objects parts 
             Station s = new Station();
@@ -69,16 +79,25 @@ namespace DalObject
                 }
             }
         }
-        public void SendToCharge(int droneId,int stationId)//update function that updates the station and drone when the drone is sent to chatge
+        public  void SendToCharge(int droneId,int stationId)//update function that updates the station and drone when the drone is sent to chatge
         {
-            IDAL.DO.droneCharges dCharge = new droneCharges();  //creates a new drone object in the drone charges        
+            IDAL.DO.droneCharges dCharge = new droneCharges();
+            IDAL.DO.Station tmpS = new Station();//creates a new drone object in the drone charges        
             DataSource.drones.ForEach(d => { if (d.Id == droneId) d.Status = DroneStatuses.maintenance; });// changing the drones status
             dCharge.StationId = stationId;//maching the drones id
-            stationList().ForEach(s => { if (s.id == stationId) s.chargeSlots--; });//less drone slots in the station
+            stationList().ForEach(s => { if (s.id == stationId) tmpS = s; });//less drone slots in the station
+            stationList().RemoveAll(s => s.id == dCharge.StationId) ;
+            tmpS.chargeSlots--;
+            stationList().Add(tmpS);
             dCharge.droneId = droneId;
             dCharge.StationId = stationId;
             chargingDroneList().Add(dCharge);//adding the drone to the drone chargiong list
         }
+        /// <summary>
+        /// updating the system when releasing a drone from its charging slot - 
+        // by changing the drones status to availble increasing the chargins available slots, updatating the battery status and removing the drone from the charging drones
+        /// </summary>
+        /// <param name="dC"></param>
         public  void releasingDrone(droneCharges dC)//update function when we release a drone from its charging slot
         {
             IDAL.DO.Drone tmpD= new Drone();
@@ -94,12 +113,18 @@ namespace DalObject
             stationList().Add(tmpS);
             DataSource.chargingDrones.Remove(dC);//removing the drone from the drone charging list
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cID"></param>
+        /// <param name="pId"></param>
+        /// <param name="proirity"></param>
         public void DeliveryPackageCustomer(int cID, int pId, IDAL.DO.Proirities proirity)//updating the drone when irt was called from the customer
         {
             IDAL.DO.Parcel tmpP = new Parcel();
             IDAL.DO.customer tmpC = new customer();
-            tmpP = findParcel(pId); 
-            tmpC = findCustomer(cID);  
+            tmpP = findParcel(pId);//parcel id
+            tmpC = findCustomer(cID);//customer id
             DataSource.parcels.RemoveAll(m => m.Id == tmpP.Id);//removing the parcel with the given id
             tmpP.Priority = proirity;
             tmpP.TargetId = tmpC.Id;
@@ -118,8 +143,13 @@ namespace DalObject
         }
 
 
-        /********************* dispaly function *********************************/
-        public  Station findStation(int id)    //function that gets id and finding the station in the station list and returns station 
+        //********************** dispaly function *********************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">//recieves an id of an object in the main  based on the users choice of object and returns the object and in the main it porints the infio about the obj</param>
+        /// <returns></returns>
+        public  Station findStation(int id)//
         {
             Station empty = new Station(); //creating a new station called empty
             for (int i = 0; i < DataSource.stations.Count(); i++) //iterates that goes throught the stations list
@@ -159,7 +189,12 @@ namespace DalObject
             }
             return empty;//if he didnd found return empty
         }
-        public Drone getDrone(int droneId) //function that gets id and returns drone
+        /// <summary>
+        /// retuens the drone 
+        /// </summary>
+        /// <param name="droneId"> recives the drones id from the user in the mian</param>
+        /// <returns></returns>
+        public Drone getDrone(int droneId)
         {
             Drone drone = new Drone();
             drone.Id = droneId;
@@ -168,8 +203,6 @@ namespace DalObject
 
 
     //*********************** printing functions ****************************
-
-        //all the list functions below return the lists of the station drone parcel or customer that was created in the dtata source 
         public List<Station>stationList()
         {
             return DataSource.stations;
@@ -190,8 +223,11 @@ namespace DalObject
         {
             return DataSource.chargingDrones;
         }
- 
-        public void MenuPrint(string action)//the menue that helps specify the main action 
+ /// <summary>
+ /// a menue to print in the main to navagte the switch to the correct object
+ /// </summary>
+ /// <param name="action"></param>
+        public void MenuPrint(string action)//th menue that helps specify the main action 
         {
             Console.WriteLine($"what would you like to {action}?");
             Console.WriteLine($"enter 1 to {action} station");
