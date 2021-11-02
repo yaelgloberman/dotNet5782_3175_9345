@@ -28,9 +28,9 @@ namespace IDAL
                     ch = "E";
                 int latSec = (int)Math.Round(lat * 60 * 60);
                 double x = (lat - Math.Truncate(lat)) * 60;
-                float sec = (float)(x - Math.Truncate(x)) * 60;
-                int min = ((latSec / 60) % 60);
-                int deg = ((latSec / 60) / 60);
+                int deg = ((latSec / 60) / 60);//the integer part
+                int min = ((latSec / 60) % 60);//the decimal number*60 (i took only the integer out of it)
+                float sec = (float)(x - Math.Truncate(x)) * 60;//the decimal part that was in the min times 60
                 return $"{deg}° {min}' {sec}'' {ch}";
             }
             /// <summary>
