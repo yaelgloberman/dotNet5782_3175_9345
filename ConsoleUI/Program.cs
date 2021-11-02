@@ -13,7 +13,6 @@ namespace ConsoleUI
         /// the program conatins the data of a drones the user enters a number form the menue and  based on his choice could access or change the data about the drones,station,customers or the parcels
         /// </summary>
      
-        
         static void Main(string[] args)
         {
             Data = new DalObject.DalObject();
