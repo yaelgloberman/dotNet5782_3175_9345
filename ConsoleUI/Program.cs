@@ -10,6 +10,10 @@ namespace ConsoleUI
     class Program
     {
        static  DalObject.DalObject Data;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
             Data = new DalObject.DalObject();
@@ -55,9 +59,10 @@ namespace ConsoleUI
                             choice1 = (CategoryChoice)num1;
                             switch (choice1) //add
                             {
+                                
                                 case CategoryChoice.STATION:
                                     {
-                                        // IDAL.DO.Station temp = new IDAL.DO.Station();
+                                      
                                         Console.WriteLine("enter a station id");
                                         userA = int.Parse(Console.ReadLine());
                                         //.id = userA;
