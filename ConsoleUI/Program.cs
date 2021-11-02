@@ -196,22 +196,24 @@ namespace ConsoleUI
                                     break;
                                 case update.DeliveryPackageCustomer:
                                     {
+                                        int Cid, pId, proirity;
                                         Console.WriteLine("please enter your customer ID number");
-                                        int Cid = int.Parse(Console.ReadLine());
+                                        int.TryParse(Console.ReadLine(), out Cid);
                                         Console.WriteLine("please enter the ID number of your parcel");
-                                        int pId = int.Parse(Console.ReadLine());
+                                        int.TryParse(Console.ReadLine(), out pId);
                                         Console.WriteLine("eneter level of priority");
-                                        IDAL.DO.Proirities proirity = (IDAL.DO.Proirities)int.Parse(Console.ReadLine());
-                                        Data.DeliveryPackageCustomer(Cid,pId, proirity);
+                                        int.TryParse(Console.ReadLine(),out proirity);
+                                        Data.DeliveryPackageCustomer(Cid,pId, (IDAL.DO.Proirities)proirity);
                                     }
                                     break;
                                 case update.SendToCharge:
                                     {
+                                        int droneId, idStation;
                                         Console.WriteLine("enter your drone id:");
-                                        int droneId = int.Parse(Console.ReadLine());
+                                        int.TryParse(Console.ReadLine(),out droneId);
                                         Console.WriteLine("enter the station id that you want to charge your drone at  from the list below:");
                                         Data.stationList().ForEach(s => { if (s.chargeSlots > 0) Console.WriteLine(s.id+"\n"); });                                       
-                                        int idStation = int.Parse(Console.ReadLine());
+                                        int.TryParse(Console.ReadLine(),out idStation);
                                         Data.SendToCharge(droneId,idStation);
                                     }
                                     break;
@@ -246,9 +248,9 @@ namespace ConsoleUI
                             {
                                 case CategoryChoice.STATION:
                                     {
-
+                                        int stationID;
                                         Console.WriteLine("enter the station's id");
-                                        int stationID = int.Parse(Console.ReadLine());
+                                        int.TryParse(Console.ReadLine(),out stationID);
                                         IDAL.DO.Station currentStation = new IDAL.DO.Station();
                                         currentStation = Data.findStation(stationID);
                                         if (currentStation.id == 0)
@@ -261,9 +263,9 @@ namespace ConsoleUI
                                     break;
                                 case CategoryChoice.DRONE:
                                     {
-
-                                        Console.WriteLine("enter the drone's id");
-                                        int droneID = int.Parse(Console.ReadLine());
+                                        int droneID;
+                                        Console.WriteLine("enter the drone's id");                                        
+                                        int.TryParse(Console.ReadLine(), out droneID);
                                         IDAL.DO.Drone currentDrone = new IDAL.DO.Drone();
                                         currentDrone = Data.findDrone(droneID);
                                         if (currentDrone.id == 0)
@@ -277,9 +279,9 @@ namespace ConsoleUI
                                 case CategoryChoice.CUSTOMER:
 
                                     {
-
+                                        int customerID;
                                         Console.WriteLine("enter the customer's id");
-                                        int customerID = int.Parse(Console.ReadLine());
+                                        int.TryParse(Console.ReadLine(), out customerID);
                                         IDAL.DO.customer currentCustomer = new IDAL.DO.customer();
                                         currentCustomer = Data.findCustomer(customerID);
                                         if (currentCustomer.id == 0)
@@ -292,9 +294,9 @@ namespace ConsoleUI
                                     break;
                                 case CategoryChoice.PARCEL:
                                     {
-
+                                        int parcelID;
                                         Console.WriteLine("enter the parcel's id");
-                                        int parcelID = int.Parse(Console.ReadLine());
+                                        int.TryParse(Console.ReadLine(), out parcelID);
                                         IDAL.DO.Parcel currentParcel = new IDAL.DO.Parcel();
                                         currentParcel = Data.findParcel(parcelID);
                                         if (currentParcel.id == 0)
