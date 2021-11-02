@@ -10,8 +10,10 @@ namespace DAL
     {
         internal class DataSource
         {
-
-            internal static List<Drone> drones = new List<Drone>(); //creating new list calls
+            /// <summary>
+            /// creating list from each object . drone,pardel,station,customer,chargingDrones
+            /// </summary>
+            internal static List<Drone> drones = new List<Drone>(); 
             internal static List<Parcel> parcels = new List<Parcel>();
             internal static List<Station> stations = new List<Station>();
             internal static List<customer> customers = new List<customer>();
@@ -28,9 +30,10 @@ namespace DAL
             /// </summary>
             /// <param name="cordinate"></param>
             /// <returns></returns>
-            private static double getRandomCordinates(double cordinate) 
+            private static double getRandomCordinates(int num1,int num2) 
             {
-                return cordinate + r.NextDouble() / 10;
+                int num3 = r.Next(num1, num2);
+                return num3 + r.NextDouble()/10;
             }
             public static void Initialize()
             {
@@ -47,10 +50,10 @@ namespace DAL
                     {
                         id = r.Next(111111111, 999999999),
                         name = r.Next(1, 1000),
-                        longitude = r.Next(8,34),/*getRandomCordinates(34, 8)*/
-                        latitude = r.Next(6,29),//getRandomCordinates(29, 6),
+                        longitude = getRandomCordinates(-180,180),
+                        latitude = getRandomCordinates(-90, 90),
                         chargeSlots = r.Next(5, 100)
-                    });
+                    }); 
                 }
             }
             static void CreateDrone()
@@ -59,11 +62,11 @@ namespace DAL
                 {
                     drones.Add(new Drone()
                     {
-                        Id = r.Next(111111111, 999999999),
-                        Model = "Model" + i,
-                        MaxWeight = (IDAL.DO.WeightCatigories)r.Next(1, 3),
-                        BateryStatus =r.Next(1,100),
-                        Status = (IDAL.DO.DroneStatuses)r.Next(1, 3),
+                        id = r.Next(111111111, 999999999),
+                        model = "Model" + i,
+                        maxWeight = (IDAL.DO.WeightCatigories)r.Next(1, 3),
+                        bateryStatus =r.Next(1,100),
+                        status = (IDAL.DO.DroneStatuses)r.Next(1, 3),
                     });
                 }
 
@@ -74,12 +77,11 @@ namespace DAL
                 {
                     customers.Add(new customer()
                     {
-                        Id = r.Next(11111111,99999999),
-                        Name = "Name" + i,
-                        PhoneNumber = r.Next(11111111, 99999999),
-                        Longitude = r.Next(8, 32),//getRandomCordinates(34, 8),
-                        Latitude = r.Next(6, 29)// getRandomCordinates(29, 6),
-
+                        id = r.Next(11111111,99999999),
+                        name = "Name" + i,
+                        phoneNumber = r.Next(11111111, 99999999),
+                        longitude = getRandomCordinates(-180,180),
+                        latitude = getRandomCordinates(-90, 90),
                     });
                 }
             }
@@ -90,16 +92,16 @@ namespace DAL
                 {
                     parcels.Add(new Parcel()
                     {
-                        Id = r.Next(111111111, 999999999),
-                        SenderId = r.Next(111111111, 999999999),
-                        TargetId = r.Next(111111111, 999999999),
-                        Priority = (IDAL.DO.Proirities)r.Next(1, 3),
-                        Weight = (IDAL.DO.WeightCatigories)r.Next(1, 3),
-                        DroneId = r.Next(0, 999999999),
-                        Requested = DateTime.Now,
-                        Scheduled = DateTime.Now,
-                        PickedUp = DateTime.Now,
-                        Delivered = DateTime.Now,
+                        id = r.Next(111111111, 999999999),
+                        senderId = r.Next(111111111, 999999999),
+                        targetId = r.Next(111111111, 999999999),
+                        priority = (IDAL.DO.Proirities)r.Next(1, 3),
+                        weight = (IDAL.DO.WeightCatigories)r.Next(1, 3),
+                        droneId = r.Next(0, 999999999),
+                        requested = DateTime.Now,
+                        scheduled = DateTime.Now,
+                        pickedUp = DateTime.Now,
+                        delivered = DateTime.Now,
                     });
                     Config.parcelSerial++;
                     Config.numberId++;

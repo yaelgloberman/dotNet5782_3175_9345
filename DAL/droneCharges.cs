@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace IDAL
 {
     namespace DO
@@ -12,9 +11,7 @@ namespace IDAL
         {
             public int droneId { set; get; }
 
-            public int StationId { set; get; }
+            public int stationId { set; get; }
         }
-
-   
     }
 }

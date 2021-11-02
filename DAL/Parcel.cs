@@ -10,19 +10,19 @@ namespace IDAL
     {
         public struct Parcel
         {
-            public int Id { set; get; }
-            public int SenderId { set; get; }
-            public int TargetId { set; get; }
-            public Proirities Priority { set; get; }
-            public WeightCatigories Weight { set; get; }
-            public int DroneId { set; get; }
-            public DateTime Requested { set; get; }
-            public DateTime Scheduled { set; get; }
-            public DateTime PickedUp { set; get; }
-            public DateTime Delivered { set; get; }
+            public int id { set; get; }
+            public int senderId { set; get; }
+            public int targetId { set; get; }
+            public Proirities priority { set; get; }
+            public WeightCatigories weight { set; get; }
+            public int droneId { set; get; }
+            public DateTime requested { set; get; }
+            public DateTime scheduled { set; get; }
+            public DateTime pickedUp { set; get; }
+            public DateTime delivered { set; get; }
             public override string ToString()
             {
-                return string.Format($"Id: {Id}, Sender Id: {SenderId}, Target Id: {TargetId}, Priority: {Priority},  Weight Catigory: {Weight},Priority: {Priority}, Drone Id: {DroneId}, Requested: {Requested}, Scheduled: {Scheduled}, PickedUp: {PickedUp}, Datetime: {Delivered}  ");
+                return string.Format($"Id: {id}, Sender Id: {senderId}, Target Id: {targetId}, Priority: {priority},  Weight Catigory: {weight},Priority: {priority}, Drone Id: {droneId}, Requested: {requested}, Scheduled: {scheduled}, PickedUp: {pickedUp}, Datetime: {delivered}  ");
 
             }
         }
