@@ -31,7 +31,7 @@ namespace DAL
                 DataSource.CreateParcel();
                 DataSource.CreateStation();
             }
-            static void CreateStation()//why private?
+            static void CreateStation()
             {
                 for (int i = 0; i < 2; i++)
                 {
