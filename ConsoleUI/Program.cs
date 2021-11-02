@@ -84,7 +84,7 @@ namespace ConsoleUI
                                 case CategoryChoice.DRONE:
                                     {
                                         int id;
-                                        double longitude, latitude, bateryStatus;
+                                        double bateryStatus;
                                         IDAL.DO.Drone temp = new IDAL.DO.Drone();
                                         Console.WriteLine("enter a drone  id");
                                         int.TryParse(Console.ReadLine(),out id);
