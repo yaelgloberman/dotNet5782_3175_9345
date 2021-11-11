@@ -31,7 +31,6 @@ namespace DalObject
         public  void addDrone(Drone d)
         {
             DataSource.drones.Add(d);
-
         }
         public void addCustomer(customer c)
         {
@@ -69,7 +68,6 @@ namespace DalObject
                 if (DataSource.drones[i].id == dID) //iterat that goes through all the parcel list
                 {
                     IDAL.DO.Drone tmpD = DataSource.drones[i];//puting into tmpD the drone that equal to dID
-                    tmpD.status = IDAL.DO.DroneStatuses.shipping; //changing the status to shipping
                     DataSource.drones[i] = tmpD; //puting into the drone list the new tmpD
                 }
             }
@@ -78,15 +76,17 @@ namespace DalObject
         {
             IDAL.DO.droneCharges dCharge = new droneCharges();
             IDAL.DO.Station tmpS = new Station();//creates a new drone object in the drone charges        
-            DataSource.drones.ForEach(d => { if (d.id == droneId) d.status = DroneStatuses.maintenance; });// changing the drones status
             dCharge.stationId = stationId;//maching the drones id
-            stationList().ForEach(s => { if (s.id == stationId) tmpS = s; });//less drone slots in the station
-            stationList().RemoveAll(s => s.id == dCharge.stationId) ;
+
+            //foreach (Station item in stationList()) { if (item.id == stationId) tmpS = item; }//less drone slots in the station
+            //foreach (Station item in stationList()) { if (item.id == stationId) tmpS = item; }
+            stationList().ToList().ForEach(s => { if (s.id == stationId) tmpS = s; });
+            stationList().ToList().RemoveAll(s => s.id == dCharge.stationId) ;
             tmpS.chargeSlots--;
-            stationList().Add(tmpS);
+            stationList().ToList().Add(tmpS);
             dCharge.droneId = droneId;
             dCharge.stationId = stationId;
-            chargingDroneList().Add(dCharge);//adding the drone to the drone chargiong list
+            chargingDroneList().ToList().Add(dCharge);//adding the drone to the drone chargiong list
         }
         /// <summary>
         /// updating the system when releasing a drone from its charging slot - 
@@ -101,11 +101,11 @@ namespace DalObject
             tmpS = findStation(dC.stationId);
             DataSource.drones.RemoveAll(m => m.id == dC.droneId);//removing the parcel with the given id
             DataSource.stations.RemoveAll(s => s.id == dC.stationId);
-            tmpD.status = DroneStatuses.available;
-            tmpD.bateryStatus = 100;
-            droneList().Add(tmpD);
+            //tmpD.status = DroneStatuses.available;
+            //tmpD.bateryStatus = 100;
+            droneList().ToList().Add(tmpD);
             tmpS.chargeSlots++;
-            stationList().Add(tmpS);
+            stationList().ToList().Add(tmpS);
             DataSource.chargingDrones.Remove(dC);//removing the drone from the drone charging list
         }
         /// <summary>
@@ -156,33 +156,54 @@ namespace DalObject
         }
         public Drone findDrone(int id)//function that gets id and finding the drone in the drones list and returns drone 
         {
-            Drone empty = new Drone(); //creating a new drone called empty
-            for (int i = 0; i < DataSource.drones.Count(); i++)//iterates that goes throught the drones list
+            Drone? tmp = null;
+            foreach (Drone d in DataSource.drones)
             {
-                if (DataSource.drones[i].id == id)//if the id of the drones is the same as the list drones
-                    return DataSource.drones[i];//return the drone
+                if (d.id == id)
+                {
+                    tmp = d;
+                    break;
+                }
             }
-            return empty;//if he didnd found return empty
+            if (tmp == null)
+            {
+                throw new DroneException("id not found");
+            }
+            return (Drone)tmp;
         }
         public customer findCustomer(int id)//function that gets id and finding the customer in the customers list and returns customer
         {
-            customer empty = new customer();//creating a new customer called empty
-            for (int i = 0; i < DataSource.customers.Count(); i++)//iterates that goes throught the customer list
+            customer? tmp = null;
+            foreach (customer c in DataSource.customers)
             {
-                if (DataSource.customers[i].id == id)//if the id of the customer is the same as the list customers
-                    return DataSource.customers[i];//return customer
+                if (c.id == id)
+                {
+                    tmp = c;
+                    break;
+                }
             }
-            return empty; //if he didnd found return empty
+            if (tmp == null)
+            {
+                throw new customerException("id not found");
+            }
+            return (customer)tmp;
         }
         public Parcel findParcel(int id)//function that gets id and finding the parcel in the parcels list and returns parcel
         {
-            Parcel empty = new Parcel();
-            for (int i = 0; i < DataSource.parcels.Count(); i++)//iterates that goes throught the parcel list
+            Parcel? tmp = null;
+            foreach (Parcel p in DataSource.parcels)
             {
-                if (DataSource.parcels[i].id == id)//if the id of the parcel is the same as the list parcels
-                    return DataSource.parcels[i];//return parcel
+                if (p.id == id)
+                {
+                    tmp = p;
+                    break;
+                }
             }
-            return empty;//if he didnd found return empty
+            if (tmp == null)
+            {
+                throw new parcelException("id not found");
+            }
+            return (Parcel)tmp;
         }
         /// <summary>
         /// retuens the drone 
@@ -196,25 +217,25 @@ namespace DalObject
             return drone;
         }
     //*********************** printing functions ****************************
-        public List<Station>stationList()
+        public IEnumerable<Station>stationList()
         {
-            return DataSource.stations;
+            return DataSource.stations.ToList();
         }
-        public List<Drone> droneList()
+        public IEnumerable<Drone> droneList()
         {
-            return DataSource.drones;
+            return DataSource.drones.ToList();
         }
-        public List<customer> customerList()
+        public IEnumerable<customer> customerList()
         {
-            return DataSource.customers;
+            return DataSource.customers.ToList();
         }
-        public List<Parcel> parcelList()
+        public IEnumerable<Parcel> parcelList()
         {
-            return DataSource.parcels;
+            return DataSource.parcels.ToList();
         }
-        public List<droneCharges> chargingDroneList()
+        public IEnumerable<droneCharges> chargingDroneList()
         {
-            return DataSource.chargingDrones;
+            return DataSource.chargingDrones.ToList();
         }
  /// <summary>
  /// a menue to print in the main to navagte the switch to the correct object

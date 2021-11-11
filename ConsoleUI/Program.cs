@@ -95,9 +95,9 @@ namespace ConsoleUI
                                         temp.maxWeight = (IDAL.DO.WeightCatigories)int.Parse(Console.ReadLine());
                                         Console.WriteLine("enter the batery status");
                                         double.TryParse(Console.ReadLine(),out bateryStatus);
-                                        temp.bateryStatus = bateryStatus;
+                                        //temp.bateryStatus = bateryStatus;
                                         Console.WriteLine("enter the current drone status");//have to go over to see if i did it right
-                                        temp.status = (IDAL.DO.DroneStatuses)int.Parse(Console.ReadLine());
+                                        //temp.status = (IDAL.DO.DroneStatuses)int.Parse(Console.ReadLine());
                                         Data.addDrone(temp);
 
       
@@ -224,7 +224,7 @@ namespace ConsoleUI
                                         Console.WriteLine("enter your drone id:");
                                         int.TryParse(Console.ReadLine(),out droneId);
                                         Console.WriteLine("enter the station id that you want to charge your drone at  from the list below:");
-                                        Data.stationList().ForEach(s => { if (s.chargeSlots > 0) Console.WriteLine(s.id+"\n"); });                                       
+                                        Data.stationList().ToList().ForEach(s => { if (s.chargeSlots > 0) Console.WriteLine(s.id+"\n"); });                                       
                                         int.TryParse(Console.ReadLine(),out idStation);
                                         Data.SendToCharge(droneId,idStation);
                                     }
@@ -344,11 +344,12 @@ namespace ConsoleUI
                             {
                                 case printLists.STATION:
                                     {
+ 
                                         Data.stationList().ForEach(s => { Console.WriteLine(s.ToString()+ "\n"); });
                                     }
                                     break;
                                 case printLists.DRONE:
-                                    {
+                                    { 
                                         Data.droneList().ForEach(s => { Console.WriteLine(s.ToString()+ "\n"); });
                                     }
                                     break;

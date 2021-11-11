@@ -65,8 +65,6 @@ namespace DAL
                         id = r.Next(111111111, 999999999),
                         model = "Model" + i,
                         maxWeight = (IDAL.DO.WeightCatigories)r.Next(1, 3),
-                        bateryStatus =r.Next(1,100),
-                        status = (IDAL.DO.DroneStatuses)r.Next(1, 3),
                     });
                 }
 
