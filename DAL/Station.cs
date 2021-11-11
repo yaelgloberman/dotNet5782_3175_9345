@@ -13,7 +13,7 @@ namespace IDAL
             public int chargeSlots { set; get; }
             public override string ToString()
             {
-                return string.Format($"id: {id}, Name: {name},  Longitude: { IDAL.DO.help.getBase60Lng(longitude)}  Latitude: {IDAL.DO.help.getBase60Lat(latitude)} ");
+                return string.Format($"id: {id}, Name: {name},  Longitude: { IDAL.DO.help.getBase60Lng(longitude)}, Latitude: {IDAL.DO.help.getBase60Lat(latitude)}, charge Slots: {chargeSlots} ");
             }
         }
   

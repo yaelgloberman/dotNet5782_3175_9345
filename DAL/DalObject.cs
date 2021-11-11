@@ -209,7 +209,7 @@ namespace DalObject
             }
             if (tmp == null)
             {
-                throw new parcelException("id not found");
+                throw new UpdateException("id not found");
             }
             return (Parcel)tmp;
         }

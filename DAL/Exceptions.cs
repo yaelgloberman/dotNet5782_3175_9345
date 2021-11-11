@@ -63,5 +63,61 @@ namespace IDAL.DO
         {
         }
     }
+    public class UpdateException : Exception
+    {
+        public UpdateException()
+        {
+        }
 
-}
+        public UpdateException(string message) : base("Update Exception: "+message)
+        {
+        }
+
+        public UpdateException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        protected UpdateException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
+    }
+
+
+    //public class AddException : Exception
+    //{
+    //    public AddException()
+    //    {
+    //    }
+
+    //    public AddException(string message) : base(message)
+    //    {
+    //    }
+
+    //    public AddException(string message, Exception innerException) : base(message, innerException)
+    //    {
+    //    }
+
+    //    protected AddException(SerializationInfo info, StreamingContext context) : base(info, context)
+    //    {
+    //    }
+    }
+    //public class UpdateException : Exception
+    //{
+    //    public UpdateException()
+    //    {
+    //    }
+
+    //    public UpdateException(string message) : base(message)
+    //    {
+    //    }
+
+    //    public UpdateException(string message, Exception innerException) : base(message, innerException)
+    //    {
+    //    }
+
+    //    protected UpdateException(SerializationInfo info, StreamingContext context) : base(info, context)
+    //    {
+    //    }
+    //}
+
+//}

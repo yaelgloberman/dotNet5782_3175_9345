@@ -79,7 +79,7 @@ namespace ConsoleUI
                                         int.TryParse(Console.ReadLine(), out chargeSlots);
                                         temp.chargeSlots = chargeSlots;
                                         try { Data.addStation(temp);}
-                                        catch (IDAL.DO.AddException add1) { Console.WriteLine(add1); }
+                                        catch (IDAL.DO.AddException add1) { Console.WriteLine(add1.Message); }
                                         break;
                                     }
                                 case CategoryChoice.DRONE:
@@ -225,7 +225,7 @@ namespace ConsoleUI
                                         Console.WriteLine("enter your drone id:");
                                         int.TryParse(Console.ReadLine(),out droneId);
                                         Console.WriteLine("enter the station id that you want to charge your drone at  from the list below:");
-                                        Data.stationList().ToList().ForEach(s => { if (s.chargeSlots > 0) Console.WriteLine(s.id+"\n"); });                                       
+                                        foreach (IDAL.DO.Station st in Data.stationList()) { if (st.chargeSlots > 0) Console.WriteLine(st.id + "\n"); }
                                         int.TryParse(Console.ReadLine(),out idStation);
                                         Data.SendToCharge(droneId,idStation);
                                     }
@@ -345,33 +345,30 @@ namespace ConsoleUI
                             {
                                 case printLists.STATION:
                                     {
- 
-                                        Data.stationList().ForEach(s => { Console.WriteLine(s.ToString()+ "\n"); });
+                                        foreach (IDAL.DO.Station st in Data.stationList()) { Console.WriteLine(st.ToString() + "\n"); }
                                     }
                                     break;
                                 case printLists.DRONE:
-                                    { 
-                                        Data.droneList().ForEach(s => { Console.WriteLine(s.ToString()+ "\n"); });
+                                    {
+                                        foreach (IDAL.DO.Drone d in Data.droneList()){ Console.WriteLine(d.ToString() + "\n"); }
                                     }
                                     break;
                                 case printLists.CUSTOMER:
                                     {
-                                        Data.customerList().ForEach(s => { Console.WriteLine(s.ToString()+ "\n"); });
-                                    }
+                                        foreach (IDAL.DO.customer c in Data.customerList()) { Console.WriteLine(c.ToString() + "\n"); }                                    }
                                     break;
                                 case printLists.PARCEL:
                                     {
-                                        Data.parcelList().ForEach(s => { Console.WriteLine(s.ToString()+ "\n"); });
+                                        foreach (IDAL.DO.Parcel p in Data.parcelList()) { Console.WriteLine(p.ToString() + "\n"); }
                                     }
                                     break;
                                 case printLists.DISMATCHED_PACKAGES:
                                     {
-                                        Data.parcelList().ForEach(p => { if (p.droneId == 0) Console.WriteLine(p.id + "\n"); });
-                                    }
+                                        foreach (IDAL.DO.Parcel p in Data.parcelList()) { if(p.droneId==0)Console.WriteLine(p.id.ToString() + "\n"); }                                    }
                                     break;
                                 case printLists.AVAILABLE_SLOTS:
                                     {
-                                        Data.stationList().ForEach(s => { if (s.chargeSlots > 0) Console.WriteLine(s.id+ "\n"); });
+                                        foreach (IDAL.DO.Station st in Data.stationList()) { if (st.chargeSlots > 0) Console.WriteLine(st.ToString() + "\n"); }
                                     }
                                     break;
                                 default:
