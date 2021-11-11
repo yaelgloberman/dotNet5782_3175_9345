@@ -25,7 +25,14 @@ namespace DalObject
         /// <param name="lati"></param>
         /// <param name="charge"></param>
         public void addStation(Station s)
-        { 
+        {
+            foreach (Station station in DataSource.stations)
+            {
+                if (ICloneable.Equals(station, s))
+                {
+                    throw new AddException("station already exist");
+                }
+            }
             DataSource.stations.Add(s);
         }
         public  void addDrone(Drone d)
@@ -167,7 +174,8 @@ namespace DalObject
             }
             if (tmp == null)
             {
-                throw new DroneException("id not found");
+ 
+                throw new IDAL.DO.DroneException("id not found");
             }
             return (Drone)tmp;
         }

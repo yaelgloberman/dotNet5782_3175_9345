@@ -64,23 +64,24 @@ namespace ConsoleUI
                                         int id, name, chargeSlots;
                                         double longitude, latitude;
                                         Console.WriteLine("enter a station id");
-                                        int.TryParse(Console.ReadLine(),out id);
+                                        int.TryParse(Console.ReadLine(), out id);
                                         temp.id = id;
                                         Console.WriteLine("enter station name");
-                                        int.TryParse(Console.ReadLine(),out name);
+                                        int.TryParse(Console.ReadLine(), out name);
                                         temp.name = name;
                                         Console.WriteLine("enter longitude");
-                                        double.TryParse(Console.ReadLine(),out longitude);
+                                        double.TryParse(Console.ReadLine(), out longitude);
                                         temp.longitude = longitude;
                                         Console.WriteLine("enter latitude");
                                         double.TryParse(Console.ReadLine(), out latitude);
                                         temp.latitude = latitude;
                                         Console.WriteLine("enter charge slots");
-                                        int.TryParse(Console.ReadLine(), out chargeSlots );
+                                        int.TryParse(Console.ReadLine(), out chargeSlots);
                                         temp.chargeSlots = chargeSlots;
-                                        Data.addStation(temp);
+                                        try { Data.addStation(temp);}
+                                        catch (IDAL.DO.AddException add1) { Console.WriteLine(add1); }
+                                        break;
                                     }
-                                    break;
                                 case CategoryChoice.DRONE:
                                     {
                                         int id;
