@@ -79,7 +79,7 @@ namespace ConsoleUI
                                         int.TryParse(Console.ReadLine(), out chargeSlots);
                                         temp.chargeSlots = chargeSlots;
                                         try { Data.addStation(temp);}
-                                        catch (IDAL.DO.AddException add1) { Console.WriteLine(add1.Message); }
+                                        catch (IDAL.DO.AddException add) { Console.WriteLine(add.Message); }
                                         break;
                                     }
                                 case CategoryChoice.DRONE:
@@ -99,9 +99,8 @@ namespace ConsoleUI
                                         //temp.bateryStatus = bateryStatus;
                                         Console.WriteLine("enter the current drone status");//have to go over to see if i did it right
                                         //temp.status = (IDAL.DO.DroneStatuses)int.Parse(Console.ReadLine());
-                                        Data.addDrone(temp);
-
-      
+                                        try { Data.addDrone(temp); }
+                                        catch (IDAL.DO.AddException add) { Console.WriteLine(add.Message); }
                                     }
                                     break;
                                 case CategoryChoice.CUSTOMER:
@@ -123,7 +122,8 @@ namespace ConsoleUI
                                         Console.WriteLine("enter latitude");
                                         double.TryParse(Console.ReadLine(),out latitude);
                                         temp.latitude = latitude;
-                                        Data.addCustomer(temp);
+                                        try { Data.addCustomer(temp); }
+                                        catch (IDAL.DO.AddException add) { Console.WriteLine(add.Message); }
 
                                     }
                                     break;
@@ -155,7 +155,9 @@ namespace ConsoleUI
                                         temp.pickedUp = DateTime.Parse(Console.ReadLine());
                                         Console.WriteLine("enter the time it was date time ");
                                         temp.delivered = DateTime.Parse(Console.ReadLine());
-                                        Data.addParcel(temp);
+                                        try { Data.addParcel(temp); }
+                                        catch (IDAL.DO.AddException add) { Console.WriteLine(add.Message); }
+                                       
                                     }
                                     break;
                             }
@@ -191,7 +193,8 @@ namespace ConsoleUI
                                         Console.WriteLine("Enter the parcel ID to attribute: ");
                                         input = Console.ReadLine();
                                         int.TryParse(input, out parcelId);
-                                        Data.attribute(droneId, parcelId);  
+                                        try { Data.attribute(droneId, parcelId); }
+                                        catch (IDAL.DO.UpdateException update) { Console.WriteLine(update.Message); }   
                                     }
                                     break;
                                 case update.PickUpPackageByDrone:
@@ -204,7 +207,8 @@ namespace ConsoleUI
                                         Console.WriteLine("Enter the parcel ID: ");
                                         input = Console.ReadLine();
                                         int.TryParse(input, out parcelId);
-                                        Data.PickUpPackageByDrone(droneId, parcelId);
+                                        try { Data.PickUpPackageByDrone(droneId, parcelId); }
+                                        catch (IDAL.DO.UpdateException update) { Console.WriteLine(update.Message); }
                                     }
                                     break;
                                 case update.DeliveryPackageCustomer:
@@ -216,7 +220,8 @@ namespace ConsoleUI
                                         int.TryParse(Console.ReadLine(), out pId);
                                         Console.WriteLine("eneter level of priority");
                                         int.TryParse(Console.ReadLine(),out proirity);
-                                        Data.DeliveryPackageCustomer(Cid,pId, (IDAL.DO.Proirities)proirity);
+                                        try { Data.DeliveryPackageCustomer(Cid, pId,(IDAL.DO.Proirities)proirity); }
+                                        catch (IDAL.DO.UpdateException update) { Console.WriteLine(update.Message); }
                                     }
                                     break;
                                 case update.SendToCharge:
@@ -227,15 +232,18 @@ namespace ConsoleUI
                                         Console.WriteLine("enter the station id that you want to charge your drone at  from the list below:");
                                         foreach (IDAL.DO.Station st in Data.stationList()) { if (st.chargeSlots > 0) Console.WriteLine(st.id + "\n"); }
                                         int.TryParse(Console.ReadLine(),out idStation);
-                                        Data.SendToCharge(droneId,idStation);
+                                        try { Data.SendToCharge(droneId, idStation); }
+                                        catch (IDAL.DO.UpdateException update) { Console.WriteLine(update.Message); }
+                                        
                                     }
                                     break;
                                 case update.releasingDrone:
                                     {
                                         int dId;
-                                        Console.WriteLine("please enter the dones ID number");
+                                        Console.WriteLine("please enter the drone ID number");
                                         int.TryParse(Console.ReadLine(),out dId);
-                                        Data.releasingDrone(Data.findChargedDrone(dId));
+                                        try { Data.releasingDrone(Data.findChargedDrone(dId));}
+                                        catch (IDAL.DO.UpdateException update) { Console.WriteLine(update.Message); }
                                     }
                                     break;
                                 default:
@@ -264,14 +272,10 @@ namespace ConsoleUI
                                         int stationID;
                                         Console.WriteLine("enter the station's id");
                                         int.TryParse(Console.ReadLine(),out stationID);
-                                        IDAL.DO.Station currentStation = new IDAL.DO.Station();
-                                        currentStation = Data.findStation(stationID);
-                                        if (currentStation.id == 0)
-                                            Console.WriteLine("this station dosent exist");
-                                        else
-                                        {
-                                            Console.WriteLine(currentStation.ToString());
-                                        }
+                                        IDAL.DO.Station? currentStation = null; 
+                                        try { currentStation=Data.findStation(stationID); }
+                                        catch (IDAL.DO.findException find) { Console.WriteLine(find.Message); }
+                                        Console.WriteLine(currentStation.ToString());
                                     }
                                     break;
                                 case CategoryChoice.DRONE:
@@ -279,14 +283,10 @@ namespace ConsoleUI
                                         int droneID;
                                         Console.WriteLine("enter the drone's id");                                        
                                         int.TryParse(Console.ReadLine(), out droneID);
-                                        IDAL.DO.Drone currentDrone = new IDAL.DO.Drone();
-                                        currentDrone = Data.findDrone(droneID);
-                                        if (currentDrone.id == 0)
-                                            Console.WriteLine("this drone dosent exist");
-                                        else
-                                        {
-                                            Console.WriteLine(currentDrone.ToString());
-                                        }
+                                        IDAL.DO.Drone? currentDrone = null;
+                                        try { currentDrone = Data.findDrone(droneID); }
+                                        catch (IDAL.DO.findException find) { Console.WriteLine(find.Message); }
+                                        Console.WriteLine(currentDrone.ToString());
                                     }
                                     break;
                                 case CategoryChoice.CUSTOMER:
@@ -295,14 +295,11 @@ namespace ConsoleUI
                                         int customerID;
                                         Console.WriteLine("enter the customer's id");
                                         int.TryParse(Console.ReadLine(), out customerID);
-                                        IDAL.DO.customer currentCustomer = new IDAL.DO.customer();
+                                        IDAL.DO.customer? currentCustomer = null;
                                         currentCustomer = Data.findCustomer(customerID);
-                                        if (currentCustomer.id == 0)
-                                            Console.WriteLine("this customer dosent exist");
-                                        else
-                                        {
-                                            Console.WriteLine(currentCustomer.ToString());
-                                        }
+                                        try { currentCustomer = Data.findCustomer(customerID); }
+                                        catch (IDAL.DO.findException find) { Console.WriteLine(find.Message); }
+                                        Console.WriteLine(currentCustomer.ToString());
                                     }
                                     break;
                                 case CategoryChoice.PARCEL:
@@ -310,14 +307,10 @@ namespace ConsoleUI
                                         int parcelID;
                                         Console.WriteLine("enter the parcel's id");
                                         int.TryParse(Console.ReadLine(), out parcelID);
-                                        IDAL.DO.Parcel currentParcel = new IDAL.DO.Parcel();
-                                        currentParcel = Data.findParcel(parcelID);
-                                        if (currentParcel.id == 0)
-                                            Console.WriteLine("this customer dosent exist");
-                                        else
-                                        {
-                                            Console.WriteLine(currentParcel.ToString());
-                                        }
+                                        IDAL.DO.Parcel? currentParcel = null;
+                                        try { currentParcel = Data.findParcel(parcelID); }
+                                        catch (IDAL.DO.findException find) { Console.WriteLine(find.Message); }
+                                        Console.WriteLine(currentParcel.ToString());
                                     }
                                     break;
                                 default:

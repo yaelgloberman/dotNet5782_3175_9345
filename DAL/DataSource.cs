@@ -22,6 +22,11 @@ namespace DAL
             {
                 internal static int parcelSerial = 0;
                 internal static int numberId;
+                internal static bool available;
+                internal static bool light;
+                internal static bool heavy;
+                internal static bool average;
+                internal static int rateLoadingDrone;
             }
             static Random r = new Random();
             int num = r.Next();
