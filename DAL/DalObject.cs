@@ -302,10 +302,15 @@ namespace DalObject
             return DataSource.chargingDrones.ToList();
         }
         #endregion
+        public double[] useElictrical(Drone d)
+        {
+            double[] arr=new double[] { };
+        }
         /// <summary>
         /// a menue to print in the main to navagte the switch to the correct object
         /// </summary>
         /// <param name="action"></param>
+
         public void MenuPrint(string action)//th menue that helps specify the main action 
         {
             Console.WriteLine($"what would you like to {action}?");
