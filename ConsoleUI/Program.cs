@@ -1,16 +1,22 @@
 ﻿using System;
+using IDAL.DO;
+using DAL.DalObject;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using IDAL;
 namespace ConsoleUI
 {
     public enum MainChoice { add = 1, update, display, list, exit };
     public enum CategoryChoice { STATION = 1, DRONE, CUSTOMER, PARCEL};
     public enum update { attribute = 1, PickUpPackageByDrone, DeliveryPackageCustomer, SendToCharge , releasingDrone };
     public enum  printLists{ STATION = 1, DRONE, CUSTOMER, PARCEL,DISMATCHED_PACKAGES, AVAILABLE_SLOTS }
-  
     class Program
     {
-      //  IDal dal = new DalObject();
-
-       static  DalObject.DalObject Data;
+      
+        //IDAL.IDAl dal = new dalObject();
+        static DalObject.DalObject Data;
         /// <summary>
         /// the program conatins the data of a drones the user enters a number form the menue and  based on his choice could access or change the data about the drones,station,customers or the parcels
         /// </summary>
