@@ -8,8 +8,8 @@ using IDAL.DO;
 using DAL.DalObject;
 namespace DAL
 {
-    namespace IDAL
-    {
+  //  namespace IDAL
+   // {
         interface IDal
         {
           void addStation(Station s);
@@ -38,11 +38,12 @@ namespace DAL
             public IEnumerable<Station> stationList();
             public IEnumerable<Drone> droneList();
             public IEnumerable<customer> customerList();
-           public IEnumerable<Parcel> parcelList(); 
+            public IEnumerable<Parcel> parcelList(); 
             public IEnumerable<droneCharges> chargingDroneList();
-            public double []useElictrical(Drone d);
+            public double [] ChargeCapacity();
 
         }
-    }
+   // }
 
 }
+ #endregion 

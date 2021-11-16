@@ -302,9 +302,10 @@ namespace DalObject
             return DataSource.chargingDrones.ToList();
         }
         #endregion
-        public double[] useElictrical(Drone d)
+        public double[] ChargeCapacity()
         {
-            double[] arr=new double[] { };
+            double[] arr=new double[] { DataSource.Config.available, DataSource.Config.light, DataSource.Config.average, DataSource.Config.heavy, DataSource.Config.rateLoadingDrone};
+            return arr;
         }
         /// <summary>
         /// a menue to print in the main to navagte the switch to the correct object
