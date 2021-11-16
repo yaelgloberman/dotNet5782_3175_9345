@@ -234,7 +234,7 @@ namespace ConsoleUI
                                         int.TryParse(Console.ReadLine(),out idStation);
                                         try { Data.SendToCharge(droneId, idStation); }
                                         catch (IDAL.DO.UpdateException update) { Console.WriteLine(update.Message); }
-                                        
+    
                                     }
                                     break;
                                 case update.releasingDrone:
