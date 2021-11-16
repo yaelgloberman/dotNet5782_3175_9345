@@ -200,7 +200,7 @@ namespace DalObject
         public droneCharges findChargedDrone(int id)//finding a drone in the drone charging list
         {
             droneCharges? tmp = null;
-            foreach (droneCharges d in DataSource.chargingDrones)
+            foreach (droneCharges d in DataSource.chargingDrones)//hi
             {
                 if (d.droneId == id)
                 {
