@@ -22,10 +22,10 @@ namespace DAL
             {
                 internal static int parcelSerial = 0;
                 internal static int numberId;
-                internal static bool available;
-                internal static bool light;
-                internal static bool heavy;
-                internal static bool average;
+                internal static double available;
+                internal static double light;
+                internal static double heavy;
+                internal static double average;
                 internal static int rateLoadingDrone;
             }
             static Random r = new Random();
@@ -69,7 +69,7 @@ namespace DAL
                     {
                         id = r.Next(111111111, 999999999),
                         model = "Model" + i,
-                        maxWeight = (IDAL.DO.WeightCatigories)r.Next(1, 3),
+                        maxWeight = (WeightCatigories)r.Next(1, 3),
                     });
                 }
 
@@ -98,8 +98,8 @@ namespace DAL
                         id = r.Next(111111111, 999999999),
                         senderId = r.Next(111111111, 999999999),
                         targetId = r.Next(111111111, 999999999),
-                        priority = (IDAL.DO.Proirities)r.Next(1, 3),
-                        weight = (IDAL.DO.WeightCatigories)r.Next(1, 3),
+                        priority = (Proirities)r.Next(1, 3),
+                        weight = (WeightCatigories)r.Next(1, 3),
                         droneId = r.Next(0, 999999999),
                         requested = DateTime.Now,
                         scheduled = DateTime.Now,

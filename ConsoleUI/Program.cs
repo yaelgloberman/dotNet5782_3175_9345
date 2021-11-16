@@ -8,6 +8,8 @@ namespace ConsoleUI
   
     class Program
     {
+      //  IDal dal = new DalObject();
+
        static  DalObject.DalObject Data;
         /// <summary>
         /// the program conatins the data of a drones the user enters a number form the menue and  based on his choice could access or change the data about the drones,station,customers or the parcels
@@ -15,6 +17,9 @@ namespace ConsoleUI
      
         static void Main(string[] args)
         {
+           //   = new DalObject.DalObject();       //how do i write this??
+
+           	//dal.interface dal = new DalObject
             Data = new DalObject.DalObject();
             MainChoice choice;
             bool b;
