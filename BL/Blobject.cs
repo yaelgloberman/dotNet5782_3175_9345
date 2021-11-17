@@ -18,7 +18,7 @@ namespace BL
             IDAL.DO.customer Someone;
             try
             {
-                Someone = dal.findCustomer(id);
+                Someone = dal.GetCustomer(id);
             }
             catch (IDAL.DO.findException Fex)
             {
@@ -32,6 +32,10 @@ namespace BL
                 Location = new Location { latitude = Someone.latitude, longitude = Someone.longitude }
 
             };
+
+        }
+        public CustomerInParcel (int id)
+        {
 
         }
     }

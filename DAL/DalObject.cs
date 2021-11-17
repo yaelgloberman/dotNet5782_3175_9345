@@ -77,9 +77,9 @@ namespace DalObject
         {
             IDAL.DO.Parcel tmpP = new Parcel();//creates a new parcel object
             IDAL.DO.Drone tmpD = new Drone();// creates a new drone object 
-            try { tmpD = findDrone(dID); }
+            try { tmpD = GetDrone(dID); }
             catch (findException find) { Console.WriteLine(find.Message); }
-            try { tmpP = findParcel(pID); } //finding the parcel and puting the parcel into tmpP   
+            try { tmpP = GetParcel(pID); } //finding the parcel and puting the parcel into tmpP   
             catch (findException find) { Console.WriteLine(find.Message); }
             DataSource.parcels.RemoveAll(m => m.id == tmpP.id);   //removing all the data from the place in the list the equal to tmpP id
             tmpP.droneId = tmpD.id;        //attribute drones id to parcel 
@@ -88,9 +88,9 @@ namespace DalObject
         }
         public void PickUpPackageByDrone(int dID, int pID)// the function picking up the parcel bt the drone
         {
-            try { findDrone(dID); }
+            try { GetDrone(dID); }
             catch (findException find) { Console.WriteLine(find.Message); }
-            try { findParcel(pID); }
+            try { GetParcel(pID); }
             catch (findException find) { Console.WriteLine(find.Message); }
             for (int i = 0; i < DataSource.parcels.Count; i++)  //iterat that goes through all the parcel list
             {
@@ -112,9 +112,9 @@ namespace DalObject
         }
         public void SendToCharge(int droneId, int stationId)//update function that updates the station and drone when the drone is sent to chatge
         {
-            try { findDrone(droneId); }
+            try { GetDrone(droneId); }
             catch (findException find) { Console.WriteLine(find.Message); }
-            try { findStation(stationId); }
+            try { Station(stationId); }
             catch (findException find) { Console.WriteLine(find.Message); }
             IDAL.DO.droneCharges dCharge = new droneCharges();
             IDAL.DO.Station tmpS = new Station();//creates a new drone object in the drone charges        
@@ -138,9 +138,9 @@ namespace DalObject
             IDAL.DO.Station tmpS = new Station();
 
 
-            try { tmpD = findDrone(dC.droneId); }
+            try { tmpD = GetDrone(dC.droneId); }
             catch (findException find) { Console.WriteLine(find.Message); }
-            try { tmpS = findStation(dC.stationId); }
+            try { tmpS = Station(dC.stationId); }
             catch (findException find) { Console.WriteLine(find.Message); }
             DataSource.drones.RemoveAll(m => m.id == dC.droneId);//removing the parcel with the given id
             DataSource.stations.RemoveAll(s => s.id == dC.stationId);
@@ -161,9 +161,9 @@ namespace DalObject
         {
             IDAL.DO.Parcel tmpP = new Parcel();
             IDAL.DO.customer tmpC = new customer();
-            try { tmpP = findParcel(pId); }
+            try { tmpP = GetParcel(pId); }
             catch (findException find) { Console.WriteLine(find.Message); }
-            try { tmpC = findCustomer(cID); }
+            try { tmpC = GetCustomer(cID); }
             catch (findException find) { Console.WriteLine(find.Message); }
             DataSource.parcels.RemoveAll(m => m.id == tmpP.id);//removing the parcel with the given id
             tmpP.priority = proirity;
@@ -172,14 +172,14 @@ namespace DalObject
             DataSource.parcels.Add(tmpP);
         }
         #endregion
-        #region FIND
-        //********************** finfd function *********************************
+        #region GET
+        //********************** get function *********************************
         /// <summary>
         /// 
         /// </summary>
         /// <param name="id">//recieves an id of an object in the main  based on the users choice of object and returns the object and in the main it porints the infio about the obj</param>
         /// <returns></returns>
-        public Station findStation(int id)//
+        public Station GetStation(int id)//
         {
             Station? tmp = null;
             foreach (Station s in DataSource.stations)
@@ -197,7 +197,7 @@ namespace DalObject
             }
             return (Station)tmp;
         }
-        public droneCharges findChargedDrone(int id)//finding a drone in the drone charging list
+        public droneCharges GetChargedDrone(int id)//finding a drone in the drone charging list
         {
             droneCharges? tmp = null;
             foreach (droneCharges d in DataSource.chargingDrones)//hi
@@ -215,7 +215,7 @@ namespace DalObject
             }
             return (droneCharges)tmp;
         }
-        public Drone findDrone(int id)//function that gets id and finding the drone in the drones list and returns drone 
+        public Drone GetDrone(int id)//function that gets id and finding the drone in the drones list and returns drone 
         {
             Drone? tmp = null;
             foreach (Drone d in DataSource.drones)
@@ -233,7 +233,7 @@ namespace DalObject
             }
             return (Drone)tmp;
         }
-        public customer findCustomer(int id)//function that gets id and finding the customer in the customers list and returns customer
+        public customer GetCustomer(int id)//function that gets id and finding the customer in the customers list and returns customer
         {
             customer? tmp = null;
             foreach (customer c in DataSource.customers)
@@ -250,7 +250,7 @@ namespace DalObject
             }
             return (customer)tmp;
         }
-        public Parcel findParcel(int id)//function that gets id and finding the parcel in the parcels list and returns parcel
+        public Parcel GetParcel(int id)//function that gets id and finding the parcel in the parcels list and returns parcel
         {
             Parcel? tmp = null;
             foreach (Parcel p in DataSource.parcels)
@@ -266,17 +266,6 @@ namespace DalObject
                 throw new UpdateException("parcel does not exist");
             }
             return (Parcel)tmp;
-        }
-        /// <summary>
-        /// retuens the drone 
-        /// </summary>
-        /// <param name="droneId"> recives the drones id from the user in the mian</param>
-        /// <returns></returns>
-        public Drone getDrone(int droneId)
-        {
-            Drone drone = new Drone();
-            drone.id = droneId;
-            return drone;
         }
         #endregion
         #region PRINT

@@ -284,7 +284,7 @@ namespace ConsoleUI
                                         Console.WriteLine("enter the station's id");
                                         int.TryParse(Console.ReadLine(),out stationID);
                                         IDAL.DO.Station? currentStation = null; 
-                                        try { currentStation=Data.findStation(stationID); }
+                                        try { currentStation=Data.Station(stationID); }
                                         catch (IDAL.DO.findException find) { Console.WriteLine(find.Message); }
                                         Console.WriteLine(currentStation.ToString());
                                     }
@@ -295,7 +295,7 @@ namespace ConsoleUI
                                         Console.WriteLine("enter the drone's id");                                        
                                         int.TryParse(Console.ReadLine(), out droneID);
                                         IDAL.DO.Drone? currentDrone = null;
-                                        try { currentDrone = Data.findDrone(droneID); }
+                                        try { currentDrone = Data.GetDrone(droneID); }
                                         catch (IDAL.DO.findException find) { Console.WriteLine(find.Message); }
                                         Console.WriteLine(currentDrone.ToString());
                                     }
@@ -307,8 +307,8 @@ namespace ConsoleUI
                                         Console.WriteLine("enter the customer's id");
                                         int.TryParse(Console.ReadLine(), out customerID);
                                         IDAL.DO.customer? currentCustomer = null;
-                                        currentCustomer = Data.findCustomer(customerID);
-                                        try { currentCustomer = Data.findCustomer(customerID); }
+                                        currentCustomer = Data.GetCustomer(customerID);
+                                        try { currentCustomer = Data.GetCustomer(customerID); }
                                         catch (IDAL.DO.findException find) { Console.WriteLine(find.Message); }
                                         Console.WriteLine(currentCustomer.ToString());
                                     }
@@ -319,7 +319,7 @@ namespace ConsoleUI
                                         Console.WriteLine("enter the parcel's id");
                                         int.TryParse(Console.ReadLine(), out parcelID);
                                         IDAL.DO.Parcel? currentParcel = null;
-                                        try { currentParcel = Data.findParcel(parcelID); }
+                                        try { currentParcel = Data.GetParcel(parcelID); }
                                         catch (IDAL.DO.findException find) { Console.WriteLine(find.Message); }
                                         Console.WriteLine(currentParcel.ToString());
                                     }

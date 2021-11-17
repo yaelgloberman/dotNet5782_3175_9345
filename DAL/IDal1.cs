@@ -16,10 +16,10 @@ namespace IDAL.DO
         void DeliveryPackageCustomer(int cID, int pId, Proirities proirity);
         IEnumerable<Drone> droneList();
         droneCharges findChargedDrone(int id);
-        customer findCustomer(int id);
-        Drone findDrone(int id);
-        Parcel findParcel(int id);
-        Station findStation(int id);
+        customer GetCustomer(int id);
+        Drone GetDrone(int id);
+        Parcel GetParcel(int id);
+        Station Station(int id);
         Drone getDrone(int droneId);
         void MenuPrint(string action);
         IEnumerable<Parcel> parcelList();

@@ -10,6 +10,15 @@
     }
     public enum ParcelStatus
     {
-        Created , Assigned,Picke,Delivered
+        Created, Assigned, Picke, Delivered
+    }
+    public enum DroneStatus
+    {
+        available,charge,forgotTheLastOption
+    }
+
+    public enum BatteryStatus
+    {
+        empty, full, dontk
     }
 }
