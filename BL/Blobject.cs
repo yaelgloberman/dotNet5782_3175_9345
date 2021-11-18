@@ -4,34 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
+using IDAL.DO;
 namespace BL
 {
-    class Blobject
+    public class Blobject
     {
         IDAL.DO.IDal dal;
         public Blobject()
         {
            dal = new DalObject.DalObject();
         }
-        public Customer GetCustomer(int id)
+        public IBL.BO.Customer GetCustomer(int id)
         {
-            IDAL.DO.customer Someone;
+            IBL.BO.Customer Customer = default; 
             try
             {
-                Someone = dal.GetCustomer(id);
+                IDAL.DO.Customer dalCustomer = dal.GetCustomer(id);
             }
             catch (IDAL.DO.findException Fex)
             {
-                throw;
+                throw new BLFindException($"Customer id {id}", Fex);
             }
-            return new Customer
-            {
-                id = Someone.id,
-                Name = Someone.name,
-                phoneNumber = Someone.phoneNumber,
-                Location = new Location { latitude = Someone.latitude, longitude = Someone.longitude }
-
-            };
+            return IDAL.DO.dalCustomer;
 
         }
         public CustomerInParcel (int id)

@@ -13,7 +13,8 @@ namespace IBL.BO
         public Weight weight { set; get; }
         public BatteryStatus batteryStatus { set; get; }
         public DroneStatus droneStatus { set; get; }
-        חבילה בהעברה
+        public CustomerInParcel CustomerInParcel { get; set; }
         public Location currentLocation { get; set; }
     }
+
 }

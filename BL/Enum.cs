@@ -21,4 +21,8 @@
     {
         empty, full, dontk
     }
+    public enum BoolParcelStatus
+    {
+        Awaitingcollection, OnTheWayToDestination
+    }
 }

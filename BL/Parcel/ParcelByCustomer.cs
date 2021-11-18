@@ -12,7 +12,7 @@ namespace   IBL.BO
         public Weight weight { set; get; }
         public Priority priority { set; get; }
         public ParcelStatus parcelStatus { set; get; }
-        public CustomerInParcel customerInParcel { get; set; }
+        public CustomerInParcel CustomerInParcel { get; set; }
 
     }
 }

@@ -11,6 +11,6 @@ namespace IBL.BO
         public int id { get; set; }
         public Weight Weight { get; set; }
         public Priority Priority { get; set; }
-        public CustomerInParcel customerInParcel { get; set; }
+        public CustomerInParcel CustomerInParcel { get; set; }
     }
 }

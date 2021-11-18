@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace DalObject
 {
-    public class DalObject : IDal
+    public class DalObject :IDal
     {
         public DalObject()
         {
@@ -27,47 +27,27 @@ namespace DalObject
         /// 
         #region ADD
         public void addStation(Station s)
-        {
-            foreach (Station station in DataSource.stations)
-            {
-                if (ICloneable.Equals(station.id, s.id))
-                {
-                    throw new AddException("station already exist");
-                }
-            }
+        { 
+          if (!DataSource.Customers.Exists(item => item.id == s.id))
+              throw new AddException("station already exist");
             DataSource.stations.Add(s);
         }
         public void addDrone(Drone d)
-        {
-            foreach (Drone drone in DataSource.drones)
-            {
-                if (ICloneable.Equals(drone.id, d.id))
-                {
-                    throw new AddException("drone already exist");
-                }
-            }
+        { 
+            if (!DataSource.Customers.Exists(item => item.id == d.id))
+                throw new AddException("drone already exist");
             DataSource.drones.Add(d);
         }
-        public void addCustomer(customer c)
+        public void addCustomer(Customer c)
         {
-            foreach (customer custmr in DataSource.customers)
-            {
-                if (ICloneable.Equals(custmr.id, c.id))
-                {
-                    throw new AddException("customer already exist");
-                }
-            }
-            DataSource.customers.Add(c);
+            if (!DataSource.Customers.Exists(item => item.id == c.id))
+                throw new AddException("Customer already exist");
+            DataSource.Customers.Add(c);
         }
         public void addParcel(Parcel p)
         {
-            foreach (Parcel parcel in DataSource.parcels)
-            {
-                if (ICloneable.Equals(parcel.id, p.id))
-                {
-                    throw new AddException("parcel already exist");
-                }
-            }
+            if (!DataSource.Customers.Exists(item => item.id == p.id))
+                throw new AddException("drone already exist");
             DataSource.parcels.Add(p);
         }
         #endregion
@@ -75,28 +55,22 @@ namespace DalObject
         //**************** update functions ***************************
         public void attribute(int dID, int pID)//the function attribute parcel to drone
         {
-            IDAL.DO.Parcel tmpP = new Parcel();//creates a new parcel object
-            IDAL.DO.Drone tmpD = new Drone();// creates a new drone object 
-            try { tmpD = GetDrone(dID); }
-            catch (findException find) { Console.WriteLine(find.Message); }
-            try { tmpP = GetParcel(pID); } //finding the parcel and puting the parcel into tmpP   
-            catch (findException find) { Console.WriteLine(find.Message); }
+            Drone tmpD = GetDrone(dID);
+            Parcel tmpP = GetParcel(pID);
             DataSource.parcels.RemoveAll(m => m.id == tmpP.id);   //removing all the data from the place in the list the equal to tmpP id
             tmpP.droneId = tmpD.id;        //attribute drones id to parcel 
             tmpP.scheduled = DateTime.Now; //changing the time to be right now
             DataSource.parcels.Add(tmpP); //adding to the parcel list tmpP
         }
-        public void PickUpPackageByDrone(int dID, int pID)// the function picking up the parcel bt the drone
+        public void PickUpPackageByDrone(int dID, int pID)// the function picking up the parcel by the drone
         {
-            try { GetDrone(dID); }
-            catch (findException find) { Console.WriteLine(find.Message); }
-            try { GetParcel(pID); }
-            catch (findException find) { Console.WriteLine(find.Message); }
+            GetDrone(dID);
+            GetParcel(pID);
             for (int i = 0; i < DataSource.parcels.Count; i++)  //iterat that goes through all the parcel list
             {
                 if (DataSource.parcels[i].id == pID)// if the pId equal to the parcel list 
                 {
-                    IDAL.DO.Parcel tmpP = DataSource.parcels[i];  //puting into tmpP the parcel that equal to pID
+                    Parcel tmpP = DataSource.parcels[i];  //puting into tmpP the parcel that equal to pID
                     tmpP.pickedUp = DateTime.Now; //changing the time to be right now
                     DataSource.parcels[i] = tmpP;//puting into the parcel list the new tmpP
                 }
@@ -105,19 +79,31 @@ namespace DalObject
             {
                 if (DataSource.drones[i].id == dID) //iterat that goes through all the parcel list
                 {
-                    IDAL.DO.Drone tmpD = DataSource.drones[i];//puting into tmpD the drone that equal to dID
+                    Drone tmpD = DataSource.drones[i];//puting into tmpD the drone that equal to dID
                     DataSource.drones[i] = tmpD; //puting into the drone list the new tmpD
                 }
             }
         }
+        //int index = DataSource.parcels.FindIndex(item => item.id == pID);
+        //if (index == -1)
+        //{
+        //    throw new findException("id");
+        //}
+        //Parcel parcel = DataSource.parcels[index];
+        //parcel.droneId = dID;
+        //parcel.pickedUp = DateTime.Today;
+        //DataSource.parcels[index] = parcel;
+        //int indexDrone = DataSource.drones.FindIndex(item => item.id == dID);
+        //if (indexDrone == -1)
+        //{
+        //    throw new findException("drone");
+        //}
         public void SendToCharge(int droneId, int stationId)//update function that updates the station and drone when the drone is sent to chatge
         {
-            try { GetDrone(droneId); }
-            catch (findException find) { Console.WriteLine(find.Message); }
-            try { Station(stationId); }
-            catch (findException find) { Console.WriteLine(find.Message); }
-            IDAL.DO.droneCharges dCharge = new droneCharges();
-            IDAL.DO.Station tmpS = new Station();//creates a new drone object in the drone charges        
+            GetDrone(droneId); 
+            GetStation(stationId); 
+            droneCharges dCharge = new droneCharges();
+            Station tmpS = new Station();       
             dCharge.stationId = stationId;//maching the drones id
             stationList().ToList().ForEach(s => { if (s.id == stationId) tmpS = s; });
             stationList().ToList().RemoveAll(s => s.id == dCharge.stationId);
@@ -134,14 +120,8 @@ namespace DalObject
         /// <param name="dC"></param>
         public void releasingDrone(droneCharges dC)//update function when we release a drone from its charging slot
         {
-            IDAL.DO.Drone tmpD = new Drone();
-            IDAL.DO.Station tmpS = new Station();
-
-
-            try { tmpD = GetDrone(dC.droneId); }
-            catch (findException find) { Console.WriteLine(find.Message); }
-            try { tmpS = Station(dC.stationId); }
-            catch (findException find) { Console.WriteLine(find.Message); }
+            Drone tmpD = GetDrone(dC.droneId);
+            Station tmpS = GetStation(dC.stationId);
             DataSource.drones.RemoveAll(m => m.id == dC.droneId);//removing the parcel with the given id
             DataSource.stations.RemoveAll(s => s.id == dC.stationId);
             //tmpD.status = DroneStatuses.available;
@@ -157,14 +137,10 @@ namespace DalObject
         /// <param name="cID"></param>
         /// <param name="pId"></param>
         /// <param name="proirity"></param>
-        public void DeliveryPackageCustomer(int cID, int pId, IDAL.DO.Proirities proirity)//updating the drone when irt was called from the customer
+        public void DeliveryPackageCustomer(int cID, int pId, IDAL.DO.Proirities proirity)//updating the drone when irt was called from the Customer
         {
-            IDAL.DO.Parcel tmpP = new Parcel();
-            IDAL.DO.customer tmpC = new customer();
-            try { tmpP = GetParcel(pId); }
-            catch (findException find) { Console.WriteLine(find.Message); }
-            try { tmpC = GetCustomer(cID); }
-            catch (findException find) { Console.WriteLine(find.Message); }
+            Parcel tmpP = GetParcel(pId);
+            Customer tmpC = GetCustomer(cID);
             DataSource.parcels.RemoveAll(m => m.id == tmpP.id);//removing the parcel with the given id
             tmpP.priority = proirity;
             tmpP.targetId = tmpC.id;
@@ -179,7 +155,7 @@ namespace DalObject
         /// </summary>
         /// <param name="id">//recieves an id of an object in the main  based on the users choice of object and returns the object and in the main it porints the infio about the obj</param>
         /// <returns></returns>
-        public Station GetStation(int id)//
+        public Station GetStation(int id)
         {
             Station? tmp = null;
             foreach (Station s in DataSource.stations)
@@ -233,10 +209,10 @@ namespace DalObject
             }
             return (Drone)tmp;
         }
-        public customer GetCustomer(int id)//function that gets id and finding the customer in the customers list and returns customer
+        public Customer GetCustomer(int id)//function that gets id and finding the Customer in the Customers list and returns Customer
         {
-            customer? tmp = null;
-            foreach (customer c in DataSource.customers)
+            Customer? tmp = null;
+            foreach (Customer c in DataSource.Customers)
             {
                 if (c.id == id)
                 {
@@ -246,9 +222,9 @@ namespace DalObject
             }
             if (tmp == null)
             {
-                throw new findException("customer does not exist");
+                throw new findException("Customer does not exist");
             }
-            return (customer)tmp;
+            return (Customer)tmp;
         }
         public Parcel GetParcel(int id)//function that gets id and finding the parcel in the parcels list and returns parcel
         {
@@ -268,7 +244,7 @@ namespace DalObject
             return (Parcel)tmp;
         }
         #endregion
-        #region PRINT
+        #region ReturnList
         //*********************** printing functions ****************************
         public IEnumerable<Station> stationList()
         {
@@ -278,9 +254,9 @@ namespace DalObject
         {
             return DataSource.drones.ToList();
         }
-        public IEnumerable<customer> customerList()
+        public IEnumerable<Customer> CustomerList()
         {
-            return DataSource.customers.ToList();
+            return DataSource.Customers.ToList();
         }
         public IEnumerable<Parcel> parcelList()
         {
@@ -291,6 +267,37 @@ namespace DalObject
             return DataSource.chargingDrones.ToList();
         }
         #endregion
+        #region delete
+        public void deleteCustomer(Customer c)
+        {
+            if(!DataSource.Customers.Exists(item=>item.id==c.id))
+                throw new findException("Customer");
+            DataSource.Customers.Remove(c);
+
+        }
+        public void deleteDrone(Drone d)
+        {
+            if (!DataSource.drones.Exists(item => item.id == d.id))
+                throw new findException("Customer");
+            DataSource.drones.Remove(d);
+
+        }
+        public void deleteParcel(Parcel p)
+        {
+            if (!DataSource.parcels.Exists(item => item.id == p.id))
+                throw new findException("parcel");
+            DataSource.parcels.Remove(p);
+
+        }
+        public void deleteStation(Station s)
+        {
+            if (!DataSource.stations.Exists(item => item.id == s.id))
+                throw new findException("station");
+            DataSource.stations.Remove(s);
+        }
+
+        #endregion
+
         public double[] ChargeCapacity()
         {
             double[] arr = new double[] { DataSource.Config.available, DataSource.Config.light, DataSource.Config.average, DataSource.Config.heavy, DataSource.Config.rateLoadingDrone };
@@ -300,17 +307,16 @@ namespace DalObject
         /// a menue to print in the main to navagte the switch to the correct object
         /// </summary>
         /// <param name="action"></param>
-
         public void MenuPrint(string action)//th menue that helps specify the main action 
         {
             Console.WriteLine($"what would you like to {action}?");
             Console.WriteLine($"enter 1 to {action} station");
             Console.WriteLine($"enter 2 to {action} drones");
-            Console.WriteLine($"enter 3 to {action} customers");
+            Console.WriteLine($"enter 3 to {action} Customers");
             Console.WriteLine($"enter 4 to {action} parcel");
         }
 
     }
 
 
-}
+};

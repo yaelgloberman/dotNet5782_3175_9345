@@ -11,12 +11,12 @@ namespace DAL
         internal class DataSource
         {
             /// <summary>
-            /// creating list from each object . drone,pardel,station,customer,chargingDrones
+            /// creating list from each object . drone,pardel,station,Customer,chargingDrones
             /// </summary>
             internal static List<Drone> drones = new List<Drone>(); 
             internal static List<Parcel> parcels = new List<Parcel>();
             internal static List<Station> stations = new List<Station>();
-            internal static List<customer> customers = new List<customer>();
+            internal static List<Customer> Customers = new List<Customer>();
             internal static List<droneCharges> chargingDrones = new List<droneCharges>();
             internal class Config
             {
@@ -78,7 +78,7 @@ namespace DAL
             {
                 for (int i = 0; i < 100; i++)
                 {
-                    customers.Add(new customer()
+                    Customers.Add(new Customer()
                     {
                         id = r.Next(11111111,99999999),
                         name = "Name" + i,
