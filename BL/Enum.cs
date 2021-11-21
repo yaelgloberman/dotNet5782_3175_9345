@@ -8,18 +8,19 @@
     {
         regular, fast, emergency
     }
+
     public enum ParcelStatus
     {
         Created, Assigned, Picke, Delivered
     }
     public enum DroneStatus
     {
-        available,charge,forgotTheLastOption
+        available,charge,delivery
     }
 
-    public enum BatteryStatus
+    public enum BatteryStatus     //not sure i need this
     {
-        empty, full, dontk
+        empty,average, full       //not sure how to describe average
     }
     public enum BoolParcelStatus
     {

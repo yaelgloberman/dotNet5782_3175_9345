@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IDAL.DO;
-using DalObject;
+using DAL.DalObject;
 using DAL;
 
     namespace DalObject
     {
-        public partial class DalObjectDroneCharge
+        public partial class DalObject
         {
             public droneCharges GetChargedDrone(int id)//finding a drone in the drone charging list
             {
