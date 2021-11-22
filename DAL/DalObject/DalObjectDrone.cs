@@ -46,13 +46,14 @@ namespace DalObject
             droneCharges dCharge = new droneCharges();
             Station tmpS = new Station();
             dCharge.stationId = stationId;//maching the drones id
-            stationList().ToList().ForEach(s => { if (s.id == stationId) tmpS = s; });
-            stationList().ToList().RemoveAll(s => s.id == dCharge.stationId);
+
+            /*stationList().ToList()*/DataSource.stations.ForEach(s => { if (s.id == stationId) tmpS = s; });
+            DataSource.stations.RemoveAll(s => s.id == dCharge.stationId);
             tmpS.chargeSlots--;
-            stationList().ToList().Add(tmpS);
+            DataSource.stations.Add(tmpS);
             dCharge.droneId = droneId;
             dCharge.stationId = stationId;
-            chargingDroneList().ToList().Add(dCharge);//adding the drone to the drone chargiong list
+            DataSource.chargingDrones.Add(dCharge);//adding the drone to the drone chargiong list
         }
         public void releasingDrone(droneCharges dC)//update function when we release a drone from its charging slot
         {
@@ -62,7 +63,7 @@ namespace DalObject
             DataSource.stations.RemoveAll(s => s.id == dC.stationId);
             //tmpD.status = DroneStatuses.available;
             //tmpD.bateryStatus = 100;
-            droneList().ToList().Add(tmpD);
+            DataSource.drones.Add(tmpD);
             tmpS.chargeSlots++;
             stationList().ToList().Add(tmpS);
             DataSource.chargingDrones.Remove(dC);//removing the drone from the drone charging list

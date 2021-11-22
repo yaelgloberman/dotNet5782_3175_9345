@@ -27,6 +27,7 @@ using IDAL.DO;
             void releasingDrone(droneCharges dC);
             void SendToCharge(int droneId, int stationId);
             IEnumerable<Station> stationList();
+            public List<Parcel> UndiliveredParcels();
 
         }
     }
