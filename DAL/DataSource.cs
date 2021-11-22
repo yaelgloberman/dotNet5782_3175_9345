@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace DAL
-{
+//namespace DAL
+//{
     namespace DalObject
     {
         internal class DataSource
@@ -112,6 +112,6 @@ namespace DAL
             }
         }
     }
-}
+//}
 
 

@@ -9,8 +9,9 @@ using DAL;
 
     namespace DalObject
     {
-        public partial class DalObjectDroneCharge
+        public partial class DalObject:IDal
         {
+            
             public droneCharges GetChargedDrone(int id)//finding a drone in the drone charging list
             {
                 droneCharges? tmp = null;

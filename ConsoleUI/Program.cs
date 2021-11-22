@@ -7,12 +7,21 @@ using System.Text;
 using System.Threading.Tasks;
 namespace ConsoleUI
 {
+
     public enum MainChoice { add = 1, update, display, list, exit };
     public enum CategoryChoice { STATION = 1, DRONE, Customer, PARCEL };
     public enum update { attribute = 1, PickUpPackageByDrone, DeliveryPackageCustomer, SendToCharge, releasingDrone };
     public enum printLists { STATION = 1, DRONE, Customer, PARCEL, DISMATCHED_PACKAGES, AVAILABLE_SLOTS }
     class Program
     {
+        public void MenuPrint(string action)//th menue that helps specify the main action 
+        {
+            Console.WriteLine($"what would you like to {action}?");
+            Console.WriteLine($"enter 1 to {action} station");
+            Console.WriteLine($"enter 2 to {action} drones");
+            Console.WriteLine($"enter 3 to {action} Customers");
+            Console.WriteLine($"enter 4 to {action} parcel");
+        }
         static IDAL.DO.IDal dal  =new DalObject.DalObject();
         /// <summary>
         /// the program conatins the dal of a drones the user enters a number form the menue and  based on his choice could access or change the dal about the drones,station,Customers or the parcels
@@ -33,7 +42,6 @@ namespace ConsoleUI
                 Console.WriteLine("press 5 to exit");
                 Console.WriteLine("enter a number between 1-5");
                 s = Console.ReadLine();
-
                 b = int.TryParse(s, out int error);
                 int num;
                 if (b)

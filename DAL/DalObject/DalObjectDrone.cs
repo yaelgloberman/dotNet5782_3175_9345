@@ -1,5 +1,5 @@
 ﻿using IDAL.DO;
-using DAL.DalObject;
+//using DAL.DalObject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using DalObject;
 namespace DalObject
 {
-    public partial class DalObject
+    public partial class DalObject:IDal
     {
         public bool checkDrone(int id)
         {

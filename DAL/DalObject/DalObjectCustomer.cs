@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
     namespace DalObject
     {
-        public partial class DalObject
+        public partial class DalObject :IDal
         {
             public bool checkCustomer(int id)
             {
