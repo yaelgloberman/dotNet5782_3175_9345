@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-using IDAL.DO;
+﻿using System;
+using System.Collections.Generic;
+using System;
  namespace IDAL
  {
     namespace DO
@@ -28,6 +29,10 @@ using IDAL.DO;
             void SendToCharge(int droneId, int stationId);
             IEnumerable<Station> stationList();
             public List<Parcel> UndiliveredParcels();
+            public void deleteDrone(Drone d);
+
+
+
 
         }
     }

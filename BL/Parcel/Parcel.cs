@@ -14,10 +14,6 @@ namespace IBL.BO
         public DateTime scheduled { set; get; }//2-שיוך???
         public DateTime delivered { set; get; }//3-איסוף
         public DateTime pickedUp { set; get; }//4-אספקה 
-       
-
-
-
-
+   
     }
 }

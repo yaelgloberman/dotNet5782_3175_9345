@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace   IBL.BO
+namespace IBL.BO
 {
-    class BaseStation
+    public class BaseStation
     {
         public int id { get; set; }
         public string stationName { set; get; }

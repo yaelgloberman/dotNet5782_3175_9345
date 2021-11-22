@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using DalObject;
 namespace DalObject
 {
+    
     public partial class DalObject:IDal
     {
         public bool checkDrone(int id)
@@ -73,6 +74,13 @@ namespace DalObject
             if (!DataSource.drones.Exists(item => item.id == d.id))
                 throw new findException("Customer");
             DataSource.drones.Remove(d);
+        }
+        public IEnumerable<Drone> droneList()
+        {
+            var list = from drone in DataSource.drones
+                       where (!drone.)
+                       select drone.Clone();
+            return list;
         }
     }
 
