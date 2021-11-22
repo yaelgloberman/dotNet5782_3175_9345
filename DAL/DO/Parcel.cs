@@ -20,6 +20,7 @@ namespace IDAL
             public DateTime scheduled { set; get; }
             public DateTime pickedUp { set; get; }
             public DateTime delivered { set; get; }
+            //public bool isDelivered { get; set; }//not sure if im aloud to add this feature for convienience
             public override string ToString()
             {
                 return string.Format($"Id: {id}, Sender Id: {senderId}, Target Id: {targetId}, Priority: {priority},  Weight Catigory: {weight},Priority: {priority}, Drone Id: {droneId}, Requested: {requested}, Scheduled: {scheduled}, PickedUp: {pickedUp}, Datetime: {delivered}  ");

@@ -10,11 +10,11 @@ namespace IBL.BO
         public  Weight weightCategorie { get; set; }
         public Priority priority { get; set; }
         public DroneInParcel droneInParcel { get; set; }
-        public DateTime requested { set; get; }
-        public DateTime scheduled { set; get; }
-        public DateTime pickedUp { set; get; }
-        public DateTime delivered { set; get; }
-
+        public DateTime requested { set; get; }//1-יצירה
+        public DateTime scheduled { set; get; }//2-שיוך???
+        public DateTime delivered { set; get; }//3-איסוף
+        public DateTime pickedUp { set; get; }//4-אספקה 
+       
 
 
 
