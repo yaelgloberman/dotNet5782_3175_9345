@@ -1,16 +1,14 @@
 ﻿using IDAL.DO;
-using DAL.DalObject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-    namespace DalObject
+namespace DalObject
+{
+    public partial class DalObject : IDal
     {
-    public partial class DalObject
-    {
-        bool flag = false;
         public bool checkParcel(int id)
         {
             return DataSource.parcels.Any(p => p.id == id);
@@ -90,10 +88,10 @@ using System.Threading.Tasks;
         public List<Parcel> UndiliveredParcels()
         {
             List<Parcel> unDeliveredP = new List<Parcel>();
-            DateTime dateTime_Help=new DateTime(0,0,0);
-            foreach(Parcel p in DataSource.parcels)
+            DateTime dateTime_Help = new DateTime(0, 0, 0);
+            foreach (Parcel p in DataSource.parcels)
             {
-                if (p.delivered==dateTime_Help && p.droneId>0)
+                if (p.delivered == dateTime_Help && p.droneId > 0)
                     unDeliveredP.Add(p);
             }
             return unDeliveredP;
@@ -111,5 +109,6 @@ using System.Threading.Tasks;
         //    return deliveredNotPickedUp1;
         //}
     }
+}
    
 
