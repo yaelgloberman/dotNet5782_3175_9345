@@ -61,6 +61,10 @@ namespace DalObject
             tmpP.delivered = DateTime.Now;
             DataSource.parcels.Add(tmpP);
         }
+        public IEnumerable<Parcel> GetParcels()
+        {
+            return DataSource.parcels;
+        }
         public Parcel GetParcel(int id)//function that gets id and finding the parcel in the parcels list and returns parcel
         {
             Parcel? tmp = null;

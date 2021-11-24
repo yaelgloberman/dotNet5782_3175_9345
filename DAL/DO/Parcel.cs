@@ -20,6 +20,8 @@ namespace IDAL
             public DateTime scheduled { set; get; }
             public DateTime pickedUp { set; get; }
             public DateTime delivered { set; get; }
+            public bool isRecived { set; get; }
+            public bool isShipped { get; set; }
             //public bool isDelivered { get; set; }//not sure if im aloud to add this feature for convienience
             public override string ToString()
             {

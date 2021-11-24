@@ -45,7 +45,7 @@ namespace ConsoleUI_BL
                         temp.Location.longitude = longitude;
                         Console.WriteLine("enter latitude");
                         double.TryParse(Console.ReadLine(), out latitude);
-                        temp.Location.latitude = latitude;
+                        temp.location.latitude = latitude;
                         try { bl.addDrone(temp); }
                         catch (IBL.BO.AddException add) { Console.WriteLine(add.Message); }
                     }

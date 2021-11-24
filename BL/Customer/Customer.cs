@@ -11,8 +11,8 @@ namespace IBL.BO
         public int id { get; set; }
         public string Name { get; set; }
         public int phoneNumber { get; set; }
-        public Location Location { get; set; }
-        public List<ParcelCustomer> SentParvels { get; set; }
+        public Location location { get; set; }
+        public List<ParcelCustomer> SentParcels { get; set; }
         public List<ParcelCustomer> ReceiveParcel { get; set; }
 
     }

@@ -18,7 +18,7 @@ namespace DalObject
         }
         public void addDrone(Drone d)
         {
-            if (DataSource.Customers.Exists(item => item.id == d.id))
+            if (DataSource.drones.Exists(item => item.id == d.id))
                 throw new AddException("drone already exist");
             DataSource.drones.Add(d);
         }
@@ -48,7 +48,7 @@ namespace DalObject
             Station tmpS = new Station();
             dCharge.stationId = stationId;//maching the drones id
 
-            /*stationList().ToList()*/DataSource.stations.ForEach(s => { if (s.id == stationId) tmpS = s; });
+            DataSource.stations.ForEach(s => { if (s.id == stationId) tmpS = s; });
             DataSource.stations.RemoveAll(s => s.id == dCharge.stationId);
             tmpS.chargeSlots--;
             DataSource.stations.Add(tmpS);
@@ -75,12 +75,9 @@ namespace DalObject
                 throw new findException("Customer");
             DataSource.drones.Remove(d);
         }
-        public IEnumerable<Drone> droneList()
+        public IEnumerable<Drone> GetDrones()
         {
-            var list = from drone in DataSource.drones
-                       where (!drone.)
-                       select drone.Clone();
-            return list;
+            return DataSource.drones;
         }
     }
 

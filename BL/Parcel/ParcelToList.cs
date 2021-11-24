@@ -9,8 +9,8 @@ namespace IBL.BO
     public class ParcelToList
     {
         public int id { set; get; }
-        public string senderName { set; get; }
-        public string reciveName { set; get; }
+        public int senderName { set; get; }
+        public int reciveName { set; get; }
         public Weight weight { set; get; }
         public Priority priority { set; get; }
         public ParcelStatus parcelStatus { set; get; }

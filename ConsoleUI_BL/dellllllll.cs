@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IBL.BO
+namespace ConsoleUI_BL
 {
-    public class DroneInCharge
+    class dellllllll
     {
-        public int id { get; set; }
-        public double batteryStatus { get; set; }
     }
 }

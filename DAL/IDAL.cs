@@ -15,6 +15,7 @@ using System;
             double[] ChargeCapacity();
             IEnumerable<droneCharges> chargingDroneList();
             IEnumerable<Customer> CustomerList();
+
             void DeliveryPackageCustomer(int cID, int pId, Proirities proirity);
             IEnumerable<Drone> droneList();
             droneCharges GetChargedDrone(int id);
@@ -22,7 +23,15 @@ using System;
             Drone GetDrone(int id);
             Parcel GetParcel(int id);
             Station GetStation(int id);
+            public IEnumerable<Parcel> getCustomerReceivedParcels(int id);
+            public IEnumerable<Parcel> getCustomerShippedParcels(int id);
+            public IEnumerable<droneCharges> GetDroneIdInStation(int id);
+            public IEnumerable<Drone> GetDrones();
+            public IEnumerable<Customer> GetCustomers();
+            public IEnumerable<Station> getStations();
+            public IEnumerable<Parcel> GetParcels();
             void MenuPrint(string action);
+            public string GetCustomerName(int id);
             IEnumerable<Parcel> parcelList();
             void PickUpPackageByDrone(int dID, int pID);
             void releasingDrone(droneCharges dC);
@@ -31,8 +40,7 @@ using System;
             public List<Parcel> UndiliveredParcels();
             public void deleteDrone(Drone d);
 
-
-
+            public int AvailableChargingSlots();
 
         }
     }

@@ -10,10 +10,10 @@ namespace IBL.BO
         public int id { set; get; }
         public int droneModel { get; set; }
         public Weight weight { set; get; }
-        public BatteryStatus batteryStatus { set; get; }
+        public double batteryStatus { set; get; }
         public DroneStatus droneStatus { set; get; }
         public CustomerInParcel CustomerInParcel { get; set; }
-        public Location currentLocation { get; set; }
+        public Location location { get; set; }
         
 
     }

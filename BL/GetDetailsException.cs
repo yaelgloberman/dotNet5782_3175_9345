@@ -17,11 +17,6 @@ namespace BL
         public GetDetailsException(string message, Exception innerException) : base(message, innerException)
         {
         }
-
-        public GetDetailsException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
         protected GetDetailsException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }

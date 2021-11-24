@@ -8,7 +8,7 @@ namespace IBL.BO
     public class DroneInParcel
     {
         public int id { get; set; }
-        public BatteryStatus battery { get; set; }
-        public Location currentLocation { get; set; } //צריך לעבור על הז 
+        public double battery { get; set; }
+        public Location location { get; set; } //צריך לעבור על הז 
     }
 }

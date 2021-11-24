@@ -17,7 +17,6 @@ namespace IDAL
             public override string ToString()
             {
                 return string.Format($"id: {id}, Model: {model}, the max weight: {maxWeight}");
-
             }
         }
     }

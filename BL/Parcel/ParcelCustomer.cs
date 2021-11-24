@@ -9,8 +9,9 @@ namespace IBL.BO
     public class ParcelCustomer
     {
         public int id { get; set; }
-        public Weight Weight { get; set; }
-        public Priority Priority { get; set; }
-        public CustomerInParcel CustomerInParcel { get; set; }
+        public Weight weight { get; set; }
+        public Priority priority { get; set; }
+        public ParcelStatus parcelStatus { get; set; }
+        public CustomerInParcel customerInParcel { get; set; }
     }
 }
