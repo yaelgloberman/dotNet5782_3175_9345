@@ -40,8 +40,9 @@ using System;
             public List<Parcel> UndiliveredParcels();
             public void deleteDrone(Drone d);
             public void deleteParcel(Parcel p);
-  
-                public int AvailableChargingSlots();
+            public void deleteStation(Station s);
+
+            public int AvailableChargingSlots();
 
         }
     }

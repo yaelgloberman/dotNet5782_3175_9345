@@ -12,6 +12,8 @@ namespace IBL.BO
         public int stationName { set; get; }
         public Location location { get; set; }
         public int avilableChargeSlots { get; set; }
+        public void decreasingChargeSlots() { avilableChargeSlots--; }
+        public void addingChargeSlots() { avilableChargeSlots++; }
         public List<DroneInCharge> DroneInChargeList { get; set; }
         
     }

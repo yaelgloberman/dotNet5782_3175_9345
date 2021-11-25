@@ -24,33 +24,33 @@ namespace BL
             initDrone();
         }
 
-        public void deliveryParcelToCustomer(int id)
-        {
-            try
-            {
-                IBL.BO.DroneToList drone = GetDrone(id);
-                IDAL.DO.Parcel parcel = dal.parcelList().ToList().Find(p => p.droneId == id);
-                IDAL.DO.Station station = dal.stationList().ToList().Find(s => s.id == parcel.targetId);
-                if (!(drone.droneStatus == DroneStatus.delivery)) ;   //the drone pickedup but didnt delivert yet
-                throw new ExecutionTheDroneIsntAvilablle();
-                drone.batteryStatus = calcMinBatteryRequired(drone);
-                drone.location.latitude = station.latitude;
-                drone.location.longitude = station.longitude;
-                drone.droneStatus = DroneStatus.available;
-                dal.deleteDrone(dal.GetDrone(id));
-                addDrone(drone, station.id);
-                IBL.BO.Parcel parcelTemp = new IBL.BO.Parcel();
-                parcelTemp.requested = DateTime.Now;   //מה זה זמן אספקה
-                dal.deleteParcel(dal.GetParcel(parcelTemp.id));
-                addParcel(parcelTemp);
+        //public void deliveryParcelToCustomer(int id)
+        //{
+        //    try
+        //    {
+        //        IBL.BO.DroneToList drone = GetDrone(id);
+        //        IDAL.DO.Parcel parcel = dal.parcelList().ToList().Find(p => p.droneId == id);
+        //        IDAL.DO.Station station = dal.stationList().ToList().Find(s => s.id == parcel.targetId);
+        //        if (!(drone.droneStatus == DroneStatus.delivery)) ;   //the drone pickedup but didnt delivert yet
+        //        throw new ExecutionTheDroneIsntAvilablle();
+        //        drone.batteryStatus = calcMinBatteryRequired(drone);
+        //        drone.location.latitude = station.latitude;
+        //        drone.location.longitude = station.longitude;
+        //        drone.droneStatus = DroneStatus.available;
+        //        dal.deleteDrone(dal.GetDrone(id));
+        //        addDrone(drone, station.id);
+        //        IBL.BO.Parcel parcelTemp = new IBL.BO.Parcel();
+        //        parcelTemp.requested = DateTime.Now;   //מה זה זמן אספקה
+        //        dal.deleteParcel(dal.GetParcel(parcelTemp.id));
+        //        addParcel(parcelTemp);
               
-            }
-            catch(findException f)
-            {
-                throw new ExecutionEngineException("rcfci");
-            }
+        //    }
+        //    catch(findException f)
+        //    {
+        //        throw new ExecutionEngineException("rcfci");
+        //    }
            
-        }
+        //}
 
 
         /// im supposed to intialize the new drones in a bl format - but not sure how***********
@@ -101,6 +101,7 @@ namespace BL
             }
         }
         #endregion
+        #region ADD
         #region ADD STATION
         public void addStation(BaseStation stationToAdd)
         {
@@ -228,6 +229,8 @@ namespace BL
             }
         }
         #endregion
+        #endregion
+        #region GET
         #region Get station
         public BaseStation GetStation(int id)
         {
@@ -317,6 +320,42 @@ namespace BL
             }
         }
         #endregion
+        //#region Get Customer Recived Parcel
+        //private IEnumerable<ParcelToList> getCustomerRecivedParcel(int id)
+        //{
+        //    var deliveries = dal.GetParcels()
+        //        .Where(p => p.targetId == id)
+        //        .Select(parcel =>
+        //            new ParcelToList
+        //            {
+        //                id = parcel.id,
+        //                senderName = parcel.senderId,
+        //                reciveName = parcel.targetId,
+        //                weight = (Weight)parcel.weight,
+        //                priority = (Priority)parcel.priority,
+        //            });
+        //    return deliveries;
+        //}
+        #region Get Customer Shipped Parcels
+        private IEnumerable<ParcelCustomer> getCustomerShippedParcels(int id)
+        {
+            var tempParcel = dal.getCustomerShippedParcels(id)
+                .Select(parcel =>
+                    new ParcelCustomer
+                    {
+                        id = parcel.id,
+                        weight = (Weight)parcel.weight,
+                        priority = (Priority)parcel.priority,
+                        parcelStatus = (ParcelStatus)2,
+                        CustomerInParcel = new CustomerInParcel()    //לא יודעת בדיוק מה להציב במשתנים האלו
+                        {
+                            id = parcel.id,   //זה
+                            name = dal.GetCustomerName(id),  //זה
+                        }
+                    });
+            return tempParcel;
+        }
+        #endregion
         #region Get base station location
         private Location getBaseStationLocation(int stationId)
         {
@@ -324,6 +363,8 @@ namespace BL
             return new Location { latitude = station.latitude, longitude = station.longitude };
         }
         #endregion
+        #endregion
+        #region find&delete
         #region find Drone Location
         private Location findDroneLocation(DroneToList drone)
         {
@@ -403,6 +444,8 @@ namespace BL
             catch (deleteException ex) { throw new deleteException("cant delete this drone\n", ex); }
         }
         #endregion
+        #endregion
+        #region HELP FUNCTIONS
         #region Distance Calculation
         private double distanceCalculation(Location from, Location to)
         {
@@ -419,6 +462,7 @@ namespace BL
             return d;
         }
         #endregion
+       
         #region Euclidean Distance
         private double euclideanDistance(Location from, Location to)
         {
@@ -490,43 +534,138 @@ namespace BL
             return 90;
         }
         #endregion
+        #endregion
 
-        //#region Get Customer Recived Parcel
-        //private IEnumerable<ParcelToList> getCustomerRecivedParcel(int id)
-        //{
-        //    var deliveries = dal.GetParcels()
-        //        .Where(p => p.targetId == id)
-        //        .Select(parcel =>
-        //            new ParcelToList
-        //            {
-        //                id = parcel.id,
-        //                senderName = parcel.senderId,
-        //                reciveName = parcel.targetId,
-        //                weight = (Weight)parcel.weight,
-        //                priority = (Priority)parcel.priority,
-        //            });
-        //    return deliveries;
-        //}
-        #region Get Customer Shipped Parcels
-        private IEnumerable<ParcelCustomer> getCustomerShippedParcels(int id)
+        #region UPDATE
+        public void updateDroneName(int droneID, string dModel)
         {
-            var tempParcel = dal.getCustomerShippedParcels(id)
-                .Select(parcel =>
-                    new ParcelCustomer
-                    {
-                        id = parcel.id,
-                        weight = (Weight)parcel.weight,
-                        priority = (Priority)parcel.priority,
-                        parcelStatus = (ParcelStatus)2,
-                        CustomerInParcel = new CustomerInParcel()    //לא יודעת בדיוק מה להציב במשתנים האלו
-                        {
-                            id = parcel.id,   //זה
-                            name = dal.GetCustomerName(id),  //זה
-                        }
-                    });
-            return tempParcel;
+            //	if (dModel > 999 && dModel < 10000)//what is the bdika for the model?
+            {
+                int dIndex = drones.FindIndex(x => x.id == droneID);
+                drones[dIndex].droneModel = dModel;
+            }
+            throw new Exception("the name of the model is not valid\n");//remeber to catch in the main
+
+        }
+        public void updateStation(int stationID, int AvlblDCharges, string Name = " ")
+        {
+            IBL.BO.BaseStation s = GetStation(stationID);
+            if (AvlblDCharges != null || Name != " ")
+            {
+                dal.stationList().ToList().Remove(dal.GetStation(stationID));//not sure if this is how i remove the station im updating
+
+                if (Name != " ")
+                    s.stationName = Name;
+                if (AvlblDCharges != null)
+                {
+                    if (AvlblDCharges < 0)
+                        throw new Exception("this amount of drone choging slots is not valid!\n");
+                    s.avilableChargeSlots = AvlblDCharges;      //i need al the slots not just the available one - not sure what this variable means
+                }
+                addStation(s);
+            }
+
+        }
+        public void updateCustomer(int customerID, string Name = " ", int phoneNum)
+        {
+            IBL.BO.Customer c = GetCustomer(customerID);
+            if (phoneNum != null || Name != " ")
+            {
+                dal.stationList().ToList().Remove(dal.GetStation(customerID));//not sure if this is how i remove the station im updating
+
+                if (Name != " ")
+                    c.Name = Name;
+                if (phoneNum != null)
+                {
+                    if (phoneNum < 0)
+                        throw new Exception("this amount of drone choging slots is not valid!\n");
+                    c.phoneNumber = phoneNum;      //i need al the slots not just the available one - not sure what this variable means
+
+                }
+                addCustomer(c);
+
+            }
+        }
+
+        public void SendToCharge(int droneID, int StationID)//have to send the closest sation that has available sattions
+        {
+            //Location stationLocation= new Location();
+            //stationLocation = findClosetBaseStationLocation(fromLocatable);//not sure where and what its from
+            IBL.BO.BaseStation station = GetStation(StationID);
+            //Location stationLoc = new Location { latitude = station.location, longitude = station.longitude };
+            int droneIndex = drones.FindIndex(x => x.id == droneID);
+            station.decreasingChargeSlots();
+            drones[droneIndex].batteryStatus = calcMinBatteryRequired(drones[droneIndex]);
+            drones[droneIndex].location = station.location;
+            drones[droneIndex].droneStatus = DroneStatus.charge;
+            dal.deleteDrone(dal.GetDrone(droneID));
+            addDrone(drones[droneIndex], StationID);
+            IDAL.DO.droneCharges DC = new droneCharges { droneId = droneID, stationId = StationID };
+            dal.chargingDroneList().ToList().Add(DC);
+
+
+        }
+        public void releasingDrone(int droneID, TimeSpan chargingTime)
+        {
+            int index = drones.FindIndex(x => x.id == droneID);
+            IDAL.DO.droneCharges DC = dal.chargingDroneList().ToList().Find(X => X.droneId == droneID);
+            IBL.BO.BaseStation bstation=GetStation(DC.stationId);
+            dal.deleteStation(dal.GetStation(DC.stationId));
+            bstation.addingChargeSlots();
+            addStation(bstation);
+            dal.chargingDroneList().ToList().Remove(DC);
+.			if (drones[index].droneStatus != DroneStatus.charge)
+                throw new Exception("this drone is not available!\n");
+            //drones[index].batteryStatus = has to calculate based on the amount of time it was charginhg but not so sure what that means...
+            drones[index].droneStatus = DroneStatus.available;
+
+
+        }
+        public void deliveryParcelToCustomer(int id)
+        {
+            try
+            {
+                IBL.BO.DroneToList drone = GetDrone(id);
+                IDAL.DO.Parcel parcel = dal.parcelList().ToList().Find(p => p.droneId == id);
+                IDAL.DO.Station station = dal.stationList().ToList().Find(s => s.id == parcel.targetId);
+                if (!(drone.droneStatus == DroneStatus.delivery)) ;   //the drone pickedup but didnt delivert yet
+                throw new ExecutionTheDroneIsntAvilablle();
+                drone.batteryStatus = calcMinBatteryRequired(drone);
+                drone.location.latitude = station.latitude;
+                drone.location.longitude = station.longitude;
+                drone.droneStatus = DroneStatus.available;
+                dal.deleteDrone(dal.GetDrone(id));
+                addDrone(drone, station.id);
+                IBL.BO.Parcel parcelTemp = new IBL.BO.Parcel();
+                parcelTemp.requested = DateTime.Now;   //מה זה זמן אספקה
+                dal.deleteParcel(dal.GetParcel(parcelTemp.id));
+                addParcel(parcelTemp);
+
+            }
+            catch (findException f)
+            {
+                throw new ExecutionEngineException("rcfci");
+            }
+
         }
         #endregion
+        public void matchingDroneToParcel(int droneID)
+        {
+            IBL.BO.DroneToList drone =GetDrone(droneID);
+            if (drone.droneStatus != DroneStatus.available)
+                throw new Exception("the drone is unavailable\n");
+            bool flag = false;
+            foreach(var p in dal.parcelList())
+            {
+                if (flag == true)
+                    break;
+                //○	בעדיפות הגבוה ביותר
+                if ((int)p.weight <= (int)drone.weight)
+                    flag = true;
+                if()
+
+            }
+        }
     }
 }
 
