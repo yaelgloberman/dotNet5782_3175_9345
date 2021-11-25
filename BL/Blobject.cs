@@ -449,7 +449,7 @@ namespace BL
             if (drone.droneStatus == DroneStatus.available)
             {
                 Location location = findClosetBaseStationLocation(drone.location);
-                return (dal.ChargeCapacit[4] calculationDistance(drone.location, location));
+                return (dal.ChargeCapacity[4] calculationDistance(drone.location, location));
             }
 
             if (drone.droneStatus == DroneStatus.delivery)

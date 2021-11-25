@@ -12,7 +12,7 @@ using System;
             void addParcel(Parcel p);
             void addStation(Station s);
             void attribute(int dID, int pID);
-            double[] ChargeCapacity();
+            public double[] ChargeCapacity();
             IEnumerable<droneCharges> chargingDroneList();
             IEnumerable<Customer> CustomerList();
 
