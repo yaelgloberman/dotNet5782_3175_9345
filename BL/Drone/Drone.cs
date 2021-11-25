@@ -14,7 +14,8 @@ namespace IBL.BO
         public DroneStatus droneStatus { set; get; }
         public CustomerInParcel CustomerInParcel { get; set; }
         public Location location { get; set; }
-        
+       
+
 
     }
 
