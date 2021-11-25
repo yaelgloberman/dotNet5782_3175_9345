@@ -72,7 +72,7 @@ namespace BL
 			}
 		}
 		#endregion
-		#region ADD STATION
+		#region A STATION
 		public void addStation(BaseStation stationToAdd)
 		{
 			List<droneCharges> list = new List<droneCharges>();
@@ -368,5 +368,90 @@ namespace BL
 			catch (deleteException ex) { throw new deleteException("cant delete this drone\n", ex); }
 		}
 		#endregion
+		public void updateDroneName(int droneID, string dModel)
+		{
+		//	if (dModel > 999 && dModel < 10000)//what is the bdika for the model?
+			{
+				int dIndex = drones.FindIndex(x => x.id == droneID);
+				drones[dIndex].droneModel = dModel;
+			}
+			throw new Exception("the name of the model is not valid\n");//remeber to catch in the main
+
+		}
+		public void updateStation(int stationID, int AvlblDCharges, string Name = " ")
+		{
+			IBL.BO.BaseStation s = GetStation(stationID);
+			if (AvlblDCharges != null || Name != " ")
+			{
+				dal.stationList().ToList().Remove(dal.GetStation(stationID));//not sure if this is how i remove the station im updating
+
+				if (Name != " ")
+					s.stationName = Name;
+				if (AvlblDCharges != null)
+				{
+					if (AvlblDCharges < 0)
+						throw new Exception("this amount of drone choging slots is not valid!\n");
+					s.avilableChargeSlots = AvlblDCharges;      //i need al the slots not just the available one - not sure what this variable means
+				}
+				addStation(s);
+			}
+
+		}
+		public void updateCustomer(int customerID, string Name = " ", int phoneNum)
+		{
+			IBL.BO.Customer c = GetCustomer(customerID);
+			if (phoneNum != null || Name != " ")
+			{
+				dal.stationList().ToList().Remove(dal.GetStation(customerID));//not sure if this is how i remove the station im updating
+
+				if (Name != " ")
+					c.Name = Name;
+				if (phoneNum != null)
+				{
+					if (phoneNum < 0)
+						throw new Exception("this amount of drone choging slots is not valid!\n");
+					c.phoneNumber = phoneNum;      //i need al the slots not just the available one - not sure what this variable means
+
+				}
+				addCustomer(c);
+
+			}
+		}
+
+		public void SendToCharge(int droneID, int StationID)//have to send the closest sation that has available sattions
+		{
+			//Location stationLocation= new Location();
+			//stationLocation = findClosetBaseStationLocation(fromLocatable);//not sure where and what its from
+			IBL.BO.BaseStation station = GetStation(StationID);
+			Location stationLoc = new Location { latitude = station.latitude, longitude = station.longitude };
+			int droneIndex = drones.FindIndex(x => x.id == droneID);
+			station.chargeSlots--;
+			drones[droneIndex].batteryStatus = calcMinBatteryRequired(drones[droneIndex]);
+			drones[droneIndex].location = stationLoc;
+			drones[droneIndex].droneStatus = DroneStatus.charge;
+			dal.deleteDrone( dal.GetDrone(droneID);
+			addDrone(drones[droneIndex], StationID);
+			IDAL.DO.droneCharges DC = new droneCharges { droneId = droneID, stationId = StationID };
+			dal.chargingDroneList().ToList().Add(DC);
+
+
+		}
+		public void releasingDrone(int droneID, TimeSpan chargingTime)
+		{
+			int index = drones.FindIndex(x => x.id == droneID);
+			IDAL.DO.droneCharges DC = dal.chargingDroneList().ToList().Find(X => X.droneId == droneID);
+			foreach (var s in dal.stationList())
+			{
+				if (s.id == DC.stationId)
+					s.addingChargeSlot();
+			}
+			dal.chargingDroneList().ToList().Remove(DC);
+.			if (drones[index].droneStatus != DroneStatus.charge)
+				throw new Exception("this drone is not available!\n");
+			//drones[index].batteryStatus = has to calculate based on the amount of time it was charginhg but not so sure what that means...
+			drones[index].droneStatus = DroneStatus.available;
+
+
+		}
 	}
 }
