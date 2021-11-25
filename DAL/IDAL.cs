@@ -22,7 +22,7 @@ using System;
             Customer GetCustomer(int id);
             Drone GetDrone(int id);
             Parcel GetParcel(int id);
-            Station GetStation(int id);
+           public Station GetStation(int id);
             public IEnumerable<Parcel> getCustomerReceivedParcels(int id);
             public IEnumerable<Parcel> getCustomerShippedParcels(int id);
             public IEnumerable<droneCharges> GetDroneIdInStation(int id);
@@ -39,8 +39,9 @@ using System;
             IEnumerable<Station> stationList();
             public List<Parcel> UndiliveredParcels();
             public void deleteDrone(Drone d);
-
-            public int AvailableChargingSlots();
+            public void deleteParcel(Parcel p);
+  
+                public int AvailableChargingSlots();
 
         }
     }

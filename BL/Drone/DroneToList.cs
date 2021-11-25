@@ -15,5 +15,7 @@ namespace IBL.BO
         public DroneStatus droneStatus { set; get; }
         public Location location { get; set; }
         public int numOfDeliverdParcels { set; get; }
+        public int deliveryId { get; set; }
     }
+
 }
