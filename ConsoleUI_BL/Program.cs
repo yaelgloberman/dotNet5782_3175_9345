@@ -22,6 +22,7 @@ namespace ConsoleUI_BL
             switch (choice)
             {
                 case MainChoice.station:
+
                     break;
                 case MainChoice.drone:
                     break;

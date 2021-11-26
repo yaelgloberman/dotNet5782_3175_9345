@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
-using IDAL.DO; //yael
+using IDAL.DO;
+
 namespace BL
 {
     public class Blobject : IBl
@@ -298,7 +299,35 @@ namespace BL
                 throw new GetDetailsException("Can't get this drone", ex);
             }
         }
+        public IBL.BO.Parcel GetParcel(int id)
+        {
+            try
+            {
+                IBL.BO.Parcel parcel = new IBL.BO.Parcel();
+                IDAL.DO.Parcel dalParcel = new IDAL.DO.Parcel();
+                dalParcel= dal.GetParcel(id);
+                parcel.id = dalParcel.id;
+               parcel.priority = (IBL.BO.Priority)dalParcel.priority;
+                parcel.recive = new CustomerInParcel { id = dalParcel.id, name=dal.GetCustomerName(dalParcel.targetId)};
+                parcel.requested = dalParcel.requested;
+                parcel.scheduled = dalParcel.scheduled;
+                parcel.sender = new CustomerInParcel{ id = dalParcel.id, name=dal.GetCustomerName(dalParcel.senderId)};
+                return parcel;
+            }
+            catch (IDAL.DO.findException Fex)
+            {
+                throw new BLFindException($"Parcel id: {id}", Fex);
+            }
+        }
         #endregion
+        #region GetParcels
+        public List<IBL.BO.Parcel> GetParcels()
+        {
+            List<IBL.BO.Parcel> parcels = new List<IBL.BO.Parcel>();
+            foreach (var p in dal.parcelList())
+            { parcels.Add(GetParcel(p.id)); }
+            return parcels;
+        }
         #region Get Customer
         public IBL.BO.Customer GetCustomer(int id)
         {
@@ -649,20 +678,37 @@ namespace BL
 
         }
         #endregion
-        public void matchingDroneToParcel(int droneID)
+        public void matchingDroneToParcel(int droneID)//didnt finish this function at all 
         {
             IBL.BO.DroneToList drone =GetDrone(droneID);
+            //finding the best parcel
             if (drone.droneStatus != DroneStatus.available)
                 throw new Exception("the drone is unavailable\n");
             bool flag = false;
-            foreach(var p in dal.parcelList())
+            List<IBL.BO.Parcel> tempParcels = new List<IBL.BO.Parcel>();
+            tempParcels = GetParcels();
+            tempParcels = tempParcels.FindAll(x => x.priority == Priority.emergency) ;///figure out  awayto check if there was no emergencies
+            //
+            tempParcels.FindAll(x => x.priority == Priority.fast);
+            tempParcels = tempParcels.FindAll(x => (int)x.weightCategorie <= (int)drone.weight);
+            tempParcels = tempParcels.FindAll(x => x.priority == Priority.emergency);
+            tempParcels = tempParcels.FindAll(x => x.priority == Priority.emergency);
+            tempParcels = tempParcels.FindAll(x => x.priority == Priority.emergency);
+            IBL.BO.Parcel theparcel = tempParcels[0];
+                
+            // the actual update
+            if (tempParcels.Count() == 0)
             {
-                if (flag == true)
-                    break;
-                //○	בעדיפות הגבוה ביותר
-                if ((int)p.weight <= (int)drone.weight)
-                    flag = true;
-                if()
+                IBL.BO.Parcel ChosenParcel = tempParcels[0];
+                drone.droneStatus = DroneStatus.delivery;
+                dal.deleteDrone(dal.GetDrone(droneID));
+                addDrone(drone,dal.GetStation(ChosenParcel.recive.id).id);
+                IBL.BO.DroneInParcel droneInParcel = new DroneInParcel { id = droneID, battery = drone.batteryStatus, location = drone.location };
+                ChosenParcel.droneInParcel = droneInParcel;
+                ChosenParcel.scheduled = DateTime.Now;//notsure which one is זמן השיוך
+                dal.deleteParcel(dal.GetParcel(ChosenParcel.id));
+                addParcel(ChosenParcel);
+            }
 
             }
         }
