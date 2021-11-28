@@ -10,10 +10,11 @@ namespace IBL.BO
     {
         public int id { set; get; }
         public int senderName { set; get; }
-        public int reciveName { set; get; }
+        public int receiveName { set; get; }
         public Weight weight { set; get; }
         public Priority priority { set; get; }
         public ParcelStatus parcelStatus { set; get; }
+
 
     }
 }

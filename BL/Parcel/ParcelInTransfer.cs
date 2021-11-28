@@ -13,7 +13,7 @@ namespace IBL.BO
         public Priority priority { get; set; }
         public Weight weight { get; set; }
         public CustomerInParcel sender { set; get; }
-        public CustomerInParcel recive { set; get; }
+        public CustomerInParcel receive { set; get; }
         public Location collection { get; set; }
         public Location DeliveryDestination { get; set; }
         public double TransportDistance { get; set; }

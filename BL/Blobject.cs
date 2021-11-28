@@ -204,15 +204,15 @@ namespace BL
         {
             if (!(parcelToAdd.sender.id >= 10000000 && parcelToAdd.sender.id <= 1000000000))
                 throw new AddException("the id sender number of the pardel is invalid\n");
-            if (!(parcelToAdd.recive.id >= 10000000 && parcelToAdd.recive.id <= 1000000000))
-                throw new AddException("the id recive number of the parcel is invalid\n");
+            if (!(parcelToAdd.receive.id >= 10000000 && parcelToAdd.receive.id <= 1000000000))
+                throw new AddException("the id receive number of the parcel is invalid\n");
             if (!(parcelToAdd.weightCategorie > (Weight)0 && parcelToAdd.weightCategorie < (Weight)3))
                 throw new AddException("the given weight is not valid\n");
             if (!(parcelToAdd.priority > (Priority)0 && parcelToAdd.priority < (Priority)3))
                 throw new AddException("the given priority is not valid\n");
             IDAL.DO.Parcel parcelDo = new IDAL.DO.Parcel();
             parcelDo.senderId = parcelToAdd.sender.id;
-            parcelDo.targetId = parcelToAdd.recive.id;
+            parcelDo.targetId = parcelToAdd.receive.id;
             parcelDo.weight = (WeightCatigories)parcelToAdd.weightCategorie;
             parcelDo.priority = (Proirities)parcelToAdd.priority;
             parcelDo.requested = DateTime.Now;//נראלי שזה נחשב ליצירה
@@ -308,7 +308,7 @@ namespace BL
                 dalParcel= dal.GetParcel(id);
                 parcel.id = dalParcel.id;
                parcel.priority = (IBL.BO.Priority)dalParcel.priority;
-                parcel.recive = new CustomerInParcel { id = dalParcel.id, name=dal.GetCustomerName(dalParcel.targetId)};
+                parcel.receive = new CustomerInParcel { id = dalParcel.id, name=dal.GetCustomerName(dalParcel.targetId)};
                 parcel.requested = dalParcel.requested;
                 parcel.scheduled = dalParcel.scheduled;
                 parcel.sender = new CustomerInParcel{ id = dalParcel.id, name=dal.GetCustomerName(dalParcel.senderId)};
@@ -359,7 +359,7 @@ namespace BL
         //            {
         //                id = parcel.id,
         //                senderName = parcel.senderId,
-        //                reciveName = parcel.targetId,
+        //                receiveName = parcel.targetId,
         //                weight = (Weight)parcel.weight,
         //                priority = (Priority)parcel.priority,
         //            });
@@ -702,7 +702,7 @@ namespace BL
                 IBL.BO.Parcel ChosenParcel = tempParcels[0];
                 drone.droneStatus = DroneStatus.delivery;
                 dal.deleteDrone(dal.GetDrone(droneID));
-                addDrone(drone,dal.GetStation(ChosenParcel.recive.id).id);
+                addDrone(drone,dal.GetStation(ChosenParcel.receive.id).id);
                 IBL.BO.DroneInParcel droneInParcel = new DroneInParcel { id = droneID, battery = drone.batteryStatus, location = drone.location };
                 ChosenParcel.droneInParcel = droneInParcel;
                 ChosenParcel.scheduled = DateTime.Now;//notsure which one is זמן השיוך
