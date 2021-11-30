@@ -10,5 +10,9 @@ namespace IBL.BO
         public int id { get; set; }
         public double battery { get; set; }
         public Location location { get; set; } //צריך לעבור על הז 
+        public override string ToString()
+        {
+            return String.Format($"drone id:{id}, battery: {battery}, location: {location}\n ");
+        }
     }
 }

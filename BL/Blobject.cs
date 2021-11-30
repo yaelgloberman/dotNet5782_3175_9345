@@ -94,7 +94,7 @@ namespace BL
                     }
                     if (d.droneStatus == DroneStatus.available)
                     {
-                        droneIndex = rand.Next(a);
+                        droneIndex = rand.Next();
                         // 	מיקומו יוגרל בין לקוחות שיש חבילות שסופקו להם 
                         tempD.batteryStatus = rand.Next(40, 100);//not sure if its supposed to be enum or double
                     }
@@ -321,6 +321,27 @@ namespace BL
         }
         #endregion
         #region GetParcels
+        public List<IBL.BO.BaseStation> GetStations()
+        {
+            List<IBL.BO.BaseStation> baseStations = new List<IBL.BO.BaseStation>();
+            foreach (var s in dal.stationList())
+            { baseStations.Add(GetStation(s.id)); }
+            return baseStations;
+        }
+        public List<IBL.BO.DroneToList> GetDrones()//all the drones to list i hope thats ok
+        {
+            List<IBL.BO.DroneToList> drones = new List<IBL.BO.DroneToList>();
+            foreach (var d in dal.droneList())
+            { drones.Add(GetDrone(d.id)); }
+            return drones;
+        }
+        public List<IBL.BO.Customer> GetCustomer()
+        {
+            List<IBL.BO.Customer> customers = new List<IBL.BO.Customer>();
+            foreach (var c in dal.CustomerList())
+            { customers.Add(GetCustomer(c.id)); }
+            return customers;
+        }
         public List<IBL.BO.Parcel> GetParcels()
         {
             List<IBL.BO.Parcel> parcels = new List<IBL.BO.Parcel>();
@@ -522,7 +543,7 @@ namespace BL
             if (drone.droneStatus == DroneStatus.available)
             {
                 Location location = findClosetBaseStationLocation(drone.location);
-                return (dal.ChargeCapacity[4] calculationDistance(drone.location, location));
+                return (dal.ChargeCapacity[4], calculationDistance(drone.location, location));
             }
 
             if (drone.droneStatus == DroneStatus.delivery)
@@ -595,16 +616,16 @@ namespace BL
             }
 
         }
-        public void updateCustomer(int customerID, string Name = " ", int phoneNum)
+        public void updateCustomer(int customerID, string Name = " ", int phoneNum=0)
         {
             IBL.BO.Customer c = GetCustomer(customerID);
-            if (phoneNum != null || Name != " ")
+            if (phoneNum != 0 || Name != " ")
             {
                 dal.stationList().ToList().Remove(dal.GetStation(customerID));//not sure if this is how i remove the station im updating
 
                 if (Name != " ")
                     c.Name = Name;
-                if (phoneNum != null)
+                if (phoneNum != 0)
                 {
                     if (phoneNum < 0)
                         throw new Exception("this amount of drone choging slots is not valid!\n");
@@ -680,14 +701,14 @@ namespace BL
         #endregion
         public void matchingDroneToParcel(int droneID)//didnt finish this function at all 
         {
-            IBL.BO.DroneToList drone =GetDrone(droneID);
+            IBL.BO.DroneToList drone = GetDrone(droneID);
             //finding the best parcel
             if (drone.droneStatus != DroneStatus.available)
                 throw new Exception("the drone is unavailable\n");
             bool flag = false;
             List<IBL.BO.Parcel> tempParcels = new List<IBL.BO.Parcel>();
             tempParcels = GetParcels();
-            tempParcels = tempParcels.FindAll(x => x.priority == Priority.emergency) ;///figure out  awayto check if there was no emergencies
+            tempParcels = tempParcels.FindAll(x => x.priority == Priority.emergency);///figure out  awayto check if there was no emergencies
             //
             tempParcels.FindAll(x => x.priority == Priority.fast);
             tempParcels = tempParcels.FindAll(x => (int)x.weightCategorie <= (int)drone.weight);
@@ -695,23 +716,22 @@ namespace BL
             tempParcels = tempParcels.FindAll(x => x.priority == Priority.emergency);
             tempParcels = tempParcels.FindAll(x => x.priority == Priority.emergency);
             IBL.BO.Parcel theparcel = tempParcels[0];
-                
+
             // the actual update
             if (tempParcels.Count() == 0)
             {
                 IBL.BO.Parcel ChosenParcel = tempParcels[0];
                 drone.droneStatus = DroneStatus.delivery;
                 dal.deleteDrone(dal.GetDrone(droneID));
-                addDrone(drone,dal.GetStation(ChosenParcel.receive.id).id);
+                addDrone(drone, dal.GetStation(ChosenParcel.receive.id).id);
                 IBL.BO.DroneInParcel droneInParcel = new DroneInParcel { id = droneID, battery = drone.batteryStatus, location = drone.location };
                 ChosenParcel.droneInParcel = droneInParcel;
                 ChosenParcel.scheduled = DateTime.Now;//notsure which one is זמן השיוך
                 dal.deleteParcel(dal.GetParcel(ChosenParcel.id));
                 addParcel(ChosenParcel);
             }
-
-            }
         }
     }
 }
 
+#endregion

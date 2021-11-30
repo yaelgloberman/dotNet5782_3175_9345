@@ -9,6 +9,11 @@ namespace IBL.BO
     {
         public double latitude { get; set; }
         public double longitude { get; set; }
+        public override string ToString()
+        {
+         return string.Format($" latitude: {latitude}, longitude: {longitude}\n  ");/// didnt include the last 2 lists in the 2 string
+
+        }
 
     }
 }

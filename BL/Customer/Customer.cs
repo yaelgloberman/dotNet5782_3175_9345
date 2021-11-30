@@ -14,7 +14,13 @@ namespace IBL.BO
         public Location location { get; set; }
         public List<ParcelCustomer> SentParcels { get; set; }
         public List<ParcelCustomer> ReceiveParcel { get; set; }
-        
+                    public override string ToString()
+            { 
+                return string.Format($"id: {id}, Name: {Name}, Phone Number: {phoneNumber}, Location: {location.ToString()} ");/// didnt include the last 2 lists in the 2 string
+                                                                                                                       //we need to work on that 
+
+            }
+
 
     }
 }
