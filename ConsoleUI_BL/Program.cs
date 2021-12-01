@@ -16,8 +16,8 @@ namespace ConsoleUI_BL
     public enum updateParcel { attributeParcelToDrone=1, pickedUpParcelByDrone }
     class Program
     {
-         static IBL.BO.IBl bl = new BL.Blobject();
-         static IDAL.DO.IDal dal = new DalObject.DalObject();
+        static IBL.IBl bl= new BL.Blobject();
+        static IDAL.DO.IDal dal = new DalObject.DalObject();
         static void main(string[] args)
         {
 
@@ -44,7 +44,7 @@ namespace ConsoleUI_BL
                 case MainChoice.station:
                     {
                         objectChoice choice1;
-                        b = int.TryParse(s, out int error);
+                        b = int.TryParse(s, out error);
                         if (b)
                             num = int.Parse(s);
                         else
@@ -55,14 +55,15 @@ namespace ConsoleUI_BL
                             case objectChoice.add:
                                 {
                                     IBL.BO.BaseStation temp = new IBL.BO.BaseStation();
-                                    int id, name, chargeSlots;
+                                    int id, chargeSlots;
+                                    string name;
                                     double longitude, latitude;
                                     IBL.BO.Location stationLoc = new Location();
                                     Console.WriteLine("enter a station id");
                                     int.TryParse(Console.ReadLine(), out id);
                                     temp.id = id;
                                     Console.WriteLine("enter station name");
-                                    int.TryParse(Console.ReadLine(), out name);
+                                    name = Console.ReadLine();
                                     temp.stationName = name;
                                     Console.WriteLine("enter longitude");
                                     double.TryParse(Console.ReadLine(), out longitude);
@@ -75,7 +76,7 @@ namespace ConsoleUI_BL
                                     int.TryParse(Console.ReadLine(), out chargeSlots);
                                     temp.avilableChargeSlots = chargeSlots;
                                     try { bl.addStation(temp); }
-                                    catch (IBL.BO.AddException add) { Console.WriteLine(add.Message); }
+                                    catch (AlreadyExistException add) { Console.WriteLine(add.Message); }
                                     break;
                                 }
                                 break;
@@ -93,9 +94,9 @@ namespace ConsoleUI_BL
                                     input = Console.ReadLine();
                                     int.TryParse(input, out AmountOfChargingSlots);
                                     try { bl.updateStation(stationID, AmountOfChargingSlots, stationName); }
-                                    catch (IBL.BO.updateExeption update)
+                                    catch (validException exp)
                                     {
-                                        Console.WriteLine(update.Message);
+                                        Console.WriteLine(exp.Message);
                                     }                   
                                 }
                                 break;
@@ -106,7 +107,7 @@ namespace ConsoleUI_BL
                                     Console.WriteLine("please enter the drone ID:");
                                     stationID = int.Parse(Console.ReadLine());
                                     try { baseStation = bl.GetStation(stationID); Console.WriteLine(baseStation.ToString()); }
-                                    catch (IBL.BO.findException find) { Console.WriteLine(find.Message); }
+                                    catch (dosntExisetException exp) { Console.WriteLine(exp.Message); }
                                 }
 
                                 break;
@@ -125,33 +126,32 @@ namespace ConsoleUI_BL
                 case MainChoice.drone:
                     {
                         objectChoice choice1;
-                        b = int.TryParse(s, out int error);
+                        b = int.TryParse(s, out error);
                         if (b)
                             num = int.Parse(s);
                         else
                             num = -1;
                         choice1 = (objectChoice)num;
-                        switch (choice1)
-                        {
+                    switch (choice1)
+                    {
                             case objectChoice.add:
                                 {
-                                    int id;
+                                    int droneId, stationId;
+                                    string droneModel;
                                     double bateryStatus;
-                                    IBL.BO.Drone temp = new IBL.BO.Drone();
-                                    Console.WriteLine("enter a drone  id");
-                                    int.TryParse(Console.ReadLine(), out id);
-                                    temp.id = id;
+                                    IBL.BO.DroneToList temp = new IBL.BO.DroneToList();
+                                    Console.WriteLine("enter a drone id");
+                                    int.TryParse(Console.ReadLine(), out droneId);
+                                    temp.id = droneId;
                                     Console.WriteLine("enter Model");
-                                    temp.droneModel = int.Parse(Console.ReadLine());
+                                    droneModel = Console.ReadLine();
+                                    temp.droneModel = droneModel;
                                     Console.WriteLine("enter  a number from 1-3 describing its max weight, 3 is the heaviest");//go over the phraising
                                     temp.weight = (IBL.BO.Weight)int.Parse(Console.ReadLine());
-                                    Console.WriteLine("enter the batery status");
-                                    double.TryParse(Console.ReadLine(), out bateryStatus);
-                                    temp.batteryStatus = bateryStatus;
-                                    Console.WriteLine("enter the current drone status");//have to go over to see if i did it right
-                                                                                        //temp.status = (IDAL.DO.DroneStatuses)int.Parse(Console.ReadLine());
-                                    try { bl.addDrone(temp); }
-                                    catch (IDAL.DO.AddException add) { Console.WriteLine(add.Message); }
+                                    Console.WriteLine("enter a station id");
+                                    int.TryParse(Console.ReadLine(), out stationId);
+                                    try { bl.addDrone(temp,stationId); }
+                                    catch (AlreadyExistException exp) { Console.WriteLine(exp.Message); }
                                 }
                                 break;
                             case objectChoice.update:
@@ -188,25 +188,28 @@ namespace ConsoleUI_BL
                                                 {
                                                     bl.updateDroneName(droneId, droneModel);
                                                 }
-                                                catch (IBL.BO.updateExeption update)
+                                                catch (validException exp)
                                                 {
-                                                    Console.WriteLine(update.Message);
+                                                    Console.WriteLine(exp.Message);
                                                 }
                                             }
                                             break;
                                         case updateDrone.sendToCharge:
                                             {
-                                                //זה פונקציה ששולחת רחפן לטעינה
-
+                                             
                                                 int droneId;
+                                                int stationId;
                                                 Console.WriteLine("enter drone id\n");
                                                 string input = Console.ReadLine();
                                                 int.TryParse(input, out droneId);
                                                 DroneToList d = bl.GetDrone(droneId);
-                                                try { bl.SendToCharge(droneId, station); }
-                                                catch (IBL.BO.updateExeption update)
+                                                Console.WriteLine("enter station id\n");
+                                                input = Console.ReadLine();
+                                                int.TryParse(input, out stationId);
+                                                try { bl.SendToCharge(droneId, stationId); }
+                                                catch (dosntExisetException exp)
                                                 {
-                                                    Console.WriteLine(update.Message);
+                                                    Console.WriteLine(exp.Message);
                                                 }
                                             }
                                             break;
@@ -220,9 +223,9 @@ namespace ConsoleUI_BL
                                                 input = Console.ReadLine();
                                                 TimeSpan.TryParse(input, out chargingTime);
                                                 try { bl.releasingDrone(droneId, chargingTime); }
-                                                catch (IBL.BO.updateExeption update)
+                                                catch (dosntExisetException exp)
                                                 {
-                                                    Console.WriteLine(update.Message);
+                                                    Console.WriteLine(exp.Message);
                                                 }
                                             }
                                             break;
@@ -243,13 +246,17 @@ namespace ConsoleUI_BL
                                     IBL.BO.Drone currentDrone = new IBL.BO.Drone();
                                     Console.WriteLine("please enter the drone ID:");
                                     DroneID = int.Parse(Console.ReadLine());
-                                    try { currentDrone = bl.GetStation(DroneID); Console.WriteLine(currentDrone.ToString()); }
+                                    try
+                                    { 
+                                        currentDrone = bl.GetStation(DroneID);
+                                        Console.WriteLine(currentDrone.ToString()); 
+                                    }
                                     catch (IDAL.DO.findException find) { Console.WriteLine(find.Message); }
                                 }
                                 break;
                             case objectChoice.lists:
                                 {
-                                    foreach (var d in bl.getDrones()) { Console.WriteLine(d.ToString() + "\n"); }
+                                    foreach (var d in bl.GetDrones()) { Console.WriteLine(d.ToString() + "\n"); }
                                 }
                                 break;
                             default:
@@ -261,7 +268,7 @@ namespace ConsoleUI_BL
                     {
                         objectChoice choice1;
                         bool isB;
-                        isB = int.TryParse(s, out int error);
+                        isB = int.TryParse(s, out error);
                         if (b)
                             num = int.Parse(s);
                         else
@@ -291,8 +298,8 @@ namespace ConsoleUI_BL
                                     double.TryParse(Console.ReadLine(), out latitude);
                                     customerLoc.latitude = latitude;
                                     temp.location = customerLoc;
-                                    try { bl.addDrone(temp); }
-                                    catch (IBL.BO.AddException add) { Console.WriteLine(add.Message); }
+                                    try { bl.addCustomer(temp); }
+                                    catch (AlreadyExistException exp) { Console.WriteLine(exp.Message); }
                                 }
                                 break;
                             case objectChoice.update:
@@ -301,7 +308,7 @@ namespace ConsoleUI_BL
                                     Console.WriteLine($"enter 1 to update customer ");
                                     Console.WriteLine("enter 2 to delivery parcel to customer ");
                                     s=Console.ReadLine();
-                                    b = int.TryParse(s, out int error);
+                                    b = int.TryParse(s, out error);
                                     if (b)
                                         num = int.Parse(s);
                                     else
@@ -325,6 +332,10 @@ namespace ConsoleUI_BL
                                                 {
                                                     bl.updateCustomer(customerId, customerName, phoneNumber);
                                                 }
+                                                catch(validException exp)
+                                                {
+                                                    Console.WriteLine(exp.Message);
+                                                }
                                             }
                                             break;
                                         case updateCustomer.deliveryParcelToCustomer:
@@ -334,35 +345,34 @@ namespace ConsoleUI_BL
                                                 string input = Console.ReadLine();
                                                 int.TryParse(input, out droneId);
                                                 try { bl.deliveryParcelToCustomer(droneId); }
-                                                catch (IBL.BO.updateExeption update)
+                                                catch (dosntExisetException exp)
                                                 {
-                                                    Console.WriteLine(update.Message);
+                                                    Console.WriteLine(exp.Message);
                                                 }
                                             }
                                             break;
                                         default:
                                             break;
                                     }
-                                 
                                 }
                                 break;  
-                                
-                                break;
                             case objectChoice.retrieve:
                                 {
                                     int customerID;
-                                    IBL.BO.Customer currentCustomer = new Customer();
+                                    IBL.BO.Customer currentCustomer = new IBL.BO.Customer();
                                     Console.WriteLine("please enter the customers ID:");
                                     customerID = int.Parse(Console.ReadLine());
-                                    try { currentCustomer = bl.GetStation(customerID); Console.WriteLine(currentCustomer.ToString()); }
+                                    try 
+                                    {
+                                        currentCustomer = bl.GetStation(customerID);
+                                        Console.WriteLine(currentCustomer.ToString()); 
+                                    }
                                     catch (IDAL.DO.findException find) { Console.WriteLine(find.Message); }
-
-
                                 }
                                 break;
                             case objectChoice.lists:
                                 {
-                                    foreach (var c in bl.getCustomers()) { Console.WriteLine(c.ToString() + "\n"); }
+                                    foreach (var c in bl.GetCustomer()) { Console.WriteLine(c.ToString() + "\n"); }
                                 }
                                 break;
                             default:
@@ -373,7 +383,7 @@ namespace ConsoleUI_BL
                 case MainChoice.parcel:
                     {
                         objectChoice choice1;
-                        b = int.TryParse(s, out int error);
+                        b = int.TryParse(s, out error);
                         if (b)
                             num = int.Parse(s);
                         else
@@ -409,8 +419,8 @@ namespace ConsoleUI_BL
                                     Console.WriteLine("enter the drone id ");
                                     int.TryParse(Console.ReadLine(), out droneId);
                                     DroneInParcel_Status.id = droneId;
-                                    DroneInParcel_Status.battery = bl.getDrone(droneId).battery;
-                                    DroneInParcel_Status.location = bl.getDrone(droneId).location;
+                                    DroneInParcel_Status.battery = bl.GetDrone(droneId).batteryStatus;
+                                    DroneInParcel_Status.location = bl.GetDrone(droneId).location;
                                     temp.droneInParcel = DroneInParcel_Status;
                                     Console.WriteLine("enter the time the packge was requested");
                                     temp.requested = DateTime.Parse(Console.ReadLine());
@@ -421,7 +431,8 @@ namespace ConsoleUI_BL
                                     Console.WriteLine("enter the time it was date time ");
                                     temp.delivered = DateTime.Parse(Console.ReadLine());
                                     try { bl.addParcel(temp); }
-                                    catch (IBL.BO.AddException add) { Console.WriteLine(add.Message); }
+                                    catch (AlreadyExistException exp) 
+                                    { Console.WriteLine(exp.Message); }
                                 }
                                 break;
                             case objectChoice.update:
@@ -429,7 +440,7 @@ namespace ConsoleUI_BL
                                     Console.WriteLine("enter 6 to match parcel to drone");
                                     Console.WriteLine("enter 7 to picke up parcel by drone");
                                     s = Console.ReadLine();
-                                    b = int.TryParse(s, out int error);
+                                    b = int.TryParse(s, out error);
                                     if (b)
                                         num = int.Parse(s);
                                     else
@@ -445,9 +456,9 @@ namespace ConsoleUI_BL
                                                 string input = Console.ReadLine();
                                                 int.TryParse(input, out droneId);
                                                 try { bl.matchingDroneToParcel(droneId); }
-                                                catch (IBL.BO.updateExeption update)
+                                                catch (unavailableException exp)
                                                 {
-                                                    Console.WriteLine(update.Message);
+                                                    Console.WriteLine(exp.Message);
                                                 }
                                             }
                                             break;
@@ -457,10 +468,10 @@ namespace ConsoleUI_BL
                                                 Console.WriteLine("enter drone id\n");
                                                 string input = Console.ReadLine();
                                                 int.TryParse(input, out droneId);
-                                                try { bl.pickup(droneId); }
-                                                catch (IBL.BO.updateExeption update)   ////צריך לכתוב את הפונקציה הזראת
+                                                try { bl.pickedUpParcelByDrone(droneId); }
+                                                catch (unavailableException exp)   ////צריך לכתוב את הפונקציה הזראת
                                                 {
-                                                    Console.WriteLine(update.Message);
+                                                    Console.WriteLine(exp.Message);
                                                 }
                                             }
                                             break;
@@ -469,31 +480,30 @@ namespace ConsoleUI_BL
                                     }
 
                                 }
-
-                               
             
                                 break;
                             case objectChoice.retrieve:
                                 {
                                     int parcelID;
-                                    IBL.BO.Parcel currentParcel = new Parcel();
+                                    IBL.BO.Parcel currentParcel = new IBL.BO.Parcel();
                                     Console.WriteLine("please enter the Parcels ID:");
                                     parcelID = int.Parse(Console.ReadLine());
-                                    try { currentParcel = bl.GetStation(parcelID); Console.WriteLine(currentParcel.ToString()); }
+                                    try 
+                                    {
+                                        currentParcel = bl.GetStation(parcelID);
+                                        Console.WriteLine(currentParcel.ToString());
+                                    }
                                     catch (IDAL.DO.findException find) { Console.WriteLine(find.Message); }
                                 }
                                 break;
                             case objectChoice.lists:
-                                foreach (var p in bl.getParcels()) { Console.WriteLine(p.ToString() + "\n"); }
+                                {
+                                    foreach (var d in bl.GetParcels()) { Console.WriteLine(d.ToString() + "\n"); }
+                                }
                                 break;
                             default:
                                 break;
                         }
-
-
-
-
-
                     }
                     break;
                 default:

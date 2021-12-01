@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IBL;
 using IBL.BO;
 using IDAL.DO;
 
@@ -44,13 +45,13 @@ namespace BL
         //        parcelTemp.requested = DateTime.Now;   //מה זה זמן אספקה
         //        dal.deleteParcel(dal.GetParcel(parcelTemp.id));
         //        addParcel(parcelTemp);
-              
+
         //    }
         //    catch(findException f)
         //    {
         //        throw new ExecutionEngineException("rcfci");
         //    }
-           
+
         //}
 
 
@@ -110,8 +111,6 @@ namespace BL
             stationToAdd.DroneInChargeList = new List<DroneInCharge>();  // חושבת שככה מאתחלים ל0 רשימה 
             if (!(stationToAdd.id >= 10000000 && stationToAdd.id <= 1000000000))
                 throw new AddException("the number of the base station id in invalid\n");
-            if (!(stationToAdd.stationName >= 10000000 && stationToAdd.stationName <= 1000000000))
-                throw new AddException("the number of the base station id in invalid\n");
             if (stationToAdd.location.latitude < (double)31 || stationToAdd.location.latitude > 33.3 || stationToAdd.location.longitude < 34.3 || stationToAdd.location.longitude > 35.5) ;
             IDAL.DO.Station stationDo =
                 new IDAL.DO.Station()
@@ -126,10 +125,10 @@ namespace BL
             {
                 dal.addStation(stationDo);
             }
-            catch (Exception exp)
+            catch (AddException exp)
             {
 
-                throw new ExistException("", exp);
+                throw new AlreadyExistException("the station already exist", exp);
             }
         }
         #endregion
@@ -162,9 +161,9 @@ namespace BL
                 drones.Add(droneToAdd);
                 dal.addDrone(drone);
             }
-            catch (AddException ex)
+            catch (AddException exp)
             {
-                throw new AddException("this drone already exists\n");
+                throw new AlreadyExistException("this drone already exists\n");
             }
 
         }
@@ -191,10 +190,10 @@ namespace BL
             {
                 dal.addCustomer(CustomerDo);
             }
-            catch (Exception exp)
+            catch (AddException exp)
             {
 
-                throw new ExistException("", exp);
+                throw new AlreadyExistException("the customer already exist", exp);
             }
             // Nה צריך לבדוק עם SentParcels ReceiveParcel
         }
@@ -226,7 +225,7 @@ namespace BL
             }
             catch (Exception exp)
             {
-                throw new ExistException(",exp");
+                throw new AlreadyExistException("the parccel already exist");
             }
         }
         #endregion
@@ -247,7 +246,7 @@ namespace BL
                     latitude = station.latitude,
                     longitude = station.longitude
                 };
-                baseStation.DroneInChargeList = dal.GetDroneIdInStation(id)
+                baseStation.DroneInChargeList= dal.GetDroneIdInStation(id)
                     .Select(drone => new DroneInCharge()
                     {
                         id = drone.droneId,
@@ -255,16 +254,28 @@ namespace BL
                     });
                 return baseStation;
             }
-            catch (DoesntExistException ex)
+            catch (findException exp)
             {
-                throw new GetDetailsException("Can't get this drone", ex);
+                throw new dosntExisetException("station");
             }
         }
         #endregion
-        #region get Used ChargingSlots
+        #region Get Used ChargingSlots
         private int getUsedChargingPorts(int baseStationId)
         {
-            return dal.GetStation(baseStationId).chargeSlots - dal.AvailableChargingSlots();  //they did it AvailableChargingSlots (id)
+            try
+            {
+                return dal.GetStation(baseStationId).chargeSlots - dal.AvailableChargingSlots();  //they did it AvailableChargingSlots (id)
+            }
+            catch (findException exp)
+            {
+                throw BLFindException("station");
+            }
+
+        }
+        private Exception BLFindException(string v)
+        {
+            throw new NotImplementedException();
         }
         #endregion
         #region Get Drone Battery
@@ -294,9 +305,9 @@ namespace BL
                 droneBo.numOfDeliverdParcels = drone.numOfDeliverdParcels;
                 return droneBo;
             }
-            catch (DoesntExistException ex)
+            catch (findException ex)
             {
-                throw new GetDetailsException("Can't get this drone", ex);
+                throw new dosntExisetException("drone");
             }
         }
         public IBL.BO.Parcel GetParcel(int id)
@@ -305,18 +316,18 @@ namespace BL
             {
                 IBL.BO.Parcel parcel = new IBL.BO.Parcel();
                 IDAL.DO.Parcel dalParcel = new IDAL.DO.Parcel();
-                dalParcel= dal.GetParcel(id);
+                dalParcel = dal.GetParcel(id);
                 parcel.id = dalParcel.id;
-               parcel.priority = (IBL.BO.Priority)dalParcel.priority;
-                parcel.receive = new CustomerInParcel { id = dalParcel.id, name=dal.GetCustomerName(dalParcel.targetId)};
+                parcel.priority = (IBL.BO.Priority)dalParcel.priority;
+                parcel.receive = new CustomerInParcel { id = dalParcel.id, name = dal.GetCustomerName(dalParcel.targetId) };
                 parcel.requested = dalParcel.requested;
                 parcel.scheduled = dalParcel.scheduled;
-                parcel.sender = new CustomerInParcel{ id = dalParcel.id, name=dal.GetCustomerName(dalParcel.senderId)};
+                parcel.sender = new CustomerInParcel { id = dalParcel.id, name = dal.GetCustomerName(dalParcel.senderId) };
                 return parcel;
             }
-            catch (IDAL.DO.findException Fex)
+            catch (findException exp)
             {
-                throw new BLFindException($"Parcel id: {id}", Fex);
+                throw new dosntExisetException($"Parcel id: {id}", exp);
             }
         }
         #endregion
@@ -366,7 +377,7 @@ namespace BL
             }
             catch (IDAL.DO.findException Fex)
             {
-                throw new BLFindException($"Customer id {id}", Fex);
+                throw new dosntExisetException($"Customer id {id}", Fex);
             }
         }
         #endregion
@@ -451,12 +462,12 @@ namespace BL
         }
         #endregion
         #region find Closet Base Station Location
-        private double Distance(Location x,Location y)
-        { 
+        private double Distance(Location x, Location y)
+        {
             var distance = Math.Sqrt(Math.Pow(x.longitude - y.longitude, 2) + Math.Pow(x.latitude - y.latitude, 2));
-                return distance;
+            return distance;
         }
-        private Location findClosetBaseStationLocation(Location currentlocation,bool withChargeSlots)//the function could also be used to check in addtion if the charge slots are more then 0
+        private Location findClosetBaseStationLocation(Location currentlocation, bool withChargeSlots)//the function could also be used to check in addtion if the charge slots are more then 0
         {
             List<BaseStation> locations = new List<BaseStation>();
             foreach (var baseStation in dal.getStations())
@@ -490,7 +501,7 @@ namespace BL
                         distance = Distance(locations[i].location, currentlocation);
                     }
                 }
-               
+
             }
             return location;
         }
@@ -509,7 +520,7 @@ namespace BL
                 dal.deleteDrone(drone);
 
             }
-            catch (deleteException ex) { throw new deleteException("cant delete this drone\n", ex); }
+            catch (findException exp) { throw new deleteException("cant delete this drone\n"); }
         }
         #endregion
         #endregion
@@ -530,7 +541,7 @@ namespace BL
             return d;
         }
         #endregion
-       
+
         #region Euclidean Distance
         private double euclideanDistance(Location from, Location to)
         {
@@ -555,12 +566,12 @@ namespace BL
             return false;
         }
         #endregion
-       // #region calculating Minimum Battery Required
+        //#region calculating Minimum Battery Required
         //private int calcMinBatteryRequired(DroneToList drone)
         //{
         //    if (drone.droneStatus == DroneStatus.available)
         //    {
-        //        Location location = findClosetBaseStationLocation(drone.location,false);
+        //        Location location = findClosetBaseStationLocation(drone.location, false);
         //        return (dal.ChargeCapacity[4], Distance(drone.location, location));
         //    }
 
@@ -577,7 +588,7 @@ namespace BL
         //            BatteryUsage batteryUsage =
         //                (dal.)Enum.Parse(typeof(BatteryUsage), parcel.weight.ToString());
         //            minValue += (int)(dal.BatteryUsages()[(int)batteryUsage] * senderToTarget);
-        //            Location baseStationLocation = findClosetBaseStationLocation(target.location,false);//not sure if i nee the  target to have available charge slots
+        //            Location baseStationLocation = findClosetBaseStationLocation(target.location, false);//not sure if i nee the  target to have available charge slots
         //            double targetToCharge = distanceCalculation(target.location, baseStationLocation);
         //            minValue += (int)(dal.BatteryUsages()[(int)BatteryUsage.Available] * targetToCharge);
         //            return minValue;
@@ -592,7 +603,7 @@ namespace BL
         //            BatteryUsage batteryUsage =
         //                (BatteryUsage)Enum.Parse(typeof(BatteryUsage), parcel.weight.ToString());
         //            minValue = (int)(dal.BatteryUsages()[(int)batteryUsage] * senderToTarget);
-        //            Location baseStationLocation = findClosetBaseStationLocation(target.location,false);
+        //            Location baseStationLocation = findClosetBaseStationLocation(target.location, false);
         //            double targetToCharge = distanceCalculation(target.location, baseStationLocation);
         //            minValue += (int)(dal.BatteryUsages()[(int)BatteryUsage.Available] * targetToCharge);
         //            return minValue;
@@ -601,7 +612,7 @@ namespace BL
         //    return 90;
         //}
         //#endregion
-       // #endregion
+        //#endregion
 
         #region UPDATE
         public void updateDroneName(int droneID, string dModel)
@@ -611,7 +622,7 @@ namespace BL
                 int dIndex = drones.FindIndex(x => x.id == droneID);
                 drones[dIndex].droneModel = dModel;
             }
-            throw new Exception("the name of the model is not valid\n");//remeber to catch in the main
+            throw new validException("the name of the model is not valid\n");//remeber to catch in the main
 
         }
         public void updateStation(int stationID, int AvlblDCharges, string Name = " ")
@@ -626,14 +637,14 @@ namespace BL
                 if (AvlblDCharges != null)
                 {
                     if (AvlblDCharges < 0)
-                        throw new Exception("this amount of drone choging slots is not valid!\n");
+                        throw new validException("this amount of drone choging slots is not valid!\n");
                     s.avilableChargeSlots = AvlblDCharges;      //i need al the slots not just the available one - not sure what this variable means
                 }
                 addStation(s);
             }
 
         }
-        public void updateCustomer(int customerID, string Name = " ", int phoneNum=0)
+        public void updateCustomer(int customerID, string Name = " ", int phoneNum = 0)
         {
             IBL.BO.Customer c = GetCustomer(customerID);
             if (phoneNum != 0 || Name != " ")
@@ -645,7 +656,7 @@ namespace BL
                 if (phoneNum != 0)
                 {
                     if (phoneNum < 0)
-                        throw new Exception("this amount of drone choging slots is not valid!\n");
+                        throw new validException("this amount of drone choging slots is not valid!\n");
                     c.phoneNumber = phoneNum;      //i need al the slots not just the available one - not sure what this variable means
 
                 }
@@ -653,11 +664,11 @@ namespace BL
 
             }
         }
-      
+
         public void SendToCharge(int droneID, int StationID)//have to send the closest sation that has available sattions
         {
             IBL.BO.DroneToList drone = GetDrone(droneID);
-            Location stationLocation = findClosetBaseStationLocation(drone.location,true);//not sure where and what its from
+            Location stationLocation = findClosetBaseStationLocation(drone.location, true);//not sure where and what its from
             IBL.BO.BaseStation station = GetStation(StationID);
             //Location stationLoc = new Location { latitude = station.location, longitude = station.longitude };
             int droneIndex = drones.FindIndex(x => x.id == droneID);
@@ -669,14 +680,12 @@ namespace BL
             addDrone(drones[droneIndex], StationID);
             IDAL.DO.droneCharges DC = new droneCharges { droneId = droneID, stationId = StationID };
             dal.chargingDroneList().ToList().Add(DC);
-
-
         }
         public void releasingDrone(int droneID, TimeSpan chargingTime)
         {
             int index = drones.FindIndex(x => x.id == droneID);
             IDAL.DO.droneCharges DC = dal.chargingDroneList().ToList().Find(X => X.droneId == droneID);
-            IBL.BO.BaseStation bstation=GetStation(DC.stationId);
+            IBL.BO.BaseStation bstation = GetStation(DC.stationId);
             dal.deleteStation(dal.GetStation(DC.stationId));
             bstation.addingChargeSlots();
             addStation(bstation);
@@ -685,8 +694,6 @@ namespace BL
                 throw new Exception("this drone is not available!\n");
             //drones[index].batteryStatus = has to calculate based on the amount of time it was charginhg but not so sure what that means...
             drones[index].droneStatus = DroneStatus.available;
-
-
         }
         public void deliveryParcelToCustomer(int id)
         {
@@ -696,7 +703,7 @@ namespace BL
                 IDAL.DO.Parcel parcel = dal.parcelList().ToList().Find(p => p.droneId == id);
                 IDAL.DO.Station station = dal.stationList().ToList().Find(s => s.id == parcel.targetId);
                 if (!(drone.droneStatus == DroneStatus.delivery)) ;   //the drone pickedup but didnt delivert yet
-                throw new ExecutionTheDroneIsntAvilablle();
+                    throw new ExecutionTheDroneIsntAvilablle();
                 drone.batteryStatus = calcMinBatteryRequired(drone);
                 drone.location.latitude = station.latitude;
                 drone.location.longitude = station.longitude;
@@ -707,7 +714,6 @@ namespace BL
                 parcelTemp.requested = DateTime.Now;   //מה זה זמן אספקה
                 dal.deleteParcel(dal.GetParcel(parcelTemp.id));
                 addParcel(parcelTemp);
-
             }
             catch (findException f)
             {
@@ -721,7 +727,7 @@ namespace BL
             IBL.BO.DroneToList drone = GetDrone(droneID);
             //finding the best parcel
             if (drone.droneStatus != DroneStatus.available)
-                throw new Exception("the drone is unavailable\n");
+                throw new unavailableException("the drone is unavailable\n");
             bool flag = false;
             List<IBL.BO.Parcel> tempParcels = new List<IBL.BO.Parcel>();
             tempParcels = GetParcels();
@@ -747,6 +753,10 @@ namespace BL
                 dal.deleteParcel(dal.GetParcel(ChosenParcel.id));
                 addParcel(ChosenParcel);
             }
+        }
+        public void pickedUpParcelByDrone(int droneID)
+        {
+
         }
         //public void ReleaseDroneCharge(int droneId, TimeSpan chargeTime)
         //{
@@ -779,5 +789,6 @@ namespace BL
         //        dal.chargingDroneList().ToList().Remove(droneChargeItem);
         //    }
         //}
+    }
 }
-
+#endregion

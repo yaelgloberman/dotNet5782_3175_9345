@@ -9,12 +9,12 @@ namespace IBL.BO
     public class BaseStation
     {
         public int id { get; set; }
-        public int stationName { set; get; }
+        public string stationName { set; get; }
         public Location location { get; set; }
         public int avilableChargeSlots { get; set; }
         public void decreasingChargeSlots() { avilableChargeSlots--; }
         public void addingChargeSlots() { avilableChargeSlots++; }
-        public List<DroneInCharge> DroneInChargeList { get; set; }
+        public IEnumerable<DroneInCharge> DroneInChargeList { get; set; }
         
     }
 }

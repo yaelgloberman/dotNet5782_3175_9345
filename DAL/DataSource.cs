@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//namespace DAL
-//{
     namespace DalObject
     {
         internal class DataSource
@@ -54,7 +52,7 @@ using System.Threading.Tasks;
                     stations.Add(new Station()//added ()
                     {
                         id = r.Next(111111111, 999999999),
-                        name = r.Next(1, 1000),
+                        name ="Station"+i, 
                         longitude = getRandomCordinates(-180,180),
                         latitude = getRandomCordinates(-90, 90),
                         chargeSlots = r.Next(5, 100)
@@ -112,6 +110,6 @@ using System.Threading.Tasks;
             }
         }
     }
-//}
+
 
 

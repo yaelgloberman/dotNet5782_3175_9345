@@ -38,7 +38,7 @@ namespace DalObject
                 throw new findException("station");
             DataSource.stations.Remove(s);
         }
-        public IEnumerable<Station> GetStations()
+        public IEnumerable<Station> getStations()
         {
             return DataSource.stations;
         }

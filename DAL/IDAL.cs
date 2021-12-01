@@ -23,7 +23,7 @@ using System;
             Drone GetDrone(int id);
             Parcel GetParcel(int id);
            public Station GetStation(int id);
-            public IEnumerable<Parcel> getCustomerReceivedParcels(int id);
+            //public IEnumerable<Parcel> getCustomerReceivedParcels(int id);
             public IEnumerable<Parcel> getCustomerShippedParcels(int id);
             public IEnumerable<droneCharges> GetDroneIdInStation(int id);
             public IEnumerable<Drone> GetDrones();
