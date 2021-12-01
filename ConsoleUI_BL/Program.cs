@@ -9,8 +9,11 @@ using BL;
 
 namespace ConsoleUI_BL
 {
-    public enum MainChoice { station,drone,customer,parcel}
-    public enum objectChoice { add,update,retrieve,lists}
+    public enum MainChoice { station=1,drone,customer,parcel}
+    public enum objectChoice { add=1,update,retrieve,lists}
+    public enum updateDrone { updateDroneName=1,sendToCharge,releasingDrone}
+    public enum updateCustomer { updateCustomerName=1, deliveryParcelToCustomer }
+    public enum updateParcel { attributeParcelToDrone=1, pickedUpParcelByDrone }
     class Program
     {
          static IBL.BO.IBl bl = new BL.Blobject();
@@ -20,6 +23,8 @@ namespace ConsoleUI_BL
 
             bool b;
             string s;
+            MainChoice choice;
+            int num;
             Console.WriteLine("Menue: ");
             Console.WriteLine("press 1 to add an object");
             Console.WriteLine("press 2 to update");
@@ -28,9 +33,7 @@ namespace ConsoleUI_BL
             Console.WriteLine("press 5 to exit");
             Console.WriteLine("enter a number between 1-5");
             s = Console.ReadLine();
-            MainChoice choice;
-            b = int.Parse(s);
-            int num;
+            b = int.TryParse(s, out int error);
             if (b)
                 num = int.Parse(s);
             else
@@ -77,6 +80,24 @@ namespace ConsoleUI_BL
                                 }
                                 break;
                             case objectChoice.update:
+                                {  
+
+                                    Console.WriteLine("enter station id\n");
+                                    Console.WriteLine("enter station name");
+                                    Console.WriteLine("enter total amount of charging slots");
+                                    int stationID, AmountOfChargingSlots;
+                                    string stationName;
+                                    string input = Console.ReadLine();
+                                    int.TryParse(input, out stationID);
+                                    stationName = Console.ReadLine();
+                                    input = Console.ReadLine();
+                                    int.TryParse(input, out AmountOfChargingSlots);
+                                    try { bl.updateStation(stationID, AmountOfChargingSlots, stationName); }
+                                    catch (IBL.BO.updateExeption update)
+                                    {
+                                        Console.WriteLine(update.Message);
+                                    }                   
+                                }
                                 break;
                             case objectChoice.retrieve:
                                 {
@@ -97,13 +118,7 @@ namespace ConsoleUI_BL
                                     break;
                                         default:
                                     break;
-                        }
-                                    
-                        
-
-
-
-
+                        }                                  
                     }
 
                     break;
@@ -141,13 +156,87 @@ namespace ConsoleUI_BL
                                 break;
                             case objectChoice.update:
                                 {
-                                    Console.WriteLine("please enter the drones id:");
-                                    int id = int.Parse(Console.ReadLine());
-                                    Console.WriteLine("please enter the new name of the drone model");
-                                    int dModel = int.Parse(Console.ReadLine());
-                                    bl.updateDroneName(id, dModel);
+
+                                    Console.WriteLine($"what would you like to update?");
+                                    Console.WriteLine($"enter 1 to update drone name");
+                                    Console.WriteLine($"enter 2 to send drone to charge");
+                                    Console.WriteLine($"enter 3 to release drone from charge slots");
+
+                                    bool isB;
+                                    string str = Console.ReadLine();
+                                    isB = int.TryParse(str, out int error1);
+                                    int num1;
+                                    updateDrone choiceDrone;
+                                    if (isB)
+                                        num1 = int.Parse(str);
+                                    else
+                                        num1 = -1;
+                                    choiceDrone = (updateDrone)num1;
+                                    switch (choiceDrone)
+                                    {
+                                        case updateDrone.updateDroneName:
+                                            {
+                                                Console.WriteLine("enter drine id\n");
+                                                Console.WriteLine("enter new drone model\n");
+                                                int droneId;
+                                                string droneModel;
+                                                string input = Console.ReadLine();
+                                                int.TryParse(input, out droneId);
+                                                input = Console.ReadLine();
+                                                droneModel = Console.ReadLine();
+                                                try
+                                                {
+                                                    bl.updateDroneName(droneId, droneModel);
+                                                }
+                                                catch (IBL.BO.updateExeption update)
+                                                {
+                                                    Console.WriteLine(update.Message);
+                                                }
+                                            }
+                                            break;
+                                        case updateDrone.sendToCharge:
+                                            {
+                                                //זה פונקציה ששולחת רחפן לטעינה
+
+                                                int droneId;
+                                                Console.WriteLine("enter drone id\n");
+                                                string input = Console.ReadLine();
+                                                int.TryParse(input, out droneId);
+                                                DroneToList d = bl.GetDrone(droneId);
+                                                try { bl.SendToCharge(droneId, station); }
+                                                catch (IBL.BO.updateExeption update)
+                                                {
+                                                    Console.WriteLine(update.Message);
+                                                }
+                                            }
+                                            break;
+                                        case updateDrone.releasingDrone:
+                                            {
+                                                int droneId;
+                                                TimeSpan chargingTime;
+                                                Console.WriteLine("enter drone id\n");
+                                                string input = Console.ReadLine();
+                                                int.TryParse(input, out droneId);
+                                                input = Console.ReadLine();
+                                                TimeSpan.TryParse(input, out chargingTime);
+                                                try { bl.releasingDrone(droneId, chargingTime); }
+                                                catch (IBL.BO.updateExeption update)
+                                                {
+                                                    Console.WriteLine(update.Message);
+                                                }
+                                            }
+                                            break;
+                                        default:
+                                            break;
+
+                                    }
                                 }
-                                break;
+                                
+                                //Console.WriteLine("please enter the drones id:");
+                                //int id = int.Parse(Console.ReadLine());
+                                //Console.WriteLine("please enter the new name of the drone model");
+                                //int dModel = int.Parse(Console.ReadLine());
+                                //bl.updateDroneName(id, dModel);
                             case objectChoice.retrieve:
                                 {
                                     int DroneID;
@@ -171,7 +260,8 @@ namespace ConsoleUI_BL
                 case MainChoice.customer:
                     {
                         objectChoice choice1;
-                        b = int.TryParse(s, out int error);
+                        bool isB;
+                        isB = int.TryParse(s, out int error);
                         if (b)
                             num = int.Parse(s);
                         else
@@ -206,6 +296,57 @@ namespace ConsoleUI_BL
                                 }
                                 break;
                             case objectChoice.update:
+                                {
+                                    updateCustomer choiceCustomer;
+                                    Console.WriteLine($"enter 1 to update customer ");
+                                    Console.WriteLine("enter 2 to delivery parcel to customer ");
+                                    s=Console.ReadLine();
+                                    b = int.TryParse(s, out int error);
+                                    if (b)
+                                        num = int.Parse(s);
+                                    else
+                                        num = -1;
+                                    choiceCustomer = (updateCustomer)num;
+                                    switch (choiceCustomer)
+                                    {
+                                        case updateCustomer.updateCustomerName:
+                                            {
+                                                int customerId, phoneNumber;
+                                                string customerName;
+                                                Console.WriteLine("enter customer id \n");
+                                                Console.WriteLine("enter new name\n");
+                                                Console.WriteLine("enter new phone number\n");
+                                                string input = Console.ReadLine();
+                                                int.TryParse(input, out customerId);
+                                                customerName = Console.ReadLine();
+                                                input = Console.ReadLine();
+                                                int.TryParse(input, out phoneNumber);
+                                                try
+                                                {
+                                                    bl.updateCustomer(customerId, customerName, phoneNumber);
+                                                }
+                                            }
+                                            break;
+                                        case updateCustomer.deliveryParcelToCustomer:
+                                            {
+                                                int droneId;
+                                                Console.WriteLine("enter drone id\n");
+                                                string input = Console.ReadLine();
+                                                int.TryParse(input, out droneId);
+                                                try { bl.deliveryParcelToCustomer(droneId); }
+                                                catch (IBL.BO.updateExeption update)
+                                                {
+                                                    Console.WriteLine(update.Message);
+                                                }
+                                            }
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                 
+                                }
+                                break;  
+                                
                                 break;
                             case objectChoice.retrieve:
                                 {
@@ -284,6 +425,53 @@ namespace ConsoleUI_BL
                                 }
                                 break;
                             case objectChoice.update:
+                                {
+                                    Console.WriteLine("enter 6 to match parcel to drone");
+                                    Console.WriteLine("enter 7 to picke up parcel by drone");
+                                    s = Console.ReadLine();
+                                    b = int.TryParse(s, out int error);
+                                    if (b)
+                                        num = int.Parse(s);
+                                    else
+                                        num = -1;
+                                    updateParcel choiceParcel;
+                                      choiceParcel = (updateParcel) num; 
+                                    switch (choiceParcel)
+                                    {
+                                        case updateParcel.attributeParcelToDrone:
+                                            {
+                                                int droneId;
+                                                Console.WriteLine("enter drone id\n");
+                                                string input = Console.ReadLine();
+                                                int.TryParse(input, out droneId);
+                                                try { bl.matchingDroneToParcel(droneId); }
+                                                catch (IBL.BO.updateExeption update)
+                                                {
+                                                    Console.WriteLine(update.Message);
+                                                }
+                                            }
+                                            break;
+                                        case updateParcel.pickedUpParcelByDrone:
+                                            {
+                                                int droneId;
+                                                Console.WriteLine("enter drone id\n");
+                                                string input = Console.ReadLine();
+                                                int.TryParse(input, out droneId);
+                                                try { bl.pickup(droneId); }
+                                                catch (IBL.BO.updateExeption update)   ////צריך לכתוב את הפונקציה הזראת
+                                                {
+                                                    Console.WriteLine(update.Message);
+                                                }
+                                            }
+                                            break;
+                                        default:
+                                            break;
+                                    }
+
+                                }
+
+                               
+            
                                 break;
                             case objectChoice.retrieve:
                                 {
@@ -314,3 +502,7 @@ namespace ConsoleUI_BL
         }
     }
 }
+
+
+
+   
