@@ -2,7 +2,7 @@
 {
     public enum Weight
     {
-        light, avergae, heavy
+        light=1, avergae, heavy
     }
     public enum Priority
     {

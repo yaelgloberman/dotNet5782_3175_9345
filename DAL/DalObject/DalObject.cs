@@ -15,7 +15,8 @@ namespace DalObject
         }
         public double[] ChargeCapacity()
         {
-            double[] arr = new double[] { DataSource.Config.available, DataSource.Config.light, DataSource.Config.average, DataSource.Config.heavy, DataSource.Config.rateLoadingDrone };
+           
+            double[] arr = { DataSource.Config.available, DataSource.Config.light, DataSource.Config.average, DataSource.Config.heavy, DataSource.Config.rateLoadingDrone };
             return arr;
         }
         public IEnumerable<droneCharges> chargingDroneList() { throw new Exception(); }

@@ -16,7 +16,7 @@ namespace ConsoleUI_BL
     public enum updateParcel { attributeParcelToDrone=1, pickedUpParcelByDrone }
     class Program
     {
-        static IBL.IBl bl= new BL.Blobject();
+        static IBL.IBl bl= new BL.BL();
         static IDAL.DO.IDal dal = new DalObject.DalObject();
         static void main(string[] args)
         {

@@ -116,5 +116,24 @@ namespace IBL.BO
         {
         }
     }
+    [Serializable]
+    internal class CannotReleaseFromChargeException : Exception
+    {
+        public CannotReleaseFromChargeException()
+        {
+        }
+
+        public CannotReleaseFromChargeException(string message) : base("can not release a drone that wasnt charging!"+message)
+        {
+        }
+
+        public CannotReleaseFromChargeException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        protected CannotReleaseFromChargeException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
+    }
 }
 
