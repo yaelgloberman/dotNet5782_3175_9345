@@ -234,21 +234,23 @@ namespace ConsoleUI_BL
 
                                     }
                                 }
-                                
-                                //Console.WriteLine("please enter the drones id:");
-                                //int id = int.Parse(Console.ReadLine());
-                                //Console.WriteLine("please enter the new name of the drone model");
-                                //int dModel = int.Parse(Console.ReadLine());
-                                //bl.updateDroneName(id, dModel);
+                                break;
+
+
+                            //Console.WriteLine("please enter the drones id:");
+                            //int id = int.Parse(Console.ReadLine());
+                            //Console.WriteLine("please enter the new name of the drone model");
+                            //int dModel = int.Parse(Console.ReadLine());
+                            //bl.updateDroneName(id, dModel);
                             case objectChoice.retrieve:
                                 {
                                     int DroneID;
-                                    IBL.BO.Drone currentDrone = new IBL.BO.Drone();
+                                    IBL.BO.DroneToList currentDrone = new IBL.BO.DroneToList();
                                     Console.WriteLine("please enter the drone ID:");
                                     DroneID = int.Parse(Console.ReadLine());
                                     try
                                     { 
-                                        currentDrone = bl.GetStation(DroneID);
+                                        currentDrone = bl.GetDrone(DroneID);
                                         Console.WriteLine(currentDrone.ToString()); 
                                     }
                                     catch (IDAL.DO.findException find) { Console.WriteLine(find.Message); }
@@ -364,7 +366,7 @@ namespace ConsoleUI_BL
                                     customerID = int.Parse(Console.ReadLine());
                                     try 
                                     {
-                                        currentCustomer = bl.GetStation(customerID);
+                                        currentCustomer = bl.GetCustomer(customerID);
                                         Console.WriteLine(currentCustomer.ToString()); 
                                     }
                                     catch (IDAL.DO.findException find) { Console.WriteLine(find.Message); }
@@ -372,7 +374,7 @@ namespace ConsoleUI_BL
                                 break;
                             case objectChoice.lists:
                                 {
-                                    foreach (var c in bl.GetCustomer()) { Console.WriteLine(c.ToString() + "\n"); }
+                                    foreach (var c in bl.GetCustomers()) { Console.WriteLine(c.ToString() + "\n"); }
                                 }
                                 break;
                             default:
@@ -490,7 +492,7 @@ namespace ConsoleUI_BL
                                     parcelID = int.Parse(Console.ReadLine());
                                     try 
                                     {
-                                        currentParcel = bl.GetStation(parcelID);
+                                        currentParcel = bl.GetParcel(parcelID);
                                         Console.WriteLine(currentParcel.ToString());
                                     }
                                     catch (IDAL.DO.findException find) { Console.WriteLine(find.Message); }

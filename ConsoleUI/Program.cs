@@ -70,14 +70,14 @@ namespace ConsoleUI
                                 case CategoryChoice.STATION:
                                     {
                                         IDAL.DO.Station temp = new IDAL.DO.Station();
-                                        int id, name, chargeSlots;
+                                        int id, chargeSlots;
+                                        string name;
                                         double longitude, latitude;
                                         Console.WriteLine("enter a station id");
                                         int.TryParse(Console.ReadLine(), out id);
                                         temp.id = id;
                                         Console.WriteLine("enter station name");
-                                        int.TryParse(Console.ReadLine(), out name);
-                                        temp.name = name;
+                                        temp.name = Console.ReadLine();
                                         Console.WriteLine("enter longitude");
                                         double.TryParse(Console.ReadLine(), out longitude);
                                         temp.longitude = longitude;
