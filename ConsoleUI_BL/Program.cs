@@ -18,7 +18,7 @@ namespace ConsoleUI_BL
     {
         static IBL.IBl bl= new BL.BL();
         static IDAL.DO.IDal dal = new DalObject.DalObject();
-        static void main(string[] args)
+        public static void Main(string[] args)
         {
 
             bool b;

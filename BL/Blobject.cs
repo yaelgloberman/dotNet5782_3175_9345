@@ -532,7 +532,7 @@ namespace BL
         //    var distance = Math.Sqrt(Math.Pow(x.longitude - y.longitude, 2) + Math.Pow(x.latitude - y.latitude, 2));
         //    return distance;
         //}
-        private static double deg2rad(this double val)
+        private static double deg2rad( double val)
         {
             return (Math.PI / 180) * val;
         }
