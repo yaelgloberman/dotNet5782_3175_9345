@@ -243,7 +243,6 @@ namespace ConsoleUI
                                         int.TryParse(Console.ReadLine(), out idStation);
                                         try { dal.SendToCharge(droneId, idStation); }
                                         catch (findException find) { Console.WriteLine(find.Message); }
-
                                     }
                                     break;
                                 case update.releasingDrone:

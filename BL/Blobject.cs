@@ -64,9 +64,6 @@ namespace BL
 
         /// im supposed to intialize the new drones in a bl format - but not sure how***********
         #region Init drone
-
-
-
         private void initializeDrones()
         {
             foreach (var drone in dal.GetDrones())

@@ -10,7 +10,7 @@ using BL;
 namespace ConsoleUI_BL
 {
     public enum MainChoice { station=1,drone,customer,parcel}
-    public enum objectChoice { add=1,update,retrieve,lists}
+    public enum objectChoice { add=1,update,retrieve,lists,exit}
     public enum updateDrone { updateDroneName=1,sendToCharge,releasingDrone}
     public enum updateCustomer { updateCustomerName=1, deliveryParcelToCustomer }
     public enum updateParcel { attributeParcelToDrone=1, pickedUpParcelByDrone }
@@ -26,12 +26,11 @@ namespace ConsoleUI_BL
             MainChoice choice;
             int num;
             Console.WriteLine("Menue: ");
-            Console.WriteLine("press 1 to add an object");
-            Console.WriteLine("press 2 to update");
-            Console.WriteLine("press 3 for display");
-            Console.WriteLine("press 4 to see lists ");
-            Console.WriteLine("press 5 to exit");
-            Console.WriteLine("enter a number between 1-5");
+            Console.WriteLine("press 1 to station menue");
+            Console.WriteLine("press 2 to drone menue");
+            Console.WriteLine("press 3 to customer menue");
+            Console.WriteLine("press 4 to parcel menue");
+            Console.WriteLine("enter a number between 1-4");
             s = Console.ReadLine();
             b = int.TryParse(s, out int error);
             if (b)
@@ -43,7 +42,15 @@ namespace ConsoleUI_BL
             {
                 case MainChoice.station:
                     {
+                        Console.WriteLine("Menue: ");
+                        Console.WriteLine("press 1 to add");
+                        Console.WriteLine("press 2 to update");
+                        Console.WriteLine("press 3 to retrieve");
+                        Console.WriteLine("press 4 to list");
+                        Console.WriteLine("press 5 to exit");
+                        Console.WriteLine("enter a number between 1-5");
                         objectChoice choice1;
+                        s = Console.ReadLine();
                         b = int.TryParse(s, out error);
                         if (b)
                             num = int.Parse(s);
@@ -109,12 +116,10 @@ namespace ConsoleUI_BL
                                     try { baseStation = bl.GetStation(stationID); Console.WriteLine(baseStation.ToString()); }
                                     catch (dosntExisetException exp) { Console.WriteLine(exp.Message); }
                                 }
-
                                 break;
                             case objectChoice.lists://have to do the try and catch here of there are no objects in the lists
                                 {
                                     foreach (var st in bl.GetStations()) { Console.WriteLine(st.ToString() + "\n"); }
-
                                 }
                                     break;
                                         default:
@@ -125,7 +130,15 @@ namespace ConsoleUI_BL
                     break;
                 case MainChoice.drone:
                     {
+                        Console.WriteLine("Menue: ");
+                        Console.WriteLine("press 1 to add");
+                        Console.WriteLine("press 2 to update");
+                        Console.WriteLine("press 3 to retrieve");
+                        Console.WriteLine("press 4 to list");
+                        Console.WriteLine("press 5 to exit");
+                        Console.WriteLine("enter a number between 1-5");
                         objectChoice choice1;
+                        s = Console.ReadLine();
                         b = int.TryParse(s, out error);
                         if (b)
                             num = int.Parse(s);
@@ -237,11 +250,6 @@ namespace ConsoleUI_BL
                                 break;
 
 
-                            //Console.WriteLine("please enter the drones id:");
-                            //int id = int.Parse(Console.ReadLine());
-                            //Console.WriteLine("please enter the new name of the drone model");
-                            //int dModel = int.Parse(Console.ReadLine());
-                            //bl.updateDroneName(id, dModel);
                             case objectChoice.retrieve:
                                 {
                                     int DroneID;
@@ -268,8 +276,15 @@ namespace ConsoleUI_BL
                     break;
                 case MainChoice.customer:
                     {
+                        Console.WriteLine("Menue: ");
+                        Console.WriteLine("press 1 to add");
+                        Console.WriteLine("press 2 to update");
+                        Console.WriteLine("press 3 to retrieve");
+                        Console.WriteLine("press 4 to list");
+                        Console.WriteLine("press 5 to exit");
+                        Console.WriteLine("enter a number between 1-5");
                         objectChoice choice1;
-                        bool isB;
+                        s = Console.ReadLine(); bool isB;
                         isB = int.TryParse(s, out error);
                         if (b)
                             num = int.Parse(s);
@@ -384,8 +399,15 @@ namespace ConsoleUI_BL
                     break;
                 case MainChoice.parcel:
                     {
+                        Console.WriteLine("Menue: ");
+                        Console.WriteLine("press 1 to add");
+                        Console.WriteLine("press 2 to update");
+                        Console.WriteLine("press 3 to retrieve");
+                        Console.WriteLine("press 4 to list");
+                        Console.WriteLine("press 5 to exit");
+                        Console.WriteLine("enter a number between 1-5");
                         objectChoice choice1;
-                        b = int.TryParse(s, out error);
+                        s = Console.ReadLine(); b = int.TryParse(s, out error);
                         if (b)
                             num = int.Parse(s);
                         else
