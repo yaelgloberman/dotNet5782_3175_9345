@@ -58,8 +58,8 @@ using System.Threading.Tasks;
                         chargeSlots = r.Next(5, 100)
                     }); 
                 }
-            }
-            static void CreateDrone()
+        }
+    static void CreateDrone()
             {
                 for (int i = 0; i < 5; i++)
                 {

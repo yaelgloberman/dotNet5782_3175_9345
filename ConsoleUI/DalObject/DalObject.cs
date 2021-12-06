@@ -26,14 +26,7 @@ namespace DalObject
         public void MenuPrint(string action) { throw new Exception(); }
 
         public IEnumerable<Parcel> parcelList() { throw new Exception(); }
-        public IEnumerable<Station> stationList()
-        {
-            if(DataS)
-
-        
-        }
-
-
+        public IEnumerable<Station> stationList() { throw new Exception(); }
 
         /// <summary>
         /// a menue to print in the main to navagte the switch to the correct object
@@ -41,5 +34,5 @@ namespace DalObject
         /// <param name="action"></param
         /// }
         /// 
-        }
+    }
 }

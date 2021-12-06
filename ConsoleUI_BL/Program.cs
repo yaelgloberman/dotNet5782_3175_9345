@@ -122,7 +122,7 @@ namespace ConsoleUI_BL
                                     break;
                                 case objectChoice.lists://have to do the try and catch here of there are no objects in the lists
                                     {
-                                        foreach (var st in bl.GetStations()) { Console.WriteLine(st.ToString() + "\n"); }
+                                        foreach (var st in bl.GetStations()) { Console.WriteLine(st.ToString()+"\n"); }
                                     }
                                     break;
                                 default:
