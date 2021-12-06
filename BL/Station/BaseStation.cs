@@ -15,6 +15,9 @@ namespace IBL.BO
         public void decreasingChargeSlots() { avilableChargeSlots--; }
         public void addingChargeSlots() { avilableChargeSlots++; }
         public IEnumerable<DroneInCharge> DroneInChargeList { get; set; }
-        
+        public override string ToString()
+        {
+            return string.Format($"id: {id}, station Name: {stationName}, location: {location},avilableChargeSlots:{avilableChargeSlots}");
+        }
     }
 }

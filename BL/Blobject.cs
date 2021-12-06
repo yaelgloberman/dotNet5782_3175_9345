@@ -23,7 +23,6 @@ namespace BL
             dal = new DalObject.DalObject();
             drones = new List<DroneToList>();
             initializeDrones();
-            //initDrone();
         }
 
         public chargeCapacity GetChargeCapacity()
@@ -85,7 +84,6 @@ namespace BL
                         }
                     }
                     );
-                     
                 }
             }
 
@@ -94,7 +92,7 @@ namespace BL
                 throw new ArgumentException(exp.Message);
             }
 
-            foreach (var drone in drones)
+            foreach (var drone in drones.ToList())
             {
                 if (isDroneWhileShipping(drone))
                 {
@@ -115,18 +113,6 @@ namespace BL
                         int num = rand.Next(1, dal.stationList().Count());
                         var stationId = dal.stationList().ToArray()[num].id;
                         addDrone(d, stationId);
-                        try
-                        {
-                            SendToCharge(drone.id, stationId);
-                        }
-                        catch (dosntExisetException exp)
-                        {
-                            throw new unavailableException(exp.Message);
-                        }
-                        catch (AddException exp)
-                        {
-                            throw new AddException(exp.Message);
-                        }
                         drone.location = getBaseStationLocation(stationId);
                         drone.batteryStatus = (double)rand.Next(5, 20) / 100;
                         drone.deliveryId = 0;
@@ -142,68 +128,21 @@ namespace BL
             }
         }
 
-
-
-
-        //private void initDrone()
-        //{
-        //    List<IDAL.DO.Parcel> undeliveredParcels = dal.UndiliveredParcels();
-        //    IBL.BO.DroneToList tempD = new IBL.BO.DroneToList();
-        //    foreach (var p in undeliveredParcels)
-        //    {
-        //        // int droneIndex = p.droneId;
-        //        int droneIndex = drones.FindIndex(d => d.id == p.droneId);
-        //        var tmpD = drones[droneIndex];
-        //        if (droneIndex >= 0)
-        //        {
-        //            tmpD.droneStatus = DroneStatus.delivery;
-        //            if (p.pickedUp == DateTime.MinValue && p.delivered == DateTime.MinValue)//if the parcel was matched but nit picked up
-        //            {
-        //                Location senderLocation = new Location();
-        //                IDAL.DO.Customer senderOfParcel = dal.GetCustomer(p.senderId);
-        //                senderLocation.longitude = senderOfParcel.longitude;
-        //                senderLocation.latitude = senderOfParcel.latitude;
-        //                tempD.location = senderLocation;
-        //            }
-        //            tmpD.batteryStatus = rand.Next(40, 100);//enough battery left so the parcel could get its destination
-        //        }
-        //        foreach (var d in drones)
-        //        {
-
-        //            int maxStations = dal.stationList().Count();
-        //            if (d.droneStatus != DroneStatus.delivery)
-        //                d.droneStatus = (DroneStatus)rand.Next(1);
-        //            if (d.droneStatus == DroneStatus.charge)
-        //            {
-        //                IDAL.DO.Station s = new Station();
-        //                s = dal.GetStation(rand.Next(maxStations));
-        //                tempD.location.latitude = s.latitude;//not sure why its not letting me and if i should use a temp
-        //                tempD.droneStatus = (DroneStatus)rand.Next(20);
-        //            }
-        //            if (d.droneStatus == DroneStatus.available)
-        //            {
-        //                d.location = findDroneLocation(d);
-        //                d.deliveryId = 0;
-        //                int minBattery = calcMinBatteryRequired(d);
-        //                d.batteryStatus = (double)rand.Next(minBattery, 100) / 100;
-
-        //                droneIndex = rand.Next();
-        //                // 	מיקומו יוגרל בין לקוחות שיש חבילות שסופקו להם 
-        //                tempD.batteryStatus = rand.Next(minBattery, 100);//not sure if its supposed to be enum or double
-        //            }
-        //        }
-        //    }
-        //}
         #endregion
         #region ADD
         #region ADD STATION
         public void addStation(BaseStation stationToAdd)
         {
             List<droneCharges> list = new List<droneCharges>();
-            stationToAdd.DroneInChargeList = new List<DroneInCharge>();  // חושבת שככה מאתחלים ל0 רשימה 
+            stationToAdd.DroneInChargeList = new List<DroneInCharge>();  
             if (!(stationToAdd.id >= 10000000 && stationToAdd.id <= 1000000000))
-                throw new AddException("the number of the base station id in invalid\n");
-            if (stationToAdd.location.latitude < (double)31 || stationToAdd.location.latitude > 33.3 || stationToAdd.location.longitude < 34.3 || stationToAdd.location.longitude > 35.5) ;
+                throw new validException("the number of the base station id in invalid\n");
+            if (stationToAdd.location.longitude < 34.3 || stationToAdd.location.longitude > 35.5)
+                throw new validException("the given longitude do not exist in this country\n");
+            if (stationToAdd.location.latitude < (double)31 || stationToAdd.location.latitude > 33.3)
+                throw new validException("the given latitude do not exist in this country\n");
+            if (!(stationToAdd.avilableChargeSlots>0)) 
+                throw new validException("the given number of available charging slots is negetive\n");
             IDAL.DO.Station stationDo =
                 new IDAL.DO.Station()
                 {
@@ -220,7 +159,7 @@ namespace BL
             catch (AddException exp)
             {
 
-                throw new AlreadyExistException("the station already exist", exp);
+                throw new AlreadyExistException(exp.Message);
             }
         }
         #endregion
@@ -230,8 +169,6 @@ namespace BL
             droneToAdd.batteryStatus = (double)rand.Next(20, 40);
             if (!(droneToAdd.id >= 10000000 && droneToAdd.id <= 1000000000))
                 throw new AddException("the number of the drone id in invalid\n");
-            //if (!(droneToAdd.droneModel <=  && droneToAdd.droneModel >= ))   //איך בודקים עכשיו את המודל כשהוא סטרינג
-            //throw new AddException("the number of the drone model invalid\n");
             if (!(droneToAdd.batteryStatus >= (double)0 && droneToAdd.batteryStatus <= (double)100))
                 throw new AddException("the status of the drone is invalid\n");
             if (droneToAdd.location.latitude < (double)31 || droneToAdd.location.latitude > 33.3)
