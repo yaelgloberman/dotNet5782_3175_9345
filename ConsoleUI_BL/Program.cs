@@ -16,11 +16,11 @@ namespace ConsoleUI_BL
     public enum updateParcel { attributeParcelToDrone=1, pickedUpParcelByDrone }
     class Program
     {
-        static IBL.IBl bl= new BL.BL();
-        static IDAL.DO.IDal dal = new DalObject.DalObject();
+        public static IBL.IBl bl;
+        //static IDAL.DO.IDal dal = new DalObject.DalObject();
         public static void Main(string[] args)
         {
-
+            bl = new BL.BL();
             bool b;
             string s;
             MainChoice choice;

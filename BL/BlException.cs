@@ -32,7 +32,7 @@ namespace IBL.BO
         {
         }
 
-        public unavailableException(string message) : base("add exception:" + message)
+        public unavailableException(string message) : base("unavailableException" + message)
         {
         }
 

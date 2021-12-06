@@ -15,20 +15,36 @@ namespace DalObject
         }
         public double[] ChargeCapacity()
         {
-           
+
             double[] arr = { DataSource.Config.available, DataSource.Config.light, DataSource.Config.average, DataSource.Config.heavy, DataSource.Config.rateLoadingDrone };
             return arr;
         }
         public IEnumerable<droneCharges> chargingDroneList() { throw new Exception(); }
-        public IEnumerable<Customer> CustomerList() { throw new Exception(); }
-        // void DeliveryPackageCustomer(int cID, int pId, Proirities proirity) { throw new Exception(); }
-        public IEnumerable<Drone> droneList() { throw new Exception(); }
-
+        public IEnumerable<Customer> CustomerList()
+        {
+            if (DataSource.drones.ToList() == null)
+                throw new System.ArgumentException("drons list =null");
+            return DataSource.Customers.ToList();
+        }
         public void MenuPrint(string action) { throw new Exception(); }
-
-        public IEnumerable<Parcel> parcelList() { throw new Exception(); }
-        public IEnumerable<Station> stationList() { throw new Exception(); }
-
+        public IEnumerable<Drone> droneList()
+        {
+            if (DataSource.drones.ToList() == null)
+                throw new System.ArgumentException("drons list =null");
+            return DataSource.drones.ToList();
+        }
+        public IEnumerable<Parcel> parcelList()
+        {
+            if (DataSource.parcels.ToList() == null)
+                throw new System.ArgumentException("station list =null");
+            return DataSource.parcels.ToList();
+        }
+        public IEnumerable<Station> stationList()
+        {
+            if (DataSource.stations.ToList() == null)
+                throw new System.ArgumentException("station list =null");
+            return DataSource.stations.ToList();
+        }
 
 
         /// <summary>

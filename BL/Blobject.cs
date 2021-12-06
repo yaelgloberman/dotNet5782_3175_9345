@@ -14,7 +14,7 @@ namespace BL
     public  class  BL :IBl
     {
 
-        private IDal dal = new DalObject.DalObject();
+        private IDal dal; //= new DalObject.DalObject();
         private static Random rand = new Random();
         private List<DroneToList> drones = new();
 
@@ -23,6 +23,7 @@ namespace BL
             dal = new DalObject.DalObject();
             drones = new List<DroneToList>();
             initializeDrones();
+            //initDrone();
         }
 
         public chargeCapacity GetChargeCapacity()
@@ -66,14 +67,31 @@ namespace BL
         #region Init drone
         private void initializeDrones()
         {
-            foreach (var drone in dal.GetDrones())
+            try
             {
-                drones.Add(new DroneToList
+                foreach (var drone in dal.GetDrones())
                 {
-                    id = drone.id,
-                    droneModel = drone.model,
-                    weight = (Weight)drone.maxWeight
-                });
+                    drones.Add(new DroneToList
+                    {
+                        id = drone.id,
+                        droneModel = drone.model,
+                        weight = (Weight)drone.maxWeight,
+                        droneStatus = DroneStatus.available,
+                        batteryStatus = 100,
+                        location = new Location
+                        {
+                            latitude = 31.2,
+                            longitude = 34.6
+                        }
+                    }
+                    );
+                     
+                }
+            }
+
+            catch (ArgumentException exp)
+            {
+                throw new ArgumentException(exp.Message);
             }
 
             foreach (var drone in drones)
@@ -91,13 +109,28 @@ namespace BL
                     drone.droneStatus = (DroneStatus)rand.Next(1, 2);
                     if (drone.droneStatus == DroneStatus.charge)
                     {
-                        int stationId = rand.Next(1, dal.stationList().Count());
-                        dal.SendToCharge(drone.id, stationId);
+                        DroneToList d = GetDrone(drone.id);
+                        deleteDrone(d.id);
+                        d.droneStatus = DroneStatus.available;
+                        int num = rand.Next(1, dal.stationList().Count());
+                        var stationId = dal.stationList().ToArray()[num].id;
+                        addDrone(d, stationId);
+                        try
+                        {
+                            SendToCharge(drone.id, stationId);
+                        }
+                        catch (dosntExisetException exp)
+                        {
+                            throw new unavailableException(exp.Message);
+                        }
+                        catch (AddException exp)
+                        {
+                            throw new AddException(exp.Message);
+                        }
                         drone.location = getBaseStationLocation(stationId);
                         drone.batteryStatus = (double)rand.Next(5, 20) / 100;
                         drone.deliveryId = 0;
                     }
-
                     if (drone.droneStatus == DroneStatus.available)
                     {
                         drone.location = findDroneLocation(drone);
@@ -118,13 +151,13 @@ namespace BL
         //    IBL.BO.DroneToList tempD = new IBL.BO.DroneToList();
         //    foreach (var p in undeliveredParcels)
         //    {
-        //       // int droneIndex = p.droneId;
+        //        // int droneIndex = p.droneId;
         //        int droneIndex = drones.FindIndex(d => d.id == p.droneId);
         //        var tmpD = drones[droneIndex];
         //        if (droneIndex >= 0)
         //        {
         //            tmpD.droneStatus = DroneStatus.delivery;
-        //            if (p.pickedUp == DateTime.MinValue&& p.delivered==)//if the parcel was matched but nit picked up
+        //            if (p.pickedUp == DateTime.MinValue && p.delivered == DateTime.MinValue)//if the parcel was matched but nit picked up
         //            {
         //                Location senderLocation = new Location();
         //                IDAL.DO.Customer senderOfParcel = dal.GetCustomer(p.senderId);
@@ -201,30 +234,39 @@ namespace BL
             //throw new AddException("the number of the drone model invalid\n");
             if (!(droneToAdd.batteryStatus >= (double)0 && droneToAdd.batteryStatus <= (double)100))
                 throw new AddException("the status of the drone is invalid\n");
-            if (droneToAdd.location.latitude < (double)31 || droneToAdd.location.latitude > 33.3
-                            || droneToAdd.location.longitude < 34.3 || droneToAdd.location.longitude > 35.5)
-                throw new AddException("the given cordinates do not exist in this country/\n");
+            if (droneToAdd.location.latitude < (double)31 || droneToAdd.location.latitude > 33.3)
+                throw new AddException("the given latitude do not exist in this country/\n");
+            if(droneToAdd.location.longitude < 34.3 || droneToAdd.location.longitude > 35.5)
+                throw new AddException("the given longitude do not exist in this country/\n");
             if (!(droneToAdd.weight > (Weight)0 && droneToAdd.weight < (Weight)3))
                 throw new AddException("the given weight is not valid\n");
-            try   //im not sure that everithing needs to be in the try but wtev
+            try  
             {
-                IDAL.DO.Drone tempDrone = dal.GetDrone(droneToAdd.id);
-                IDAL.DO.Station tempStation = dal.GetStation(stationId);
+                var tempDrone = GetDrone(droneToAdd.id);
+            }
+            catch (findException exp)
+            {
+                throw new dosntExisetException(exp.Message);
+            }
+            try
+            {
+                var tempStation = GetStation(stationId);
+            }
+            catch (findException exp)
+            {
+               throw new dosntExisetException(exp.Message);
+            }
                 droneToAdd.droneStatus = DroneStatus.charge;
                 droneToAdd.location = getBaseStationLocation(stationId);
                 IDAL.DO.Drone drone = new IDAL.DO.Drone();
                 drone.id = droneToAdd.id;
                 drone.model = droneToAdd.droneModel;
                 drone.maxWeight = (WeightCatigories)droneToAdd.weight;
-                dal.SendToCharge(droneToAdd.id, stationId);
                 drones.Add(droneToAdd);
                 dal.addDrone(drone);
-            }
-            catch (AddException exp)
-            {
-                throw new AlreadyExistException("this drone already exists\n");
-            }
-
+                dal.SendToCharge(droneToAdd.id, stationId);
+                
+               
         }
         #endregion
         #region Add Customer
@@ -296,7 +338,7 @@ namespace BL
             try
             {
                 BaseStation baseStation = new BaseStation();
-                Station station = dal.GetStation(id);
+                var station = dal.GetStation(id);
                 baseStation.id = station.id;
                 baseStation.stationName = station.name;
                 baseStation.avilableChargeSlots = station.chargeSlots;
@@ -680,7 +722,6 @@ namespace BL
 
             }
         }
-
         public void SendToCharge(int droneID, int StationID)//have to send the closest sation that has available sattions
         {
             IBL.BO.DroneToList drone = new();
@@ -689,30 +730,37 @@ namespace BL
             {
                 drone= GetDrone(droneID);
             }
-            catch (IDAL.DO.findException)
+            catch (IDAL.DO.findException exp)
             {
-                throw new findException();
+                throw new dosntExisetException(exp.Message);
             }
-
             if (drone.droneStatus != DroneStatus.available)
-                throw new unavailableException();
+                throw new unavailableException("not available");
             try
             {
                 station = GetStation(StationID);
             }
-            catch (IDAL.DO.findException)
+            catch (IDAL.DO.findException exp)
             {
-                throw new findException();
+                throw new dosntExisetException(exp.Message);
             }
-
             Location stationLocation = findClosetBaseStationLocation(drone.location, true);//not sure where and what its from
             int droneIndex = drones.FindIndex(x => x.id == droneID);
             station.decreasingChargeSlots();
             drones[droneIndex].batteryStatus = calcMinBatteryRequired(drones[droneIndex]);
             drones[droneIndex].location = station.location;
             drones[droneIndex].droneStatus = DroneStatus.charge;
-            dal.deleteDrone(dal.GetDrone(droneID));
-            addDrone(drones[droneIndex], StationID);
+            try { dal.deleteDrone(dal.GetDrone(droneID)); }
+            catch (findException exp)
+            {
+                    throw new dosntExisetException(exp.Message);
+            }
+
+
+
+
+
+                addDrone(drones[droneIndex], StationID);
             IDAL.DO.droneCharges DC = new droneCharges { droneId = droneID, stationId = StationID };
             dal.chargingDroneList().ToList().Add(DC);
         }
