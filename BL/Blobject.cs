@@ -167,17 +167,17 @@ namespace BL
         #region ADD Drone
         public void addDrone(int droneId, int stationId, string droneModel, Weight weight)
         {
-            if (!(droneId >= 10000000 && droneId <= 1000000000))
-                throw new AddException("the number of the drone id in invalid\n");
+            if (!(droneId >= 10000000 && droneId < 1000000000))
+                throw new validException("the number of the drone id in invalid\n");
             if (!(weight > (Weight)0 && weight < (Weight)3))
-                throw new AddException("the given weight is not valid\n");
+                throw new validException("the given weight is not valid\n");
             if (!(stationId >= 10000000 && stationId <= 1000000000))
-                throw new AddException("the number of the drone id in invalid\n");
+                throw new validException("the number of the drone id in invalid\n");
             IDAL.DO.Station stationDl = dal.GetStation(stationId);
             if (stationDl.latitude < (double)31 || stationDl.latitude > 33.3)
-                throw new AddException("the given latitude do not exist in this country/\n");
+                throw new validException("the given latitude do not exist in this country/\n");
             if (stationDl.longitude < 34.3 || stationDl.longitude > 35.5)
-                throw new AddException("the given longitude do not exist in this country/\n");
+                throw new validException("the given longitude do not exist in this country/\n");
             DroneToList dtl = new DroneToList();
             dtl.id = droneId;
             dtl.droneModel = droneModel;
@@ -217,7 +217,7 @@ namespace BL
             if (!(droneToAdd.weight > (Weight)0 && droneToAdd.weight < (Weight)3))
                 throw new AddException("the given weight is not valid\n");
             if (!(stationId >= 10000000 && stationId <= 1000000000))
-                throw new AddException("the number of the drone id in invalid\n");
+                throw new AddException("the number of the station id in invalid\n");
             try
             {
                 var tempDrone = GetDrone(droneToAdd.id);
@@ -230,7 +230,7 @@ namespace BL
             {
                 var tempStation = GetStation(stationId);
             }
-            catch (findException exp)
+            catch (IDAL.DO.findException exp)
             {
                 throw new dosntExisetException(exp.Message);
             }
