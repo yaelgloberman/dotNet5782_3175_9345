@@ -118,7 +118,6 @@ namespace ConsoleUI_BL
                                         catch (validException valid) { Console.WriteLine(valid.Message); }
                                         break;
                                     }
-                                    break;
                                 case objectChoice.update:
                                     { 
                                         Console.WriteLine("enter station id");
@@ -235,10 +234,10 @@ namespace ConsoleUI_BL
                                                     int droneId;
                                                     int stationId;
                                                     Console.WriteLine("enter drone id\n");
-                                                    string input = Console.ReadLine();
-                                                    int.TryParse(input, out droneId);
-                                                    DroneToList d = bl.GetDrone(droneId);
+                                                    int.TryParse(Console.ReadLine(), out droneId);
                                                     Console.WriteLine("enter station id\n");
+                                                    string input = Console.ReadLine();
+                                                    DroneToList d = bl.GetDrone(droneId);
                                                     input = Console.ReadLine();
                                                     int.TryParse(input, out stationId);
                                                     try { bl.SendToCharge(droneId, stationId); }
@@ -559,7 +558,4 @@ namespace ConsoleUI_BL
             }
         }
     }
-
-
-   
 }
