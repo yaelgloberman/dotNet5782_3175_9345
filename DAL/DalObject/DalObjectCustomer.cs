@@ -22,20 +22,12 @@ namespace DalObject
 
         public Customer GetCustomer(int id)//function that gets id and finding the Customer in the Customers list and returns Customer
         {
-            Customer? tmp = null;
-            foreach (Customer c in DataSource.Customers)
+            foreach(Customer item in DataSource.Customers)
             {
-                if (c.id == id)
-                {
-                    tmp = c;
-                    break;
-                }
+                if (item.id == id)
+                    return item;
             }
-            if (tmp == null)
-            {
-                throw new findException("Customer does not exist");
-            }
-            return (Customer)tmp;
+            throw new findException("customer");
         }
         public IEnumerable<Customer> GetCustomers()
         {
@@ -62,7 +54,8 @@ namespace DalObject
         }
         public string GetCustomerName(int id)
         {
-            return GetCustomer(id).name;
+            string name=GetCustomer(id).name;
+            return name;
         }
 
     }

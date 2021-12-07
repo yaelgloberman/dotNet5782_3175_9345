@@ -22,7 +22,7 @@ namespace DalObject
         public IEnumerable<droneCharges> chargingDroneList() { throw new Exception(); }
         public IEnumerable<Customer> CustomerList()
         {
-            if (DataSource.drones.ToList() == null)
+            if (DataSource.Customers.ToList() == null)
                 throw new System.ArgumentException("drons list =null");
             return DataSource.Customers.ToList();
         }

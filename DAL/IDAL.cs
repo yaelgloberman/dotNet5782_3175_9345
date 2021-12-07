@@ -8,7 +8,7 @@ namespace IDAL
         {
             void addCustomer(Customer c);
             void addDrone(Drone d);
-            void addParcel(Parcel p);
+            int addParcel(Parcel p);
             void addStation(Station s);
             void attribute(int dID, int pID);
             public double[] ChargeCapacity();

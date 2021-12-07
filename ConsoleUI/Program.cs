@@ -144,11 +144,9 @@ namespace ConsoleUI
                                     }
                                 case CategoryChoice.PARCEL:
                                     {
-                                        int parcelId, senderId, targetId, droneId;
+                                        int  senderId, targetId, droneId;
                                         IDAL.DO.Parcel temp = new IDAL.DO.Parcel();
-                                        Console.WriteLine("enter the parcel id");
-                                        int.TryParse(Console.ReadLine(), out parcelId);
-                                        temp.id = parcelId;
+                                        temp.id = 0;
                                         Console.WriteLine("enter the senders id");
                                         int.TryParse(Console.ReadLine(), out senderId);
                                         temp.senderId = senderId;
@@ -170,7 +168,7 @@ namespace ConsoleUI
                                         temp.pickedUp = DateTime.Parse(Console.ReadLine());
                                         Console.WriteLine("enter the time it was date time ");
                                         temp.delivered = DateTime.Parse(Console.ReadLine());
-                                        try { dal.addParcel(temp); }
+                                        try { Console.WriteLine(dal.addParcel(temp));  }
                                         catch (IDAL.DO.AddException add) { Console.WriteLine(add.Message); }
                                     }
                                     break;

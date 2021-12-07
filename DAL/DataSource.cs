@@ -16,9 +16,10 @@ using System.Threading.Tasks;
             internal static List<Station> stations = new List<Station>();
             internal static List<Customer> Customers = new List<Customer>();
             internal static List<droneCharges> chargingDrones = new List<droneCharges>();
+
             internal class Config
             {
-                internal static int parcelSerial = 0;
+                internal static int parcelSerial = 10000000;
                 internal static int numberId;
                 internal static double available;
                 internal static double light;
@@ -97,18 +98,17 @@ using System.Threading.Tasks;
                 {
                     parcels.Add(new Parcel()
                     {
-                        id = r.Next(111111111, 999999999),
-                        senderId = r.Next(111111111, 999999999),
-                        targetId = r.Next(111111111, 999999999),
+                        id = Config.parcelSerial++,
+                        senderId =Customers[(i+5)%9].id,
+                        targetId =Customers[i].id,
                         priority = (Proirities)r.Next(1, 3),
                         weight = (WeightCatigories)r.Next(1, 3),
                         droneId = r.Next(0, 999999999),
                         requested = DateTime.Now,
-                        scheduled = DateTime.Now,
-                        pickedUp = DateTime.Now,
-                        delivered = DateTime.Now,
-                    });
-                    Config.parcelSerial++;
+                        scheduled = DateTime.MinValue,
+                        pickedUp = DateTime.MinValue,
+                        delivered = DateTime.MinValue,
+                    });;
                     Config.numberId++;
                 }
             }

@@ -12,7 +12,7 @@ namespace IBL
         public void addDrone(int droneId, int stationId, string droneModel, Weight weight);
         public void addCustomer(IBL.BO.Customer CustomerToAdd);
 
-        public void addParcel(IBL.BO.Parcel parcelToAdd);
+        public int addParcel(IBL.BO.Parcel parcelToAdd);
         public BaseStation GetStation(int id);
 
         public DroneToList GetDrone(int id);
@@ -38,7 +38,7 @@ namespace IBL
 
         public void updateCustomer(int customerID, string Name = " ", int phoneNum = 0);
 
-        public void SendToCharge(int droneID, int StationID);//have to send the closest sation that has available sattions
+        public void SendToCharge(int droneID);//have to send the closest sation that has available sattions
 
         public void releasingDrone(int droneID, TimeSpan chargingTime);
 

@@ -13,11 +13,13 @@ namespace DalObject
         {
             return DataSource.parcels.Any(p => p.id == id);
         }
-        public void addParcel(Parcel p)
+        public int addParcel(Parcel p)
         {
             if (!DataSource.Customers.Exists(item => item.id == p.id))
                 throw new AddException("drone already exist");
+            p.id = DataSource.Config.parcelSerial++;
             DataSource.parcels.Add(p);
+            return p.id;
         }
         public void attribute(int dID, int pID)//the function attribute parcel to drone
         {

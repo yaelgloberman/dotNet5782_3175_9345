@@ -233,16 +233,12 @@ namespace ConsoleUI_BL
                                                 {
 
                                                     int droneId;
-                                                    int stationId;
                                                     Console.WriteLine("enter drone id\n");
                                                     int.TryParse(Console.ReadLine(), out droneId);
-                                                    Console.WriteLine("enter station id\n");
-                                                    string input = Console.ReadLine();
                                                     DroneToList d = bl.GetDrone(droneId);
-                                                    input = Console.ReadLine();
-                                                    int.TryParse(input, out stationId);
-                                                    try { bl.SendToCharge(droneId, stationId); }
+                                                    try { bl.SendToCharge(droneId); }
                                                     catch (dosntExisetException exp){ Console.WriteLine(exp.Message); }
+                                                    catch (unavailableException exp) { Console.WriteLine(exp.Message); }
                                                 }
                                                 break;
                                             case updateDrone.releasingDrone:
@@ -325,7 +321,7 @@ namespace ConsoleUI_BL
                                         name=Console.ReadLine();
                                         try { ValidateString(name); }
                                         catch (validException exp) {Console.WriteLine(exp.Message); };
-                                        temp.Name = Console.ReadLine();
+                                        temp.Name = name;
                                         Console.WriteLine("enter the Customers phonenumber");
                                         int.TryParse(Console.ReadLine(), out phoneNumber);
                                         temp.phoneNumber = phoneNumber;
@@ -338,6 +334,8 @@ namespace ConsoleUI_BL
                                         temp.location = customerLoc;
                                         try { bl.addCustomer(temp); }
                                         catch (AlreadyExistException exp) { Console.WriteLine(exp.Message); }
+                                        catch (validException exp) { Console.WriteLine(exp.Message); }
+                                        
                                     }
                                     break;
                                 case objectChoice.update:
@@ -403,7 +401,8 @@ namespace ConsoleUI_BL
                                     break;
                                 case objectChoice.lists:
                                     {
-                                        foreach (var c in bl.GetCustomers()) { Console.WriteLine(c.ToString() + "\n"); }
+                                        try { foreach (var c in bl.GetCustomers()) { Console.WriteLine(c.ToString() + "\n"); } }
+                                        catch (dosntExisetException ex) { Console.WriteLine(ex.Message); }
                                     }
                                     break;
                                 default:
@@ -436,9 +435,7 @@ namespace ConsoleUI_BL
                                         IBL.BO.CustomerInParcel CustomerInParcel_sender = new CustomerInParcel();
                                         IBL.BO.CustomerInParcel CustomerInParcel_receiver = new CustomerInParcel();
                                         IBL.BO.DroneInParcel DroneInParcel_Status = new DroneInParcel();
-                                        Console.WriteLine("enter the parcel id");
-                                        int.TryParse(Console.ReadLine(), out parcelId);
-                                        temp.id = parcelId;
+                                        temp.id = 0;
                                         Console.WriteLine("enter the senders id");
                                         int.TryParse(Console.ReadLine(), out senderId);
                                         CustomerInParcel_sender.id = senderId;
@@ -467,7 +464,7 @@ namespace ConsoleUI_BL
                                         temp.pickedUp = DateTime.Parse(Console.ReadLine());
                                         Console.WriteLine("enter the time it was date time ");
                                         temp.delivered = DateTime.Parse(Console.ReadLine());
-                                        try { bl.addParcel(temp); }
+                                        try {Console.WriteLine("the id of the parcel is:"+bl.addParcel(temp));  }
                                         catch (AlreadyExistException exp) { Console.WriteLine(exp.Message); }
                                     }
                                     break;
