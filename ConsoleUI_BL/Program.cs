@@ -193,6 +193,7 @@ namespace ConsoleUI_BL
                                         Console.WriteLine("enter a station id");
                                         int.TryParse(Console.ReadLine(), out stationId);
                                         try { bl.addDrone(droneId, stationId, droneModel, weight); }
+                                        catch (validException exp) { Console.WriteLine(exp.Message); }
                                         catch (AlreadyExistException exp) { Console.WriteLine(exp.Message); }
                                         catch (dosntExisetException exp) { Console.WriteLine(exp.Message); }
                                     }
@@ -206,8 +207,8 @@ namespace ConsoleUI_BL
                                         Console.WriteLine($"enter 3 to release drone from charge slots");
                                         bool isB;
                                         string str = Console.ReadLine();
-                                        try { ValidateString(str); }
-                                        catch (validException exp) { Console.WriteLine(exp.Message); };
+                                        //try { ValidateString(str); }
+                                        //catch (validException exp) { Console.WriteLine(exp.Message); };
                                         isB = int.TryParse(str, out int error1);
                                         int num1;
                                         updateDrone choiceDrone;
