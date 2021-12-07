@@ -8,15 +8,12 @@ namespace IBL
         public chargeCapacity GetChargeCapacity();
 
         public void addStation(BaseStation stationToAdd);
-
         public void addDrone(DroneToList droneToAdd, int stationId);
-
+        public void addDrone(int droneId, int stationId, string droneModel, Weight weight);
         public void addCustomer(IBL.BO.Customer CustomerToAdd);
 
         public void addParcel(IBL.BO.Parcel parcelToAdd);
         public BaseStation GetStation(int id);
-
-
 
         public DroneToList GetDrone(int id);
 

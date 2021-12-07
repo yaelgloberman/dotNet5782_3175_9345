@@ -69,6 +69,17 @@ namespace DalObject
             stationList().ToList().Add(tmpS);
             DataSource.chargingDrones.Remove(dC);//removing the drone from the drone charging list
         }
+        public void updateDrone(int droneId,string droneModel)
+        {
+            bool flag = false;
+           
+            DataSource.drones.ForEach(d => { if (d.id == droneId) { d.model = droneModel; flag = true; } }); 
+            if (!flag)
+            {
+                throw new findException("could not find drone");
+            }
+
+         }
         public void deleteDrone(Drone d)
         {
             if (!DataSource.drones.Exists(item => item.id == d.id))

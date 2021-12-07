@@ -27,16 +27,26 @@ namespace DalObject
             {
                 throw new findException("station");
             }
-            Station station = new Station();
-            station.id = id;
+            var station = stationList().ToList().Find(s => s.id == id);
             return station;
-
         }
         public void deleteStation(Station s)
         {
             if (!DataSource.stations.Exists(item => item.id == s.id))
                 throw new findException("station");
             DataSource.stations.Remove(s);
+        }
+        public void updateStation(int stationId, Station s)
+        {
+            for (int i = 0; i < DataSource.stations.Count; i++)
+            {
+                if (DataSource.stations[i].id == stationId)
+                {
+                    DataSource.stations[i] = s;
+                    return;
+                }
+            }
+            throw new findException("id not found");
         }
         public IEnumerable<Station> getStations()
         {

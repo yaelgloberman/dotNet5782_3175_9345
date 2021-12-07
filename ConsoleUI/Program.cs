@@ -13,14 +13,14 @@ namespace ConsoleUI
     public enum printLists { STATION = 1, DRONE, Customer, PARCEL, DISMATCHED_PACKAGES, AVAILABLE_SLOTS }
     class Program
     {
-        public void MenuPrint(string action)//th menue that helps specify the main action 
-        {
-            Console.WriteLine($"what would you like to {action}?");
-            Console.WriteLine($"enter 1 to {action} station");
-            Console.WriteLine($"enter 2 to {action} drones");
-            Console.WriteLine($"enter 3 to {action} Customers");
-            Console.WriteLine($"enter 4 to {action} parcel");
-        }
+        //public void MenuPrint(string action)//th menue that helps specify the main action 
+        //{
+        //    Console.WriteLine($"what would you like to {action}?");
+        //    Console.WriteLine($"enter 1 to {action} station");
+        //    Console.WriteLine($"enter 2 to {action} drones");
+        //    Console.WriteLine($"enter 3 to {action} Customers");
+        //    Console.WriteLine($"enter 4 to {action} parcel");
+        //}
         static IDAL.DO.IDal dal  =new DalObject.DalObject();
         /// <summary>
         /// the program conatins the dal of a drones the user enters a number form the menue and  based on his choice could access or change the dal about the drones,station,Customers or the parcels
@@ -53,7 +53,11 @@ namespace ConsoleUI
 
                     case MainChoice.add:
                         {
-                            dal.MenuPrint("add");
+                            Console.WriteLine($"what would you like to add?");
+                            Console.WriteLine($"enter 1 to add station");
+                            Console.WriteLine($"enter 2 to add drones");
+                            Console.WriteLine($"enter 3 to add Customers");
+                            Console.WriteLine($"enter 4 to add parcel");                          
                             bool isB;
                             string str = Console.ReadLine();
                             isB = int.TryParse(str, out int error1);
@@ -132,10 +136,12 @@ namespace ConsoleUI
                                         double.TryParse(Console.ReadLine(), out latitude);
                                         temp.latitude = latitude;
                                         try { dal.addCustomer(temp); }
-                                        catch (IDAL.DO.AddException add) { Console.WriteLine(add.Message); }
-
+                                        catch (IDAL.DO.AddException add)
+                                        {
+                                            Console.WriteLine(add.Message);
+                                        }
+                                        break;
                                     }
-                                    break;
                                 case CategoryChoice.PARCEL:
                                     {
                                         int parcelId, senderId, targetId, droneId;
@@ -166,7 +172,6 @@ namespace ConsoleUI
                                         temp.delivered = DateTime.Parse(Console.ReadLine());
                                         try { dal.addParcel(temp); }
                                         catch (IDAL.DO.AddException add) { Console.WriteLine(add.Message); }
-
                                     }
                                     break;
                             }
@@ -262,7 +267,11 @@ namespace ConsoleUI
 
                     case MainChoice.display:
                         {
-                            dal.MenuPrint("display");
+                            Console.WriteLine($"what would you like to add?");
+                            Console.WriteLine($"enter 1 to display station");
+                            Console.WriteLine($"enter 2 to display drones");
+                            Console.WriteLine($"enter 3 to display Customers");
+                            Console.WriteLine($"enter 4 to display parcel");
                             bool isB;
                             string str = Console.ReadLine();
                             isB = int.TryParse(str, out int error1);
@@ -328,9 +337,12 @@ namespace ConsoleUI
                         break;
                     case MainChoice.list:
                         {
-                            dal.MenuPrint("to print the list of");
+                            Console.WriteLine($"what would you print to add?");
+                            Console.WriteLine($"enter 1 to list  station");
+                            Console.WriteLine($"enter 2 to list drones");
+                            Console.WriteLine($"enter 3 to list Customers");
+                            Console.WriteLine($"enter 4 to list parcel");
                             Console.WriteLine($"enter 5 to o print the list of the parcels that arn't matched with a drone");
-                            Console.WriteLine($"enter 6 to o print the list of the stations that have available charging slots");
                             Console.WriteLine("");
                             bool isB;
                             string str = Console.ReadLine();

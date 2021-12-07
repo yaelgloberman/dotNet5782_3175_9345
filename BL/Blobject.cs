@@ -7,17 +7,17 @@ using IBL.BO;
 using IDAL.DO;
 using IBL;
 using System.Runtime.Serialization;
-//yaeli
-//shifra
 namespace BL
-{
+{ 
     public  class  BL :IBl
     {
-
         private IDal dal; //= new DalObject.DalObject();
         private static Random rand = new Random();
         private List<DroneToList> drones = new();
-
+        private static double getRandomCordinatesBL(double num1, double num2)
+        {
+            return (rand.NextDouble() * (num2 - num1) + num1);
+        }
         public BL()
         {
             dal = new DalObject.DalObject();
@@ -70,6 +70,7 @@ namespace BL
             {
                 foreach (var drone in dal.GetDrones())
                 {
+
                     drones.Add(new DroneToList
                     {
                         id = drone.id,
@@ -79,8 +80,8 @@ namespace BL
                         batteryStatus = 100,
                         location = new Location
                         {
-                            latitude = 31.2,
-                            longitude = 34.6
+                            longitude = getRandomCordinatesBL(34.3, 35.5),
+                            latitude = getRandomCordinatesBL(31.0, 33.3),
                         }
                     }
                     );
@@ -114,7 +115,7 @@ namespace BL
                         var stationId = dal.stationList().ToArray()[num].id;
                         addDrone(d, stationId);
                         drone.location = getBaseStationLocation(stationId);
-                        drone.batteryStatus = (double)rand.Next(5, 20) / 100;
+                        drone.batteryStatus = (double)rand.Next(5, 20);
                         drone.deliveryId = 0;
                     }
                     if (drone.droneStatus == DroneStatus.available)
@@ -164,20 +165,60 @@ namespace BL
         }
         #endregion
         #region ADD Drone
+        public void addDrone(int droneId, int stationId, string droneModel, Weight weight)
+        {
+            if (!(droneId >= 10000000 && droneId <= 1000000000))
+                throw new AddException("the number of the drone id in invalid\n");
+            if (!(weight > (Weight)0 && weight < (Weight)3))
+                throw new AddException("the given weight is not valid\n");
+            if (!(stationId >= 10000000 && stationId <= 1000000000))
+                throw new AddException("the number of the drone id in invalid\n");
+            IDAL.DO.Station stationDl = dal.GetStation(stationId);
+            if (stationDl.latitude < (double)31 || stationDl.latitude > 33.3)
+                throw new AddException("the given latitude do not exist in this country/\n");
+            if (stationDl.longitude < 34.3 || stationDl.longitude > 35.5)
+                throw new AddException("the given longitude do not exist in this country/\n");
+            DroneToList dtl = new DroneToList();
+            dtl.id = droneId;
+            dtl.droneModel = droneModel;
+            dtl.weight = weight;
+            dtl.batteryStatus = (double)rand.Next(20, 40);
+            dtl.droneStatus = DroneStatus.charge;
+            dtl.location = new Location();
+            dtl.location.latitude= stationDl.latitude;
+            dtl.location.longitude = stationDl.longitude;
+            IDAL.DO.Drone dr = new IDAL.DO.Drone();
+            {
+                dr.id = droneId;
+                dr.model = droneModel;
+                dr.maxWeight = (WeightCatigories)weight;
+            }
+            dal.addDrone(dr);
+            drones.Add(dtl);
+            IDAL.DO.droneCharges dc = new IDAL.DO.droneCharges { droneId = droneId, stationId = stationId };
+            dal.SendToCharge(droneId, stationId);
+        }
         public void addDrone(DroneToList droneToAdd, int stationId)
         {
+
+            IDAL.DO.Station stationDl = dal.GetStation(stationId);
+            droneToAdd.location.latitude = stationDl.latitude;
+            droneToAdd.location.longitude = stationDl.longitude;
             droneToAdd.batteryStatus = (double)rand.Next(20, 40);
+            droneToAdd.droneStatus = DroneStatus.charge;
             if (!(droneToAdd.id >= 10000000 && droneToAdd.id <= 1000000000))
                 throw new AddException("the number of the drone id in invalid\n");
             if (!(droneToAdd.batteryStatus >= (double)0 && droneToAdd.batteryStatus <= (double)100))
                 throw new AddException("the status of the drone is invalid\n");
             if (droneToAdd.location.latitude < (double)31 || droneToAdd.location.latitude > 33.3)
                 throw new AddException("the given latitude do not exist in this country/\n");
-            if(droneToAdd.location.longitude < 34.3 || droneToAdd.location.longitude > 35.5)
+            if (droneToAdd.location.longitude < 34.3 || droneToAdd.location.longitude > 35.5)
                 throw new AddException("the given longitude do not exist in this country/\n");
             if (!(droneToAdd.weight > (Weight)0 && droneToAdd.weight < (Weight)3))
                 throw new AddException("the given weight is not valid\n");
-            try  
+            if (!(stationId >= 10000000 && stationId <= 1000000000))
+                throw new AddException("the number of the drone id in invalid\n");
+            try
             {
                 var tempDrone = GetDrone(droneToAdd.id);
             }
@@ -191,19 +232,17 @@ namespace BL
             }
             catch (findException exp)
             {
-               throw new dosntExisetException(exp.Message);
+                throw new dosntExisetException(exp.Message);
             }
-                droneToAdd.droneStatus = DroneStatus.charge;
-                droneToAdd.location = getBaseStationLocation(stationId);
-                IDAL.DO.Drone drone = new IDAL.DO.Drone();
-                drone.id = droneToAdd.id;
-                drone.model = droneToAdd.droneModel;
-                drone.maxWeight = (WeightCatigories)droneToAdd.weight;
-                drones.Add(droneToAdd);
-                dal.addDrone(drone);
-                dal.SendToCharge(droneToAdd.id, stationId);
-                
-               
+            droneToAdd.droneStatus = DroneStatus.charge;
+            droneToAdd.location = getBaseStationLocation(stationId);
+            IDAL.DO.Drone drone = new IDAL.DO.Drone();
+            drone.id = droneToAdd.id;
+            drone.model = droneToAdd.droneModel;
+            drone.maxWeight = (WeightCatigories)droneToAdd.weight;
+            drones.Add(droneToAdd);
+            dal.addDrone(drone);
+            dal.SendToCharge(droneToAdd.id, stationId);
         }
         #endregion
         #region Add Customer
@@ -612,32 +651,38 @@ namespace BL
         #region UPDATE
         public void updateDroneName(int droneID, string dModel)
         {
-            //	if (dModel > 999 && dModel < 10000)//what is the bdika for the model?
+            int dIndex = drones.FindIndex(x => x.id == droneID);
+            if (dIndex==0)//לדעת מה הוא מחזיר אם הוא לא מוצא ולשים בתנאי
             {
-                int dIndex = drones.FindIndex(x => x.id == droneID);
-                drones[dIndex].droneModel = dModel;
+                throw new dosntExisetException("drone do not exist");
             }
-            throw new validException("the name of the model is not valid\n");//remeber to catch in the main
 
+            dal.updateDrone(droneID, dModel);
+            IBL.BO.DroneToList dr = drones.Find(p => p.id == droneID);
+            drones.Remove(dr);
+            dr.droneModel = dModel;
+            drones.Add(dr);
         }
         public void updateStation(int stationID, int AvlblDCharges, string Name = " ")
         {
-            IBL.BO.BaseStation s = GetStation(stationID);
-            if (AvlblDCharges != null || Name != " ")
+            try
             {
-                dal.stationList().ToList().Remove(dal.GetStation(stationID));//not sure if this is how i remove the station im updating
-
+                IDAL.DO.Station stationDl = new IDAL.DO.Station();
+                stationDl = dal.GetStation(stationID);
                 if (Name != " ")
-                    s.stationName = Name;
-                if (AvlblDCharges != null)
+                    stationDl.name = Name;
+                if (AvlblDCharges != 0)
                 {
                     if (AvlblDCharges < 0)
                         throw new validException("this amount of drone choging slots is not valid!\n");
-                    s.avilableChargeSlots = AvlblDCharges;      //i need al the slots not just the available one - not sure what this variable means
+                    stationDl.chargeSlots = AvlblDCharges;      //i need al the slots not just the available one - not sure what this variable means
+                    dal.updateStation(stationID, stationDl);
                 }
-                addStation(s);
             }
-
+            catch(findException exp)
+            {
+                throw new dosntExisetException(exp.Message);
+            }
         }
         public void updateCustomer(int customerID, string Name = " ", int phoneNum = 0)
         {
@@ -690,13 +735,8 @@ namespace BL
             try { dal.deleteDrone(dal.GetDrone(droneID)); }
             catch (findException exp)
             {
-                    throw new dosntExisetException(exp.Message);
+                throw new dosntExisetException(exp.Message);
             }
-
-
-
-
-
                 addDrone(drones[droneIndex], StationID);
             IDAL.DO.droneCharges DC = new droneCharges { droneId = droneID, stationId = StationID };
             dal.chargingDroneList().ToList().Add(DC);

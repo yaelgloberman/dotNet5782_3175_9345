@@ -26,7 +26,6 @@ namespace DalObject
                 throw new System.ArgumentException("drons list =null");
             return DataSource.Customers.ToList();
         }
-        public void MenuPrint(string action) { throw new Exception(); }
         public IEnumerable<Drone> droneList()
         {
             if (DataSource.drones.ToList() == null)

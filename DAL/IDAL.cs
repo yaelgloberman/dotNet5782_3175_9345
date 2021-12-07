@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System;
- namespace IDAL
+namespace IDAL
  {
     namespace DO
     {
@@ -30,7 +29,6 @@ using System;
             public IEnumerable<Customer> GetCustomers();
             public IEnumerable<Station> getStations();
             public IEnumerable<Parcel> GetParcels();
-            void MenuPrint(string action);
             public string GetCustomerName(int id);
             IEnumerable<Parcel> parcelList();
             void PickUpPackageByDrone(int dID, int pID);
@@ -41,9 +39,9 @@ using System;
             public void deleteDrone(Drone d);
             public void deleteParcel(Parcel p);
             public void deleteStation(Station s);
-
+            public void updateStation(int stationId, Station s);
             public int AvailableChargingSlots();
-
-        }
+            public void updateDrone(int droneId, string droneModel);
+          }
     }
 }

@@ -33,12 +33,16 @@ using System.Threading.Tasks;
             /// </summary>
             /// <param name="cordinate"></param>
             /// <returns></returns>
-            private static double getRandomCordinates(int num1,int num2) 
-            {
-                int num3 = r.Next(num1, num2);
-                return num3 + r.NextDouble()/10;
-            }
-            public static void Initialize()
+            //private static double getRandomCordinates(int num1,int num2) 
+            //{
+            //    int num3 = r.Next(num1, num2);
+            //    return num3 + r.NextDouble()/10;
+            //}
+        private static double getRandomCordinates(double num1, double num2)
+        {
+            return (r.NextDouble() * (num2 - num1) + num1);
+        }
+        public static void Initialize()
             {
                 DataSource.createCustomer();
                 DataSource.CreateDrone();
@@ -53,8 +57,8 @@ using System.Threading.Tasks;
                     {
                         id = r.Next(111111111, 999999999),
                         name ="Station"+i, 
-                        longitude = getRandomCordinates(-180,180),
-                        latitude = getRandomCordinates(-90, 90),
+                        longitude = getRandomCordinates(34.3,35.5),
+                        latitude = getRandomCordinates(31.0,33.3),
                         chargeSlots = r.Next(5, 100)
                     }); 
                 }
@@ -81,8 +85,8 @@ using System.Threading.Tasks;
                         id = r.Next(11111111,99999999),
                         name = "Name" + i,
                         phoneNumber = r.Next(11111111, 99999999),
-                        longitude = getRandomCordinates(-180,180),
-                        latitude = getRandomCordinates(-90, 90),
+                        longitude = getRandomCordinates(34.3, 35.5),
+                        latitude = getRandomCordinates(31.0, 33.3),
                     });
                 }
             }
