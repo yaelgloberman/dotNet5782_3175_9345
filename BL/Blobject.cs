@@ -317,6 +317,7 @@ namespace BL
 
         public void addDrone(DroneToList droneToAdd, int stationId)
         {
+
             IDAL.DO.Station stationDl = dal.GetStation(stationId);
             droneToAdd.location.latitude = stationDl.latitude;
             droneToAdd.location.longitude = stationDl.longitude;
@@ -976,22 +977,33 @@ namespace BL
         #endregion
         public void matchingDroneToParcel(int droneID)//didnt finish this function at all 
         {
-            IBL.BO.DroneToList drone = new ();
-            try { drone = GetDrone(droneID); } catch (IDAL.DO.findException) { throw new findException(); }
+            IBL.BO.DroneToList dtl = new ();
+            try {dtl = GetDrone(droneID); } catch (IDAL.DO.findException) { throw new findException(); }
             //finding the best parcel
-            if (drone.droneStatus != DroneStatus.available)
+            int droneIndex = GetDrones().ToList().FindIndex(x => x.id == droneID);
+            if (drones[droneIndex].droneStatus != DroneStatus.available)
                 throw new unavailableException("the drone is unavailable\n");
-            IBL.BO.Parcel ChosenParcel = findTheParcel(drone.location, drone.batteryStatus, IBL.BO.Priority.emergency);
+            IBL.BO.Parcel ChosenParcel = findTheParcel(drones[droneIndex].location, drones[droneIndex].batteryStatus, IBL.BO.Priority.emergency);
             // the actual update
-            drones.Remove(GetDrone(droneID));
+            //Console.WriteLine("befor\n ");
+            //foreach (var d in GetDrones()) { Console.WriteLine(d.ToString() + "\n"); }
             dal.deleteDrone(dal.GetDrone(droneID));
-            drone.droneStatus = DroneStatus.delivery;
+            drones.Remove(drones[droneIndex]);
+            //Console.WriteLine( "after deleting from dal\n");
+            //foreach (var d in GetDrones()) { Console.WriteLine(d.ToString() + "\n"); }
+            drones[droneIndex].droneStatus = DroneStatus.delivery;
+         
+            //Console.WriteLine("after deleting from bl\n");
+            //foreach (var d in GetDrones()) { Console.WriteLine(d.ToString() + "\n"); }
+            //to find the station id
             var customer = GetCustomers().ToList().Find(x => x.id == ChosenParcel.receive.id);
             var stationLocation = findClosetBaseStationLocation(customer.location, false);
             var customerStation = GetStations().ToList().Find(x => x.location.latitude == stationLocation.latitude && x.location.longitude == stationLocation.longitude);
-            addDrone(drone, customerStation.id);
+            addDrone(drones[droneIndex], customerStation.id);
+            Console.WriteLine("adding the good drone\n");
+            foreach (var d in GetDrones()) { Console.WriteLine(d.ToString() + "\n"); }
             dal.deleteParcel(dal.GetParcel(ChosenParcel.id));
-            IBL.BO.DroneInParcel droneInParcel = new DroneInParcel { id = droneID, battery = drone.batteryStatus, location = drone.location };
+            IBL.BO.DroneInParcel droneInParcel = new DroneInParcel { id = droneID, battery = drones[droneIndex].batteryStatus, location = drones[droneIndex].location };
             ChosenParcel.droneInParcel = droneInParcel;
             ChosenParcel.scheduled = DateTime.Now;//notsure which one is זמן השיוך
             addParcel(ChosenParcel);
