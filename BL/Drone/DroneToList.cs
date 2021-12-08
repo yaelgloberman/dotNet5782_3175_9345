@@ -18,7 +18,7 @@ namespace IBL.BO
         public int deliveryId { get; set; }
         public override string ToString()
         {
-            return String.Format($"drone id:{id}, drone Model: {droneModel}, weight: {weight}, battery Status:{batteryStatus}%, drone Status: {droneStatus}, location: {location} num Of Deliverd Parcels: {numOfDeliverdParcels}, delivery :Id{deliveryId}");
+            return String.Format($"drone id:{id}, drone Model: {droneModel}, weight: {weight}, battery Status:{batteryStatus}%, drone Status: {droneStatus}, location: {location} num Of Deliverd Parcels: {numOfDeliverdParcels}, delivery ID: {deliveryId}");
         }
 
     }

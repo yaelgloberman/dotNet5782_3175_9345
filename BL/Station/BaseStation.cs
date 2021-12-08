@@ -17,7 +17,7 @@ namespace IBL.BO
         public IEnumerable<DroneInCharge> DroneInChargeList { get; set; }
         public override string ToString()
         {
-            return string.Format($"id: {id}, station Name: {stationName}, location: {location},avilableChargeSlots:{avilableChargeSlots}");
+            return string.Format($"id: {id}, station Name: {stationName}, location: {location},avilable Charging Slots:{avilableChargeSlots}");
         }
     }
 }

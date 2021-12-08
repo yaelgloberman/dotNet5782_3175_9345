@@ -11,38 +11,32 @@ namespace BL
 { 
     public  class  BL :IBl
     {
-        private IDal dal; //= new DalObject.DalObject();
+        public static IDal dal; //= new DalObject.DalObject();
         private static Random rand = new Random();
-        private List<DroneToList> drones = new();
+        private List<DroneToList> drones; //= new();
         private static double getRandomCordinatesBL(double num1, double num2)
         {
             return (rand.NextDouble() * (num2 - num1) + num1);
         }
-        //public BL()
-        //{
-        //    dal = new DalObject.DalObject();
-        //    drones = new List<DroneToList>();
-        //    initializeDrones();
-        //}
+//have to fix the num of delivered parcels and the delivery
         public BL()
         {
-            ;
-            DalObject.DalObject dal = new DalObject.DalObject();
-            //}
-            //private void function()
-            //{
+            dal = new DalObject.DalObject();
+            drones = new List<IBL.BO.DroneToList>();
             bool flag = false;
             Random rnd = new Random();
             double minBatery = 0;
-            var DroneArr = new List<DroneToList>();
             IEnumerable<IDAL.DO.Drone> d = dal.GetDrones();
             IEnumerable<IDAL.DO.Parcel> p = dal.GetParcels();
-            chargeCapacity chargeCapacity = new();
+            chargeCapacity chargeCapacity = GetChargeCapacity() ;
             foreach (var item in d)
             {
                 IBL.BO.DroneToList drt = new DroneToList();
                 drt.id = item.id;
                 drt.droneModel = item.model;
+                drt.numOfDeliverdParcels = dal.parcelList().Count(x => x.droneId == drt.id);
+                int parcelID = dal.parcelList().ToList().Find(x => x.droneId == drt.id).id;
+                drt.deliveryId = parcelID;
                 foreach (var pr in p)
                 {
                     if (pr.id == item.id && pr.delivered == DateTime.MinValue)
@@ -105,31 +99,74 @@ namespace BL
                         {
                             foreach (var pr in dal.CustomerList())
                             {
-                         
-                                    lst.Add(pr);
+
+                                lst.Add(pr);
                             }
                         }
                         int l = rnd.Next(0, lst.Count());
 
                         drt.location = new Location { latitude = lst[l].latitude, longitude = lst[l].longitude };
-                            Location Location1 = new Location { latitude = lst[l].latitude, longitude = lst[l].longitude };
+                        Location Location1 = new Location { latitude = lst[l].latitude, longitude = lst[l].longitude };
 
-                            minBatery += Distance(drt.location, new Location { longitude = findClosetBaseStationLocation(Location1, false).longitude, latitude = findClosetBaseStationLocation(Location1, false).latitude }) * chargeCapacity.chargeCapacityArr[0];
-                        
+                        minBatery += Distance(drt.location, new Location { longitude = findClosetBaseStationLocation(Location1, false).longitude, latitude = findClosetBaseStationLocation(Location1, false).latitude }) * chargeCapacity.chargeCapacityArr[0];
+
                         drt.batteryStatus = rnd.Next((int)minBatery, 101);/// 100//*/;
                     }
 
                 }
-                DroneArr.Add(drt);
+                drones.Add(drt);
 
 
             }
 
         }
+        //public  BL()
+        //{
+        //    dal = new DalObject.DalObject();
+        //    chargeCapacity chargeCapacity = new();
+        //    Random rand = new Random();
+        //    var blDrones=new List<DroneToList>();
+        //    double minBatery;
+        //    foreach (var itemDrone in dal.droneList())
+        //    {
+        //        IBL.BO.DroneToList droneTemp = new DroneToList();
+        //        droneTemp.id = itemDrone.id;
+        //        droneTemp.droneModel = itemDrone.model;
+        //        foreach(var itemParcel in dal.parcelList())
+        //        {
+        //            if (itemParcel.droneId == itemDrone.id && itemParcel.delivered == DateTime.MinValue)
+        //            {
+        //                IDAL.DO.Customer sender = dal.GetCustomer(itemParcel.senderId);
+        //                IDAL.DO.Customer target = dal.GetCustomer(itemParcel.targetId);
+        //                IBL.BO.Location senderLocation = new Location { latitude = sender.latitude, longitude = sender.longitude };
+        //                IBL.BO.Location targetLocation = new Location { latitude = target.latitude, longitude = target.longitude };
+        //                droneTemp.droneStatus = DroneStatus.delivery;
+        //                if (itemParcel.pickedUp == DateTime.MinValue && itemParcel.scheduled != DateTime.MinValue)//החבילה שויכה אבל עדיין לא נאספה
+        //                {
+        //                    droneTemp.location = new Location { latitude = findClosetBaseStationLocation(senderLocation, false).latitude, longitude = findClosetBaseStationLocation(senderLocation, false).longitude };
+        //                    minBatery = Distance(droneTemp.location, senderLocation) * chargeCapacity.chargeCapacityArr[0];
+        //                    minBatery += Distance(senderLocation, targetLocation) * chargeCapacity.chargeCapacityArr[(int)itemParcel.weight];
+        //                    minBatery += Distance(targetLocation, new Location { latitude = findClosetBaseStationLocation(targetLocation, false).latitude, longitude = findClosetBaseStationLocation(targetLocation, false).longitude }) * chargeCapacity.chargeCapacityArr[0];
+
+        //                }
+        //                if (itemParcel.pickedUp != DateTime.MinValue && itemParcel.delivered == DateTime.MinValue)//החבילה נאספה אבל עדיין לא הגיעה ליעד
+        //                {
+        //                    droneTemp.location = new Location();
+        //                    droneTemp.location = senderLocation;
+        //                    minBatery = Distance(targetLocation, new Location { latitude = findClosetBaseStationLocation(targetLocation, false).latitude, longitude = findClosetBaseStationLocation(targetLocation, false).longitude }) * chargeCapacity.chargeCapacityArr[0];
+        //                    minBatery += Distance(droneTemp.location, targetLocation) * chargeCapacity.chargeCapacityArr[(int)itemParcel.weight];
+
+        //                }
+        //            }
+        //        }
+        //    }
+
+
+        //}
         public chargeCapacity GetChargeCapacity()
         {
-            double[] arr=dal.ChargeCapacity();
-            chargeCapacity chargingUsage  =new chargeCapacity { pwrAvailable=arr[0],pwrLight=arr[1],pwrAverge=arr[2],pwrHeavy=arr[3],pwrRateLoadingDrone=arr[4],chargeCapacityArr=arr};
+            double[] arr = dal.ChargeCapacity();
+            chargeCapacity chargingUsage = new chargeCapacity { pwrAvailable = arr[0], pwrLight = arr[1], pwrAverge = arr[2], pwrHeavy = arr[3], pwrRateLoadingDrone = arr[4], chargeCapacityArr = arr };
             return chargingUsage;
         }
 
@@ -168,13 +205,13 @@ namespace BL
 
 
 
+
+
+
+
+
+
         
-
-
-
-
-
-
 
 
 
@@ -490,8 +527,8 @@ namespace BL
             try
             {
                 DroneToList dl = drones.Find(x => x.id == id);
-                if (dl.id != 0)
-                    return dl;
+               // if (dl.id == 0)
+                   // throw new dosntExisetException("this drone wasnt found");
                 DroneToList droneBo = new DroneToList();
                 IDAL.DO.Drone droneDo = dal.GetDrone(id);
                 DroneToList drone = drones.Find(d => d.id == id);
@@ -503,6 +540,10 @@ namespace BL
                 droneBo.droneStatus = drone.droneStatus;
                 droneBo.numOfDeliverdParcels = drone.numOfDeliverdParcels;
                 return droneBo;
+            }
+            catch(ArgumentNullException exp)
+            {
+                throw new dosntExisetException(exp.Message);
             }
             catch (findException exp)
             {
@@ -535,8 +576,12 @@ namespace BL
         public List<IBL.BO.BaseStation> GetStations()
         {
             List<IBL.BO.BaseStation> baseStations = new List<IBL.BO.BaseStation>();
-            foreach (var s in dal.stationList())
-            { baseStations.Add(GetStation(s.id)); }
+            try
+            {
+                var stationsDal = dal.stationList().ToList();
+                foreach (var s in stationsDal)
+                { baseStations.Add(GetStation(s.id)); }
+            }catch(ArgumentException ) { throw new dosntExisetException(); }
             return baseStations;
         }
         public List<IBL.BO.DroneToList> GetDrones()//all the drones to list i hope thats ok
@@ -692,16 +737,17 @@ namespace BL
         private Location findClosetBaseStationLocation(Location currentlocation, bool withChargeSlots)//the function could also be used to check in addtion if the charge slots are more then 0
         {
             List<BaseStation> locations = new List<BaseStation>();
-            foreach (var baseStation in dal.getStations())
+            foreach (var baseStation in GetStations())
             {
                 locations.Add(new BaseStation
                 {
+                    //location = baseStation.location
                     location = new Location
                     {
-                        latitude = baseStation.latitude,
-                        longitude = baseStation.longitude
+                        latitude = baseStation.location.latitude,
+                        longitude = baseStation.location.longitude
                     }
-                });
+                }); 
             }
             Location location = locations[0].location;
             double distance = Distance(locations[0].location, currentlocation);
@@ -714,6 +760,7 @@ namespace BL
                         location = locations[i].location;
                         distance = Distance(locations[i].location, currentlocation);
                     }
+       
                 }
                 else
                 {
@@ -722,6 +769,7 @@ namespace BL
                         location = locations[i].location;
                         distance = Distance(locations[i].location, currentlocation);
                     }
+                    
                 }
 
             }
@@ -850,10 +898,11 @@ namespace BL
             //{
             //    throw new dosntExisetException(exp.Message);
             //}
-            Location stationLocation = findClosetBaseStationLocation(drone.location, true);//not sure where and what its from
+            Location stationLocation = findClosetBaseStationLocation(drone.location, false);//not sure where and what its from
             station = GetStations().Find(x => x.location == stationLocation);
             int droneIndex = drones.FindIndex(x => x.id == droneID);
-            station.decreasingChargeSlots();
+            if(station.avilableChargeSlots>0)
+                station.decreasingChargeSlots();
             drones[droneIndex].batteryStatus = calcMinBatteryRequired(drones[droneIndex]);
             drones[droneIndex].location = station.location;
             drones[droneIndex].droneStatus = DroneStatus.charge;

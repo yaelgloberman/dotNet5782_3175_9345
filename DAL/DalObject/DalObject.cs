@@ -40,7 +40,7 @@ namespace DalObject
         }
         public IEnumerable<Station> stationList()
         {
-            if (DataSource.stations.ToList() == null)
+            if (DataSource.stations.ToList().Count==0 )
                 throw new System.ArgumentException("station list =null");
             return DataSource.stations.ToList();
         }
