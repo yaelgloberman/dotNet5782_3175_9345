@@ -81,7 +81,7 @@ namespace DalObject
 
         static void createCustomer()
         {
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 10; i++)
             {
                 Customers.Add(new Customer()
                 {
@@ -90,7 +90,7 @@ namespace DalObject
                     phoneNumber = r.Next(11111111, 99999999),
                     longitude = getRandomCordinates(34.3, 35.5),
                     latitude = getRandomCordinates(31.0, 33.3),
-                });
+                }) ;
             }
         }
 

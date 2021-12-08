@@ -9,7 +9,7 @@ namespace IDAL
     namespace DO
     {
         public enum WeightCatigories { light=1, avergae,heavy };
-        public enum Proirities { regular,fast,emergency };
+        public enum Proirities { regular=1,fast,emergency };
 
     }
 }

@@ -57,7 +57,18 @@ namespace DalObject
             string name=GetCustomer(id).name;
             return name;
         }
-
+        public void updateCustomer(int customerId, Customer c)
+        {
+            for (int i = 0; i < DataSource.Customers.Count; i++)
+            {
+                if (DataSource.Customers[i].id == customerId)
+                {
+                    DataSource.Customers[i] = c;
+                    return;
+                }
+            }
+            throw new findException("id not found");
+        }   
     }
 }
     
