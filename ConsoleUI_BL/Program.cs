@@ -237,6 +237,7 @@ namespace ConsoleUI_BL
                                                     int.TryParse(Console.ReadLine(), out droneId);
                                                    try{ DroneToList d = bl.GetDrone(droneId);
                                                      bl.SendToCharge(droneId); }
+                                                    catch (deleteException exp) { Console.WriteLine(exp.Message); }
                                                     catch (dosntExisetException exp){ Console.WriteLine(exp.Message); }
                                                     catch (unavailableException exp) { Console.WriteLine(exp.Message); }
                                                 }

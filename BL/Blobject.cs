@@ -34,6 +34,7 @@ namespace BL
                 IBL.BO.DroneToList drt = new DroneToList();
                 drt.id = item.id;
                 drt.droneModel = item.model;
+                drt.weight = (IBL.BO.Weight)(int)item.maxWeight;
                 drt.numOfDeliverdParcels = dal.parcelList().Count(x => x.droneId == drt.id);
                 int parcelID = dal.parcelList().ToList().Find(x => x.droneId == drt.id).id;
                 drt.deliveryId = parcelID;
@@ -115,6 +116,7 @@ namespace BL
 
                 }
                 drones.Add(drt);
+                //Console.WriteLine(drt.ToString());
 
 
             }
@@ -526,7 +528,7 @@ namespace BL
         {
             try
             {
-                DroneToList dl = drones.Find(x => x.id == id);
+                DroneToList dl = drones.ToList().Find(x => x.id == id);
                // if (dl.id == 0)
                    // throw new dosntExisetException("this drone wasnt found");
                 DroneToList droneBo = new DroneToList();
@@ -779,11 +781,11 @@ namespace BL
         #region DELETE DRONE
         public void deleteDrone(int droneID)
         {
-            foreach (var p in dal.parcelList())
-            {
-                if (p.droneId == droneID)
-                    throw new deleteException("there is/are parcel that is matched to this drone\n");
-            }
+            //foreach (var p in dal.parcelList())
+            //{
+            //    if (p.droneId == droneID)
+            //        throw new deleteException("there is/are parcel that is matched to this drone\n");
+            //}
             try
             {
                 var drone = dal.GetDrone(droneID);
@@ -899,14 +901,15 @@ namespace BL
             //    throw new dosntExisetException(exp.Message);
             //}
             Location stationLocation = findClosetBaseStationLocation(drone.location, false);//not sure where and what its from
-            station = GetStations().Find(x => x.location == stationLocation);
-            int droneIndex = drones.FindIndex(x => x.id == droneID);
+            station = GetStations().Find(x => x.location.longitude == stationLocation.longitude && x.location.latitude == stationLocation.latitude);
+            int droneIndex = drones.ToList().FindIndex(x => x.id == droneID);
             if(station.avilableChargeSlots>0)
                 station.decreasingChargeSlots();
             drones[droneIndex].batteryStatus = calcMinBatteryRequired(drones[droneIndex]);
             drones[droneIndex].location = station.location;
             drones[droneIndex].droneStatus = DroneStatus.charge;
-            try { dal.deleteDrone(dal.GetDrone(droneID)); }
+            
+            try { deleteDrone(droneID); }catch(deleteException exp) { throw new deleteException(exp.Message); }
             catch (findException exp)
             {
                 throw new dosntExisetException(exp.Message);
