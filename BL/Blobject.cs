@@ -788,8 +788,8 @@ namespace BL
             //}
             try
             {
-                var drone = dal.GetDrone(droneID);
-                dal.deleteDrone(drone);
+                //var drone = GetDrone(droneID);
+                dal.deleteDrone(dal.GetDrone(droneID));
 
             }
             catch (findException exp) { throw new deleteException("cant delete this drone\n"); }
@@ -903,7 +903,8 @@ namespace BL
             Location stationLocation = findClosetBaseStationLocation(drone.location, false);//not sure where and what its from
             station = GetStations().Find(x => x.location.longitude == stationLocation.longitude && x.location.latitude == stationLocation.latitude);
             int droneIndex = drones.ToList().FindIndex(x => x.id == droneID);
-            if(station.avilableChargeSlots>0)
+            //var droneBL=GetDrones().ToList().Find(x => x.id == droneID);
+            if (station.avilableChargeSlots>0)
                 station.decreasingChargeSlots();
             drones[droneIndex].batteryStatus = calcMinBatteryRequired(drones[droneIndex]);
             drones[droneIndex].location = station.location;
