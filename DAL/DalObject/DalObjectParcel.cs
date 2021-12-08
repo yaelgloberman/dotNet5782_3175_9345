@@ -15,7 +15,7 @@ namespace DalObject
         }
         public int addParcel(Parcel p)
         {
-            if (!DataSource.Customers.Exists(item => item.id == p.id))
+            if (DataSource.parcels.Exists(item => item.id == p.id))
                 throw new AddException("drone already exist");
             p.id = DataSource.Config.parcelSerial++;
             DataSource.parcels.Add(p);

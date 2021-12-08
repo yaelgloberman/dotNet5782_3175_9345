@@ -19,7 +19,12 @@ namespace DalObject
             double[] arr = { DataSource.Config.available, DataSource.Config.light, DataSource.Config.average, DataSource.Config.heavy, DataSource.Config.rateLoadingDrone };
             return arr;
         }
-        public IEnumerable<droneCharges> chargingDroneList() { throw new Exception(); }
+        public IEnumerable<droneCharges> chargingDroneList()
+        {
+            if (DataSource.chargingDrones.ToList() == null)
+                throw new System.ArgumentException("charging drone" + " list =null");
+            return DataSource.chargingDrones.ToList();
+        }
         public IEnumerable<Customer> CustomerList()
         {
             if (DataSource.Customers.ToList() == null)
