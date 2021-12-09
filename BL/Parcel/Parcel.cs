@@ -16,10 +16,8 @@ namespace IBL.BO
         public DateTime pickedUp { set; get; }//4-אספקה 
         public override string ToString()
         {
-            return string.Format($"Id: {id}, Sender Id:\n {sender}, receiver Id:\n {receive}, Priority: {priority},  Weight Catigory: {weightCategorie}, Drone Id: {droneInParcel}, Requested: {requested}, Scheduled: {scheduled}, PickedUp: {pickedUp}, Datetime: {delivered}  ");
-
+            return string.Format($"Id: {id}, Sender Id:\n {sender}, receiver Id:\n {receive}, Priority: {priority}, Drone in parcel: {droneInParcel},  Weight Catigory: {weightCategorie}, Requested: {requested}, Scheduled: {scheduled}, PickedUp: {pickedUp}, Datetime: {delivered}  ");
+            
         }
-
-
     }
 }

@@ -42,6 +42,7 @@ namespace IDAL
             public void updateStation(int stationId, Station s);
             public int AvailableChargingSlots();
             public void updateDrone(int droneId, string droneModel);
+            public void updateCustomer(int customerId, Customer c);
           }
     }
 }
