@@ -15,7 +15,7 @@
     }
     public enum DroneStatus
     {
-        available,charge,delivery
+        available=1,charge,delivery
     }
     public enum BoolParcelStatus
     {

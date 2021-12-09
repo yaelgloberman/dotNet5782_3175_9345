@@ -17,5 +17,10 @@ namespace IBL.BO
         public Location collection { get; set; }
         public Location DeliveryDestination { get; set; }
         public double TransportDistance { get; set; }
+        public override string ToString()
+        {
+            return string.Format($"id: {id}, parcelStatus: {parcelStatus}, the max weight: {priority}, drones battery Status: {weight}, " +
+                $" drones  Status: {sender}parcel in transfer:\n {receive}, Location: {collection}   ");
+        }
     }
 }

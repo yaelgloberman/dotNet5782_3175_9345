@@ -251,13 +251,10 @@ namespace ConsoleUI_BL
                                                     TimeSpan chargingTime;
                                                     Console.WriteLine("enter drone id\n");
                                                     string input = Console.ReadLine();
-                                                    try { ValidateString(input);}
-                                                    catch (validException exp) {Console.WriteLine(exp.Message);};
                                                     int.TryParse(input, out droneId);
-                                                    input = Console.ReadLine();
                                                     TimeSpan.TryParse(input, out chargingTime);
                                                     try { bl.releasingDrone(droneId, chargingTime); }
-                                                    catch (dosntExisetException exp) {Console.WriteLine(exp.Message); }
+                                                    catch (dosntExisetException exp) { Console.WriteLine(exp.Message); }
                                                 }
                                                 break;
                                             default:

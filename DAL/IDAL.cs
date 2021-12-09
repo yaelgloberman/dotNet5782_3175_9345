@@ -14,13 +14,14 @@ namespace IDAL
             public double[] ChargeCapacity();
             IEnumerable<droneCharges> chargingDroneList();
             IEnumerable<Customer> CustomerList();
-
+            public void AddDroneCharge(droneCharges droneCharges);
             void DeliveryPackageCustomer(int cID, int pId, Proirities proirity);
             IEnumerable<Drone> droneList();
             droneCharges GetChargedDrone(int id);
             Customer GetCustomer(int id);
             Drone GetDrone(int id);
             Parcel GetParcel(int id);
+            public void RemoveDroneCharge(droneCharges droneCharges);
            public Station GetStation(int id);
             //public IEnumerable<Parcel> getCustomerReceivedParcels(int id);
             public IEnumerable<Parcel> getCustomerShippedParcels(int id);

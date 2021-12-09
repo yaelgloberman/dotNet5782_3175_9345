@@ -43,8 +43,6 @@ namespace IBL
         public void releasingDrone(int droneID, TimeSpan chargingTime);
 
         public void deliveryParcelToCustomer(int id);
-
-
         public void matchingDroneToParcel(int droneID);//didnt finish this function at all 
 
         public void pickedUpParcelByDrone(int droneID);
@@ -128,7 +126,7 @@ namespace IBL
 
         //    //private Location findDroneLocation(DroneToList drone);
 
-        //    //private Location findClosetBaseStationLocation(Ilocatable fromLocatable);
+        //    //private Location findClosestStationLocation(Ilocatable fromLocatable);
 
         //    public void deleteDrone(int droneID);
 

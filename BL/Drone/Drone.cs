@@ -7,7 +7,6 @@ namespace IBL.BO
 {
     public class Drone
     {
-        
         public int id { set; get; }
         public string droneModel { get; set; }
         public Weight weight { set; get; }
@@ -18,12 +17,7 @@ namespace IBL.BO
         public override string ToString()
         {
             return string.Format($"id: {id}, Model: {droneModel}, the max weight: {weight}, drones battery Status: {batteryStatus}, " +
-                $" drones  Status: {droneStatus} Customer who is sigened to this drone:\n {CustomerInParcel}, Location: {location}  ");
+                $" drones  Status: {droneStatus}parcel in transfer:\n {parcelInTransfer}, Location: {location}  ");
         }
-
-
-
-
     }
-
 }

@@ -125,16 +125,16 @@ namespace DalObject
 //                drt.droneStatus = DroneStatus.delivery;
 //                if (pr.pickedUp == DateTime.MinValue && pr.scheduled != DateTime.MinValue)//החבילה שויכה אבל עדיין לא נאספה
 //                {
-//                    drt.location = new Location { latitude = findClosetBaseStationLocation(senderLocation, false).latitude, longitude = findClosetBaseStationLocation(senderLocation, false).longitude };
+//                    drt.location = new Location { latitude = findClosestStationLocation(senderLocation, false).latitude, longitude = findClosestStationLocation(senderLocation, false).longitude };
 //                    minBatery = Distance(drt.location, senderLocation) * chargeCapacity.chargeCapacityArr[0];
 //                    minBatery += Distance(senderLocation, targetLocation) * chargeCapacity.chargeCapacityArr[(int)pr.weight];
-//                    minBatery += Distance(targetLocation, new Location { latitude = findClosetBaseStationLocation(targetLocation, false).latitude, longitude = findClosetBaseStationLocation(targetLocation, false).longitude }) * chargeCapacity.chargeCapacityArr[0];
+//                    minBatery += Distance(targetLocation, new Location { latitude = findClosestStationLocation(targetLocation, false).latitude, longitude = findClosestStationLocation(targetLocation, false).longitude }) * chargeCapacity.chargeCapacityArr[0];
 //                }
 //                if (pr.pickedUp != DateTime.MinValue && pr.delivered == DateTime.MinValue)//החבילה נאספה אבל עדיין לא הגיעה ליעד
 //                {
 //                    drt.location = new Location();
 //                    drt.location = senderLocation;
-//                    minBatery = Distance(targetLocation, new Location { latitude = findClosetBaseStationLocation(targetLocation, false).latitude, longitude = findClosetBaseStationLocation(targetLocation, false).longitude }) * chargeCapacity.chargeCapacityArr[0];
+//                    minBatery = Distance(targetLocation, new Location { latitude = findClosestStationLocation(targetLocation, false).latitude, longitude = findClosestStationLocation(targetLocation, false).longitude }) * chargeCapacity.chargeCapacityArr[0];
 //                    minBatery += Distance(drt.location, targetLocation) * chargeCapacity.chargeCapacityArr[(int)pr.weight];
 //                }
 //                drt.batteryStatus = rnd.Next((int)minBatery, 101); // 100/;
@@ -185,7 +185,7 @@ namespace DalObject
 //                drt.location = new Location { latitude = lst[l].latitude, longitude = lst[l].longitude };
 //                Location Location1 = new Location { latitude = lst[l].latitude, longitude = lst[l].longitude };
 
-//                minBatery += Distance(drt.location, new Location { longitude = findClosetBaseStationLocation(Location1, false).longitude, latitude = findClosetBaseStationLocation(Location1, false).latitude }) * chargeCapacity.chargeCapacityArr[0];
+//                minBatery += Distance(drt.location, new Location { longitude = findClosestStationLocation(Location1, false).longitude, latitude = findClosestStationLocation(Location1, false).latitude }) * chargeCapacity.chargeCapacityArr[0];
 
 //                drt.batteryStatus = rnd.Next((int)minBatery, 101);/// 100//*/;
 //            }

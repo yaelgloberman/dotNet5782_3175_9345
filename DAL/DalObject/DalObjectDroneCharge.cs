@@ -28,6 +28,14 @@ namespace DalObject
             }
             return (droneCharges)tmp;
         }
+        public void AddDroneCharge(droneCharges droneCharges)
+        {
+            DataSource.chargingDrones.Add(droneCharges);
+        }
+        public void RemoveDroneCharge(droneCharges droneCharges)
+        {
+            DataSource.chargingDrones.Remove(droneCharges);
+        }
         public IEnumerable<droneCharges> GetDroneIdInStation(int id)
         {
             List<droneCharges> droneChargesList = new List<droneCharges>();
