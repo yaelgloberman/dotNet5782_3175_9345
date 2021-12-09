@@ -82,7 +82,7 @@ namespace DalObject
         public void deleteDrone(Drone d)
         {
             if (!DataSource.drones.Exists(item => item.id == d.id))
-                throw new findException("Customer");
+                throw new findException("drone");
             DataSource.drones.Remove(d);
         }
         public IEnumerable<Drone> GetDrones()

@@ -789,8 +789,8 @@ namespace BL
             //}
             try
             {
-                var drone = dal.GetDrone(droneID);
-                dal.deleteDrone(drone);
+                //var drone = GetDrone(droneID);
+                dal.deleteDrone(dal.GetDrone(droneID));
 
             }
             catch (findException exp) { throw new deleteException("cant delete this drone\n"); }
