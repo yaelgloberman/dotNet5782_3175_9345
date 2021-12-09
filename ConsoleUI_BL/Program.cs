@@ -271,12 +271,12 @@ namespace ConsoleUI_BL
                                 case objectChoice.retrieve:
                                     {
                                         int DroneID;
-                                        IBL.BO.DroneToList currentDrone = new IBL.BO.DroneToList();
+                                        IBL.BO.Drone currentDrone = new ();
                                         Console.WriteLine("please enter the drone ID:");
                                         DroneID = int.Parse(Console.ReadLine());
                                         try
                                         {
-                                            currentDrone = bl.GetDrone(DroneID);
+                                            currentDrone = bl.returnsDrone(DroneID);
                                             Console.WriteLine(currentDrone.ToString());
                                         }
                                         catch (dosntExisetException exp) { Console.WriteLine(exp.Message); }

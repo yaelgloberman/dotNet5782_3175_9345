@@ -9,7 +9,7 @@ namespace IBL.BO
     {
         public int id { get; set; }
         public double battery { get; set; }
-        public Location location { get; set; } //צ
+        public Location location { get; set; }
         public override string ToString()
         {
             return string.Format($"drone id:{id}, battery: {battery}, location: {location} ");

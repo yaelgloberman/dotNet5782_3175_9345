@@ -48,6 +48,8 @@ namespace IBL
         public void matchingDroneToParcel(int droneID);//didnt finish this function at all 
 
         public void pickedUpParcelByDrone(int droneID);
+
+        public IBL.BO.Drone returnsDrone(int id);
     }
 }
 
