@@ -16,8 +16,7 @@ namespace IBL.BO
         public Location location { get; set; }
         public override string ToString()
         {
-            return string.Format($"id: {id}, Model: {droneModel}, the max weight: {weight}, drones battery Status: {batteryStatus}, " +
-                $" drones  Status: {droneStatus}parcel in transfer:\n {parcelInTransfer}, Location: {location}  ");
+            return string.Format($"id: {id}, Model: {droneModel}, the max weight: {weight}, drones battery Status: {batteryStatus}, drones  Status: {droneStatus}, parcel in transfer: {parcelInTransfer}, Location: {location}  ");
         }
     }
 }

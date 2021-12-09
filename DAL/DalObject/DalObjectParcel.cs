@@ -80,7 +80,7 @@ namespace DalObject
             }
             if (tmp == null)
             {
-                throw new UpdateException("parcel does not exist");
+                throw new findException("parcel does not exist");
             }
             return (Parcel)tmp;
         }

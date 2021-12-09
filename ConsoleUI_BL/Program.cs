@@ -488,6 +488,8 @@ namespace ConsoleUI_BL
                                                     try { bl.pickedUpParcelByDrone(droneId); }
                                                     catch (unavailableException exp) {Console.WriteLine(exp.Message);}
                                                     catch (dosntExisetException exp) { Console.WriteLine(exp.Message); }
+                                                    catch (validException exp) { Console.WriteLine(exp.Message); }
+                                                    
                                                 }
                                                 break;
                                             default:

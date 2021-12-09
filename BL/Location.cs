@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Formats;
 namespace IBL.BO
 {
     public class Location
@@ -11,7 +12,7 @@ namespace IBL.BO
         public double longitude { get; set; }
         public override string ToString()
         {
-            return string.Format($" latitude: {latitude}, longitude: {longitude} ");
+            return string.Format($" latitude: {Math.Round(latitude,3)}, longitude: {longitude} ");
         }
 
     }
