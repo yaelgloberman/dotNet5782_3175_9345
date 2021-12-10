@@ -32,7 +32,7 @@ namespace IBL.BO
         {
         }
 
-        public unavailableException(string message) : base("unavailableException" + message)
+        public unavailableException(string message) : base("unavailable Exception: " + message)
         {
         }
 
@@ -50,7 +50,7 @@ namespace IBL.BO
         {
         }
 
-        public dosntExisetException(string message) : base("do not exiset Exception: " + message)
+        public dosntExisetException(string message) : base("Dosn't exiset Exception: " + message)
         {
         }
 

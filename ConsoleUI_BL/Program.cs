@@ -90,7 +90,7 @@ namespace ConsoleUI_BL
                             {
                                 case objectChoice.add:
                                     {
-                                        IBL.BO.BaseStation temp = new IBL.BO.BaseStation();
+                                        BaseStation temp = new ();
                                         int id, chargeSlots;
                                         string name;
                                         double longitude, latitude;
@@ -139,7 +139,7 @@ namespace ConsoleUI_BL
                                 case objectChoice.retrieve:
                                     {
                                         int stationId;
-                                        IBL.BO.BaseStation baseStation = new BaseStation();
+                                        BaseStation baseStation = new BaseStation();
                                         Console.WriteLine("please enter the drone ID:");
                                         stationId = int.Parse(Console.ReadLine());
                                         try { baseStation = bl.GetStation(stationId); Console.WriteLine(baseStation.ToString()); }
@@ -240,9 +240,9 @@ namespace ConsoleUI_BL
                                                         DroneToList d = bl.GetDrone(droneId);
                                                         bl.SendToCharge(droneId);
                                                     }
+                                                    catch (unavailableException exp) { Console.WriteLine(exp.Message); }
                                                     catch (deleteException exp) { Console.WriteLine(exp.Message); }
                                                     catch (dosntExisetException exp) { Console.WriteLine(exp.Message); }
-                                                    catch (unavailableException exp) { Console.WriteLine(exp.Message); }
                                                 }
                                                 break;
                                             case updateDrone.releasingDrone:
@@ -255,6 +255,7 @@ namespace ConsoleUI_BL
                                                     TimeSpan.TryParse(input, out chargingTime);
                                                     try { bl.releasingDrone(droneId, chargingTime); }
                                                     catch (dosntExisetException exp) { Console.WriteLine(exp.Message); }
+                                                    catch (unavailableException exp) { Console.WriteLine(exp.Message); }
                                                 }
                                                 break;
                                             default:
@@ -356,11 +357,11 @@ namespace ConsoleUI_BL
                                                     int customerId, phoneNumber;
                                                     string customerName;
                                                     Console.WriteLine("enter customer id");
-                                                    Console.WriteLine("enter new name");
-                                                    Console.WriteLine("enter new phone number");
                                                     string input = Console.ReadLine();
                                                     int.TryParse(input, out customerId);
+                                                    Console.WriteLine("enter new name");
                                                     customerName = Console.ReadLine();
+                                                    Console.WriteLine("enter new phone number");
                                                     input = Console.ReadLine();
                                                     int.TryParse(input, out phoneNumber);
                                                     try{ bl.updateCustomer(customerId, customerName, phoneNumber);}

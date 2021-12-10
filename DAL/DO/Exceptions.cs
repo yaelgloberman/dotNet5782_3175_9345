@@ -14,7 +14,7 @@ namespace IDAL.DO
         {
         }
 
-        public findException(string message) : base("find Exception:" + message)
+        public findException(string message) : base(message)
         {
         }
 

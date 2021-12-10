@@ -1,5 +1,4 @@
 ﻿using IDAL.DO;
-//using DAL.DalObject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,13 +48,5 @@ namespace DalObject
                 throw new System.ArgumentException("station list =null");
             return DataSource.stations.ToList();
         }
-
-
-        /// <summary>
-        /// a menue to print in the main to navagte the switch to the correct object
-        /// </summary>
-        /// <param name="action"></param
-        /// }
-        /// 
     }
 }
