@@ -12,7 +12,7 @@ namespace IBL.BO
         public double longitude { get; set; }
         public override string ToString()
         {
-            return string.Format($" latitude: {Math.Round(latitude,3)}, longitude: {longitude} ");
+            return string.Format($" latitude: {IDAL.DO.help.getBase60Lng(latitude)}, longitude: {IDAL.DO.help.getBase60Lng(longitude)} ");
         }
 
     }

@@ -6,11 +6,16 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class BaseStationToList
+    public class BaseStationToList
     {
         public int id { get; set; }
         public string stationName { set; get; }
         public int avilableChargeSlots { get; set; }
         public int unavilableChargeSlots { get; set; }
+        public override string ToString()
+        {
+            return string.Format($"id: {id}, station Name: {stationName}, avilable ChargeSlots: {avilableChargeSlots}, unavilable Charge Slots:{unavilableChargeSlots}");
+        }
     }
 }
+

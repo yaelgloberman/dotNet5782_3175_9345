@@ -20,12 +20,12 @@ namespace DalObject
         internal class Config
         {
             internal static int parcelSerial = 10000000;
-            internal static int numberId;
-            internal static double available;
-            internal static double light;
-            internal static double heavy;
-            internal static double average;
-            internal static int rateLoadingDrone;
+            internal static int numberId = 1000;
+            internal static double available = 0.05;
+            internal static double light = 0.005;
+            internal static double heavy = 0.05;
+            internal static double average = 0.3;
+            internal static double rateLoadingDrone = 0.5;
         }
         static Random r = new Random();
         int num = r.Next();

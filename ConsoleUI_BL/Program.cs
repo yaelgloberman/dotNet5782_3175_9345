@@ -148,7 +148,7 @@ namespace ConsoleUI_BL
                                     break;
                                 case objectChoice.lists:
                                     {
-                                        foreach (var st in bl.GetStations()) { Console.WriteLine(st.ToString()+"\n"); }
+                                        foreach (var st in bl.GetBaseStationToLists()) { Console.WriteLine(st.ToString()+"\n"); }
                                     }
                                     break;
                                 default:
@@ -263,8 +263,6 @@ namespace ConsoleUI_BL
                                         }
                                     }
                                     break;
-
-
                                 case objectChoice.retrieve:
                                     {
                                         int DroneID;
@@ -389,9 +387,10 @@ namespace ConsoleUI_BL
                                 case objectChoice.retrieve:
                                     {
                                         int customerID;
-                                        IBL.BO.Customer currentCustomer = new IBL.BO.Customer();
+                                        IBL.BO.Customer currentCustomer = new();
                                         Console.WriteLine("please enter the customers ID:");
-                                        customerID = int.Parse(Console.ReadLine());
+                                        string input = Console.ReadLine();
+                                        int.TryParse(input, out customerID);
                                         try
                                         {
                                             currentCustomer = bl.GetCustomer(customerID);
@@ -402,7 +401,7 @@ namespace ConsoleUI_BL
                                     break;
                                 case objectChoice.lists:
                                     {
-                                        try { foreach (var c in bl.GetCustomers()) { Console.WriteLine(c.ToString() + "\n"); } }
+                                        try { foreach (var c in bl.GetCustomersToList()) { Console.WriteLine(c.ToString() + "\n"); } }
                                         catch (dosntExisetException ex) { Console.WriteLine(ex.Message); }
                                     }
                                     break;
@@ -438,10 +437,14 @@ namespace ConsoleUI_BL
                                         IBL.BO.DroneInParcel dipS = new DroneInParcel();
                                         Console.WriteLine("enter the senders id");
                                         int.TryParse(Console.ReadLine(), out senderId);
+                                        if (senderId >= 10000000 && senderId <= 1000000000) 
+                                            throw new validException("the id sender number of the pardel is invalid\n");
                                         cipS.id = senderId;
                                         cipS.name = bl.GetCustomer(senderId).Name;
                                         Console.WriteLine("enter the reciever id");
                                         int.TryParse(Console.ReadLine(), out receiveId);
+                                        if (receiveId >= 10000000 && receiveId <= 1000000000)
+                                        throw new validException("the id sender number of the pardel is invalid\n");
                                         cipR.id = receiveId;
                                         cipR.name = bl.GetCustomer(receiveId).Name;
                                         temp.sender = cipS;
@@ -477,6 +480,7 @@ namespace ConsoleUI_BL
                                                     int.TryParse(input, out droneId);
                                                     try { bl.matchingDroneToParcel(droneId); }
                                                     catch (unavailableException exp){Console.WriteLine(exp.Message); }
+                                                    catch (dosntExisetException exp) { Console.WriteLine( exp.Message  ); }
                                                 }
                                                 break;
                                             case updateParcel.pickedUpParcelByDrone:
@@ -502,7 +506,8 @@ namespace ConsoleUI_BL
                                         int parcelID;
                                         IBL.BO.Parcel currentParcel = new IBL.BO.Parcel();
                                         Console.WriteLine("please enter the Parcels ID:");
-                                        parcelID = int.Parse(Console.ReadLine());
+                                        string input = Console.ReadLine(); 
+                                        int.TryParse(input, out parcelID);
                                         try
                                         {
                                             currentParcel = bl.GetParcel(parcelID);
@@ -513,7 +518,7 @@ namespace ConsoleUI_BL
                                     break;
                                 case objectChoice.lists:
                                     {
-                                        foreach (var d in bl.GetParcels()) { Console.WriteLine(d.ToString() + "\n"); }
+                                        foreach (var d in bl.GetParcelToLists()) { Console.WriteLine(d.ToString() + "\n"); }
                                     }
                                     break;
                                 default:
