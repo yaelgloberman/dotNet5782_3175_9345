@@ -30,9 +30,9 @@ namespace BL
             parcelDo.weight = (WeightCatigories)parcelToAdd.weightCategorie;
             parcelDo.priority = (Proirities)parcelToAdd.priority;
             parcelDo.requested = DateTime.Now;
-            parcelDo.scheduled = DateTime.MinValue;
-            parcelDo.pickedUp = DateTime.MinValue;
-            parcelDo.delivered = DateTime.MinValue;
+            parcelDo.scheduled = null;
+            parcelDo.pickedUp = null;
+            parcelDo.delivered = null;
             parcelDo.droneId = 0;
             try
             {
@@ -58,13 +58,13 @@ namespace BL
                 parcel.receiveName = dal.GetCustomer(dalParcel.targetId).name;
                 parcel.weight = (Weight)dalParcel.weight;
                 parcel.senderName = dal.GetCustomer(dalParcel.senderId).name;
-                if (dalParcel.pickedUp != DateTime.MinValue)
+                if (dalParcel.pickedUp != null)
                     parcel.parcelStatus = IBL.BO.ParcelStatus.PickedUp;
-                if (dalParcel.requested != DateTime.MinValue)
+                if (dalParcel.requested != null)
                     parcel.parcelStatus = IBL.BO.ParcelStatus.Assigned;
-                if (dalParcel.scheduled != DateTime.MinValue)
+                if (dalParcel.scheduled != null)
                     parcel.parcelStatus = IBL.BO.ParcelStatus.Created;
-                if (dalParcel.delivered != DateTime.MinValue)
+                if (dalParcel.delivered != null)
                     parcel.parcelStatus = IBL.BO.ParcelStatus.Delivered;
             }
             catch (findException exp)
@@ -179,7 +179,7 @@ namespace BL
             {
                 if (item.droneId == droneID)
                 {
-                    if (item.pickedUp == DateTime.MinValue && item.delivered == DateTime.MinValue)
+                    if (item.pickedUp == null && item.delivered == null)
                     {
                         int index = drones.FindIndex(x => x.id == d.id);
                         deleteDrone(droneID);

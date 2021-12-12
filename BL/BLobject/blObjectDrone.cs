@@ -10,9 +10,33 @@ using System.Runtime.Serialization;
 namespace BL
 {
     public partial class BL : IBl
-    { 
+    {
+        public IEnumerable<DroneToList> droneFilterStatus(DroneStatus s)
+        {
+            List<DroneToList> lst = new List<DroneToList>();
+
+            foreach (var item in drones)
+            {
+                if (item.droneStatus == s)
+                    lst.Add(item);
+            }
+            return lst;
+        }
+        public IEnumerable<DroneToList> droneFilterWeight(Weight w)
+        {
+            List<DroneToList> lst = new List<DroneToList>();
+
+            foreach (var item in drones)
+            {
+                if (item.weight == w)
+                    lst.Add(item);
+            }
+            return lst;
+        }
+
+
         #region ADD Drone
-    public void addDrone(int droneId, int stationId, string droneModel, Weight weight)
+        public void addDrone(int droneId, int stationId, string droneModel, Weight weight)
         {
             try
             {
@@ -93,6 +117,7 @@ namespace BL
             catch (findException exp) { throw new deleteException("cant delete this drone\n"); }
         }
         #endregion
+        #region returns drone
         public IBL.BO.Drone returnsDrone(int id)
         {
 
@@ -120,7 +145,7 @@ namespace BL
                 {
                     throw new dosntExisetException("Error! the parcel not found");
                 }
-                if (p.pickedUp == DateTime.MinValue)
+                if (p.pickedUp == null)
                     pt.parcelStatus = false;
                 else
                     pt.parcelStatus = true;
@@ -144,6 +169,7 @@ namespace BL
             }
             return d;
         }
+        #endregion
         #region Get Drone
         public DroneToList GetDrone(int id)
         {
@@ -179,6 +205,10 @@ namespace BL
             foreach (var d in dal.droneList())
             { drones.Add(GetDrone(d.id)); }
             return drones;
+        }
+        public List<IDAL.DO.Drone> GetDronesFake()
+        {
+            return dal.GetDrones().ToList();
         }
         public void updateDroneName(int droneID, string dModel)
         {
@@ -248,6 +278,7 @@ namespace BL
                 Console.WriteLine(drones[index].ToString());
                 addDrone(drones[index], DC.stationId);
             }
+
 
         }
     }

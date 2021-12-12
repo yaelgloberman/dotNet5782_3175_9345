@@ -43,21 +43,21 @@ namespace BL
                     var baseStationLocations = BaseStationLocationslist();
                     foreach (var pr in p)
                     {
-                        if (pr.id == item.id && pr.delivered == DateTime.MinValue)
+                        if (pr.id == item.id && pr.delivered == null)
                         {
                             IDAL.DO.Customer sender = dal.GetCustomer(pr.senderId);
                             IDAL.DO.Customer target = dal.GetCustomer(pr.targetId);
                             IBL.BO.Location senderLocation = new Location { latitude = sender.latitude, longitude = sender.longitude };
                             IBL.BO.Location targetLocation = new Location { latitude = target.latitude, longitude = target.longitude };
                             drt.droneStatus = DroneStatus.delivery;
-                            if (pr.pickedUp == DateTime.MinValue && pr.scheduled != DateTime.MinValue)//החבילה שויכה אבל עדיין לא נאספה
+                            if (pr.pickedUp == null && pr.scheduled != null)//החבילה שויכה אבל עדיין לא נאספה
                             {
                                 drt.location = new Location { latitude = findClosestStationLocation(senderLocation, false, baseStationLocations).latitude, longitude = findClosestStationLocation(senderLocation, false, baseStationLocations).longitude };
                                 minBatery = Distance(drt.location, senderLocation) * chargeCapacity.chargeCapacityArr[0];
                                 minBatery += Distance(senderLocation, targetLocation) * chargeCapacity.chargeCapacityArr[(int)pr.weight];
                                 minBatery += Distance(targetLocation, new Location { latitude = findClosestStationLocation(targetLocation, false, baseStationLocations).latitude, longitude = findClosestStationLocation(targetLocation, false, baseStationLocations).longitude }) * chargeCapacity.chargeCapacityArr[0];
                             }
-                            if (pr.pickedUp != DateTime.MinValue && pr.delivered == DateTime.MinValue)//החבילה נאספה אבל עדיין לא הגיעה ליעד
+                            if (pr.pickedUp != null && pr.delivered == null)//החבילה נאספה אבל עדיין לא הגיעה ליעד
                             {
                                 drt.location = new Location();
                                 drt.location = senderLocation;
@@ -98,7 +98,7 @@ namespace BL
                             List<IDAL.DO.Customer> lst = new List<IDAL.DO.Customer>();
                             foreach (var pr in p)
                             {
-                                if (pr.delivered != DateTime.MinValue)
+                                if (pr.delivered != null)
                                     lst.Add(dal.GetCustomer(pr.targetId));
                             }
                             if (lst.Count == 0)
@@ -403,7 +403,7 @@ namespace BL
                 x = Distance(loc, new IBL.BO.Location { longitude = dal.GetCustomer(item.targetId).longitude, latitude = dal.GetCustomer(item.targetId).latitude });//המרחק בין מיקום שולח למיקום יעד
                 double fromCusToSta = Distance(new IBL.BO.Location { longitude = dal.GetCustomer(item.targetId).longitude, latitude = dal.GetCustomer(item.targetId).latitude }, findClosestStationLocation(new IBL.BO.Location { longitude = dal.GetCustomer(item.targetId).longitude, latitude = dal.GetCustomer(item.targetId).latitude }, false, BaseStationLocationslist()));
                 double butteryUse = x * chargeCapacity.chargeCapacityArr[(int)item.weight] + fromCusToSta * chargeCapacity.chargeCapacityArr[0] + d * chargeCapacity.chargeCapacityArr[0];
-                if (d < far && (buttery - butteryUse) > 0 && item.scheduled == DateTime.MinValue && weight(we, (IBL.BO.Weight)item.weight) == true)
+                if (d < far && (buttery - butteryUse) > 0 && item.scheduled == null && weight(we, (IBL.BO.Weight)item.weight) == true)
                 {
                     far = d;
                     theParcel = item;

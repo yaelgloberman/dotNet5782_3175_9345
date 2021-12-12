@@ -21,13 +21,15 @@ namespace IBL
         public List<BaseStation> GetStations();
         public List<BaseStationToList> GetBaseStationToLists();
         public List<IBL.BO.DroneToList> GetDrones();
+        public List<IDAL.DO.Drone> GetDronesFake();
         public List<IBL.BO.CustomerInList> GetCustomersToList();
         public List<IBL.BO.Customer> GetCustomers();
         public IBL.BO.Customer GetCustomer(int id);
         public List<IBL.BO.Parcel> GetParcels();
 
         public List<IBL.BO.ParcelToList> GetParcelToLists();
-
+        public IEnumerable<DroneToList> droneFilterStatus(DroneStatus s);
+        public IEnumerable<DroneToList> droneFilterWeight(Weight w);
         public IBL.BO.CustomerInList GetCustomerToList(int id);
         public List<ParcelCustomer> CustomerReceiveParcel(int customerID);
 

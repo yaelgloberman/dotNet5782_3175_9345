@@ -89,6 +89,8 @@ namespace DalObject
         {
             return DataSource.drones;
         }
+        public IEnumerable<Drone> GetDrones(Func<Drone, bool> predicate = null)
+        => predicate == null ? DataSource.drones : DataSource.drones.Where(predicate);
     }
 
 }

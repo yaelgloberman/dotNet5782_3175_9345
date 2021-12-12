@@ -102,6 +102,8 @@ namespace DalObject
             }
             return unDeliveredP;
         }
+        public IEnumerable<Parcel> GetChargedDrone(Func<Parcel, bool> predicate = null)
+        => predicate == null ? DataSource.parcels : DataSource.parcels.Where(predicate);
         /// not sure if needed
         //public List<Parcel>deliveredNotPickedUp()
         //{

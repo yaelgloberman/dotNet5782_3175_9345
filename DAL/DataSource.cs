@@ -107,9 +107,9 @@ namespace DalObject
                     weight = (WeightCatigories)r.Next(1, 3),
                     droneId = drones.ToArray()[i].id,
                     requested = DateTime.Now,
-                    scheduled = DateTime.MinValue,
-                    pickedUp = DateTime.MinValue,
-                    delivered = DateTime.MinValue,
+                    scheduled = null,
+                    pickedUp = null,
+                    delivered = null,
                 }); ;
                 Config.numberId++;
             }

@@ -42,6 +42,8 @@ namespace DalObject
             DataSource.chargingDrones.ForEach(cd => { if (cd.stationId == id) droneChargesList.Add(cd); });
             return droneChargesList;
         }
+        public IEnumerable<droneCharges> GetChargedDrone(Func<droneCharges, bool> predicate = null)
+         => predicate == null ? DataSource.chargingDrones : DataSource.chargingDrones.Where(predicate);
     }
 
 }

@@ -1,0 +1,66 @@
+﻿<Window x:Class="PL.DroneWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="DroneWindow" Height="450" Width="800">
+    <Grid>
+        <Grid>
+            <Grid x:Name="addDrone" Margin="0,0,367,97" d:IsHidden="True">
+                <TextBox x:Name="id" HorizontalAlignment="Left" Margin="275,80,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="model" HorizontalAlignment="Left" Margin="275,129,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <ComboBox x:Name="weightCategories" HorizontalAlignment="Left" Margin="275,177,0,0" Text=""  VerticalAlignment="Top" Width="120" d:IsHidden="True"/>
+                <ComboBox x:Name="station" HorizontalAlignment="Left" Margin="275,227,0,0" Text=""  VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="idTxt" HorizontalAlignment="Left" Margin="572,155,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <Label Content="ID:" HorizontalAlignment="Left" Margin="70,70,0,0" VerticalAlignment="Top" Width="69" FontSize="20" FontStyle="Italic"/>
+                <Label Content="MODEL ID:" HorizontalAlignment="Left" Margin="70,120,0,0" VerticalAlignment="Top" Width="105" FontSize="20" FontStyle="Italic"/>
+                <Label Content="Weight Categories:" HorizontalAlignment="Left" Margin="70,170,0,0" VerticalAlignment="Top" Width="189" FontSize="20" FontStyle="Italic"/>
+                <Label Content="Station ID:" HorizontalAlignment="Left" Margin="70,220,0,0" VerticalAlignment="Top" Width="189" FontSize="20" FontStyle="Italic"/>
+                <Button x:Name="buttonAddDrone" Content="Add drone" HorizontalAlignment="Center" Margin="0,290,0,0" VerticalAlignment="Top" RenderTransformOrigin="-3.796,-0.785" Click="buttonAddDrone_Click" Height="37" Width="120" Background="#FFB0A0DC"/>
+
+            </Grid>
+            <Button x:Name="Exit" Content="X" HorizontalAlignment="Left" Margin="364,10,0,0" VerticalAlignment="Top" Width="23" RenderTransformOrigin="3.833,3.117" Background="#FFEB8C8C" Click="Exit_Click">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="-1"/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="1.109"/>
+                        <TranslateTransform X="-120.988" Y="-1.171"/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
+            <Grid x:Name="update" Margin="39,41,349,173">
+                <Label x:Name="lblUpdateModel" Content="Model:" HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top" Width="108" RenderTransformOrigin="0.572,1.265"/>
+                <Label x:Name="lblSendDroneToCharge" Content="Send drone to charge:" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top" Width="127"/>
+                <Label x:Name="lblReleaseDrone" Content="Releasing drone:"  HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top" Width="127"/>
+                <Label x:Name="lblsendingDroneToDelivert" Content="Sending drone to delivery:" HorizontalAlignment="Left" Margin="10,111,0,0" VerticalAlignment="Top" Width="149"/>
+                <Label x:Name="lblPickUpParcelByDrone" Content="Pick up Parcel:" HorizontalAlignment="Left" Margin="10,137,0,0" VerticalAlignment="Top" Width="127"/>
+                <Label x:Name="lbldeliveryToCustomer" Content="Delivery to customer:" HorizontalAlignment="Left" Margin="10,163,0,0" VerticalAlignment="Top" Width="127"/>
+                <TextBox x:Name="txbUpdateModel" Margin="54,36,294,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="64" Height="19"/>
+                <Label x:Name="lblDroneId" Content="ID:" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="108" RenderTransformOrigin="0.572,1.265"/>
+                <TextBox x:Name="txbDroneId" Margin="54,9,294,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="64" Height="19"/>
+            </Grid>
+            <Button x:Name="btnModelUpdate" Content="update model" HorizontalAlignment="Left" Margin="241,49,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Width="150" Click="Button_Click"/>
+            <Button x:Name="btnSendToCharge" Content="sendig drone to charge" HorizontalAlignment="Left" Margin="243,73,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Width="150" Click="btnSendToCharge_Click">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-0.042"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
+            <Button x:Name="btnRelesingDrone" Content="realising drone from charge" HorizontalAlignment="Left" Margin="241,99,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Width="150"/>
+            <Button x:Name="btnSendingDroneToDelivery" Content="sending drone to delivery" HorizontalAlignment="Left" Margin="241,124,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Width="150"/>
+            <Button x:Name="btnPickUpParcelByDrone" Content="pick up parcel by drone" HorizontalAlignment="Left" Margin="241,149,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Width="150" Height="20"/>
+            <Button x:Name="btnDeliveryToCustomer" Content="delivery parcel to customer" HorizontalAlignment="Left" Margin="241,174,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Width="150" Height="20"/>
+
+
+        </Grid>
+
+
+    </Grid>
+</Window>

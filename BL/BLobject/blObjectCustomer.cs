@@ -68,10 +68,10 @@ namespace BL
                 CustomerBo.id = CustomerDo.id;
                 CustomerBo.Name = CustomerDo.name;
                 CustomerBo.PhoneNumber = CustomerDo.phoneNumber;
-                CustomerBo.Parcles_Delivered_Recieved = GetParcels().Count(x => x.delivered != DateTime.MinValue && x.pickedUp == DateTime.MinValue);
-                CustomerBo.Parcels_unrecieved = GetParcels().Count(x => x.pickedUp == DateTime.MinValue);   //נראלי שזה שלא קבלו אומר שהם לא אספו
+                CustomerBo.Parcles_Delivered_Recieved = GetParcels().Count(x => x.delivered != null && x.pickedUp == null);
+                CustomerBo.Parcels_unrecieved = GetParcels().Count(x => x.pickedUp == null);   //נראלי שזה שלא קבלו אומר שהם לא אספו
                 CustomerBo.Recieved_Parcels = CustomerReceiveParcel(id).Count;////לא בטוחה צריך לבדוק את זה
-                CustomerBo.ParcelsInDeliver = GetParcels().Count(x => x.delivered != DateTime.MinValue);
+                CustomerBo.ParcelsInDeliver = GetParcels().Count(x => x.delivered != null);
                 return CustomerBo;
             }
             catch (IDAL.DO.findException Fex)
