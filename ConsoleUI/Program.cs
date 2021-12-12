@@ -242,7 +242,7 @@ namespace ConsoleUI
                                         Console.WriteLine("enter your drone id:");
                                         int.TryParse(Console.ReadLine(), out droneId);
                                         Console.WriteLine("enter the station id that you want to charge your drone at  from the list below:");
-                                        foreach (IDAL.DO.Station st in dal.stationList()) { if (st.chargeSlots > 0) Console.WriteLine(st.id + "\n"); }
+                                        foreach (IDAL.DO.Station st in dal.GetStationList()) { if (st.chargeSlots > 0) Console.WriteLine(st.id + "\n"); }
                                         int.TryParse(Console.ReadLine(), out idStation);
                                         try { dal.SendToCharge(droneId, idStation); }
                                         catch (findException find) { Console.WriteLine(find.Message); }
@@ -356,32 +356,32 @@ namespace ConsoleUI
                             {
                                 case printLists.STATION:
                                     {
-                                        foreach (IDAL.DO.Station st in dal.stationList()) { Console.WriteLine(st.ToString() + "\n"); }
+                                        foreach (IDAL.DO.Station st in dal.GetStationList()) { Console.WriteLine(st.ToString() + "\n"); }
                                     }
                                     break;
                                 case printLists.DRONE:
                                     {
-                                        foreach (IDAL.DO.Drone d in dal.droneList()) { Console.WriteLine(d.ToString() + "\n"); }
+                                        foreach (IDAL.DO.Drone d in dal.GetDroneList()) { Console.WriteLine(d.ToString() + "\n"); }
                                     }
                                     break;
                                 case printLists.Customer:
                                     {
-                                        foreach (IDAL.DO.Customer c in dal.CustomerList()) { Console.WriteLine(c.ToString() + "\n"); }
+                                        foreach (IDAL.DO.Customer c in dal.GetCustomerList()) { Console.WriteLine(c.ToString() + "\n"); }
                                     }
                                     break;
                                 case printLists.PARCEL:
                                     {
-                                        foreach (IDAL.DO.Parcel p in dal.parcelList()) { Console.WriteLine(p.ToString() + "\n"); }
+                                        foreach (IDAL.DO.Parcel p in dal.GetParcelList()) { Console.WriteLine(p.ToString() + "\n"); }
                                     }
                                     break;
                                 case printLists.DISMATCHED_PACKAGES:
                                     {
-                                        foreach (IDAL.DO.Parcel p in dal.parcelList()) { if (p.droneId == 0) Console.WriteLine(p.id.ToString() + "\n"); }
+                                        foreach (IDAL.DO.Parcel p in dal.GetParcelList()) { if (p.droneId == 0) Console.WriteLine(p.id.ToString() + "\n"); }
                                     }
                                     break;
                                 case printLists.AVAILABLE_SLOTS:
                                     {
-                                        foreach (IDAL.DO.Station st in dal.stationList()) { if (st.chargeSlots > 0) Console.WriteLine(st.ToString() + "\n"); }
+                                        foreach (IDAL.DO.Station st in dal.GetStationList()) { if (st.chargeSlots > 0) Console.WriteLine(st.ToString() + "\n"); }
                                     }
                                     break;
                                 default:

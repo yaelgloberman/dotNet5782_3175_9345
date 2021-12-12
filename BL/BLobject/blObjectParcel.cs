@@ -9,6 +9,9 @@ using IBL;
 using System.Runtime.Serialization;
 namespace BL
 {
+    /// <summary>
+    /// adding a parcel to the datasource with all the bl fetures and throwing an exception if any of the users input was incorrect
+    /// </summary>
     public partial class BL : IBl
     {
         #region Add Parcel
@@ -43,6 +46,12 @@ namespace BL
                 throw new AlreadyExistException(exp.Message);
             }
         }
+        /// <summary>
+        /// recieving a parcel from the data source and returning ot to the progrmmer with the bl parcel to list features
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="dosntExisetException"></exception>
         #endregion
         public IBL.BO.ParcelToList GetParcelToList(int id)
         {
@@ -73,6 +82,13 @@ namespace BL
             }
             return parcel;
         }
+        /// <summary>
+        ///         /// recieving a parcel from the data source and returning ot to the progrmmer with the bl parcel (regular) features
+
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="dosntExisetException"></exception>
         public IBL.BO.Parcel GetParcel(int id)
         {
             try
@@ -99,33 +115,47 @@ namespace BL
                 throw new dosntExisetException(exp.Message);
             }
         }
+        /// <summary>
+        // recieving a list of all the parcels from the data source and returning ot to the progrmmer with the bl parcel (regular) features
+
+        /// </summary>
+        /// <returns></returns>
         public List<IBL.BO.Parcel> GetParcels()
         {
             List<IBL.BO.Parcel> parcels = new List<IBL.BO.Parcel>();
-            foreach (var p in dal.parcelList())
+            foreach (var p in dal.GetParcelList())
             { parcels.Add(GetParcel(p.id)); }
             return parcels;
         }
-
+        /// <summary>
+        /// recieving a list of all the parcels from the data source and returning ot to the progrmmer with the bl parcel (regular) features
+        /// </summary>
+        /// <returns></returns>
         public List<IBL.BO.ParcelToList> GetParcelToLists()
         {
             List<ParcelToList> lst = new List<ParcelToList>();//create the list
-            foreach (var item in dal.parcelList())//pass on the list of the parcels and copy them to the new list
+            foreach (var item in dal.GetParcelList())//pass on the list of the parcels and copy them to the new list
             {
                 lst.Add(GetParcelToList(item.id));
             }
             return lst;
         }
+        /// <summary>
+        /// upadte function that updates the drone nd the parcel when the package was delivvered to the customer
+        /// </summary>
+        /// <param name="id"></param>
+        /// <exception cref="dosntExisetException"></exception>
+        /// <exception cref="ExecutionTheDroneIsntAvilablle"></exception>
         public void deliveryParcelToCustomer(int id)
         {
             var drone = new IBL.BO.DroneToList();
             try
             {
                 drone = GetDrone(id);
-                IDAL.DO.Parcel parcel = dal.parcelList().ToList().Find(p => p.droneId == id);
+                IDAL.DO.Parcel parcel = dal.GetParcelList().ToList().Find(p => p.droneId == id);
                 var customer = GetCustomer(parcel.targetId);
                 var stationLoc = findClosestStationLocation(customer.location, false, BaseStationLocationslist());
-                IDAL.DO.Station station = dal.stationList().ToList().Find(s => s.longitude == stationLoc.longitude && s.latitude == stationLoc.latitude);
+                IDAL.DO.Station station = dal.GetStationList().ToList().Find(s => s.longitude == stationLoc.longitude && s.latitude == stationLoc.latitude);
                 double previoseBatteryStatus = drone.batteryStatus;
                 if (!(drone.droneStatus == DroneStatus.delivery))   //the drone pickedup but didnt delivert yet
                     throw new ExecutionTheDroneIsntAvilablle(" this drone is not in delivery");
@@ -148,6 +178,12 @@ namespace BL
             catch (ExecutionTheDroneIsntAvilablle exp) { throw new ExecutionTheDroneIsntAvilablle(exp.Message); }
 
         }
+        /// <summary>
+        /// an update function that matches a drone to its parcel - updates the drone and the parcel while finding the perfect parcel to match the drone
+        /// </summary>
+        /// <param name="droneId"></param>
+        /// <exception cref="unavailableException"></exception>
+        /// <exception cref="dosntExisetException"></exception>
         public void matchingDroneToParcel(int droneId)
         {
 
@@ -170,6 +206,12 @@ namespace BL
             catch (findException exp) { throw new dosntExisetException(exp.Message); }
 
         }
+        /// <summary>
+        /// an update function that upadtes the parcel an dthe drone when the parcel was picked up by the drone but was still not delivered to its customer 
+        /// </summary>
+        /// <param name="droneID"></param>
+        /// <exception cref="dosntExisetException"></exception>
+        /// <exception cref="validException"></exception>
         public void pickedUpParcelByDrone(int droneID)
         {
             var d = GetDrones().Find(x => x.id == droneID);

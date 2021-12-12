@@ -12,6 +12,12 @@ namespace BL
     public partial class BL : IBl
     {
         #region ADD STATION
+        /// <summary>
+        /// adding a station to the data source and with basestation regular features and throwing an exception if any of the users info was incorrect
+        /// </summary>
+        /// <param name="stationToAdd"></param>
+        /// <exception cref="AlreadyExistException"></exception>
+        /// <exception cref="validException"></exception>
         public void addStation(BaseStation stationToAdd)
         {
             if (dal.getStations().ToList().Exists(item => item.id == stationToAdd.id))
@@ -47,6 +53,12 @@ namespace BL
         }
         #endregion
         #region Get station
+        /// <summary>
+        /// returns all the basestations in a form of a list form the datasource returns in the bl version of a basestation(regular) fetatures
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="dosntExisetException"></exception>
         public BaseStationToList GetBaseStationToList(int id)
         {
             BaseStationToList baseStation = new();
@@ -65,7 +77,12 @@ namespace BL
             return baseStation;
         }
         #endregion
-
+        /// <summary>
+        /// the programmer recieves  a station in a form of a basestation(reguslar) feateres from  the dal(originally from the datat source
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="dosntExisetException"></exception>
         public BaseStation GetStation(int id)
         {
             try
@@ -93,30 +110,48 @@ namespace BL
                 throw new dosntExisetException(exp.Message);
             }
         }
+        /// <summary>
+        /// returns all the basestations in a form of a list form the datasource returns in the bl version of a basestation( station to list) fetatures
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="dosntExisetException"></exception>
         public List<BaseStationToList> GetBaseStationToLists()
         {
             List<BaseStationToList> baseStations = new();
             try
             {
-                var stationsDal = dal.stationList().ToList();
+                var stationsDal = dal.GetStationList().ToList();
                 foreach (var s in stationsDal)
                 { baseStations.Add(GetBaseStationToList(s.id)); }
             }
             catch (ArgumentException) { throw new dosntExisetException(); }
             return baseStations;
         }
+        /// <summary>
+        /// returns all the basestations in a form of a list form the datasource returns in the bl version of a basestation(regular) fetatures
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="dosntExisetException"></exception>
         public List<BaseStation> GetStations()
         {
             List<BaseStation> baseStations = new();
             try
             {
-                var stationsDal = dal.stationList().ToList();
+                var stationsDal = dal.GetStationList().ToList();
                 foreach (var s in stationsDal)
                 { baseStations.Add(GetStation(s.id)); }
             }
             catch (ArgumentException) { throw new dosntExisetException(); }
             return baseStations;
         }
+        /// <summary>
+        /// an update function that updates a stations name  or available charge slots (or both)
+        /// </summary>
+        /// <param name="stationID"></param>
+        /// <param name="AvlblDCharges"></param>
+        /// <param name="Name"></param>
+        /// <exception cref="validException"></exception>
+        /// <exception cref="dosntExisetException"></exception>
         public void updateStation(int stationID, int AvlblDCharges, string Name = " ")
         {
             try
