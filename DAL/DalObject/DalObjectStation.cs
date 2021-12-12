@@ -27,7 +27,7 @@ namespace DalObject
             {
                 throw new findException("station");
             }
-            var station = stationList().ToList().Find(s => s.id == id);
+            var station = GetStationList().ToList().Find(s => s.id == id);
             return station;
         }
         public void deleteStation(Station s)

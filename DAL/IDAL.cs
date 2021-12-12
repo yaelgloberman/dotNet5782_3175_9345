@@ -12,11 +12,11 @@ namespace IDAL
             void addStation(Station s);
             void attribute(int dID, int pID);
             public double[] ChargeCapacity();
-            IEnumerable<droneCharges> chargingDroneList();
-            IEnumerable<Customer> CustomerList();
+            IEnumerable<droneCharges> chargingGetDroneList();
+            IEnumerable<Customer> GetCustomerList();
             public void AddDroneCharge(droneCharges droneCharges);
             void DeliveryPackageCustomer(int cID, int pId, Proirities proirity);
-            IEnumerable<Drone> droneList();
+            IEnumerable<Drone> GetDroneList();
             droneCharges GetChargedDrone(int id);
             Customer GetCustomer(int id);
             Drone GetDrone(int id);
@@ -31,11 +31,11 @@ namespace IDAL
             public IEnumerable<Station> getStations();
             public IEnumerable<Parcel> GetParcels();
             public string GetCustomerName(int id);
-            IEnumerable<Parcel> parcelList();
+            IEnumerable<Parcel> GetParcelList();
             void PickUpPackageByDrone(int dID, int pID);
             void releasingDrone(droneCharges dC);
             void SendToCharge(int droneId, int stationId);
-            IEnumerable<Station> stationList();
+            IEnumerable<Station> GetStationList();
             public List<Parcel> UndiliveredParcels();
             public void deleteDrone(Drone d);
             public void deleteParcel(Parcel p);

@@ -11,6 +11,11 @@ namespace BL
 {
     public partial class BL : IBl
     {
+        /// <summary>
+        ///  recieving a customers id and name that was a sender or a recievr of a parcel form the  the datasource-(really from the parcel thats in the datasource) by recieving the id of the customer  and throwing an exception if the id was in correct
+        /// </summary>
+        /// <param name="customerID"></param>
+        /// <returns></returns>
         public List<ParcelCustomer> CustomerReceiveParcel(int customerID)
         {
             List<IBL.BO.ParcelCustomer> recievedParcels = new List<ParcelCustomer>();
@@ -25,6 +30,13 @@ namespace BL
             return recievedParcels;
 
         }
+        /// <summary>
+        /// an update function that updates the customers name or phonenumber
+        /// </summary>
+        /// <param name="customerID"></param>
+        /// <param name="Name"></param>
+        /// <param name="phoneNum"></param>
+        /// <exception cref="dosntExisetException"></exception>
         public void updateCustomer(int customerID, string Name = " ", int phoneNum = 0)
         {
             try
@@ -37,6 +49,11 @@ namespace BL
             }
             catch (findException exp) { throw new dosntExisetException(exp.Message); }
         }
+        /// <summary>
+        ///  recieving a customer (regular) form the  the datasource by recieving the id of the customer  and throwing an exception if the id was in correct
+        /// </summary>
+        /// <param name="customerID"></param>
+        /// <returns></returns>
         public IBL.BO.Customer GetCustomer(int id)
         {
             try
@@ -58,6 +75,11 @@ namespace BL
             }
         }
         #region Get Customer
+        /// <summary>
+        ///  recieving a customer (customer to list ) form the  the datasource by recieving the id of the customer  and throwing an exception if the id was in correct
+        /// </summary>
+        /// <param name="customerID"></param>
+        /// <returns></returns>
         public IBL.BO.CustomerInList GetCustomerToList(int id)
         {
             try
@@ -80,21 +102,36 @@ namespace BL
             }
         }
         #endregion
+        /// <summary>
+        ///  recieving a list pf all the  customers (customer regular) form the  the datasource by recieving the id of the customer  and throwing an exception if the id was in correct
+        /// </summary>
+        /// <param name="customerID"></param>
+        /// <returns></returns>
         public List<IBL.BO.Customer> GetCustomers()
         {
             List<IBL.BO.Customer> customers = new List<IBL.BO.Customer>();
-            foreach (var c in dal.CustomerList())
+            foreach (var c in dal.GetCustomerList())
             { customers.Add(GetCustomer(c.id)); }
             return customers;
         }
+        /// <summary>
+        ///  recieving a list pf all the  customers (customer to list) form the  the datasource by recieving the id of the customer  and throwing an exception if the id was in correct
+        /// </summary>
+        /// <returns></returns>
         public List<IBL.BO.CustomerInList> GetCustomersToList()
         {
             List<IBL.BO.CustomerInList> customers = new();
-            foreach (var c in dal.CustomerList())
+            foreach (var c in dal.GetCustomerList())
             { customers.Add(GetCustomerToList(c.id)); }
             return customers;
         }
         #region Add Customer
+        /// <summary>
+        /// adding a customer to the data source and with customer regular features and throwing an exception if any of the users info was incorrect
+        /// </summary>
+        /// <param name="CustomerToAdd"></param>
+        /// <exception cref="validException"></exception>
+        /// <exception cref="AlreadyExistException"></exception>
         public void addCustomer(IBL.BO.Customer CustomerToAdd)
         {
 

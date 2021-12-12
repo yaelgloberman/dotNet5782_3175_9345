@@ -11,31 +11,17 @@ namespace BL
 {
     public partial class BL : IBl
     {
-        public IEnumerable<DroneToList> droneFilterStatus(DroneStatus s)
-        {
-            List<DroneToList> lst = new List<DroneToList>();
-
-            foreach (var item in drones)
-            {
-                if (item.droneStatus == s)
-                    lst.Add(item);
-            }
-            return lst;
-        }
-        public IEnumerable<DroneToList> droneFilterWeight(Weight w)
-        {
-            List<DroneToList> lst = new List<DroneToList>();
-
-            foreach (var item in drones)
-            {
-                if (item.weight == w)
-                    lst.Add(item);
-            }
-            return lst;
-        }
-
-
         #region ADD Drone
+        /// <summary>
+        /// adding a drone to the datasource by recieving features of a drone and throwing an exception of any of the given info was incorrects
+        /// </summary>
+        /// <param name="droneId"></param>
+        /// <param name="stationId"></param>
+        /// <param name="droneModel"></param>
+        /// <param name="weight"></param>
+        /// <exception cref="AlreadyExistException"></exception>
+        /// <exception cref="validException"></exception>
+        /// <exception cref="dosntExisetException"></exception>
         public void addDrone(int droneId, int stationId, string droneModel, Weight weight)
         {
             try
@@ -74,6 +60,13 @@ namespace BL
             }
             catch (findException exp) { throw new dosntExisetException(exp.Message); }
         }
+        /// <summary>
+        /// adding a drone to the datasource by recieving features of a drone and throwing an exception of any of the given info was incorrects
+        /// </summary>
+        /// <param name="droneToAdd"></param>
+        /// <param name="stationId"></param>
+        /// <exception cref="AlreadyExistException"></exception>
+        /// <exception cref="validException"></exception>
         public void addDrone(DroneToList droneToAdd, int stationId)
         {
             if (dal.GetDrones().ToList().Exists(item => item.id == droneToAdd.id))
@@ -104,20 +97,30 @@ namespace BL
             drones.Add(droneToAdd);
         }
         #endregion
+        /// <summary>
+        /// deleting a drone for the datasource  and throwing an exception of the drone was not found
+        /// </summary>
+        /// <param name="droneID"></param>
+        /// <exception cref="deleteException"></exception>
         #region DELETE DRONE
         public void deleteDrone(int droneID)
         {
             try
             {
                 if (GetDrone(droneID).droneStatus == DroneStatus.charge)
-                { var DC = dal.chargingDroneList().ToList().Find(x => x.droneId == droneID); dal.RemoveDroneCharge(DC); }
+                { var DC = dal.chargingGetDroneList().ToList().Find(x => x.droneId == droneID); dal.RemoveDroneCharge(DC); }
                 dal.deleteDrone(dal.GetDrone(droneID));
 
             }
             catch (findException exp) { throw new deleteException("cant delete this drone\n"); }
         }
         #endregion
-        #region returns drone
+        /// <summary>
+        /// recieving a drone from the data source and returning ot to the progrmmer with the bl Drone (regular) features
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="dosntExisetException"></exception>
         public IBL.BO.Drone returnsDrone(int id)
         {
 
@@ -171,6 +174,13 @@ namespace BL
         }
         #endregion
         #region Get Drone
+        /// <summary>
+        /// recieving a drone from the data source and returning ot to the progrmmer with the bl Drone to list features
+
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="dosntExisetException"></exception>
         public DroneToList GetDrone(int id)
         {
             try
@@ -185,8 +195,8 @@ namespace BL
                 droneBo.batteryStatus = drone.batteryStatus;
                 droneBo.droneStatus = drone.droneStatus;
                 droneBo.numOfDeliverdParcels = drone.numOfDeliverdParcels;
-                droneBo.numOfDeliverdParcels = dal.parcelList().Count(x => x.droneId == droneBo.id);
-                int parcelID = dal.parcelList().ToList().Find(x => x.droneId == droneBo.id).id;
+                droneBo.numOfDeliverdParcels = dal.GetParcelList().Count(x => x.droneId == droneBo.id);
+                int parcelID = dal.GetParcelList().ToList().Find(x => x.droneId == droneBo.id).id;
                 droneBo.parcelId = parcelID;
                 return droneBo;
             }
@@ -199,17 +209,24 @@ namespace BL
                 throw new dosntExisetException(exp.Message);
             }
         }
+        /// <summary>
+        ///recieving the list of all the drones  from the data source and returning ot to the progrmmer with the bl Drone to list features
+
+        /// </summary>
+        /// <returns></returns>
         public List<IBL.BO.DroneToList> GetDrones()
         {
             List<IBL.BO.DroneToList> drones = new List<IBL.BO.DroneToList>();
-            foreach (var d in dal.droneList())
+            foreach (var d in dal.GetDroneList())
             { drones.Add(GetDrone(d.id)); }
             return drones;
         }
-        public List<IDAL.DO.Drone> GetDronesFake()
-        {
-            return dal.GetDrones().ToList();
-        }
+        /// <summary>
+        /// an update function  that updates teh drone name  and model with recieving the drones id
+        /// </summary>
+        /// <param name="droneID"></param>
+        /// <param name="dModel"></param>
+        /// <exception cref="dosntExisetException"></exception>
         public void updateDroneName(int droneID, string dModel)
         {
             int dIndex = drones.FindIndex(x => x.id == droneID);
@@ -224,6 +241,13 @@ namespace BL
             dr.droneModel = dModel;
             drones.Add(dr);
         }
+        /// <summary>
+        /// an update function that updates the drone  and the station slots when the  drone is sent to be charged
+        /// </summary>
+        /// <param name="droneID"></param>
+        /// <exception cref="dosntExisetException"></exception>
+        /// <exception cref="unavailableException"></exception>
+        /// <exception cref="deleteException"></exception>
         public void SendToCharge(int droneID)
         {
 
@@ -248,6 +272,14 @@ namespace BL
             IDAL.DO.droneCharges DC = new droneCharges { droneId = droneID, stationId = station.id };
             dal.AddDroneCharge(DC);
         }
+        /// <summary>
+        /// an update function that upadets the drone an d the station charging slots when the drone is being released from its chraging
+        /// </summary>
+        /// <param name="droneID"></param>
+        /// <param name="chargingTime"></param>
+        /// <exception cref="findException"></exception>
+        /// <exception cref="unavailableException"></exception>
+        /// <exception cref="dosntExisetException"></exception>
         public void releasingDrone(int droneID, TimeSpan chargingTime)
         {
             DroneToList droneItem = new();
@@ -259,7 +291,7 @@ namespace BL
             {
                 int index = drones.FindIndex(x => x.id == droneID);
                 IDAL.DO.droneCharges DC = new();
-                try { DC = dal.chargingDroneList().ToList().Find(X => X.droneId == droneID); }
+                try { DC = dal.chargingGetDroneList().ToList().Find(X => X.droneId == droneID); }
                 catch (findException exp) { throw new dosntExisetException(exp.Message); }
                 BaseStation bstation = new();
                 try { bstation = GetStation(DC.stationId); }

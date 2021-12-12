@@ -65,7 +65,7 @@ namespace DalObject
             //tmpD.bateryStatus = 100;
             DataSource.drones.Add(tmpD);
             tmpS.chargeSlots++;
-            stationList().ToList().Add(tmpS);
+            GetStationList().ToList().Add(tmpS);
             DataSource.chargingDrones.Remove(dC);//removing the drone from the drone charging list
         }
         public void updateDrone(int droneId,string droneModel)

@@ -19,6 +19,9 @@ namespace BL
         {
             return (rand.NextDouble() * (num2 - num1) + num1);
         }
+        /// <summary>
+        /// the bl constructor that intializes the dron list in the bl and has access to the DAL
+        /// </summary>
         public BL()
         {
             {
@@ -37,8 +40,8 @@ namespace BL
                     drt.id = item.id;
                     drt.droneModel = item.model;
                     drt.weight = (IBL.BO.Weight)(int)item.maxWeight;
-                    drt.numOfDeliverdParcels = dal.parcelList().Count(x => x.droneId == drt.id);
-                    int parcelID = dal.parcelList().ToList().Find(x => x.droneId == drt.id).id;
+                    drt.numOfDeliverdParcels = dal.GetParcelList().Count(x => x.droneId == drt.id);
+                    int parcelID = dal.GetParcelList().ToList().Find(x => x.droneId == drt.id).id;
                     drt.parcelId = parcelID;
                     var baseStationLocations = BaseStationLocationslist();
                     foreach (var pr in p)
@@ -103,7 +106,7 @@ namespace BL
                             }
                             if (lst.Count == 0)
                             {
-                                foreach (var pr in dal.CustomerList())
+                                foreach (var pr in dal.GetCustomerList())
                                 {
 
                                     lst.Add(pr);
@@ -125,6 +128,10 @@ namespace BL
                 }
             }
         }
+        /// <summary>
+        /// recieving the dals version of the charge capacity - the battery usage of the parcels weight from the drone 
+        /// </summary>
+        /// <returns></returns>
         public chargeCapacity GetChargeCapacity()
         {
             double[] arr = dal.ChargeCapacity();
@@ -132,6 +139,10 @@ namespace BL
             return chargingUsage;
         }
         #region Init drone
+       /// <summary>
+       /// intializes the drones in the cinstructor- was not used in the end
+       /// </summary>
+       /// <exception cref="ArgumentException"></exception>
         private void initializeDrones()
         {
             try
@@ -176,8 +187,8 @@ namespace BL
                         DroneToList d = GetDrone(drone.id);
                         deleteDrone(d.id);
                         d.droneStatus = DroneStatus.available;
-                        int num = rand.Next(1, dal.stationList().Count());
-                        var stationId = dal.stationList().ToArray()[num].id;
+                        int num = rand.Next(1, dal.GetStationList().Count());
+                        var stationId = dal.GetStationList().ToArray()[num].id;
                         addDrone(d, stationId);
                         drone.location = getBaseStationLocation(stationId);
                         drone.batteryStatus = (double)rand.Next(5, 20);
@@ -195,6 +206,12 @@ namespace BL
         }
         #endregion
         #region Get Used ChargingSlots
+        /// <summary>
+        /// a function that returns the unavailable chatrged slots
+        /// </summary>
+        /// <param name="baseStationId"></param>
+        /// <returns></returns>
+        /// <exception cref="dosntExisetException"></exception>
         private int getUsedChargingSlots(int baseStationId)
         {
             try
@@ -210,13 +227,22 @@ namespace BL
         #endregion
        
         #region Get Drone Battery
-
+        /// <summary>
+        /// the function recieves the current battery ststaus of teh drone in the bl
+        /// </summary>
+        /// <param name="droneId"></param>
+        /// <returns></returns>
         private double getDroneBattery(int droneId)
         {
             return drones.Find(drone => drone.id == droneId).batteryStatus;
         }
         #endregion
         #region get Customer In Parcel
+        /// <summary>
+        /// the progrmmer recievs the customer taht ordered or that sent the parcel
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         private IBL.BO.CustomerInParcel getCustomerInParcel(int id)
         {
             IBL.BO.CustomerInParcel c = new IBL.BO.CustomerInParcel();
@@ -227,6 +253,11 @@ namespace BL
         }
         #endregion
         #region get Customer Shipped Parcels
+        /// <summary>
+        /// recieves the sender of the parcel
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         private IEnumerable<ParcelCustomer> getCustomerShippedParcels(int id)
         {
             var tempParcel = dal.getCustomerShippedParcels(id)
@@ -247,12 +278,22 @@ namespace BL
         }
         #endregion
         #region Get base station location
+        /// <summary>
+        /// recieves the station location by getting the station id
+        /// </summary>
+        /// <param name="stationId"></param>
+        /// <returns></returns>
         private Location getBaseStationLocation(int stationId)
         {
             IDAL.DO.Station station = dal.GetStation(stationId);
             return new Location { latitude = station.latitude, longitude = station.longitude };
         }
         #endregion
+        /// <summary>
+        /// finding the drone location 
+        /// </summary>
+        /// <param name="drone"></param>
+        /// <returns></returns>
         #region find Drone Location
         private Location findDroneLocation(DroneToList drone)
         {
@@ -287,10 +328,21 @@ namespace BL
         }
         #endregion
         #region find Closet Base Station Location
+        /// <summary>
+        /// converting degrees format to radians foramt
+        /// </summary>
+        /// <param name="val"></param>
+        /// <returns></returns>
         private static double deg2rad(double val)
         {
             return (Math.PI / 180) * val;
         }
+        /// <summary>
+        /// calculating the ditance between 2 longitued and 2 lattitudes => 2 locations
+        /// </summary>
+        /// <param name="l1"></param>
+        /// <param name="l2"></param>
+        /// <returns></returns>
         private double Distance(IBL.BO.Location l1, IBL.BO.Location l2)
         {
             var R = 6371; // Radius of the earth in km
@@ -306,7 +358,12 @@ namespace BL
             return d;
         }
         #endregion
-        #region dunction that helps get locations
+
+        #region function that helps get locations
+        /// <summary>
+        /// reterns a list of all the station locations
+        /// </summary>
+        /// <returns></returns>
         private List<Location> BaseStationLocationslist()
         {
             List<Location> locations = new List<Location>();
@@ -320,6 +377,14 @@ namespace BL
             }
             return locations;
         }
+        /// <summary>
+        /// returns the closest basestation location to a given location-> this has an option to choose if you want the closest location wit available charge slots or not
+        /// </summary>
+        /// <param name="currentlocation"></param>
+        /// <param name="withChargeSlots"></param>
+        /// <param name="l"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         private Location findClosestStationLocation(Location currentlocation, bool withChargeSlots, List<Location> l)//the function could also be used to check in addtion if the charge slots are more then 0
         {
 
@@ -359,6 +424,11 @@ namespace BL
         }
         #endregion
         #region Is Drone While Shipping
+        /// <summary>
+        /// returns if the drone is in delivery or not
+        /// </summary>
+        /// <param name="drone"></param>
+        /// <returns></returns>
         private bool isDroneWhileShipping(DroneToList drone)
         {
             var parcels = dal.GetParcels();
@@ -377,6 +447,15 @@ namespace BL
         }
         #endregion
         #region find the parcel
+        /// <summary>
+        /// finding the best parcel for the drone - based on the weight and battery that is left....
+        /// </summary>
+        /// <param name="we"></param>
+        /// <param name="a"></param>
+        /// <param name="buttery"></param>
+        /// <param name="pri"></param>
+        /// <returns></returns>
+        /// <exception cref="dosntExisetException"></exception>
         private IDAL.DO.Parcel findTheParcel(IBL.BO.Weight we, IBL.BO.Location a, double buttery, IDAL.DO.Proirities pri)
         {
 
@@ -421,6 +500,12 @@ namespace BL
         }
         #endregion
         #region weight
+        /// <summary>
+        /// retruning if the drone is matching the parcels whieght
+        /// </summary>
+        /// <param name="dr"></param>
+        /// <param name="pa"></param>
+        /// <returns></returns>
         private bool weight(IBL.BO.Weight dr, IBL.BO.Weight pa)
         {
             if (dr == IBL.BO.Weight.heavy)
@@ -433,6 +518,11 @@ namespace BL
         }
         #endregion
         #region index Of Charge Capacity
+        /// <summary>
+        /// returning the index of charge capacity based on the weight
+        /// </summary>
+        /// <param name="w"></param>
+        /// <returns></returns>
         private int indexOfChargeCapacity(IDAL.DO.WeightCatigories w)
         {
             if (w == IDAL.DO.WeightCatigories.light)
@@ -447,6 +537,11 @@ namespace BL
         }
         #endregion
         #region Get Station By Drone
+        /// <summary>
+        /// returning a station by recieving a drone
+        /// </summary>
+        /// <param name="d"></param>
+        /// <returns></returns>
         private BaseStation GetStationByDrone(DroneToList d)
         {
             var stationLoc = findClosestStationLocation(d.location, false, BaseStationLocationslist());
@@ -455,6 +550,11 @@ namespace BL
         }
         #endregion
         #region calculate the minumum battery required
+        /// <summary>
+        /// returns the minumin of battery required from the current location to destination 
+        /// </summary>
+        /// <param name="drone"></param>
+        /// <returns></returns>
         private int calcMinBatteryRequired(DroneToList drone)
         {
             if (drone.droneStatus == DroneStatus.available)
