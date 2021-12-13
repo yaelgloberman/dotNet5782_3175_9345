@@ -172,7 +172,7 @@ namespace BL
             }
             return d;
         }
-        #endregion
+        //#endregion
         #region Get Drone
         /// <summary>
         /// recieving a drone from the data source and returning ot to the progrmmer with the bl Drone to list features

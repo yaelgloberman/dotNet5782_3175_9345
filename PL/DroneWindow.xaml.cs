@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using IBL.BO;
 using BL;
 
+
 namespace PL
 {
     /// <summary>
@@ -36,7 +37,7 @@ namespace PL
             InitializeComponent();
             this.bL = bl;
             addDrone.Visibility = Visibility.Hidden;
-
+            drt = drtl;
         }
 
         private void buttonAddDrone_Click(object sender, RoutedEventArgs e)
@@ -92,5 +93,8 @@ namespace PL
             catch(unavailableException exp)
                 { MessageBox.Show(exp.Message); }
         }
+
+
+
     }
 }
