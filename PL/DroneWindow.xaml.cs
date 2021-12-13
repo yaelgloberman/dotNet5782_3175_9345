@@ -30,13 +30,29 @@ namespace PL
             station.ItemsSource = bl.GetBaseStationToLists(); //ספציפית פנויות
             weightCategories.ItemsSource = Enum.GetValues(typeof(Weight));
             update.Visibility = Visibility.Hidden;
+
         }
-        public DroneWindow(IBL.IBl bl,IBL.BO.DroneToList drtl)
+        public DroneWindow(IBL.IBl bl, IBL.BO.DroneToList drtl) //update
         {
             InitializeComponent();
             this.bL = bl;
+            drt = drtl;
             addDrone.Visibility = Visibility.Hidden;
+            btnModelUpdate.Visibility = Visibility.Visible;
+            fillTextbox(drt);
+            if (drt.droneStatus == DroneStatus.available)
+            {
+                btnSendToCharge.Visibility = Visibility.Visible;
+                btnPickUpParcelByDrone.Visibility = Visibility.Visible;
+            }
 
+            if (drt.droneStatus == DroneStatus.charge)
+                btnRelesingDrone.Visibility = Visibility.Visible;
+            if (drt.droneStatus == DroneStatus.delivery)
+            { 
+               btnSendingDroneToDelivery.Visibility = Visibility.Visible;
+                btnDeliveryToCustomer.Visibility = Visibility.Visible;
+            }
         }
 
         private void buttonAddDrone_Click(object sender, RoutedEventArgs e)
@@ -57,6 +73,18 @@ namespace PL
                 MessageBox.Show(exp.Message);
             }
         }
+        private void fillTextbox(DroneToList d)
+        {
+
+            txbDroneId.Text = d.id.ToString();
+            txbUpdateModel.Text = d.droneModel.ToString();
+            txbWeight.Text = d.weight.ToString();
+            txbBattery.Text= d.batteryStatus.ToString() + "%";
+            txbStatus.Text = d.droneStatus.ToString();
+            txbParcelID.Text = d.parcelId.ToString();
+            txbLongitude.Text = d.location.longitude.ToString();
+            txbLatitude.Text = d.location.latitude.ToString();
+        }
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -66,18 +94,15 @@ namespace PL
         {
             try
             {
-                bL.updateDroneName(Convert.ToInt32(txbDroneId), txbUpdateModel.Text);
+                bL.updateDroneName(drt.id, txbUpdateModel.Text);
                 MessageBox.Show("succsesfully update the drone name!");
-                this.Close();
+
             }
-            catch (validException exp)
+            catch (Exception exp)
             {
                 MessageBox.Show(exp.Message);
             }
-            catch(dosntExisetException exp)
-            {
-                MessageBox.Show(exp.Message);
-            }
+            
 
         }
 
@@ -85,12 +110,74 @@ namespace PL
         {
             try
             {
-                bL.SendToCharge(Convert.ToInt32(txbDroneId));
+                bL.SendToCharge(drt.id);
                 MessageBox.Show("succsesfully drone sent to charge!");
                 this.Close();
             }
-            catch(unavailableException exp)
+            catch(Exception exp)
                 { MessageBox.Show(exp.Message); }
+        }
+       
+
+        private void btnRelesingDrone_Click_1(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                TimeSpan t = DateTime.Now.TimeOfDay;
+                bL.releasingDrone(drt.id, t);
+                MessageBox.Show("succsesfully relesing drone charge!");
+                this.Close();
+            }
+            catch (Exception exp)
+            {
+
+                MessageBox.Show(exp.Message);
+            }
+        }
+
+        private void btnSendingDroneToDelivery_Click(object sender, RoutedEventArgs e)
+        {
+
+            try
+            {
+                bL.deliveryParcelToCustomer(drt.id);
+                MessageBox.Show("succsesfully sending drone to delivery!");
+                this.Close();
+            }
+            catch (Exception exp)
+            { MessageBox.Show(exp.Message); }
+        }
+
+        private void btnPickUpParcelByDrone_Click(object sender, RoutedEventArgs e)
+        {
+
+            try
+            {
+                bL.pickedUpParcelByDrone(drt.id);
+                MessageBox.Show("succsesfully pick up parcel by drone!");
+                this.Close();
+            }
+            catch (Exception exp)
+            { MessageBox.Show(exp.Message); }
+        }
+
+        private void btnDeliveryToCustomer_Click(object sender, RoutedEventArgs e)
+        {
+
+            try
+            {
+                bL.CustomerReceiveParcel(drt.id);
+                MessageBox.Show("succsesfully delivery parcel to customer!");
+                this.Close();
+            }
+            catch (Exception exp)
+            { MessageBox.Show(exp.Message); }
+        }
+
+        private void txbWeight_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

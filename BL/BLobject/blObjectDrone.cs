@@ -172,7 +172,6 @@ namespace BL
             }
             return d;
         }
-        #endregion
         #region Get Drone
         /// <summary>
         /// recieving a drone from the data source and returning ot to the progrmmer with the bl Drone to list features
@@ -310,9 +309,32 @@ namespace BL
                 Console.WriteLine(drones[index].ToString());
                 addDrone(drones[index], DC.stationId);
             }
-
-
         }
+
+            public IEnumerable<DroneToList> droneFilterStatus(DroneStatus w)
+            {
+                List<DroneToList> lst = new List<DroneToList>();
+
+                foreach (var item in drones)
+                {
+                    if (item.droneStatus == w)
+                        lst.Add(item);
+                }
+                return lst;
+            }
+        public IEnumerable<DroneToList> droneFilterWeight(Weight w)
+        {
+            List<DroneToList> lst = new List<DroneToList>();
+
+            foreach (var item in drones)
+            {
+                if (item.weight == w)
+                    lst.Add(item);
+            }
+            return lst;
+        }
+
     }
-}
+    }
 #endregion
+

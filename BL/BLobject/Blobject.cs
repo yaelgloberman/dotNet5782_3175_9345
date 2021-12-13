@@ -15,6 +15,7 @@ namespace BL
         private static Random rand = new Random();
         private List<DroneToList> drones;
         public static int unavailableChargeSlots;
+       
         private static double getRandomCordinatesBL(double num1, double num2)
         {
             return (rand.NextDouble() * (num2 - num1) + num1);

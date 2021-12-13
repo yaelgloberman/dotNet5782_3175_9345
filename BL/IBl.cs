@@ -21,7 +21,6 @@ namespace IBL
         public List<BaseStation> GetStations();
         public List<BaseStationToList> GetBaseStationToLists();
         public List<IBL.BO.DroneToList> GetDrones();
-        public List<IDAL.DO.Drone> GetDronesFake();
         public List<IBL.BO.CustomerInList> GetCustomersToList();
         public List<IBL.BO.Customer> GetCustomers();
         public IBL.BO.Customer GetCustomer(int id);

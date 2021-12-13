@@ -46,18 +46,6 @@ namespace PL
                 d = bL.droneFilterWeight((Weight)weigjtSelector.SelectedItem);
             DroneListView.ItemsSource = d;
         }
-        //private void fillTextbox(DroneToList d)
-        //{
-
-        //    statusTxt.Text = d.status.ToString();
-        //    weightTxt.Text = d.weight.ToString();
-        //    updateIdtxt.Text = d.ID.ToString();
-        //    updateModeltxt.Text = d.droneModel.ToString();
-        //    batteryTxt.Text = d.battery.ToString() + "%";
-        //    parcelIdTxt.Text = d.parcelNumber.ToString();
-        //    longitudeTxt.Text = d.currentLocation.longitude.ToString();
-        //    latitudeTxt.Text = d.currentLocation.latitude.ToString();
-        //}
         private void CloseWindowList_Click(object sender, RoutedEventArgs e)
         {
             Close();
@@ -75,6 +63,7 @@ namespace PL
             DroneToList drtl = new DroneToList();
             drtl = (DroneToList)DroneListView.SelectedItem;
             new DroneWindow(bL, drtl).ShowDialog();
+            fillListView();
         }
     }
 }
