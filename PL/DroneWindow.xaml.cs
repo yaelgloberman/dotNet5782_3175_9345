@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using IBL.BO;
 using BL;
 
+
 namespace PL
 {
     /// <summary>
@@ -173,11 +174,6 @@ namespace PL
             }
             catch (Exception exp)
             { MessageBox.Show(exp.Message); }
-        }
-
-        private void txbWeight_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
     }
 }
