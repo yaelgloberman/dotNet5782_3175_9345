@@ -12,20 +12,19 @@
             <ColumnDefinition Width="367*"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.ColumnSpan="2">
-            <Grid x:Name="addDrone" Margin="0,0,367,97" d:IsHidden="True">
-                <TextBox x:Name="id" HorizontalAlignment="Left" Margin="275,80,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="model" HorizontalAlignment="Left" Margin="275,129,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <ComboBox x:Name="weightCategories" HorizontalAlignment="Left" Margin="275,177,0,0" Text=""  VerticalAlignment="Top" Width="120" d:IsHidden="True"/>
-                <ComboBox x:Name="station" HorizontalAlignment="Left" Margin="275,227,0,0" Text=""  VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="idTxt" HorizontalAlignment="Left" Margin="572,155,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <Grid x:Name="addDrone" Background="#FFF4EEC5">
+                <TextBox x:Name="id" HorizontalAlignment="Left" Margin="275,80,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" BorderBrush="#FF7273E0"/>
+                <TextBox x:Name="model" HorizontalAlignment="Left" Margin="275,129,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" BorderBrush="#FF7273E0"/>
+                <ComboBox x:Name="weightCategories" HorizontalAlignment="Left" Margin="275,177,0,0" Text=""  VerticalAlignment="Top" Width="120" BorderBrush="#FF7273E0" OpacityMask="#FFDD9E9E" />
+                <ComboBox x:Name="station" HorizontalAlignment="Left" Margin="275,227,0,0" Text=""  VerticalAlignment="Top" Width="120" BorderBrush="#FF7273E0"/>
                 <Label Content="ID:" HorizontalAlignment="Left" Margin="70,70,0,0" VerticalAlignment="Top" Width="69" FontSize="20" FontStyle="Italic"/>
                 <Label Content="MODEL ID:" HorizontalAlignment="Left" Margin="70,120,0,0" VerticalAlignment="Top" Width="105" FontSize="20" FontStyle="Italic"/>
                 <Label Content="Weight Categories:" HorizontalAlignment="Left" Margin="70,170,0,0" VerticalAlignment="Top" Width="189" FontSize="20" FontStyle="Italic"/>
                 <Label Content="Station ID:" HorizontalAlignment="Left" Margin="70,220,0,0" VerticalAlignment="Top" Width="189" FontSize="20" FontStyle="Italic"/>
-                <Button x:Name="buttonAddDrone" Content="Add drone" HorizontalAlignment="Center" Margin="0,290,0,0" VerticalAlignment="Top" RenderTransformOrigin="-3.796,-0.785" Click="buttonAddDrone_Click" Height="37" Width="120" Background="#FFB0A0DC"/>
+                <Button x:Name="buttonAddDrone" Content="Add drone" HorizontalAlignment="Left" Margin="155,316,0,0" VerticalAlignment="Top" RenderTransformOrigin="-3.796,-0.785" Click="buttonAddDrone_Click" Height="37" Width="120" Background="#FFB0A0DC" FontStyle="Italic" FontSize="18"/>
 
             </Grid>
-            <Button x:Name="Exit" Content="X" HorizontalAlignment="Left" Margin="364,10,0,0" VerticalAlignment="Top" Width="23" RenderTransformOrigin="3.833,3.117" Background="#FFEB8C8C" Click="Exit_Click">
+            <Button x:Name="Exit" Content="X" HorizontalAlignment="Left" Margin="719,15,0,0" VerticalAlignment="Top" Width="23" RenderTransformOrigin="3.833,3.117" Background="#FFEB8C8C" Click="Exit_Click">
                 <Button.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleX="-1"/>
@@ -35,25 +34,25 @@
                     </TransformGroup>
                 </Button.RenderTransform>
             </Button>
-            <Grid x:Name="update" Margin="21,21,367,169">
+            <Grid x:Name="update" Background="#FFF4E5E5" d:IsHidden="True">
                 <Label x:Name="lblUpdateModel" Content="Model:" HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top" Width="108" RenderTransformOrigin="0.572,1.265"/>
                 <Label x:Name="lblStatus" Content="Stattus:"  HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top" Width="127"/>
                 <Label x:Name="lblBattery" Content="Battery:" HorizontalAlignment="Left" Margin="10,111,0,0" VerticalAlignment="Top" Width="149"/>
                 <Label x:Name="lblParcelID" Content="Parcel ID:" HorizontalAlignment="Left" Margin="10,137,0,0" VerticalAlignment="Top" Width="127"/>
                 <Label x:Name="lblLongitude" Content="Longitude:" HorizontalAlignment="Left" Margin="10,163,0,0" VerticalAlignment="Top" Width="127"/>
-                <TextBox x:Name="txbUpdateModel" Margin="74,36,233,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="19"/>
+                <TextBox x:Name="txbUpdateModel" Margin="74,36,548,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="19"  BorderBrush="#FFC789CD"/>
                 <Label x:Name="lblDroneId" Content="ID:" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="108" RenderTransformOrigin="0.572,1.265"/>
-                <TextBox x:Name="txbDroneId" Margin="74,12,233,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True"/>
+                <TextBox x:Name="txbDroneId" Margin="74,12,548,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True" BorderBrush="#FFC789CD"/>
                 <Label x:Name="lblWeight" Content="Weight:" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top" Width="108" RenderTransformOrigin="0.572,1.265"/>
                 <Label x:Name="lblLatitude" Content="Latitude:" HorizontalAlignment="Left" Margin="10,189,0,0" VerticalAlignment="Top" Width="127"/>
-                <TextBox x:Name="txbStatus" Margin="74,92,233,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True"/>
-                <TextBox x:Name="txbWeight" Margin="74,66,233,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True" TextChanged="txbWeight_TextChanged"/>
-                <TextBox x:Name="txbBattery" Margin="74,116,233,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True"/>
-                <TextBox x:Name="txbParcelID" Margin="74,144,233,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True"/>
-                <TextBox x:Name="txbLongitude" Margin="74,170,233,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True"/>
-                <TextBox x:Name="txbLatitude" Margin="74,194,233,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True"/>
-                <Button x:Name="btnModelUpdate" Content="update model" HorizontalAlignment="Left" Margin="241,49,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Width="150" Click="Button_Click" Visibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Visible"/>
-                <Button x:Name="btnSendToCharge" Content="sendig drone to charge" HorizontalAlignment="Left" Margin="243,78,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Width="150" Click="btnSendToCharge_Click" Visibility="Hidden">
+                <TextBox x:Name="txbStatus" Margin="74,92,548,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True"  BorderBrush="#FFC789CD"/>
+                <TextBox x:Name="txbWeight" Margin="74,66,548,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True"  BorderBrush="#FFC789CD"/>
+                <TextBox x:Name="txbBattery" Margin="74,116,548,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True" BorderBrush="#FFC789CD"/>
+                <TextBox x:Name="txbParcelID" Margin="74,144,548,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True" BorderBrush="#FFC789CD"/>
+                <TextBox x:Name="txbLongitude" Margin="74,170,548,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True" BorderBrush="#FFC789CD"/>
+                <TextBox x:Name="txbLatitude" Margin="74,194,548,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True" Background="White" BorderBrush="#FFC789CD"/>
+                <Button x:Name="btnModelUpdate" Content="update model" HorizontalAlignment="Left" Margin="177,302,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Width="150" Click="Button_Click"  ScrollViewer.HorizontalScrollBarVisibility="Visible" Background="#FF9498F0" FontFamily="Baskerville Old Face" FontSize="14" Visibility="Hidden" />
+                <Button x:Name="btnSendToCharge" Content="sendig drone to charge" HorizontalAlignment="Left" Margin="11,304,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Width="150"  Click="btnSendToCharge_Click"  Background="#FFCAA8EE" FontSize="14" FontFamily="Baskerville Old Face" Visibility="Hidden" >
                     <Button.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -63,10 +62,10 @@
                         </TransformGroup>
                     </Button.RenderTransform>
                 </Button>
-                <Button x:Name="btnRelesingDrone" Content="realising drone from charge" HorizontalAlignment="Left" Margin="241,99,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Width="150" Click="btnRelesingDrone_Click_1" Visibility="Hidden"/>
-                <Button x:Name="btnMatchingDroneToParcel" Content="Matching Drone To Parcel" HorizontalAlignment="Left" Margin="241,124,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Width="150" Click="btnMatchingDroneToParcel_Click"  Visibility="Hidden"/>
-                <Button x:Name="btnPickUpParcelByDrone" Content="pick up parcel by drone" HorizontalAlignment="Left" Margin="241,149,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Width="150" Height="20" Click="btnPickUpParcelByDrone_Click" Visibility="Hidden"/>
-                <Button x:Name="btnDeliveryToCustomer" Content="delivery parcel to customer" HorizontalAlignment="Left" Margin="241,174,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Width="150" Height="20" Click="btnDeliveryToCustomer_Click" Visibility="Hidden"/>
+                <Button x:Name="btnRelesingDrone" Content="realising drone from charge" HorizontalAlignment="Left" Margin="177,277,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Width="150" Click="btnRelesingDrone_Click_1"  Background="#FFB6F17C" FontFamily="Baskerville Old Face" FontSize="13" Visibility="Hidden" />
+                <Button x:Name="btnMatchingDroneToParcel" Content="Matching Drone To Parcel" HorizontalAlignment="Left" Margin="10,277,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Width="150" Click="btnMatchingDroneToParcel_Click"  Background="#FFF5FA73" FontFamily="Baskerville Old Face" FontSize="13" Visibility="Hidden" />
+                <Button x:Name="btnPickUpParcelByDrone" Content="pick up parcel by drone" HorizontalAlignment="Left" Margin="177,252,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Width="150" Height="20" Click="btnPickUpParcelByDrone_Click"  Background="#FFF6C594" FontFamily="Baskerville Old Face" FontSize="14" Visibility="Hidden" />
+                <Button x:Name="btnDeliveryToCustomer" Content="delivery parcel to customer" HorizontalAlignment="Left" Margin="10,252,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Width="150" Height="20" Click="btnDeliveryToCustomer_Click" Background="#FFF49F9F" FontFamily="Baskerville Old Face" FontSize="13" Visibility="Hidden" />
 
 
             </Grid>

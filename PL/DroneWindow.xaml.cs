@@ -65,20 +65,24 @@ namespace PL
         private void buttonAddDrone_Click(object sender, RoutedEventArgs e)
         {
             try
-                
             {
+                SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
                 BaseStationToList s = (BaseStationToList)station.SelectedItem;
-                bL.addDrone(Convert.ToInt32(id.Text), Convert.ToInt32(s.id), model.Text, (Weight)(weightCategories.SelectedItem));
-                MessageBox.Show("succsesfully added a drone!");
-                this.Close();
+                if (model.Text == "" || id.Text == null|| weightCategories.SelectedItem== null ||station.SelectedItem==null||SolidColorBrush.Equals(((SolidColorBrush)txbUpdateModel.BorderBrush).Color,red.Color))
+                {
+                    MessageBox.Show("Please enter correct input","Error input",MessageBoxButton.OK,MessageBoxImage.Error);
+                }
+              
+                    bL.addDrone(Convert.ToInt32(id.Text), Convert.ToInt32(s.id), model.Text, (Weight)(weightCategories.SelectedItem));
+                    MessageBox.Show("succsesfully added a drone!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.Close();
+               
+               
             }
-            catch(AlreadyExistException ex)
+            catch(Exception exp)
             {
-                MessageBox.Show(ex.Message);
-            }
-            catch (validException exp)
-            {
-                MessageBox.Show(exp.Message);
+                MessageBox.Show($"{exp.Message}","ERROR",MessageBoxButton.OK, MessageBoxImage.Error);
+
             }
         }
         private void fillTextbox(DroneToList d)
@@ -105,18 +109,20 @@ namespace PL
             {
                 if (drt.droneModel == txbUpdateModel.Text)
                 {
-                    throw new Exception("enter a new drone model");
+                    MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                bL.updateDroneName(drt.id, txbUpdateModel.Text);
-                MessageBox.Show("succsesfully update the drone name!");
-
+                else
+                {
+                    bL.updateDroneName(drt.id, txbUpdateModel.Text);
+                    MessageBox.Show("succsesfully update the drone name!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+             
             }
             catch (Exception exp)
             {
-                MessageBox.Show(exp.Message);
-            }
-            
+                MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
 
+            }
         }
 
         private void btnSendToCharge_Click(object sender, RoutedEventArgs e)
@@ -124,11 +130,14 @@ namespace PL
             try
             {
                 bL.SendToCharge(drt.id);
-                MessageBox.Show("succsesfully drone sent to charge!");
+                MessageBox.Show("succsesfully drone sent to charge!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);                
                 this.Close();
             }
-            catch(Exception exp)
-                { MessageBox.Show(exp.Message); }
+            catch (Exception exp)
+            {
+                MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
         }
        
 
@@ -139,13 +148,13 @@ namespace PL
 
                 TimeSpan t = DateTime.Now.TimeOfDay;
                 bL.releasingDrone(drt.id, t);
-                MessageBox.Show("succsesfully relesing drone charge!");
+                MessageBox.Show("succsesfully relesing drone charge!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
             }
             catch (Exception exp)
             {
+                MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
 
-                MessageBox.Show(exp.Message);
             }
         }
 
@@ -155,11 +164,14 @@ namespace PL
             try
             {
                 bL.matchingDroneToParcel(drt.id);
-                MessageBox.Show("succsesfully matched drone to parcel!");
+                MessageBox.Show("succsesfully matched drone to parcel!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
             }
             catch (Exception exp)
-            { MessageBox.Show(exp.Message); }
+            {
+                MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
         }
 
         private void btnPickUpParcelByDrone_Click(object sender, RoutedEventArgs e)
@@ -167,11 +179,14 @@ namespace PL
             try
             {
                 bL.pickedUpParcelByDrone(drt.id);
-                MessageBox.Show("succsesfully pick up parcel by drone!");
+                MessageBox.Show("succsesfully pick up parcel by drone!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
             }
             catch (Exception exp)
-            { MessageBox.Show(exp.Message); }
+            {
+                MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
         }
 
         private void btnDeliveryToCustomer_Click(object sender, RoutedEventArgs e)
@@ -180,16 +195,14 @@ namespace PL
             try
             {
                 bL.deliveryParcelToCustomer(drt.id);
-                MessageBox.Show("succsesfully delivery parcel to customer!");
+                MessageBox.Show("succsesfully delivery parcel to customer!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
             }
             catch (Exception exp)
-            { MessageBox.Show(exp.Message); }
-        }
+            {
+                MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
 
-        private void txbWeight_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            ;
+            }
         }
     }
 }

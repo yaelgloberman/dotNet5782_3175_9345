@@ -14,30 +14,35 @@
         <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
         VerticalAlignment="Stretch" Width="auto">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="19*"/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions >
-            <ComboBox Name="ComboStatusSelector" 
-            HorizontalAlignment= "Stretch"
-            VerticalAlignment="Stretch"
-            Grid.Column="1"
-            ToolTip="choose a status" SelectionChanged="filter"/>
-            <Button x:Name="addDrone"  Content="Add Drone" Grid.Column="2" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch" FontSize="15" Click="addDrone_Click"/>
-            <Button x:Name="CloseWindowDroneList" Content="Close Drone List Window" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="15" Click="CloseWindowList_Click"/>
-            <ComboBox x:Name="weigjtSelector" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="48" SelectionChanged="select"/>
+            <ComboBox Name="ComboStatusSelector"
+            Grid.Column="1" BorderBrush="#FFACACAC"/>
+            <Button x:Name="addDrone"  Content="Add drone" Grid.Column="2" FontSize="20" Click="addDrone_Click" FontFamily="Elephant" Background="#FFB2CBF6" ></Button>
+            <Button x:Name="CloseWindowDroneList" Content="Close Drone List Window" Grid.Column="3" FontSize="14" Click="CloseWindowList_Click" FontFamily="Elephant" Grid.ColumnSpan="2" Background="#FFB6AFE4" />
+            <ComboBox x:Name="weigjtSelector" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFF07676" Width="200" Height="48" SelectionChanged="select" BorderBrush="#FFEB7E7E" Foreground="#FFE74242">
+                <ComboBox.OpacityMask>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black"/>
+                        <GradientStop Color="#FFB12727" Offset="1"/>
+                    </LinearGradientBrush>
+                </ComboBox.OpacityMask>
+
+            </ComboBox>
         </Grid>
-        <TextBox x:Name="Dronestatus" HorizontalAlignment="Left" Margin="241,0,0,0" Text="Drone Status:" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>
-        <TextBox x:Name="DroneWeight" HorizontalAlignment="Left" Margin="40,0,0,0" Text="Drone Weight:" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>
-        <ListView x:Name="DroneListView" Grid.Row="1"  Margin="0,0,0,20" MouseDoubleClick="DoubleClick">
+        <ListView x:Name="DroneListView" Grid.Row="1"  Margin="0,0,0,20" MouseDoubleClick="DoubleClick" BorderBrush="#FFE5EACD" Background="#FFDFD9B7">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-
+        <Label Name="lblWeight" Content="Drone weight:" HorizontalAlignment="Left" Margin="27,0,0,0" VerticalAlignment="Center" Height="36" Width="154" FontSize="20" FontFamily="Elephant"/>
+        <Label Name="lblDroneStatus" Content="Drone status:" HorizontalAlignment="Left"  Margin="224,0,0,0"  VerticalAlignment="Center" Height="36" Width="154" FontSize="20" FontFamily="Elephant"/>
     </Grid>
 
 
