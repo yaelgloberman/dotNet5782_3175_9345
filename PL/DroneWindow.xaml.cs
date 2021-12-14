@@ -59,6 +59,7 @@ namespace PL
         private void buttonAddDrone_Click(object sender, RoutedEventArgs e)
         {
             try
+                
             {
                 BaseStationToList s = (BaseStationToList)station.SelectedItem;
                 bL.addDrone(Convert.ToInt32(id.Text), Convert.ToInt32(s.id), model.Text, (Weight)(weightCategories.SelectedItem));
