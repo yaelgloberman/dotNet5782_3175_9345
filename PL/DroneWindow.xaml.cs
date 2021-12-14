@@ -44,15 +44,17 @@ namespace PL
             if (drt.droneStatus == DroneStatus.available)
             {
                 btnSendToCharge.Visibility = Visibility.Visible;
-                btnPickUpParcelByDrone.Visibility = Visibility.Visible;
+                btnMatchingDroneToParcel.Visibility = Visibility.Visible;
             }
 
             if (drt.droneStatus == DroneStatus.charge)
                 btnRelesingDrone.Visibility = Visibility.Visible;
             if (drt.droneStatus == DroneStatus.delivery)
             { 
-               btnSendingDroneToDelivery.Visibility = Visibility.Visible;
+               //btnsen.Visibility = Visibility.Visible;
                 btnDeliveryToCustomer.Visibility = Visibility.Visible;
+                btnPickUpParcelByDrone.Visibility = Visibility.Visible;
+
             }
         }
 
@@ -94,8 +96,13 @@ namespace PL
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+               
             try
             {
+                if (drt.droneModel == txbUpdateModel.Text)
+                {
+                    throw new Exception("enter a new drone model");
+                }
                 bL.updateDroneName(drt.id, txbUpdateModel.Text);
                 MessageBox.Show("succsesfully update the drone name!");
 
@@ -138,13 +145,13 @@ namespace PL
             }
         }
 
-        private void btnSendingDroneToDelivery_Click(object sender, RoutedEventArgs e)
+        private void btnMatchingDroneToParcel_Click(object sender, RoutedEventArgs e)
         {
 
             try
             {
-                bL.deliveryParcelToCustomer(drt.id);
-                MessageBox.Show("succsesfully sending drone to delivery!");
+                bL.matchingDroneToParcel(drt.id);
+                MessageBox.Show("succsesfully matched drone to parcel!");
                 this.Close();
             }
             catch (Exception exp)
@@ -153,7 +160,6 @@ namespace PL
 
         private void btnPickUpParcelByDrone_Click(object sender, RoutedEventArgs e)
         {
-
             try
             {
                 bL.pickedUpParcelByDrone(drt.id);
@@ -175,6 +181,11 @@ namespace PL
             }
             catch (Exception exp)
             { MessageBox.Show(exp.Message); }
+        }
+
+        private void txbWeight_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ;
         }
     }
 }

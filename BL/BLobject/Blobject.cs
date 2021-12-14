@@ -16,6 +16,7 @@ namespace BL
         private List<DroneToList> drones;
         public static int unavailableChargeSlots;
        
+
         private static double getRandomCordinatesBL(double num1, double num2)
         {
             return (rand.NextDouble() * (num2 - num1) + num1);
@@ -26,7 +27,7 @@ namespace BL
         public BL()
         {
             {
-                unavailableChargeSlots = 0;
+                //unavailableChargeSlots = 0;
                 dal = new DalObject.DalObject();
                 drones = new List<IBL.BO.DroneToList>();
                 bool flag = false;
@@ -87,13 +88,20 @@ namespace BL
                             IDAL.DO.Station s = new IDAL.DO.Station();
                             foreach (var ite in dal.getStations())
                             {
+
                                 s = ite;
                                 if (i == r)
                                     break;
                                 i++;
                             }
                             IDAL.DO.droneCharges DC = new droneCharges { droneId = drt.id, stationId = s.id };
+                            var b = GetStation(DC.stationId);
+                            Console.WriteLine(b.unavailableChargeSlots);
+                            GetStation(DC.stationId).decreasingChargeSlots();
+                            Console.WriteLine(b.unavailableChargeSlots);
+
                             dal.AddDroneCharge(DC);
+                          
                             drt.location = new Location { latitude = s.latitude, longitude = s.longitude };
                             drt.batteryStatus = rnd.Next(0, 21); // 100/;
                         }
