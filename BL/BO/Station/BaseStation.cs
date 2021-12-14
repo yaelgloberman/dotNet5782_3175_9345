@@ -12,7 +12,8 @@ namespace IBL.BO
         public string stationName { set; get; }
         public Location location { get; set; }
         public int avilableChargeSlots { get; set; }
-        public void decreasingChargeSlots() { avilableChargeSlots--; BL.BL.unavailableChargeSlots++; }
+        public int unavailableChargeSlots { get; set; }
+        public void decreasingChargeSlots() { avilableChargeSlots--; unavailableChargeSlots++; }
         public void addingChargeSlots() { avilableChargeSlots++; }
         public IEnumerable<DroneInCharge> DroneInChargeList { get; set; }
         public override string ToString()

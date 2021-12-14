@@ -51,6 +51,11 @@ namespace BL
                 throw new AlreadyExistException(exp.Message);
             }
         }
+        private int getUnvailableChargeSlots(int stationId)
+        {
+            int count= dal.chargingGetDroneList().Where(c=>c.stationId== stationId).Count();
+            return count;
+        }
         #endregion
         #region Get station
         /// <summary>
@@ -64,11 +69,11 @@ namespace BL
             BaseStationToList baseStation = new();
             try
             {
-                var station = dal.GetStation(id);
-                baseStation.id = station.id;
-                baseStation.stationName = station.name;
-                baseStation.avilableChargeSlots = station.chargeSlots;
-                baseStation.unavilableChargeSlots = unavailableChargeSlots;
+                var stationRegular = GetStation(id);
+                baseStation.id = stationRegular.id;
+                baseStation.stationName = stationRegular.stationName;
+                baseStation.avilableChargeSlots = stationRegular.avilableChargeSlots;
+                baseStation.unavilableChargeSlots = getUnvailableChargeSlots(id) ;
             }
             catch (findException exp)
             {

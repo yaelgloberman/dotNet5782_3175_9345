@@ -57,6 +57,7 @@ namespace BL
                 dal.addDrone(dr);
                 drones.Add(dtl);
                 IDAL.DO.droneCharges dc = new IDAL.DO.droneCharges { droneId = droneId, stationId = stationId };
+                SendToCharge(droneId);
             }
             catch (findException exp) { throw new dosntExisetException(exp.Message); }
         }
@@ -230,7 +231,7 @@ namespace BL
         public void updateDroneName(int droneID, string dModel)
         {
             int dIndex = drones.FindIndex(x => x.id == droneID);
-            if (dIndex == 0)//לדעת מה הוא מחזיר אם הוא לא מוצא ולשים בתנאי
+            if (dIndex ==-1)//לדעת מה הוא מחזיר אם הוא לא מוצא ולשים בתנאי
             {
                 throw new dosntExisetException("drone do not exist");
             }
@@ -261,7 +262,11 @@ namespace BL
             station = GetStations().Find(x => x.location.longitude == stationLocation.longitude && x.location.latitude == stationLocation.latitude);
             int droneIndex = drones.ToList().FindIndex(x => x.id == droneID);
             if (station.avilableChargeSlots > 0)
+            {
+                dal.deleteStation(dal.GetStation(station.id));
                 station.decreasingChargeSlots();
+                 addStation(station);
+            }
             drones[droneIndex].batteryStatus = calcMinBatteryRequired(drones[droneIndex]);//not sure that if it needs to be 100%
             drones[droneIndex].location = station.location;
             drones[droneIndex].droneStatus = DroneStatus.charge;

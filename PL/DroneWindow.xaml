@@ -7,7 +7,11 @@
         mc:Ignorable="d"
         Title="DroneWindow" Height="450" Width="800">
     <Grid>
-        <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="33*"/>
+            <ColumnDefinition Width="367*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.ColumnSpan="2">
             <Grid x:Name="addDrone" Margin="0,0,367,97" d:IsHidden="True">
                 <TextBox x:Name="id" HorizontalAlignment="Left" Margin="275,80,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <TextBox x:Name="model" HorizontalAlignment="Left" Margin="275,129,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
@@ -60,7 +64,7 @@
                     </Button.RenderTransform>
                 </Button>
                 <Button x:Name="btnRelesingDrone" Content="realising drone from charge" HorizontalAlignment="Left" Margin="241,99,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Width="150" Click="btnRelesingDrone_Click_1" Visibility="Hidden"/>
-                <Button x:Name="btnSendingDroneToDelivery" Content="sending drone to delivery" HorizontalAlignment="Left" Margin="241,124,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Width="150" Click="btnSendingDroneToDelivery_Click" Visibility="Hidden"/>
+                <Button x:Name="btnMatchingDroneToParcel" Content="Matching Drone To Parcel" HorizontalAlignment="Left" Margin="241,124,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Width="150" Click="btnMatchingDroneToParcel_Click"  Visibility="Hidden"/>
                 <Button x:Name="btnPickUpParcelByDrone" Content="pick up parcel by drone" HorizontalAlignment="Left" Margin="241,149,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Width="150" Height="20" Click="btnPickUpParcelByDrone_Click" Visibility="Hidden"/>
                 <Button x:Name="btnDeliveryToCustomer" Content="delivery parcel to customer" HorizontalAlignment="Left" Margin="241,174,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Width="150" Height="20" Click="btnDeliveryToCustomer_Click" Visibility="Hidden"/>
 

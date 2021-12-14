@@ -12,6 +12,8 @@ namespace IBL.BO
         public string stationName { set; get; }
         public int avilableChargeSlots { get; set; }
         public int unavilableChargeSlots { get; set; }
+        public void decreasingChargeSlots() { avilableChargeSlots--; unavilableChargeSlots++; }
+        public void addingChargeSlots() { avilableChargeSlots++; }
         public override string ToString()
         {
             return string.Format($"id: {id}, station Name: {stationName}, avilable ChargeSlots: {avilableChargeSlots}, unavilable Charge Slots:{unavilableChargeSlots}");
