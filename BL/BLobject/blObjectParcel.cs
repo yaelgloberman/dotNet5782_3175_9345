@@ -60,8 +60,9 @@ namespace BL
             try
             {
                 dalParcel = dal.GetParcel(id);
-                var droneIP = GetDrone(dalParcel.droneId);
-                var droneInParcel = new DroneInParcel { id = dalParcel.droneId, battery = droneIP.batteryStatus, location = droneIP.location };
+                var droneIP = GetDrones().Find(x=>x.id==dalParcel.droneId);
+                if (droneIP != null)
+                { var droneInParcel = new DroneInParcel { id = dalParcel.droneId, battery = droneIP.batteryStatus, location = droneIP.location }; }
                 parcel.id = dalParcel.id;
                 parcel.priority = (IBL.BO.Priority)dalParcel.priority;
                 parcel.receiveName = dal.GetCustomer(dalParcel.targetId).name;
@@ -96,13 +97,16 @@ namespace BL
                 IBL.BO.Parcel parcel = new IBL.BO.Parcel();
                 IDAL.DO.Parcel dalParcel = new IDAL.DO.Parcel();
                 dalParcel = dal.GetParcel(id);
-                var droneIP = GetDrone(dalParcel.droneId);
-                var droneInParcel = new DroneInParcel { id = dalParcel.droneId, battery = droneIP.batteryStatus, location = droneIP.location };
+                var droneIP = GetDrones().ToList().Find(x => x.id == dalParcel.droneId);
+                if (droneIP != null)
+                {
+                    var droneInParcel = new DroneInParcel { id = dalParcel.droneId, battery = droneIP.batteryStatus, location = droneIP.location };
+                    parcel.droneInParcel = droneInParcel;
+                }
                 parcel.id = dalParcel.id;
                 parcel.priority = (IBL.BO.Priority)dalParcel.priority;
                 parcel.receive = new CustomerInParcel { id = dal.GetCustomer(dalParcel.targetId).id, name = dal.GetCustomer(dalParcel.targetId).name };
                 parcel.weightCategorie = (Weight)dalParcel.weight;
-                parcel.droneInParcel = droneInParcel;
                 parcel.requested = dalParcel.requested;
                 parcel.scheduled = dalParcel.scheduled;
                 parcel.pickedUp = dalParcel.pickedUp;

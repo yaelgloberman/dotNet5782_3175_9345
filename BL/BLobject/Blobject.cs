@@ -14,9 +14,6 @@ namespace BL
         public static IDal dal; 
         private static Random rand = new Random();
         private List<DroneToList> drones;
-        public static int unavailableChargeSlots;
-       
-
         private static double getRandomCordinatesBL(double num1, double num2)
         {
             return (rand.NextDouble() * (num2 - num1) + num1);
@@ -42,7 +39,7 @@ namespace BL
                     drt.id = item.id;
                     drt.droneModel = item.model;
                     drt.weight = (IBL.BO.Weight)(int)item.maxWeight;
-                    drt.numOfDeliverdParcels = dal.GetParcelList().Count(x => x.droneId == drt.id);
+                    drt.numOfDeliverdParcels=coutNumOfParcels();
                     int parcelID = dal.GetParcelList().ToList().Find(x => x.droneId == drt.id).id;
                     drt.parcelId = parcelID;
                     var baseStationLocations = BaseStationLocationslist();

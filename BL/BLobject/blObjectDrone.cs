@@ -122,6 +122,11 @@ namespace BL
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="dosntExisetException"></exception>
+        static int numOfParcels = 0; 
+        public static int coutNumOfParcels()
+        {
+            return numOfParcels++;
+        }
         public IBL.BO.Drone returnsDrone(int id)
         {
 
@@ -195,10 +200,13 @@ namespace BL
                 droneBo.location = drone.location;
                 droneBo.batteryStatus = drone.batteryStatus;
                 droneBo.droneStatus = drone.droneStatus;
-                droneBo.numOfDeliverdParcels = drone.numOfDeliverdParcels;
-                droneBo.numOfDeliverdParcels = dal.GetParcelList().Count(x => x.droneId == droneBo.id);
+                droneBo.numOfDeliverdParcels = coutNumOfParcels();
                 int parcelID = dal.GetParcelList().ToList().Find(x => x.droneId == droneBo.id).id;
-                droneBo.parcelId = parcelID;
+                if (parcelID != 0)
+                {
+                    droneBo.parcelId = parcelID;
+                    droneBo.droneStatus = DroneStatus.delivery;
+                }
                 return droneBo;
             }
             catch (ArgumentNullException exp)

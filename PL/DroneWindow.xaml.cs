@@ -24,6 +24,7 @@ namespace PL
     {
         IBL.IBl bL;
         private static DroneToList drt=new();
+        private static Drone dr = new();
         public DroneWindow(IBL.IBl bl)
         {
             InitializeComponent();
@@ -48,13 +49,16 @@ namespace PL
             }
 
             if (drt.droneStatus == DroneStatus.charge)
+            {
                 btnRelesingDrone.Visibility = Visibility.Visible;
-            if (drt.droneStatus == DroneStatus.delivery)
-            { 
-               //btnsen.Visibility = Visibility.Visible;
-                btnDeliveryToCustomer.Visibility = Visibility.Visible;
-                btnPickUpParcelByDrone.Visibility = Visibility.Visible;
+            }
 
+            if (drt.droneStatus == DroneStatus.delivery)
+            {
+                if (drt.parcelId == 0)
+                    btnPickUpParcelByDrone.Visibility = Visibility.Visible;
+                else
+                    btnDeliveryToCustomer.Visibility = Visibility.Visible;
             }
         }
 
@@ -175,7 +179,7 @@ namespace PL
 
             try
             {
-                bL.CustomerReceiveParcel(drt.id);
+                bL.deliveryParcelToCustomer(drt.id);
                 MessageBox.Show("succsesfully delivery parcel to customer!");
                 this.Close();
             }

@@ -98,25 +98,34 @@ namespace DalObject
         {
             for (int i = 0; i < 10; i++)
             {
-                parcels.Add(new Parcel()
+               var parcel=new Parcel();
+
+                
+                parcel.id = Config.parcelSerial++;
+                parcel.senderId = Customers[(i + 5) % 9].id;
+                parcel.targetId = Customers[i].id;
+                parcel.priority = (Proirities)r.Next(1, 3);
+                parcel.weight = (WeightCatigories)r.Next(1, 3);
+                if ((drones.ToArray()[i].id) % 2 == 0)
                 {
-                    id = Config.parcelSerial++,
-                    senderId = Customers[(i + 5) % 9].id,
-                    targetId = Customers[i].id,
-                    priority = (Proirities)r.Next(1, 3),
-                    weight = (WeightCatigories)r.Next(1, 3),
-                    droneId = drones.ToArray()[i].id,
-                    requested = DateTime.Now,
-                    scheduled = null,
-                    pickedUp = null,
-                    delivered = null,
-                }); ;
+                    parcel.droneId = drones.ToArray()[i].id;
+                    parcel.requested = DateTime.Now;
+
+                }
+                else
+                    parcel.droneId =0;
+                parcel.requested = null;
+                parcel.scheduled = null;
+                parcel.pickedUp = null;
+                parcel.delivered = null;
+                parcels.Add(parcel);
+             }
                 Config.numberId++;
             }
         }
 
     }
-}
+
 
 
 
