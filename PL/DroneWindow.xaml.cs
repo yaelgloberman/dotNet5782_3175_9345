@@ -55,29 +55,60 @@ namespace PL
 
             if (drt.droneStatus == DroneStatus.delivery)
             {
-                if (drt.parcelId == 0)
+                if(bl.GetParcel(drt.parcelId).pickedUp==null)
+                {
                     btnPickUpParcelByDrone.Visibility = Visibility.Visible;
+
+                }
                 else
                     btnDeliveryToCustomer.Visibility = Visibility.Visible;
+            
+                
             }
         }
-
+        public static void ValidateString(string string1)
+        {
+            List<string> invalidChars = new List<string>() { "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-" };
+            // Check for length
+            if (string1.Length > 100)
+            {
+                throw new validException("String too Long");
+            }
+            else if (!(!string1.Equals(string1.ToLower())))
+            {
+                //Check for min 1 uppercase
+                throw new validException("Requres at least one uppercase");
+            }
+            else
+            {
+                //Iterate your list of invalids and check if input has one
+                foreach (string s in invalidChars)
+                {
+                    if (string1.Contains(s))
+                    {
+                        throw new validException("String contains invalid character: " + s);
+                    }
+                }
+            }
+        }
         private void buttonAddDrone_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                ValidateString(model.Text);
                 SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
                 BaseStationToList s = (BaseStationToList)station.SelectedItem;
                 if (model.Text == "" || id.Text == null|| weightCategories.SelectedItem== null ||station.SelectedItem==null||SolidColorBrush.Equals(((SolidColorBrush)txbUpdateModel.BorderBrush).Color,red.Color))
                 {
-                    MessageBox.Show("Please enter correct input","Error input",MessageBoxButton.OK,MessageBoxImage.Error);
+                       MessageBox.Show("Please enter correct input","Error input",MessageBoxButton.OK,MessageBoxImage.Error);
                 }
-              
+                else
+                {
                     bL.addDrone(Convert.ToInt32(id.Text), Convert.ToInt32(s.id), model.Text, (Weight)(weightCategories.SelectedItem));
                     MessageBox.Show("succsesfully added a drone!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
                     this.Close();
-               
-               
+                }
+                 
             }
             catch(Exception exp)
             {
@@ -107,6 +138,7 @@ namespace PL
                
             try
             {
+                ValidateString(model.Text);
                 if (drt.droneModel == txbUpdateModel.Text)
                 {
                     MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -203,6 +235,16 @@ namespace PL
                 MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
 
             }
+        }
+        private void idTextChanged(object sender,TextChangedEventArgs e)
+        {
+            var brush = new BrushConverter();
+            if (id.Text.All(char.IsDigit))
+            {
+                id.BorderBrush = (Brush)brush.ConvertFrom("FFABADB3");
+            }
+            else
+                id.BorderBrush = (Brush)brush.ConvertFrom("FFE92617");
         }
     }
 }

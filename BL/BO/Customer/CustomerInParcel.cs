@@ -14,6 +14,6 @@ namespace IBL.BO
         {
             return string.Format($"id: {id}, Name: {name}\n");
         }
-
     }
+
 }

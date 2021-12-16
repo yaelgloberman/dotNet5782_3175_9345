@@ -57,8 +57,7 @@ namespace DalObject
             Station station = new Station();
             return station.chargeSlots;
         }
-        public IEnumerable<Station> GetChargedDrone(Func<Station, bool> predicate = null)
-        => predicate == null ? DataSource.stations : DataSource.stations.Where(predicate);
+    
     }
 }
 

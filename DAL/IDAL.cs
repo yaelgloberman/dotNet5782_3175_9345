@@ -23,6 +23,7 @@ namespace IDAL
             Parcel GetParcel(int id);
             public void RemoveDroneCharge(droneCharges droneCharges);
            public Station GetStation(int id);
+            public IEnumerable<Drone> IEDroneList(Func<Drone, bool> predicate = null);
             //public IEnumerable<Parcel> getCustomerReceivedParcels(int id);
             public IEnumerable<Parcel> getCustomerShippedParcels(int id);
             public IEnumerable<droneCharges> GetDroneIdInStation(int id);

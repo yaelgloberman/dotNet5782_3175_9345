@@ -179,9 +179,24 @@ namespace BL
                 throw new dosntExisetException(exp.Message);
             }
         }
+        public IEnumerable<BaseStationToList> GetBaseStationToList()
+        {
+            List<BaseStationToList> baseStationToLists = new();
+            foreach (var item in dal.GetStationList())
+            {
+                BaseStationToList station = new BaseStationToList
+                {
+                    id = item.id,
+                    stationName = item.name,
+                    avilableChargeSlots = item.chargeSlots,
+                    unavilableChargeSlots = getUnvailableChargeSlots(item.id),
+                };
+                baseStationToLists.Add(station);
+            }
+            return baseStationToLists.Take(baseStationToLists.Count).ToList();
+        }
 
-
+        
     }
-
 }
 

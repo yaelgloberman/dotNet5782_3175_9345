@@ -89,8 +89,17 @@ namespace DalObject
         {
             return DataSource.drones;
         }
-        public IEnumerable<Drone> GetDrones(Func<Drone, bool> predicate = null)
-        => predicate == null ? DataSource.drones : DataSource.drones.Where(predicate);
+        public IEnumerable<Drone> IEDroneList(Func<Drone, bool> predicate = null)
+        {
+            List<Drone> droneList = new List<Drone>();
+            if (predicate == null)
+            {
+                droneList = DataSource.drones;
+                return droneList;
+            }
+            return DataSource.drones.Where(predicate).ToList();
+        }
+       
     }
 
 }

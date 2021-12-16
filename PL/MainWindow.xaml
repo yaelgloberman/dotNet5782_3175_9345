@@ -8,15 +8,20 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Grid>
+            <Grid.RowDefinitions>
+
+                <RowDefinition Height="197*"/>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="16*"/>
+            </Grid.RowDefinitions>
             <Grid.Background>
-                <ImageBrush/>
+                <ImageBrush ImageSource="/dronePic.jpg"/>
             </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Content="Show drone list" FontSize="27" FontStyle="Oblique" Margin="0,368,0,0" Click="Button_Click" Grid.ColumnSpan="2" Background="#FFF6AB80" HorizontalAlignment="Right" Width="819"/>
-            <Image HorizontalAlignment="Left" Height="368" VerticalAlignment="Top" Width="800" Grid.ColumnSpan="2" Source="/dronePic.jpg" Stretch="Fill" StretchDirection="DownOnly"/>
+            <Button Content="Show drone list" FontSize="45" FontStyle="Oblique" Margin="0,368,0,0" Click="Button_Click" Grid.ColumnSpan="2" Background="#FFF6AB80" VerticalAlignment="Center" Grid.RowSpan="3" HorizontalAlignment="Stretch" />
         </Grid>
     </Grid>
 </Window>

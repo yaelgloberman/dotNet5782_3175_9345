@@ -39,7 +39,6 @@ namespace BL
                     drt.id = item.id;
                     drt.droneModel = item.model;
                     drt.weight = (IBL.BO.Weight)(int)item.maxWeight;
-                    drt.numOfDeliverdParcels=coutNumOfParcels();
                     int parcelID = dal.GetParcelList().ToList().Find(x => x.droneId == drt.id).id;
                     drt.parcelId = parcelID;
                     var baseStationLocations = BaseStationLocationslist();
@@ -516,7 +515,7 @@ namespace BL
         {
             if (dr == IBL.BO.Weight.heavy)
                 return true;
-            if (dr == IBL.BO.Weight.avergae && (pa == IBL.BO.Weight.avergae || pa == IBL.BO.Weight.light))
+            if (dr == IBL.BO.Weight.average && (pa == IBL.BO.Weight.average || pa == IBL.BO.Weight.light))
                 return true;
             if (dr == IBL.BO.Weight.light && pa == IBL.BO.Weight.light)
                 return true;
@@ -535,7 +534,7 @@ namespace BL
                 return 1;
             if (w == IDAL.DO.WeightCatigories.heavy)
                 return 2;
-            if (w == IDAL.DO.WeightCatigories.avergae)
+            if (w == IDAL.DO.WeightCatigories.average)
                 return 3;
 
             return 0;

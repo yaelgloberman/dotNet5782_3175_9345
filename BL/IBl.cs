@@ -27,8 +27,8 @@ namespace IBL
         public List<IBL.BO.Parcel> GetParcels();
 
         public List<IBL.BO.ParcelToList> GetParcelToLists();
-        public IEnumerable<DroneToList> droneFilterStatus(DroneStatus s);
-        public IEnumerable<DroneToList> droneFilterWeight(Weight w);
+        public IEnumerable<BaseStationToList> GetBaseStationToList();
+        public IEnumerable<DroneToList> allDrones(Func<DroneToList, bool> predicate);
         public IBL.BO.CustomerInList GetCustomerToList(int id);
         public List<ParcelCustomer> CustomerReceiveParcel(int customerID);
 

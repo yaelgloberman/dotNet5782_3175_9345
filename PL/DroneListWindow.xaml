@@ -20,11 +20,10 @@
                 <ColumnDefinition Width="19*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions >
-            <ComboBox Name="ComboStatusSelector"
-            Grid.Column="1" BorderBrush="#FFACACAC"/>
+            <ComboBox Name="statusSelector" Grid.Column="1"  SelectionChanged="selectStatus" />
             <Button x:Name="addDrone"  Content="Add drone" Grid.Column="2" FontSize="20" Click="addDrone_Click" FontFamily="Elephant" Background="#FFB2CBF6" ></Button>
             <Button x:Name="CloseWindowDroneList" Content="Close Drone List Window" Grid.Column="3" FontSize="14" Click="CloseWindowList_Click" FontFamily="Elephant" Grid.ColumnSpan="2" Background="#FFB6AFE4" />
-            <ComboBox x:Name="weigjtSelector" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFF07676" Width="200" Height="48" SelectionChanged="select" BorderBrush="#FFEB7E7E" Foreground="#FFE74242">
+            <ComboBox x:Name="WeightSelector" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" SelectionChanged="selectWeight" Height="48">
                 <ComboBox.OpacityMask>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="Black"/>

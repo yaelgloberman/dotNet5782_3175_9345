@@ -122,11 +122,6 @@ namespace BL
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="dosntExisetException"></exception>
-        static int numOfParcels = 0; 
-        public static int coutNumOfParcels()
-        {
-            return numOfParcels++;
-        }
         public IBL.BO.Drone returnsDrone(int id)
         {
 
@@ -200,7 +195,6 @@ namespace BL
                 droneBo.location = drone.location;
                 droneBo.batteryStatus = drone.batteryStatus;
                 droneBo.droneStatus = drone.droneStatus;
-                droneBo.numOfDeliverdParcels = coutNumOfParcels();
                 int parcelID = dal.GetParcelList().ToList().Find(x => x.droneId == droneBo.id).id;
                 if (parcelID != 0)
                 {
@@ -239,7 +233,7 @@ namespace BL
         public void updateDroneName(int droneID, string dModel)
         {
             int dIndex = drones.FindIndex(x => x.id == droneID);
-            if (dIndex ==-1)//לדעת מה הוא מחזיר אם הוא לא מוצא ולשים בתנאי
+            if (dIndex == -1)//לדעת מה הוא מחזיר אם הוא לא מוצא ולשים בתנאי
             {
                 throw new dosntExisetException("drone do not exist");
             }
@@ -273,7 +267,7 @@ namespace BL
             {
                 dal.deleteStation(dal.GetStation(station.id));
                 station.decreasingChargeSlots();
-                 addStation(station);
+                addStation(station);
             }
             drones[droneIndex].batteryStatus = calcMinBatteryRequired(drones[droneIndex]);//not sure that if it needs to be 100%
             drones[droneIndex].location = station.location;
@@ -324,31 +318,15 @@ namespace BL
                 addDrone(drones[index], DC.stationId);
             }
         }
-
-            public IEnumerable<DroneToList> droneFilterStatus(DroneStatus w)
-            {
-                List<DroneToList> lst = new List<DroneToList>();
-
-                foreach (var item in drones)
-                {
-                    if (item.droneStatus == w)
-                        lst.Add(item);
-                }
-                return lst;
-            }
-        public IEnumerable<DroneToList> droneFilterWeight(Weight w)
+        public IEnumerable<DroneToList> allDrones(Func<DroneToList, bool> predicate = null)
         {
-            List<DroneToList> lst = new List<DroneToList>();
-
-            foreach (var item in drones)
+            if (predicate == null)
             {
-                if (item.weight == w)
-                    lst.Add(item);
+                return drones.Take(drones.Count).ToList();
             }
-            return lst;
+            return drones.Where(predicate).ToList();
         }
-
     }
-    }
+}
 #endregion
 

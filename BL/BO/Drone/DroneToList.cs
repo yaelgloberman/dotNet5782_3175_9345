@@ -14,11 +14,10 @@ namespace IBL.BO
         public double batteryStatus { get; set; }
         public DroneStatus droneStatus { set; get; }
         public Location location { get; set; }
-        public int numOfDeliverdParcels { set; get; }
         public int parcelId { get; set; }
         public override string ToString()
         {
-            return String.Format($"drone id:{id}, drone Model: {droneModel}, weight: {weight}, battery Status:{Math.Round(batteryStatus)}%, drone Status: {droneStatus}, location: {location} num Of Deliverd Parcels: {numOfDeliverdParcels}, delivery ID: {parcelId}");
+            return String.Format($"drone id:{id}, drone Model: {droneModel}, weight: {weight}, battery Status:{Math.Round(batteryStatus)}%, drone Status: {droneStatus}, location: {location}, delivery ID: {parcelId}");
         }
 
     }
