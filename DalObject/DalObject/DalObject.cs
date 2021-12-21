@@ -1,13 +1,19 @@
-﻿using IDAL.DO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace DalObject
+using DalApi;
+using DO;
+namespace Dal
 {
-    public partial class DalObject : IDal
+    sealed partial class DalObject : IDal
     {
+        static readonly IDal instance = new DalObject();
+        public static IDal Instance
+        {
+            get => instance;
+        }
         public DalObject()
         {
             DataSource.Initialize();///intialize constructor for the data object ib the nmain.

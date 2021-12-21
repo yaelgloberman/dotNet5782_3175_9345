@@ -1,8 +1,10 @@
 ﻿using System;
-
-namespace IDAL
-{
-    namespace DO
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DO;
+namespace DO
     {
         public struct Station
         {
@@ -14,10 +16,10 @@ namespace IDAL
             public void addingChargeSlot() { chargeSlots++; }
             public override string ToString()
             {
-                return string.Format($"id: {id}, Name: {name},  Longitude: { IDAL.DO.help.getBase60Lng(longitude)}, Latitude: {IDAL.DO.help.getBase60Lat(latitude)}, charge Slots: {chargeSlots} ");
+                return string.Format($"id: {id}, Name: {name},  Longitude: { DO.help.getBase60Lng(longitude)}, Latitude: {DO.help.getBase60Lat(latitude)}, charge Slots: {chargeSlots} ");
             }
         }
   
 
     }
-}
+

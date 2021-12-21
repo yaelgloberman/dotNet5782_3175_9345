@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
-using IDAL.DO;
-using IBL;
+using BlApi;
+using BO;
+using DO;
 using System.Runtime.Serialization;
 namespace BL
 {
@@ -32,8 +32,8 @@ namespace BL
                 throw new validException("the given latitude do not exist in this country\n");
             if (!(stationToAdd.avilableChargeSlots > 0))
                 throw new validException("the given number of available charging slots is negetive\n");
-            IDAL.DO.Station stationDo =
-                new IDAL.DO.Station()
+            DO.Station stationDo =
+                new DO.Station()
                 {
                     id = stationToAdd.id,
                     name = stationToAdd.stationName,
@@ -161,7 +161,7 @@ namespace BL
         {
             try
             {
-                IDAL.DO.Station stationDl = new IDAL.DO.Station();
+                DO.Station stationDl = new DO.Station();
                 stationDl = dal.GetStation(stationID);
                 if (Name != " ")
                     stationDl.name = Name;
@@ -195,8 +195,6 @@ namespace BL
             }
             return baseStationToLists.Take(baseStationToLists.Count).ToList();
         }
-
-        
     }
 }
 

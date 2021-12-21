@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Formats;
-namespace IBL.BO
+namespace BO
 {
     public class Location
     {
@@ -12,7 +12,7 @@ namespace IBL.BO
         public double longitude { get; set; }
         public override string ToString()
         {
-            return string.Format($" latitude: {IDAL.DO.help.getBase60Lng(latitude)}, longitude: {IDAL.DO.help.getBase60Lng(longitude)} ");
+            return string.Format($" latitude: {DO.help.getBase60Lng(latitude)}, longitude: {DO.help.getBase60Lng(longitude)} ");
         }
 
     }

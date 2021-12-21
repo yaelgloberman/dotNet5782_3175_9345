@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace IDAL
-{
+using DO;
     namespace DO
     {
         public struct Customer   
@@ -16,10 +15,9 @@ namespace IDAL
             public double latitude { set; get; }
             public override string ToString()
             { 
-                return string.Format($"id: {id}, Name: {name}, Phone Number: 05{phoneNumber}, Longitude: { IDAL.DO.help.getBase60Lng(longitude)}  Latitude: {IDAL.DO.help.getBase60Lat(latitude)} ");
+                return string.Format($"id: {id}, Name: {name}, Phone Number: 05{phoneNumber}, Longitude: { DO.help.getBase60Lng(longitude)}  Latitude: {DO.help.getBase60Lat(latitude)} ");
 
             }
         }
         
     }
-}

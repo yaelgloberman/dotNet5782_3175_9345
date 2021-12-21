@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
-using IDAL.DO;
-using IBL;
+using BO;
+using DO;
+using BlApi;
+using DalApi;
 using System.Runtime.Serialization;
 namespace BL
 {
@@ -15,7 +16,7 @@ namespace BL
     public partial class BL : IBl
     {
         #region Add Parcel
-        public int addParcel(IBL.BO.Parcel parcelToAdd)
+        public int addParcel(BO.Parcel parcelToAdd)
         {
             if (dal.GetParcels().ToList().Exists(item => item.id == parcelToAdd.id))
                 throw new AlreadyExistException("Parcel already exist");
@@ -27,7 +28,7 @@ namespace BL
                 throw new validException("the given weight is not valid\n");
             if (!(parcelToAdd.priority >= (Priority)0 && parcelToAdd.priority <= (Priority)3))
                 throw new validException("the given priority is not valid\n");
-            IDAL.DO.Parcel parcelDo = new IDAL.DO.Parcel();
+            DO.Parcel parcelDo = new ();
             parcelDo.senderId = parcelToAdd.sender.id;
             parcelDo.targetId = parcelToAdd.receive.id;
             parcelDo.weight = (WeightCatigories)parcelToAdd.weightCategorie;
@@ -53,10 +54,10 @@ namespace BL
         /// <returns></returns>
         /// <exception cref="dosntExisetException"></exception>
         #endregion
-        public IBL.BO.ParcelToList GetParcelToList(int id)
+        public BO.ParcelToList GetParcelToList(int id)
         {
-            IBL.BO.ParcelToList parcel = new();
-            IDAL.DO.Parcel dalParcel = new();
+            BO.ParcelToList parcel = new();
+            DO.Parcel dalParcel = new();
             try
             {
                 dalParcel = dal.GetParcel(id);
@@ -64,18 +65,18 @@ namespace BL
                 if (droneIP != null)
                 { var droneInParcel = new DroneInParcel { id = dalParcel.droneId, battery = droneIP.batteryStatus, location = droneIP.location }; }
                 parcel.id = dalParcel.id;
-                parcel.priority = (IBL.BO.Priority)dalParcel.priority;
+                parcel.priority = (BO.Priority)dalParcel.priority;
                 parcel.receiveName = dal.GetCustomer(dalParcel.targetId).name;
                 parcel.weight = (Weight)dalParcel.weight;
                 parcel.senderName = dal.GetCustomer(dalParcel.senderId).name;
                 if (dalParcel.pickedUp != null)
-                    parcel.parcelStatus = IBL.BO.ParcelStatus.PickedUp;
+                    parcel.parcelStatus = BO.ParcelStatus.PickedUp;
                 if (dalParcel.requested != null)
-                    parcel.parcelStatus = IBL.BO.ParcelStatus.Assigned;
+                    parcel.parcelStatus = BO.ParcelStatus.Assigned;
                 if (dalParcel.scheduled != null)
-                    parcel.parcelStatus = IBL.BO.ParcelStatus.Created;
+                    parcel.parcelStatus = BO.ParcelStatus.Created;
                 if (dalParcel.delivered != null)
-                    parcel.parcelStatus = IBL.BO.ParcelStatus.Delivered;
+                    parcel.parcelStatus = BO.ParcelStatus.Delivered;
             }
             catch (findException exp)
             {
@@ -90,12 +91,12 @@ namespace BL
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="dosntExisetException"></exception>
-        public IBL.BO.Parcel GetParcel(int id)
+        public BO.Parcel GetParcel(int id)
         {
             try
             {
-                IBL.BO.Parcel parcel = new IBL.BO.Parcel();
-                IDAL.DO.Parcel dalParcel = new IDAL.DO.Parcel();
+                BO.Parcel parcel = new BO.Parcel();
+                DO.Parcel dalParcel = new DO.Parcel();
                 dalParcel = dal.GetParcel(id);
                 var droneIP = GetDrones().ToList().Find(x => x.id == dalParcel.droneId);
                 if (droneIP != null)
@@ -104,7 +105,7 @@ namespace BL
                     parcel.droneInParcel = droneInParcel;
                 }
                 parcel.id = dalParcel.id;
-                parcel.priority = (IBL.BO.Priority)dalParcel.priority;
+                parcel.priority = (BO.Priority)dalParcel.priority;
                 parcel.receive = new CustomerInParcel { id = dal.GetCustomer(dalParcel.targetId).id, name = dal.GetCustomer(dalParcel.targetId).name };
                 parcel.weightCategorie = (Weight)dalParcel.weight;
                 parcel.requested = dalParcel.requested;
@@ -124,9 +125,9 @@ namespace BL
 
         /// </summary>
         /// <returns></returns>
-        public List<IBL.BO.Parcel> GetParcels()
+        public List<BO.Parcel> GetParcels()
         {
-            List<IBL.BO.Parcel> parcels = new List<IBL.BO.Parcel>();
+            List<BO.Parcel> parcels = new List<BO.Parcel>();
             foreach (var p in dal.GetParcelList())
             { parcels.Add(GetParcel(p.id)); }
             return parcels;
@@ -135,7 +136,7 @@ namespace BL
         /// recieving a list of all the parcels from the data source and returning ot to the progrmmer with the bl parcel (regular) features
         /// </summary>
         /// <returns></returns>
-        public List<IBL.BO.ParcelToList> GetParcelToLists()
+        public List<BO.ParcelToList> GetParcelToLists()
         {
             List<ParcelToList> lst = new List<ParcelToList>();//create the list
             foreach (var item in dal.GetParcelList())//pass on the list of the parcels and copy them to the new list
@@ -152,14 +153,14 @@ namespace BL
         /// <exception cref="ExecutionTheDroneIsntAvilablle"></exception>
         public void deliveryParcelToCustomer(int id)
         {
-            var drone = new IBL.BO.DroneToList();
+            var drone = new BO.DroneToList();
             try
             {
                 drone = GetDrone(id);
-                IDAL.DO.Parcel parcel = dal.GetParcelList().ToList().Find(p => p.droneId == id);
+                DO.Parcel parcel = dal.GetParcelList().ToList().Find(p => p.droneId == id);
                 var customer = GetCustomer(parcel.targetId);
                 var stationLoc = findClosestStationLocation(customer.location, false, BaseStationLocationslist());
-                IDAL.DO.Station station = dal.GetStationList().ToList().Find(s => s.longitude == stationLoc.longitude && s.latitude == stationLoc.latitude);
+                DO.Station station = dal.GetStationList().ToList().Find(s => s.longitude == stationLoc.longitude && s.latitude == stationLoc.latitude);
                 double previoseBatteryStatus = drone.batteryStatus;
                 if (!(drone.droneStatus == DroneStatus.delivery))   //the drone pickedup but didnt delivert yet
                     throw new ExecutionTheDroneIsntAvilablle(" this drone is not in delivery");
@@ -198,7 +199,7 @@ namespace BL
                 var station = GetStations().ToList().Find(x => x.location.longitude == droneLoc.longitude && x.location.latitude == droneLoc.latitude);
                 if (myDrone.droneStatus != DroneStatus.available)
                     throw new unavailableException("the drone is unavailable\n");
-                IDAL.DO.Parcel myParcel = findTheParcel(myDrone.weight, myDrone.location, myDrone.batteryStatus, IDAL.DO.Proirities.emergency);
+                DO.Parcel myParcel = findTheParcel(myDrone.weight, myDrone.location, myDrone.batteryStatus, DO.Proirities.emergency);
                 dal.attribute(myDrone.id, myParcel.id);
                 int index = drones.FindIndex(x => x.id == droneId);
                 deleteDrone(myDrone.id);
@@ -209,6 +210,17 @@ namespace BL
             }
             catch (findException exp) { throw new dosntExisetException(exp.Message); }
 
+        }
+        public ParcelStatus parcelStatus(BO.Parcel parcel)
+        {
+            if (parcel.delivered != null)
+                return ParcelStatus.Delivered;
+            if (parcel.pickedUp != null)
+                return ParcelStatus.PickedUp;
+            if (parcel.scheduled != null)
+                return ParcelStatus.Assigned;
+            else
+                return ParcelStatus.Created;
         }
         /// <summary>
         /// an update function that upadtes the parcel an dthe drone when the parcel was picked up by the drone but was still not delivered to its customer 
@@ -230,7 +242,7 @@ namespace BL
                         int index = drones.FindIndex(x => x.id == d.id);
                         deleteDrone(droneID);
                         drones.RemoveAt(index);
-                        d.batteryStatus = d.batteryStatus - Distance(d.location, new IBL.BO.Location { latitude = dal.GetCustomer(item.targetId).latitude, longitude = dal.GetCustomer(item.targetId).longitude }) * GetChargeCapacity().chargeCapacityArr[(int)(item.weight)];
+                        d.batteryStatus = d.batteryStatus - Distance(d.location, new BO.Location { latitude = dal.GetCustomer(item.targetId).latitude, longitude = dal.GetCustomer(item.targetId).longitude }) * GetChargeCapacity().chargeCapacityArr[(int)(item.weight)];
                         d.location.longitude = dal.GetCustomer(item.senderId).longitude;
                         d.location.latitude = dal.GetCustomer(item.senderId).latitude;
                         var par = item;
@@ -246,7 +258,27 @@ namespace BL
             }
             throw new validException("the drone cant picked up the parcel because the parcel is not matching to him");
         }
-
+        
+        public IEnumerable<ParcelToList> GetParcelToList()
+        {
+            List<ParcelToList> parcelToLists = new();
+            foreach (var item in dal.GetParcelList())
+            {
+                BO.Parcel parcel1 = GetParcel(item.id);
+                ParcelToList parcel = new ParcelToList
+                {
+                    id = item.id,
+                    senderName = parcel1.sender.name,
+                    receiveName = parcel1.receive.name,
+                    weight = (Weight)item.weight,
+                    priority = (Priority)item.priority,
+                    parcelStatus = (ParcelStatus)parcelStatus(parcel1)
+                    
+                };
+                parcelToLists.Add(parcel);
+            }
+            return parcelToLists.Take(parcelToLists.Count).ToList();
+        }
 
     }
 }

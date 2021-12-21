@@ -13,7 +13,7 @@
         </Grid.ColumnDefinitions>
         <Grid Grid.ColumnSpan="2">
             <Grid x:Name="addDrone" Background="#FFF4EEC5">
-                <TextBox x:Name="id" HorizontalAlignment="Left" Margin="275,80,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" BorderBrush="#FF7273E0"/>
+                <TextBox x:Name="id" HorizontalAlignment="Left" Margin="275,80,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" BorderBrush="#FF7273E0" TextChanged="id_TextChanged"/>
                 <TextBox x:Name="model" HorizontalAlignment="Left" Margin="275,129,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" BorderBrush="#FF7273E0"/>
                 <ComboBox x:Name="weightCategories" HorizontalAlignment="Left" Margin="275,177,0,0" Text=""  VerticalAlignment="Top" Width="120" BorderBrush="#FF7273E0" OpacityMask="#FFDD9E9E" />
                 <ComboBox x:Name="station" HorizontalAlignment="Left" Margin="275,227,0,0" Text=""  VerticalAlignment="Top" Width="120" BorderBrush="#FF7273E0"/>

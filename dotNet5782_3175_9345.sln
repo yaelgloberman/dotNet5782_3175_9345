@@ -8,20 +8,28 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0C872A58-4E18-43F2-8B04-28E01816F38F}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		dal-config.xml = dal-config.xml
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleUI", "ConsoleUI\ConsoleUI.csproj", "{571E5CA0-5842-4D67-8198-93C1DFD51D3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleDal", "ConsoleUI\ConsoleDal.csproj", "{571E5CA0-5842-4D67-8198-93C1DFD51D3A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{E0F821FC-CCD1-4CC2-9BE1-D38D63C96B7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalFacade", "DAL\DalFacade.csproj", "{E0F821FC-CCD1-4CC2-9BE1-D38D63C96B7C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{D1249858-FC64-4763-9827-ABB8E86A41B4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleUI_BL", "ConsoleUI_BL\ConsoleUI_BL.csproj", "{FEC8946A-7997-4D90-9055-D2EE189ECDB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PL", "PL\PL.csproj", "{B23EFF2D-8A36-4E51-AAE2-544DD4CE8D57}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PL", "PL\PL.csproj", "{B23EFF2D-8A36-4E51-AAE2-544DD4CE8D57}"
 	ProjectSection(ProjectDependencies) = postProject
 		{D1249858-FC64-4763-9827-ABB8E86A41B4} = {D1249858-FC64-4763-9827-ABB8E86A41B4}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalObject", "DalObject\DalObject.csproj", "{B5BAF5B1-32A8-42B9-AE50-25D25618CDBE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{7286FF4E-A954-409A-8F6B-4E83B8699D71}"
+	ProjectSection(SolutionItems) = preProject
+		dal-config.xml = dal-config.xml
 	EndProjectSection
 EndProject
 Global
@@ -54,6 +62,10 @@ Global
 		{B23EFF2D-8A36-4E51-AAE2-544DD4CE8D57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B23EFF2D-8A36-4E51-AAE2-544DD4CE8D57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B23EFF2D-8A36-4E51-AAE2-544DD4CE8D57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5BAF5B1-32A8-42B9-AE50-25D25618CDBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5BAF5B1-32A8-42B9-AE50-25D25618CDBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5BAF5B1-32A8-42B9-AE50-25D25618CDBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5BAF5B1-32A8-42B9-AE50-25D25618CDBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

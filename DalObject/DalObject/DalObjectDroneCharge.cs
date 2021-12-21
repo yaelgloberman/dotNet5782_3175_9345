@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IDAL.DO;
-
-namespace DalObject
+using DalApi;
+using DO;
+namespace Dal
 {
-    public partial class DalObject : IDal
+    sealed partial class DalObject : IDal
     {
 
         public droneCharges GetChargedDrone(int id)//finding a drone in the drone charging list
@@ -24,7 +24,7 @@ namespace DalObject
             if (tmp == null)
             {
 
-                throw new IDAL.DO.findException("drone does not exist");
+                throw new DO.findException("drone does not exist");
             }
             return (droneCharges)tmp;
         }

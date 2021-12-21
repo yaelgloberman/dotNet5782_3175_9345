@@ -1,14 +1,12 @@
-﻿using IDAL.DO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace IDAL
+using DO;
+namespace DO
 {
-    namespace DO
-    {
-        public  class help
+    public  class help
         {
             /// <summary>
             /// function that returning the latitude in base 60
@@ -58,4 +56,3 @@ namespace IDAL
         }
 
     }
-}

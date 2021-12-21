@@ -1,13 +1,13 @@
-﻿using IDAL.DO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-namespace DalObject
+using DalApi;
+using DO;
+namespace Dal
 {
-    public partial class DalObject : IDal
+    sealed partial class DalObject : IDal
     {
         public bool checkParcel(int id)
         {
@@ -52,7 +52,7 @@ namespace DalObject
                 }
             }
         }
-        public void DeliveryPackageCustomer(int cID, int pId, IDAL.DO.Proirities proirity)//updating the drone when irt was called from the Customer
+        public void DeliveryPackageCustomer(int cID, int pId, DO.Proirities proirity)//updating the drone when irt was called from the Customer
         {
             Parcel tmpP = GetParcel(pId);
             //tmpP.isDelivered = true;

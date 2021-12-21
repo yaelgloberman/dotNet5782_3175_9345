@@ -11,9 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using IBL;
-using IBL.BO;
-
+using BO;
+using BlApi;
 namespace PL
 {
     /// <summary>
@@ -21,15 +20,16 @@ namespace PL
     /// </summary>
     public partial class DroneListWindow : Window
     {
-        IBL.IBl bL;
+
+        BlApi.IBl bL;
         static Weight? weightFilter;
         static DroneStatus? statusFilter;
-        public DroneListWindow(IBL.IBl bl)
+        public DroneListWindow(IBl bl)
         {
             InitializeComponent();
             this.bL = bl;
-            WeightSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.Weight));
-            statusSelector.ItemsSource= Enum.GetValues(typeof(IBL.BO.DroneStatus));
+            WeightSelector.ItemsSource = Enum.GetValues(typeof(BO.Weight));
+            statusSelector.ItemsSource= Enum.GetValues(typeof(BO.DroneStatus));
             DroneListView.ItemsSource = bl.GetDrones();
         }
         private void addDrone_Click(object sender, RoutedEventArgs e)
@@ -62,7 +62,7 @@ namespace PL
         }
         private void selectStatus(object sender, SelectionChangedEventArgs e)
         {
-            if (WeightSelector.SelectedIndex != -1)
+            if (statusSelector.SelectedIndex != -1)
             {
                 statusFilter = (DroneStatus)statusSelector.SelectedItem;
                 DroneListView.ItemsSource = bL.allDrones(x => x.droneStatus == statusFilter);

@@ -11,10 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using IBL.BO;
-using BL;
-
-
+using BO;
+using BlApi;
 namespace PL
 {
     /// <summary>
@@ -22,10 +20,10 @@ namespace PL
     /// </summary>
     public partial class DroneWindow : Window
     {
-        IBL.IBl bL;
+        IBl bL;
         private static DroneToList drt=new();
         private static Drone dr = new();
-        public DroneWindow(IBL.IBl bl)
+        public DroneWindow(IBl bl)
         {
             InitializeComponent();
             this.bL = bl;
@@ -34,7 +32,7 @@ namespace PL
             update.Visibility = Visibility.Hidden;
 
         }
-        public DroneWindow(IBL.IBl bl, IBL.BO.DroneToList drtl) //update
+        public DroneWindow(IBl bl, BO.DroneToList drtl) //update
         {
             InitializeComponent();
             this.bL = bl;
@@ -47,41 +45,34 @@ namespace PL
                 btnSendToCharge.Visibility = Visibility.Visible;
                 btnMatchingDroneToParcel.Visibility = Visibility.Visible;
             }
-
             if (drt.droneStatus == DroneStatus.charge)
             {
                 btnRelesingDrone.Visibility = Visibility.Visible;
             }
-
             if (drt.droneStatus == DroneStatus.delivery)
             {
-                if(bl.GetParcel(drt.parcelId).pickedUp==null)
+                if (bl.GetParcel(drt.parcelId).pickedUp == null)
                 {
                     btnPickUpParcelByDrone.Visibility = Visibility.Visible;
 
                 }
                 else
                     btnDeliveryToCustomer.Visibility = Visibility.Visible;
-            
-                
             }
         }
         public static void ValidateString(string string1)
         {
             List<string> invalidChars = new List<string>() { "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-" };
-            // Check for length
             if (string1.Length > 100)
             {
                 throw new validException("String too Long");
             }
             else if (!(!string1.Equals(string1.ToLower())))
             {
-                //Check for min 1 uppercase
                 throw new validException("Requres at least one uppercase");
             }
             else
             {
-                //Iterate your list of invalids and check if input has one
                 foreach (string s in invalidChars)
                 {
                     if (string1.Contains(s))
@@ -138,7 +129,7 @@ namespace PL
                
             try
             {
-                ValidateString(model.Text);
+                ValidateString(txbUpdateModel.Text);
                 if (drt.droneModel == txbUpdateModel.Text)
                 {
                     MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);

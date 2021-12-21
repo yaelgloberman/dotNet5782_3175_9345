@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-namespace IDAL
- {
-    namespace DO
-    {
-        public interface IDal
-        {
+using DO;
+namespace DalApi
+{
+    public interface IDal
+    { 
             void addCustomer(Customer c);
             void addDrone(Drone d);
             int addParcel(Parcel p);
@@ -14,7 +13,7 @@ namespace IDAL
             public double[] ChargeCapacity();
             IEnumerable<droneCharges> chargingGetDroneList();
             IEnumerable<Customer> GetCustomerList();
-            public void AddDroneCharge(droneCharges droneCharges);
+            public void AddDroneCharge(DO.droneCharges droneCharges);
             void DeliveryPackageCustomer(int cID, int pId, Proirities proirity);
             IEnumerable<Drone> GetDroneList();
             droneCharges GetChargedDrone(int id);
@@ -24,7 +23,6 @@ namespace IDAL
             public void RemoveDroneCharge(droneCharges droneCharges);
            public Station GetStation(int id);
             public IEnumerable<Drone> IEDroneList(Func<Drone, bool> predicate = null);
-            //public IEnumerable<Parcel> getCustomerReceivedParcels(int id);
             public IEnumerable<Parcel> getCustomerShippedParcels(int id);
             public IEnumerable<droneCharges> GetDroneIdInStation(int id);
             public IEnumerable<Drone> GetDrones();
@@ -45,6 +43,6 @@ namespace IDAL
             public int AvailableChargingSlots();
             public void updateDrone(int droneId, string droneModel);
             public void updateCustomer(int customerId, Customer c);
-          }
+          
     }
 }

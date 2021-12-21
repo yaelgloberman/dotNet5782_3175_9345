@@ -1,10 +1,10 @@
-﻿using IDAL.DO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace DalObject
+using DO;
+namespace Dal
 {
     internal class DataSource
     {

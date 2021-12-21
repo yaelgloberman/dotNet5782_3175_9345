@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
-using IDAL.DO;
+using BO;
 using BL;
+using BlApi;
 
 namespace ConsoleUI_BL
 {
-
     public enum MainChoice { station=1,drone,customer,parcel}
     public enum objectChoice { add=1,update,retrieve,lists,exit}
     public enum updateDrone { updateDroneName=1,sendToCharge,releasingDrone}
@@ -44,7 +43,7 @@ namespace ConsoleUI_BL
             }
         }
         #endregion
-        public static IBL.IBl bl;
+        public static BlApi.IBl bl;
         public static void Main(string[] args)
         {
             bl = new BL.BL();
@@ -94,7 +93,7 @@ namespace ConsoleUI_BL
                                         int id, chargeSlots;
                                         string name;
                                         double longitude, latitude;
-                                        IBL.BO.Location stationLoc = new Location();
+                                        BO.Location stationLoc = new Location();
                                         Console.WriteLine("enter a station id");
                                         int.TryParse(Console.ReadLine(), out id);
                                         temp.id = id;
@@ -188,7 +187,7 @@ namespace ConsoleUI_BL
                                         try { ValidateString(droneModel); }
                                         catch (validException exp) { Console.WriteLine(exp.Message); };
                                         Console.WriteLine("enter  a number from 1-3 describing its max weight, 3 is the heaviest");//go over the phraising
-                                        weight = (IBL.BO.Weight)int.Parse(Console.ReadLine());
+                                        weight = (BO.Weight)int.Parse(Console.ReadLine());
                                         Console.WriteLine("enter a station id");
                                         int.TryParse(Console.ReadLine(), out stationId);
                                         try { bl.addDrone(droneId, stationId, droneModel, weight); }
@@ -267,7 +266,7 @@ namespace ConsoleUI_BL
                                 case objectChoice.retrieve:
                                     {
                                         int DroneID;
-                                        IBL.BO.Drone currentDrone = new ();
+                                        BO.Drone currentDrone = new ();
                                         Console.WriteLine("please enter the drone ID:");
                                         DroneID = int.Parse(Console.ReadLine());
                                         try
@@ -309,11 +308,11 @@ namespace ConsoleUI_BL
                             {
                                 case objectChoice.add:
                                     {
-                                        IBL.BO.Customer temp = new IBL.BO.Customer();
+                                        BO.Customer temp = new BO.Customer();
                                         int id, phoneNumber;
                                         double longitude, latitude;
                                         string name;
-                                        IBL.BO.Location customerLoc = new Location();
+                                        BO.Location customerLoc = new Location();
                                         Console.WriteLine("enter the Customers id");
                                         int.TryParse(Console.ReadLine(), out id);
                                         temp.id = id;
@@ -388,7 +387,7 @@ namespace ConsoleUI_BL
                                 case objectChoice.retrieve:
                                     {
                                         int customerID;
-                                        IBL.BO.Customer currentCustomer = new();
+                                        BO.Customer currentCustomer = new();
                                         Console.WriteLine("please enter the customers ID:");
                                         string input = Console.ReadLine();
                                         int.TryParse(input, out customerID);
@@ -432,10 +431,10 @@ namespace ConsoleUI_BL
                                 case objectChoice.add:
                                     {
                                         int senderId, receiveId;
-                                        IBL.BO.Parcel temp = new IBL.BO.Parcel();
-                                        IBL.BO.CustomerInParcel cipS = new CustomerInParcel();
-                                        IBL.BO.CustomerInParcel cipR = new CustomerInParcel();
-                                        IBL.BO.DroneInParcel dipS = new DroneInParcel();
+                                        BO.Parcel temp = new BO.Parcel();
+                                        BO.CustomerInParcel cipS = new CustomerInParcel();
+                                        BO.CustomerInParcel cipR = new CustomerInParcel();
+                                        BO.DroneInParcel dipS = new DroneInParcel();
                                         Console.WriteLine("enter the senders id");
                                         int.TryParse(Console.ReadLine(), out senderId);
                                         if (senderId >= 10000000 && senderId <= 1000000000) 
@@ -451,9 +450,9 @@ namespace ConsoleUI_BL
                                         temp.sender = cipS;
                                         temp.receive = cipR;
                                         Console.WriteLine("enetr its urgency: press 1 for regular press 2 for fast and press 3 for emergency");
-                                        temp.priority = (IBL.BO.Priority)int.Parse(Console.ReadLine());
+                                        temp.priority = (BO.Priority)int.Parse(Console.ReadLine());
                                         Console.WriteLine("enter the weight of the package");//not sure if i should do it with enum or have to do tkinut kelet
-                                        temp.weightCategorie = (IBL.BO.Weight)int.Parse(Console.ReadLine());
+                                        temp.weightCategorie = (BO.Weight)int.Parse(Console.ReadLine());
                                         try {Console.WriteLine("the id of the parcel is:"+bl.addParcel(temp));  }
                                         catch (AlreadyExistException exp) { Console.WriteLine(exp.Message); }
                                         catch (validException exp) { Console.WriteLine(exp.Message); }
@@ -505,7 +504,7 @@ namespace ConsoleUI_BL
                                 case objectChoice.retrieve:
                                     {
                                         int parcelID;
-                                        IBL.BO.Parcel currentParcel = new IBL.BO.Parcel();
+                                        BO.Parcel currentParcel = new BO.Parcel();
                                         Console.WriteLine("please enter the Parcels ID:");
                                         string input = Console.ReadLine(); 
                                         int.TryParse(input, out parcelID);

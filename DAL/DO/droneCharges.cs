@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace IDAL
-{
-    namespace DO
+using DO;
+namespace DO
     {
         public struct droneCharges
         {
@@ -14,4 +13,4 @@ namespace IDAL
             public int stationId { set; get; }
         }
     }
-}
+

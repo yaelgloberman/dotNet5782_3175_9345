@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
-using IDAL.DO;
-using IBL;
+using DO;
+using BO;
+using DalApi;
+using BlApi;
 using System.Runtime.Serialization;
 namespace BL
 {
@@ -18,12 +19,12 @@ namespace BL
         /// <returns></returns>
         public List<ParcelCustomer> CustomerReceiveParcel(int customerID)
         {
-            List<IBL.BO.ParcelCustomer> recievedParcels = new List<ParcelCustomer>();
+            List<BO.ParcelCustomer> recievedParcels = new List<ParcelCustomer>();
             foreach (var parcel in GetParcels())
             {
                 if (parcel.receive.id == customerID)
                 {
-                    IBL.BO.ParcelCustomer customersPrevioseParcel = new ParcelCustomer { CustomerInParcel = parcel.receive, id = parcel.id, parcelStatus = ParcelStatus.Delivered, priority = parcel.priority, weight = parcel.weightCategorie };
+                    BO.ParcelCustomer customersPrevioseParcel = new ParcelCustomer { CustomerInParcel = parcel.receive, id = parcel.id, parcelStatus = ParcelStatus.Delivered, priority = parcel.priority, weight = parcel.weightCategorie };
                     recievedParcels.Add(customersPrevioseParcel);
                 }
             }
@@ -41,7 +42,7 @@ namespace BL
         {
             try
             {
-                IDAL.DO.Customer customerDl = new IDAL.DO.Customer();
+                DO.Customer customerDl = new DO.Customer();
                 customerDl = dal.GetCustomer(customerID);
                 customerDl.name = Name;
                 customerDl.phoneNumber = phoneNum;
@@ -54,13 +55,13 @@ namespace BL
         /// </summary>
         /// <param name="customerID"></param>
         /// <returns></returns>
-        public IBL.BO.Customer GetCustomer(int id)
+        public BO.Customer GetCustomer(int id)
         {
             try
             {
-                List<IBL.BO.Parcel> tempParcels = GetParcels();
-                IBL.BO.Customer CustomerBo = new IBL.BO.Customer();
-                IDAL.DO.Customer CustomerDo = dal.GetCustomer(id);
+                List<BO.Parcel> tempParcels = GetParcels();
+                BO.Customer CustomerBo = new BO.Customer();
+                DO.Customer CustomerDo = dal.GetCustomer(id);
                 CustomerBo.id = CustomerDo.id;
                 CustomerBo.Name = CustomerDo.name;
                 CustomerBo.phoneNumber = CustomerDo.phoneNumber;
@@ -69,24 +70,45 @@ namespace BL
                 CustomerBo.ReceiveParcel = CustomerReceiveParcel(id).ToList();
                 return CustomerBo;
             }
-            catch (IDAL.DO.findException Fex)
+            catch (DO.findException Fex)
             {
                 throw new validException(Fex.Message);
             }
         }
+        public IEnumerable<CustomerInList> GetCustomerToList()
+        {
+            List<CustomerInList> customerToLists = new();
+            foreach (var item in dal.GetCustomerList())
+            {
+                CustomerInList station = new CustomerInList
+                {
+                    id = item.id,
+                    Name = item.name,
+                    PhoneNumber = item.phoneNumber,
+                    Parcles_Delivered_Recieved = dal.GetParcelList().Count(x => x.senderId == item.id && x.requested != null && x.scheduled != null && x.pickedUp != null && x.delivered != null&& x.isRecived==true),
+                    Parcels_unrecieved = dal.GetParcelList().Count(x => x.senderId == item.id && x.requested != null && x.scheduled != null && x.pickedUp != null && x.delivered == null),
+                    Recieved_Parcels = GetCustomer(item.id).ReceiveParcel.Count(),
+                    ParcelsInDeliver =dal.GetParcelList().Count(x => x.senderId == item.id && x.requested != null && x.scheduled != null && x.pickedUp != null && x.delivered != null && x.isRecived ==false),
+                };
+                customerToLists.Add(station);
+            }
+            return customerToLists.Take(customerToLists.Count).ToList();
+        }
+
+
         #region Get Customer
         /// <summary>
         ///  recieving a customer (customer to list ) form the  the datasource by recieving the id of the customer  and throwing an exception if the id was in correct
         /// </summary>
         /// <param name="customerID"></param>
         /// <returns></returns>
-        public IBL.BO.CustomerInList GetCustomerToList(int id)
+        public BO.CustomerInList GetCustomerToList(int id)
         {
             try
             {
-                List<IBL.BO.Parcel> tempParcels = GetParcels();
-                IBL.BO.CustomerInList CustomerBo = new();
-                IDAL.DO.Customer CustomerDo = dal.GetCustomer(id);
+                List<BO.Parcel> tempParcels = GetParcels();
+                BO.CustomerInList CustomerBo = new();
+                DO.Customer CustomerDo = dal.GetCustomer(id);
                 CustomerBo.id = CustomerDo.id;
                 CustomerBo.Name = CustomerDo.name;
                 CustomerBo.PhoneNumber = CustomerDo.phoneNumber;
@@ -96,7 +118,7 @@ namespace BL
                 CustomerBo.ParcelsInDeliver = GetParcels().Count(x => x.delivered != null);
                 return CustomerBo;
             }
-            catch (IDAL.DO.findException Fex)
+            catch (DO.findException Fex)
             {
                 throw new validException($"Customer id {id}", Fex);
             }
@@ -107,9 +129,9 @@ namespace BL
         /// </summary>
         /// <param name="customerID"></param>
         /// <returns></returns>
-        public List<IBL.BO.Customer> GetCustomers()
+        public List<BO.Customer> GetCustomers()
         {
-            List<IBL.BO.Customer> customers = new List<IBL.BO.Customer>();
+            List<BO.Customer> customers = new List<BO.Customer>();
             foreach (var c in dal.GetCustomerList())
             { customers.Add(GetCustomer(c.id)); }
             return customers;
@@ -118,9 +140,9 @@ namespace BL
         ///  recieving a list pf all the  customers (customer to list) form the  the datasource by recieving the id of the customer  and throwing an exception if the id was in correct
         /// </summary>
         /// <returns></returns>
-        public List<IBL.BO.CustomerInList> GetCustomersToList()
+        public List<BO.CustomerInList> GetCustomersToList()
         {
-            List<IBL.BO.CustomerInList> customers = new();
+            List<BO.CustomerInList> customers = new();
             foreach (var c in dal.GetCustomerList())
             { customers.Add(GetCustomerToList(c.id)); }
             return customers;
@@ -132,9 +154,8 @@ namespace BL
         /// <param name="CustomerToAdd"></param>
         /// <exception cref="validException"></exception>
         /// <exception cref="AlreadyExistException"></exception>
-        public void addCustomer(IBL.BO.Customer CustomerToAdd)
+        public void addCustomer(BO.Customer CustomerToAdd)
         {
-
             if (!(CustomerToAdd.id >= 10000000 && CustomerToAdd.id <= 1000000000))
                 throw new validException("the id number of the drone is invalid\n");
             if (!(CustomerToAdd.phoneNumber >= 500000000 && CustomerToAdd.phoneNumber <= 0589999999))
@@ -145,7 +166,7 @@ namespace BL
                 throw new validException("the given longitude do not exist in this country/\n");
             if (dal.GetCustomers().ToList().Exists(item => item.id == CustomerToAdd.id))
                 throw new AlreadyExistException("Customer already exist");
-            IDAL.DO.Customer CustomerDo = new IDAL.DO.Customer();
+            DO.Customer CustomerDo = new DO.Customer();
             CustomerDo.id = CustomerToAdd.id;
             CustomerDo.name = CustomerToAdd.Name;
             CustomerDo.phoneNumber = CustomerToAdd.phoneNumber;
@@ -163,6 +184,7 @@ namespace BL
             // Nה צריך לבדוק עם SentParcels ReceiveParcel
         }
         #endregion
-
+       
     }
 }
+

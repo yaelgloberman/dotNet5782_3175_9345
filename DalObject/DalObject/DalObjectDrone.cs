@@ -1,15 +1,13 @@
-﻿using IDAL.DO;
-//using DAL.DalObject;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DalObject;
-namespace DalObject
+using DalApi;
+using DO;
+namespace Dal
 {
-    
-    public partial class DalObject:IDal
+    sealed partial class DalObject:IDal
     {
         public bool checkDrone(int id)
         {
@@ -36,7 +34,7 @@ namespace DalObject
             if (tmp == null)
             {
 
-                throw new IDAL.DO.findException("drone does not exist");
+                throw new DO.findException("drone does not exist");
             }
             return (Drone)tmp;
         }
