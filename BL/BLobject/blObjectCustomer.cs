@@ -172,6 +172,7 @@ namespace BL
             CustomerDo.phoneNumber = CustomerToAdd.phoneNumber;
             CustomerDo.longitude = CustomerToAdd.location.longitude;
             CustomerDo.latitude = CustomerToAdd.location.latitude;
+            CustomerDo.isActive = true;
             try
             {
                 dal.addCustomer(CustomerDo);

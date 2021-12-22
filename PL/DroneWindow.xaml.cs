@@ -92,7 +92,7 @@ namespace PL
                 BaseStationToList s = (BaseStationToList)station.SelectedItem;
                 if (model.Text == "" || id.Text == null|| weightCategories.SelectedItem== null ||station.SelectedItem==null||SolidColorBrush.Equals(((SolidColorBrush)txbUpdateModel.BorderBrush).Color,red.Color))
                 {
-                       MessageBox.Show("Please enter correct input","Error input",MessageBoxButton.OK,MessageBoxImage.Error);
+                    MessageBox.Show("Please enter correct input","Error input",MessageBoxButton.OK,MessageBoxImage.Error);
                 }
                 else
                 {
@@ -124,7 +124,6 @@ namespace PL
         {
             this.Close();
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
                

@@ -13,7 +13,9 @@ using DO;
             public int phoneNumber { set; get; }
             public double longitude { set; get; }
             public double latitude { set; get; }
-            public override string ToString()
+            public bool isActive { get; set; }
+
+        public override string ToString()
             { 
                 return string.Format($"id: {id}, Name: {name}, Phone Number: 05{phoneNumber}, Longitude: { DO.help.getBase60Lng(longitude)}  Latitude: {DO.help.getBase60Lat(latitude)} ");
 
