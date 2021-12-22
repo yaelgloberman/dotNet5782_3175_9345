@@ -15,9 +15,21 @@ namespace Dal
         }
         public void addCustomer(Customer c)
         {
+
             if (DataSource.Customers.Exists(item => item.id == c.id))
-                throw new AddException("Customer already exist");
+            {
+                if (c.isActive == false)
+                {
+                    DataSource.Customers.Remove(c);
+                    c.isActive = true;
+                    DataSource.Customers.Add(c);
+                    return;
+                }
+                else
+                    throw new AddException("Customer already exist");
+            }
             DataSource.Customers.Add(c);
+
         }
 
         public Customer GetCustomer(int id)//function that gets id and finding the Customer in the Customers list and returns Customer
@@ -31,6 +43,7 @@ namespace Dal
         }
         public IEnumerable<Customer> GetCustomers()
         {
+           
             return DataSource.Customers;
         }
         public IEnumerable<Parcel> GetCustomerReceivedParcels(int customerId) //אני לא בטוחה שזה טוב אבל מה שניסיתי לעשות זה לבדוק ברשיה של כל החבילות אם התז אותו דבר כמו של הלקוח וגם המאפיין הבוליאני אם רבלתי שוו  אז החבילה שייכת לו
@@ -51,23 +64,24 @@ namespace Dal
             if (!DataSource.Customers.Exists(item => item.id == c.id))
                 throw new findException("Customer");
             DataSource.Customers.Remove(c);
+            c.isActive = false;
+            DataSource.Customers.Add(c);
         }
         public string GetCustomerName(int id)
         {
             string name=GetCustomer(id).name;
             return name;
         }
-        public void updateCustomer(int customerId, Customer c)
+        public void updateCustomer(int customerId, Customer cust)
         {
-            for (int i = 0; i < DataSource.Customers.Count; i++)
+            bool flag = false;
+
+            DataSource.Customers.ForEach(c => { if (c.id == customerId) { c=cust; flag = true; } });
+            if (!flag)
             {
-                if (DataSource.Customers[i].id == customerId)
-                {
-                    DataSource.Customers[i] = c;
-                    return;
-                }
+                throw new findException("could not find customer");
             }
-            throw new findException("id not found");
+
         }
         public IEnumerable<Customer> GetCustomer(Func<Customer, bool> predicate = null)
       => predicate == null ? DataSource.Customers : DataSource.Customers.Where(predicate);

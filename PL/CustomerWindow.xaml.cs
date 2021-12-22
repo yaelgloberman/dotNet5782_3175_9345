@@ -20,33 +20,62 @@ namespace PL
     /// </summary>
     public partial class CustomerWindow : Window
     {
-        public CustomerWindow()
-        {
-            InitializeComponent();
-        }
-        BlApi.IBl bL;
         private static CustomerInList customerInList = new();
         private static Customer customer = new();
-        public CustomerWindow(IBl bl, BO.CustomerInList cust) //update
+        BlApi.IBl bL;
+        BO.Customer c;
+        public CustomerWindow(CustomerInList CO) //update
         {
             InitializeComponent();
-            this.bL = bl;
-            customerInList = cust;
-            Customer c = bl.GetCustomer(cust.id);
-            fillTextbox(c);
+            bL = BlApi.BlFactory.GetBl();
+            c = bL.GetCustomer(CO.id);
+            this.DataContext = c;
         }
-        private void fillTextbox(Customer c)
+        public static void ValidateString(string string1)
         {
-            txbID.Text = c.id.ToString();
-            txbName.Text = c.Name.ToString();
-            txbPhoneNumper.Text = c.phoneNumber.ToString();
-            txbLongitude.Text = c.location.longitude.ToString();
-            txtLatitude.Text = c.location.latitude.ToString();
+            List<string> invalidChars = new List<string>() { "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-" };
+            if (string1.Length > 100)
+            {
+                throw new validException("String too Long");
+            }
+            else if (!(!string1.Equals(string1.ToLower())))
+            {
+                throw new validException("Requres at least one uppercase");
+            }
+            else
+            {
+                foreach (string s in invalidChars)
+                {
+                    if (string1.Contains(s))
+                    {
+                        throw new validException("String contains invalid character: " + s);
+                    }
+                }
+            }
         }
 
         private void btnSentParcels_Click(object sender, RoutedEventArgs e)
         {
             //לפתוח חלון רשימת sentparcels
         }
+
+        private void btnUpdateCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ValidateString(txbName.Text);
+                bL.updateCustomer(Convert.ToInt32(txbID.Text), txbName.Text, Convert.ToInt32(txbPhoneNumper.Text));
+                MessageBox.Show("succsesfully update customer!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
+        }
     }
 }
+
+
+
+       

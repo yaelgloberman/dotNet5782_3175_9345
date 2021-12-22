@@ -23,7 +23,7 @@ namespace PL
         BlApi.IBl myBl;
         public MainWindow()
         {
-            myBl = new BL.BL();
+            myBl = BL.BL.Instance;
             InitializeComponent();
         }
 

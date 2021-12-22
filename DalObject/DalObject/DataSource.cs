@@ -90,6 +90,7 @@ namespace Dal
                     phoneNumber = r.Next(11111111, 99999999),
                     longitude = getRandomCordinates(34.3, 35.5),
                     latitude = getRandomCordinates(31.0, 33.3),
+                    isActive=true
                 }) ;
             }
         }
