@@ -51,14 +51,9 @@ namespace PL
 
         }
 
-        //private void Button_Click_1(object sender, RoutedEventArgs e)
-        //{
-
-        //}
-
         private void Button_Click_Add(object sender, RoutedEventArgs e)
         {
-            AddStationWindow wnd = new AddStationWindow(bL);
+            AddStation wnd = new AddStation(bL);
             wnd.ShowDialog();
             fillListView();
         }

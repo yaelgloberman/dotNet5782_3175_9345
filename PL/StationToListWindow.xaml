@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="StationToListWindow" Height="450" Width="800">
     <Grid>
-        <ListView x:Name="StationToListView"  Margin="0,48,0,20" BorderBrush="#FFE5EACD" Background="#FFDFD9B7" Grid.ColumnSpan="2" Grid.RowSpan="2">
+        <ListView x:Name="StationToListView"  Margin="-53,58,53,10" BorderBrush="#FFE5EACD" Background="#FFDFD9B7">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
