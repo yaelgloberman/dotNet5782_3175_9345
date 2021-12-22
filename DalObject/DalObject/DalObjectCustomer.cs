@@ -43,8 +43,7 @@ namespace Dal
             throw new findException("customer");
         }
         public IEnumerable<Customer> GetCustomers()
-        {
-           
+        { 
             return DataSource.Customers;
         }
         public IEnumerable<Parcel> GetCustomerReceivedParcels(int customerId) //אני לא בטוחה שזה טוב אבל מה שניסיתי לעשות זה לבדוק ברשיה של כל החבילות אם התז אותו דבר כמו של הלקוח וגם המאפיין הבוליאני אם רבלתי שוו  אז החבילה שייכת לו

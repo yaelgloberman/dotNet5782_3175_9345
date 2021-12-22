@@ -65,12 +65,12 @@ namespace PL
             {
                 ValidateString(txbName.Text);
                 bL.updateCustomer(Convert.ToInt32(txbID.Text), txbName.Text, Convert.ToInt32(txbPhoneNumper.Text));
+                var a = bL.GetCustomers();
                 MessageBox.Show("succsesfully update customer!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception exp)
             {
                 MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-
             }
         }
     }

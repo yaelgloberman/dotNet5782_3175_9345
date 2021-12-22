@@ -56,8 +56,24 @@ namespace PL
         {
             if (WeightSelector.SelectedIndex != -1)
             {
+
                 weightFilter = (Weight)WeightSelector.SelectedItem;
-                DroneListView.ItemsSource = bL.allDrones(x => x.weight == weightFilter);
+                if(statusFilter==null)
+                {
+                    DroneListView.ItemsSource = bL.allDrones(x => x.weight == weightFilter);
+
+                }
+                else
+                {
+                    DroneListView.ItemsSource = bL.allDrones(x => x.weight == weightFilter&&x.droneStatus==statusFilter);
+
+                }
+            }
+            else
+            {
+                WeightSelector.SelectedIndex = -1;
+                weightFilter = null;
+                WeightSelector.Text = "choose weight";
             }
         }
         private void selectStatus(object sender, SelectionChangedEventArgs e)
@@ -74,6 +90,12 @@ namespace PL
             drtl = (DroneToList)DroneListView.SelectedItem;
             new DroneWindow(bL, drtl).ShowDialog();
             fillListView();
+        }
+        private void refresh_Click_1(object sender, RoutedEventArgs e)
+        {
+            WeightSelector.SelectedIndex = -1;
+            statusSelector.SelectedIndex = -1;
+
         }
     }
 }
