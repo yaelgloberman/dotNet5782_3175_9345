@@ -33,10 +33,10 @@ namespace PL
             wnd.Show();
         }
 
-        private void btnStationLists_Click(object sender, RoutedEventArgs e)
+        private void customerLists_Click(object sender, RoutedEventArgs e)
         {
-            StationToListWindow wndS = new StationToListWindow(myBl);
-            wndS.Show();
+            customerListWindow wndC = new customerListWindow(myBl);
+            wndC.Show();
         }
     }
 }

@@ -21,7 +21,8 @@ namespace PL
     public partial class DroneWindow : Window
     {
         IBl bL;
-        private static DroneToList drt=new();
+        //private BlApi.IBl bl = BlApi.BlFactory.GetBl();
+        private static DroneToList drt = new();
         private static Drone dr = new();
         public DroneWindow(IBl bl)
         {
@@ -226,16 +227,6 @@ namespace PL
                 MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
 
             }
-        }
-        private void idTextChanged(object sender,TextChangedEventArgs e)
-        {
-            var brush = new BrushConverter();
-            if (id.Text.All(char.IsDigit))
-            {
-                id.BorderBrush = (Brush)brush.ConvertFrom("FFABADB3");
-            }
-            else
-                id.BorderBrush = (Brush)brush.ConvertFrom("FFE92617");
         }
 
         

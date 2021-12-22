@@ -17,34 +17,25 @@
         </Grid.RowDefinitions>
         <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="19*"/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
-            <ComboBox Name="statusSelector" Grid.Column="1"  SelectionChanged="selectStatus" />
-            <Button x:Name="addDrone"  Content="Add drone" Grid.Column="2" FontSize="20" Click="addDrone_Click" FontFamily="Elephant" Background="#FFB2CBF6" ></Button>
-            <Button x:Name="CloseWindowDroneList" Content="Close Drone List Window" Grid.Column="3" FontSize="14" Click="CloseWindowList_Click" FontFamily="Elephant" Grid.ColumnSpan="2" Background="#FFB6AFE4" />
-            <ComboBox x:Name="WeightSelector" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" SelectionChanged="selectWeight" Height="48">
-                <ComboBox.OpacityMask>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="Black"/>
-                        <GradientStop Color="#FFB12727" Offset="1"/>
-                    </LinearGradientBrush>
-                </ComboBox.OpacityMask>
-
-            </ComboBox>
+            <ComboBox x:Name="WeightSelector" Grid.Column="0"  SelectionChanged="selectWeight" />
+            <ComboBox x:Name="statusSelector" Grid.Column="1"  SelectionChanged="selectStatus" />
+            <Button x:Name="addDrone"  Content="Add drone" Grid.Column="2" FontSize="20" Click="addDrone_Click" FontFamily="Elephant" Background="#FFB2CBF6" />
+            <Label x:Name="lblDroneStatus" Content="Drone status:"  Grid.Column="1" FontSize="20" FontFamily="Elephant"/>
+            <Label x:Name="lblWeight" Content="Drone weight:"  Grid.Column="0"  FontSize="20" FontFamily="Elephant"/>
+            <Button x:Name="CloseWindowDroneList" Content="Close Drone List Window" Grid.Column="3" FontSize="14" Click="CloseWindowList_Click" FontFamily="Elephant" Background="#FFB6AFE4"/>
         </Grid>
-        <ListView x:Name="DroneListView"  Margin="0,48,0,20" MouseDoubleClick="DoubleClick" BorderBrush="#FFE5EACD" Background="#FFDFD9B7" Grid.ColumnSpan="2" Grid.RowSpan="2">
+        <ListView x:Name="DroneListView" Grid.Row="1" MouseDoubleClick="DoubleClick" BorderBrush="#FFE5EACD" Background="#FFDFD9B7">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label Name="lblWeight" Content="Drone weight:" HorizontalAlignment="Left" Margin="23,0,0,0" VerticalAlignment="Center" Height="36" Width="154" FontSize="20" FontFamily="Elephant" Grid.Column="1"/>
-        <Label Name="lblDroneStatus" Content="Drone status:" HorizontalAlignment="Left"  Margin="220,0,0,0"  VerticalAlignment="Center" Height="36" Width="154" FontSize="20" FontFamily="Elephant" Grid.Column="1"/>
     </Grid>
 
 
