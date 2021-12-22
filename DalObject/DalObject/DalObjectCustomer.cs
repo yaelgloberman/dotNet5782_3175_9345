@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DalApi;
 using DO;
+//yae
 namespace Dal
 {
     sealed partial class DalObject : IDal
