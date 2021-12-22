@@ -27,7 +27,7 @@ namespace PL
         {
             InitializeComponent();
             this.bL = bl;
-            station.ItemsSource = bl.GetBaseStationToLists(); //ספציפית פנויות
+            station.ItemsSource = bl.GetDrones(); //ספציפית פנויות
             weightCategories.ItemsSource = Enum.GetValues(typeof(Weight));
             update.Visibility = Visibility.Hidden;
 
@@ -113,7 +113,7 @@ namespace PL
             txbDroneId.Text = d.id.ToString();
             txbUpdateModel.Text = d.droneModel.ToString();
             txbWeight.Text = d.weight.ToString();
-            txbBattery.Text= d.batteryStatus.ToString() + "%";
+           // txbBattery.Text= d.batteryStatus.ToString() + "%";
             txbStatus.Text = d.droneStatus.ToString();
             txbParcelID.Text = d.parcelId.ToString();
             txbLongitude.Text = d.location.longitude.ToString();
@@ -237,5 +237,7 @@ namespace PL
             else
                 id.BorderBrush = (Brush)brush.ConvertFrom("FFE92617");
         }
+
+        
     }
 }

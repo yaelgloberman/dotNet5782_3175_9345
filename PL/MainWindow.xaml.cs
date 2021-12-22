@@ -32,5 +32,11 @@ namespace PL
             DroneListWindow wnd = new DroneListWindow(myBl);
             wnd.Show();
         }
+
+        private void btnStationLists_Click(object sender, RoutedEventArgs e)
+        {
+            StationToListWindow wndS = new StationToListWindow(myBl);
+            wndS.Show();
+        }
     }
 }

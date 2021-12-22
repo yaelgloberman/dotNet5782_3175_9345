@@ -195,6 +195,14 @@ namespace BL
             }
             return baseStationToLists.Take(baseStationToLists.Count).ToList();
         }
+        public IEnumerable<BaseStationToList> allStations(Func<BaseStationToList, bool> predicate)
+        {
+            if (predicate == null)
+            {
+                return GetBaseStationToLists().Take(drones.Count).ToList();
+            }
+            return GetBaseStationToLists().Where(predicate).ToList();
+        }
     }
 }
 

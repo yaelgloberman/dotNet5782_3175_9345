@@ -7,7 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="AddStationWindow.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="dronePic.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="AddStationWindow.xaml.cs" />
   </ItemGroup>
 
   <ItemGroup>

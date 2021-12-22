@@ -7,12 +7,15 @@
         mc:Ignorable="d"
         Title="DroneListWindow" Height="450" Width="800">
     <Grid Name="MainGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="199*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
             <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
-        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
-        VerticalAlignment="Stretch" Width="auto">
+        <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="20*"/>
@@ -33,15 +36,15 @@
 
             </ComboBox>
         </Grid>
-        <ListView x:Name="DroneListView" Grid.Row="1"  Margin="0,0,0,20" MouseDoubleClick="DoubleClick" BorderBrush="#FFE5EACD" Background="#FFDFD9B7">
+        <ListView x:Name="DroneListView"  Margin="0,48,0,20" MouseDoubleClick="DoubleClick" BorderBrush="#FFE5EACD" Background="#FFDFD9B7" Grid.ColumnSpan="2" Grid.RowSpan="2">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label Name="lblWeight" Content="Drone weight:" HorizontalAlignment="Left" Margin="27,0,0,0" VerticalAlignment="Center" Height="36" Width="154" FontSize="20" FontFamily="Elephant"/>
-        <Label Name="lblDroneStatus" Content="Drone status:" HorizontalAlignment="Left"  Margin="224,0,0,0"  VerticalAlignment="Center" Height="36" Width="154" FontSize="20" FontFamily="Elephant"/>
+        <Label Name="lblWeight" Content="Drone weight:" HorizontalAlignment="Left" Margin="23,0,0,0" VerticalAlignment="Center" Height="36" Width="154" FontSize="20" FontFamily="Elephant" Grid.Column="1"/>
+        <Label Name="lblDroneStatus" Content="Drone status:" HorizontalAlignment="Left"  Margin="220,0,0,0"  VerticalAlignment="Center" Height="36" Width="154" FontSize="20" FontFamily="Elephant" Grid.Column="1"/>
     </Grid>
 
 

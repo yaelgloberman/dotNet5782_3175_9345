@@ -13,7 +13,7 @@
         </Grid.ColumnDefinitions>
         <Grid Grid.ColumnSpan="2">
             <Grid x:Name="addDrone" Background="#FFF4EEC5">
-                <TextBox x:Name="id" HorizontalAlignment="Left" Margin="275,80,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" BorderBrush="#FF7273E0" TextChanged="id_TextChanged"/>
+                <TextBox x:Name="id" HorizontalAlignment="Left" Margin="275,80,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" BorderBrush="#FF7273E0"/>
                 <TextBox x:Name="model" HorizontalAlignment="Left" Margin="275,129,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" BorderBrush="#FF7273E0"/>
                 <ComboBox x:Name="weightCategories" HorizontalAlignment="Left" Margin="275,177,0,0" Text=""  VerticalAlignment="Top" Width="120" BorderBrush="#FF7273E0" OpacityMask="#FFDD9E9E" />
                 <ComboBox x:Name="station" HorizontalAlignment="Left" Margin="275,227,0,0" Text=""  VerticalAlignment="Top" Width="120" BorderBrush="#FF7273E0"/>
@@ -44,10 +44,12 @@
                 <Label x:Name="lblDroneId" Content="ID:" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="108" RenderTransformOrigin="0.572,1.265"/>
                 <TextBox x:Name="txbDroneId" Margin="74,12,548,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True" BorderBrush="#FFC789CD"/>
                 <Label x:Name="lblWeight" Content="Weight:" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top" Width="108" RenderTransformOrigin="0.572,1.265"/>
+               
                 <Label x:Name="lblLatitude" Content="Latitude:" HorizontalAlignment="Left" Margin="10,189,0,0" VerticalAlignment="Top" Width="127"/>
                 <TextBox x:Name="txbStatus" Margin="74,92,548,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True"  BorderBrush="#FFC789CD"/>
+               
                 <TextBox x:Name="txbWeight" Margin="74,66,548,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True"  BorderBrush="#FFC789CD"/>
-                <TextBox x:Name="txbBattery" Margin="74,116,548,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True" BorderBrush="#FFC789CD"/>
+                <TextBox x:Name="chargeslots" Margin="74,116,548,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True" BorderBrush="#FFC789CD"/>
                 <TextBox x:Name="txbParcelID" Margin="74,144,548,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True" BorderBrush="#FFC789CD"/>
                 <TextBox x:Name="txbLongitude" Margin="74,170,548,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True" BorderBrush="#FFC789CD"/>
                 <TextBox x:Name="txbLatitude" Margin="74,194,548,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True" Background="White" BorderBrush="#FFC789CD"/>
