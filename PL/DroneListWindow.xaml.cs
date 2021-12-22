@@ -75,7 +75,5 @@ namespace PL
             new DroneWindow(bL, drtl).ShowDialog();
             fillListView();
         }
-
-       
     }
 }
