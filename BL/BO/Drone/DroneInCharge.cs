@@ -9,5 +9,9 @@ namespace BO
     {
         public int id { get; set; }
         public double batteryStatus { get; set; }
+        public override string ToString()
+        {
+            return String.Format($"Drone Id: {id}\nBattery: {batteryStatus}\n");
+        }
     }
 }

@@ -145,6 +145,11 @@ namespace BL
             chargeCapacity chargingUsage = new chargeCapacity { pwrAvailable = arr[0], pwrLight = arr[1], pwrAverge = arr[2], pwrHeavy = arr[3], pwrRateLoadingDrone = arr[4], chargeCapacityArr = arr };
             return chargingUsage;
         }
+        public IEnumerable<droneCharges> GetChargegingDrones()
+        {
+           
+           return  dal.chargingGetDroneList();
+        }
         #region Init drone
        /// <summary>
        /// intializes the drones in the cinstructor- was not used in the end

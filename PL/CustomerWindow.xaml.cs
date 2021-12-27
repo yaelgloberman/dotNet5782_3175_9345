@@ -65,6 +65,7 @@ namespace PL
             {
                 ValidateString(txbName.Text);
                 bL.updateCustomer(Convert.ToInt32(txbID.Text), txbName.Text, Convert.ToInt32(txbPhoneNumper.Text));
+                var s=bL.GetCustomersToList();
                 MessageBox.Show("succsesfully update customer!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception exp)

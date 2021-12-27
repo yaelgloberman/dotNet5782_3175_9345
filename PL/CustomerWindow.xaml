@@ -32,7 +32,7 @@
         <Label Name="lblLongitude" Content="longitude:" Grid.Column="1" Grid.Row="3" FontSize="22"/>
         <Label Name="lblLatitude" Content="latitude:" Grid.Column="1" Grid.Row="4" FontSize="22"/>
         <TextBox Name="txbID" Text="{Binding id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="0"  Grid.Column="2" Height="48" VerticalAlignment="Top" IsReadOnly="True"/>
-        <TextBox Name="txbName" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true,UpdateSourceTrigger=LostFocus}"   Grid.Column="2" Grid.Row="1"/>
+        <TextBox Name="txbName" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true,UpdateSourceTrigger=PropertyChanged}"   Grid.Column="2" Grid.Row="1"/>
         <TextBox Name="txbPhoneNumper" Text="{Binding phoneNumber, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.Row="2"/>
         <TextBox Name="txbLongitude" Text="{Binding location.longitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.Row="3" IsReadOnly="True"/>
         <TextBox Name="txtLatitude" Text="{Binding location.latitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.Row="4" IsReadOnly="True"/>

@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BO;
 using BlApi;
+using System.Collections.ObjectModel;
 
 namespace PL
 {
@@ -27,35 +28,56 @@ namespace PL
     public partial class StationToListWindow : Window
     {
         IBl bL;
-       // private static DroneToList drt = new();
-      //  private static Drone dr = new();
+        ObservableCollection<BaseStationToList> myObservableCollection;
         public StationToListWindow(IBl bl)
         {
             InitializeComponent();
             this.bL = bl;
-            StationToListView.ItemsSource = bl.GetBaseStationToLists(); //ספציפית פנויות
-           // AvailableSlots.ItemsSource = Enum.GetValues(typeof(BO.Weight));
-                                                                        // statusSelector.ItemsSource = Enum.GetValues(typeof(BO.DroneStatus));
+            myObservableCollection = new ObservableCollection<BaseStationToList>(bl.GetBaseStationToList());
+            DataContext = myObservableCollection;
         }
-        private void fillListView()
-        {
-            IEnumerable<BaseStationToList> stationToLists = new List<BaseStationToList>();
-            stationToLists = bL.GetBaseStationToList();
-            StationToListView.ItemsSource = stationToLists;
-        }
+        //private void fillListView()
+        //{
+        //    IEnumerable<BaseStationToList> stationToLists = new List<BaseStationToList>();
+        //    stationToLists = bL.GetBaseStationToList();
+        //    StationToListView.ItemsSource = stationToLists;
+        //}
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-           var filteredStation= bL.allStations(x=>x.avilableChargeSlots>0);
+            var filteredStation = bL.allStations(x => x.avilableChargeSlots > 0);
             StationToListView.ItemsSource = filteredStation;//not sure if it actually returns the filter
 
         }
 
         private void Button_Click_Add(object sender, RoutedEventArgs e)
         {
-            AddStation wnd = new AddStation(bL);
+            UpdateStationWindow wnd = new UpdateStationWindow(bL);
             wnd.ShowDialog();
-            fillListView();
+            myObservableCollection = new ObservableCollection<BaseStationToList>(bL.GetBaseStationToList());
+            DataContext = myObservableCollection;
+            //fillListView();
         }
-    } 
+        private void DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var station = new BaseStationToList();
+            station = (BaseStationToList)StationToListView.SelectedItem;
+            DataContext = station;
+            new UpdateStationWindow(bL,station).ShowDialog();
+            myObservableCollection = new ObservableCollection<BaseStationToList>(bL.GetBaseStationToList());
+            DataContext = myObservableCollection;
+        }
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            StationToListView.ItemsSource = bL.GetBaseStationToList();
+
+        }
+
+        private void Button_Click_ChargingDrones(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+
+    }
 }

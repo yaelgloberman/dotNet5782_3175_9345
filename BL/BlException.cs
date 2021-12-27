@@ -123,7 +123,7 @@ namespace BO
         {
         }
 
-        public CannotReleaseFromChargeException(string message) : base("can not release a drone that wasnt charging!"+message)
+        public CannotReleaseFromChargeException(string message) : base("can not release a drone that wasnt charging!" + message)
         {
         }
 
@@ -132,6 +132,25 @@ namespace BO
         }
 
         protected CannotReleaseFromChargeException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
+
+    }
+    public class BlUpdateException : Exception
+    {
+        public BlUpdateException()
+        {
+        }
+
+        public BlUpdateException(string message) : base("Update Exception! " + message)
+        {
+        }
+
+        public BlUpdateException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        protected BlUpdateException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }

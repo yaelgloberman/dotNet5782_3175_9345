@@ -157,7 +157,7 @@ namespace BL
         /// <param name="Name"></param>
         /// <exception cref="validException"></exception>
         /// <exception cref="dosntExisetException"></exception>
-        public void updateStation(int stationID, int AvlblDCharges, string Name = " ")
+        public void updateStation(int stationID, int AvlblDCharges, string Name)
         {
             try
             {
@@ -165,18 +165,25 @@ namespace BL
                 stationDl = dal.GetStation(stationID);
                 if (Name != " ")
                     stationDl.name = Name;
-                if (AvlblDCharges != 0)
+                if (AvlblDCharges != -1)
                 {
                     if (AvlblDCharges < 0)
                         throw new validException("this amount of drone choging slots is not valid!\n");
                     stationDl.chargeSlots = AvlblDCharges;      //i need al the slots not just the available one - not sure what this variable means
-                    dal.updateStation(stationID, stationDl);
                 }
+                if (Name == " " && AvlblDCharges == -1)
+                    throw new BlUpdateException(" Make sure to update at least one of the given options!\n");
+                else
+                    dal.updateStation(stationID, stationDl);
             }
 
             catch (findException exp)
             {
                 throw new dosntExisetException(exp.Message);
+            }
+            catch(BlUpdateException ex)
+            {
+                throw new BlUpdateException(ex.Message);
             }
         }
         public IEnumerable<BaseStationToList> GetBaseStationToList()

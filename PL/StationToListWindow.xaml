@@ -7,15 +7,58 @@
         mc:Ignorable="d"
         Title="StationToListWindow" Height="450" Width="800">
     <Grid>
-        <ListView x:Name="StationToListView"  Margin="-53,58,53,10" BorderBrush="#FFE5EACD" Background="#FFDFD9B7">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="51*"/>
+            <RowDefinition Height="383*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+        </Grid.ColumnDefinitions>
+        <ListView x:Name="StationToListView" DataContext="{Binding}" ItemsSource="{Binding}"  MouseDoubleClick="DoubleClick" Grid.ColumnSpan="4" FontSize="16" FontStretch="Expanded" FontStyle="Italic" FontWeight="Bold" Grid.Row="1" HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Width="Auto">
+            <ListView.Background>
+                <ImageBrush ImageSource="C:\Users\rinaw\source\repos\yaelgloberman\dotNet5782_3175_9345\PL\pics\imageedit_1_3256771342.jpg" Opacity="0.4"/>
+            </ListView.Background>
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Available Slots" HorizontalAlignment="Left" VerticalAlignment="Top" Height="48" Width="134 " Click="Button_Click"/>
-        <Button Content="Add Station" HorizontalAlignment="Left" Margin="149,0,0,0" VerticalAlignment="Top" Height="48" Width="159" Click="Button_Click_Add"/>
-
+        <Button Content="Available Slots"  Grid.Row="0" Click="Button_Click" Grid.Column="1" BorderThickness="10,10,10,10" SnapsToDevicePixels="True" ClipToBounds="True" Background="#FFC191D2" FontFamily="Algerian" FontSize="14">
+            <Button.BorderBrush>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#FF632675" Offset="1"/>
+                    <GradientStop Color="#FF612275" Offset="0.629"/>
+                </LinearGradientBrush>
+            </Button.BorderBrush>
+        </Button>
+        <Button Content="Add Station" Click="Button_Click_Add" HorizontalAlignment="Stretch" Width="Auto" Background="#FFC47EDA" BorderThickness="10,10,10,10" ClipToBounds="True" SnapsToDevicePixels="True" FontFamily="Algerian" FontSize="14">
+            <Button.BorderBrush>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#FF612275" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.BorderBrush>
+        </Button>
+        <Button Content="Refresh" Grid.Column="3" Click="Button_Click_2" HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Width="Auto" BorderThickness="7,10,10,10" SnapsToDevicePixels="True" Foreground="#FF67486C" Background="#FFC191D2" FontFamily="Algerian" FontSize="14">
+            <Button.BorderBrush>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0.35"/>
+                    <GradientStop Color="#FFB278C3" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.BorderBrush>
+        </Button>
+        <Button x:Name="Close" Content="Close" Grid.Column="2"  Height="Auto" Width="Auto" Click="Button_Click_ChargingDrones"   BorderThickness="7,10,10,10" SnapsToDevicePixels="True" Foreground="#FF67486C" Background="#FFC191D2" FontFamily="Algerian" FontSize="14">
+            <Button.BorderBrush>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#FF612275" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.BorderBrush>
+        </Button>
     </Grid>
 </Window>

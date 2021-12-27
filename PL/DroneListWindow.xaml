@@ -7,15 +7,12 @@
         mc:Ignorable="d"
         Title="DroneListWindow" Height="450" Width="800">
     <Grid Name="MainGrid">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="199*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
             <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
-        <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Grid.ColumnSpan="2">
+        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
+        VerticalAlignment="Stretch" Width="auto">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -25,17 +22,16 @@
             <ComboBox x:Name="WeightSelector" Grid.Column="0"  SelectionChanged="selectWeight" />
             <ComboBox x:Name="statusSelector" Grid.Column="1"  SelectionChanged="selectStatus" />
             <Button x:Name="addDrone"  Content="Add drone" Grid.Column="2" FontSize="20" Click="addDrone_Click" FontFamily="Elephant" Background="#FFB2CBF6" />
-            <Label x:Name="lblDroneStatus" Content="Drone status:"  Grid.Column="1" FontSize="20" FontFamily="Elephant"/>
-            <Label x:Name="lblWeight" Content="Drone weight:"  Grid.Column="0"  FontSize="20" FontFamily="Elephant"/>
             <Button x:Name="CloseWindowDroneList" Content="Close Drone List Window" Grid.Column="3" FontSize="14" Click="CloseWindowList_Click" FontFamily="Elephant" Background="#FFB6AFE4"/>
         </Grid>
-        <ListView x:Name="DroneListView" Grid.Row="1" MouseDoubleClick="DoubleClick" BorderBrush="#FFE5EACD" Background="#FFDFD9B7">
+        <ListView x:Name="DroneListView"  MouseDoubleClick="DoubleClick" BorderBrush="#FFE5EACD" Background="#FFDFD9B7" Margin="0,48,0,48" Grid.RowSpan="2">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
+        <Button x:Name="refresh" Content="Button" HorizontalAlignment="Left" Margin="37,348,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="58" Click="refresh_Click_1"/>
     </Grid>
 
 

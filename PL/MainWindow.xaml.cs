@@ -30,19 +30,19 @@ namespace PL
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             DroneListWindow wnd = new DroneListWindow(myBl);
-            wnd.Show();
+            wnd.ShowDialog();
         }
 
         private void customerLists_Click(object sender, RoutedEventArgs e)
         {
             customerListWindow wndC = new customerListWindow(myBl);
-            wndC.Show();
+            wndC.ShowDialog();
         }
 
         private void btnStationLists_Click(object sender, RoutedEventArgs e)
         {
             StationToListWindow stationWindow=new StationToListWindow(myBl);
-            stationWindow.Show();
+            stationWindow.ShowDialog();
         }
     }
 }

@@ -133,6 +133,10 @@ namespace ConsoleUI_BL
                                         int.TryParse(input, out AmountOfChargingSlots);
                                         try { bl.updateStation(stationID, AmountOfChargingSlots, stationName); }
                                         catch (validException exp) {Console.WriteLine(exp.Message);}
+                                        catch (BlUpdateException ex)
+                                        {
+                                            throw new BlUpdateException(ex.Message);
+                                        }
                                     }
                                     break;
                                 case objectChoice.retrieve:
