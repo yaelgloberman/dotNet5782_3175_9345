@@ -39,7 +39,8 @@ namespace DalApi
             public void deleteDrone(Drone d);
             public void deleteParcel(Parcel p);
             public void deleteStation(Station s);
-            public void updateStation(int stationId, Station s);
+
+           public void updateStation(int stationId, Station s);
             public int AvailableChargingSlots();
             public void updateDrone(int droneId, string droneModel);
             public void updateCustomer(int customerId, Customer c);

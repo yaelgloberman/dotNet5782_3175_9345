@@ -258,7 +258,14 @@ namespace BL
             }
             throw new validException("the drone cant picked up the parcel because the parcel is not matching to him");
         }
-        
+        public IEnumerable<BO.Parcel> allParcels(Func<BO.Parcel, bool> predicate)
+        {
+            if (predicate == null)
+            {
+                return GetParcels().ToList();
+            }
+            return GetParcels().Where(predicate).ToList();
+        }
         public IEnumerable<ParcelToList> GetParcelToList()
         {
             List<ParcelToList> parcelToLists = new();
@@ -279,6 +286,14 @@ namespace BL
             }
             return parcelToLists.Take(parcelToLists.Count).ToList();
         }
+        public void deleteParcel(int parcelId)
+        {
+            try
+            {
+                dal.deleteDrone(dal.GetDrone(parcelId));
 
+            }
+            catch (findException) { throw new deleteException("cant delete this drone\n"); }
+        }
     }
 }

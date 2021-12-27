@@ -114,7 +114,7 @@ namespace BL
                 dal.deleteDrone(dal.GetDrone(droneID));
 
             }
-            catch (findException exp) { throw new deleteException("cant delete this drone\n"); }
+            catch (findException) { throw new deleteException("cant delete this drone\n"); }
         }
         #endregion
         /// <summary>

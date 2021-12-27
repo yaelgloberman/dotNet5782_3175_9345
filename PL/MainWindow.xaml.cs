@@ -38,5 +38,11 @@ namespace PL
             customerListWindow wndC = new customerListWindow(myBl);
             wndC.Show();
         }
+
+        private void btnParcelLists_Click(object sender, RoutedEventArgs e)
+        {
+            parcelListWindow wndP = new parcelListWindow(myBl);
+            wndP.Show();
+        }
     }
 }

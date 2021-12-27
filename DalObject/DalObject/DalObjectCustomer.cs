@@ -74,14 +74,15 @@ namespace Dal
         }
         public void updateCustomer(int customerId, Customer cust)
         {
-            bool flag = false;
-
-            DataSource.Customers.ForEach(c => { if (c.id == customerId) { c=cust; flag = true; } });
+            bool flag = true;
+            Customer cu = new();
+            DataSource.Customers.ForEach(c => { if (c.id == customerId) {cu=c; flag = true;} });
+            DataSource.Customers.Remove(cu);
+            DataSource.Customers.Add(cust);
             if (!flag)
             {
                 throw new findException("could not find customer");
             }
-
         }
         public IEnumerable<Customer> GetCustomer(Func<Customer, bool> predicate = null)
       => predicate == null ? DataSource.Customers : DataSource.Customers.Where(predicate);

@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 using BO;
 using BlApi;
 namespace PL
@@ -21,38 +22,36 @@ namespace PL
    
     public partial class customerListWindow : Window
     {
-        BlApi.IBl bL;
-        private List<BO.CustomerInList> customerLists = new List<BO.CustomerInList>();
+        IBl bL;
+        ObservableCollection<CustomerInList> myObservableCollectionCustomer;
+        private static CustomerInList customerInList = new();
+        private static Customer customer = new();
+       
         public customerListWindow(IBl bl)
         {
             InitializeComponent();
             this.bL = bl;
-            customerListBox.ItemsSource = bL.GetCustomersToList();
-        }
-        public customerListWindow()
-        {
-            InitializeComponent();
-            DataContext = customerLists;
+            myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bl.GetCustomersToList());
+            DataContext = myObservableCollectionCustomer;
         }
         private void DoubleClick(object sender, MouseButtonEventArgs e)
         {
-            CustomerInList customer = new CustomerInList();
-            customer = (CustomerInList)customerListBox.SelectedItem;
+            CustomerInList cil = new();
+            cil = (CustomerInList)customerListBox.SelectedItem;
+            Customer customer = new();
+            customer = bL.GetCustomer(cil.id);
             DataContext = customer;
             new CustomerWindow(customer).ShowDialog();
-            //fillListView();
+            myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bL.GetCustomersToList());
+            DataContext = myObservableCollectionCustomer;
         }
-
         private void btnAddCustomer_Click(object sender, RoutedEventArgs e)
         {
-
+            CustomerWindow wnd = new CustomerWindow();
+            wnd.ShowDialog();
+            myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bL.GetCustomersToList());
+            DataContext = myObservableCollectionCustomer;
         }
-        //private void fillListView()
-        //{
-        //    IEnumerable<CustomerInList> c = new List<CustomerInList>();
-        //    c = bL.GetCustomersToList();
-        //    customerListBox.ItemsSource = c;  
-        //}
-
+      
     }
 }
