@@ -20,46 +20,39 @@ namespace PL
     /// </summary>
     public partial class DroneWindow : Window
     {
-        IBl bL;
         //private BlApi.IBl bl = BlApi.BlFactory.GetBl();
         private static DroneToList drt = new();
         private static Drone dr = new();
-        public DroneWindow(IBl bl)
+        IBl bL;
+
+        public DroneWindow()
         {
+          
             InitializeComponent();
-            this.bL = bl;
-            station.ItemsSource = bl.GetDrones(); //ספציפית פנויות
+            bL = BlApi.BlFactory.GetBl();
+            station.ItemsSource = bL.GetBaseStationToLists(); //ספציפית פנויות
             weightCategories.ItemsSource = Enum.GetValues(typeof(Weight));
             update.Visibility = Visibility.Hidden;
-
         }
-        public DroneWindow(IBl bl, BO.DroneToList drtl) //update
+        public DroneWindow(BO.Drone drone) //update
         {
             InitializeComponent();
-            this.bL = bl;
-            drt = drtl;
+            bL = BlApi.BlFactory.GetBl();
+            dr = bL.returnsDrone(drone.id);
+            dr.parcelInTransfer = new ParcelInTransfer();
+            this.DataContext = dr;
             addDrone.Visibility = Visibility.Hidden;
             btnModelUpdate.Visibility = Visibility.Visible;
-            fillTextbox(drt);
-            if (drt.droneStatus == DroneStatus.available)
+            if (dr.droneStatus == DroneStatus.available)
             {
                 btnSendToCharge.Visibility = Visibility.Visible;
                 btnMatchingDroneToParcel.Visibility = Visibility.Visible;
             }
-            if (drt.droneStatus == DroneStatus.charge)
+            if (dr.droneStatus == DroneStatus.charge)
             {
                 btnRelesingDrone.Visibility = Visibility.Visible;
             }
-            if (drt.droneStatus == DroneStatus.delivery)
-            {
-                if (bl.GetParcel(drt.parcelId).pickedUp == null)
-                {
-                    btnPickUpParcelByDrone.Visibility = Visibility.Visible;
 
-                }
-                else
-                    btnDeliveryToCustomer.Visibility = Visibility.Visible;
-            }
         }
         public static void ValidateString(string string1)
         {
@@ -90,9 +83,9 @@ namespace PL
                 ValidateString(model.Text);
                 SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
                 BaseStationToList s = (BaseStationToList)station.SelectedItem;
-                if (model.Text == "" || id.Text == null|| weightCategories.SelectedItem== null ||station.SelectedItem==null||SolidColorBrush.Equals(((SolidColorBrush)txbUpdateModel.BorderBrush).Color,red.Color))
+                if (model.Text == "" || id.Text == null || weightCategories.SelectedItem == null || station.SelectedItem == null || SolidColorBrush.Equals(((SolidColorBrush)txbUpdateModel.BorderBrush).Color, red.Color))
                 {
-                    MessageBox.Show("Please enter correct input","Error input",MessageBoxButton.OK,MessageBoxImage.Error);
+                    MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
@@ -100,46 +93,35 @@ namespace PL
                     MessageBox.Show("succsesfully added a drone!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
                     this.Close();
                 }
-                 
             }
-            catch(Exception exp)
+            catch (Exception exp)
             {
-                MessageBox.Show($"{exp.Message}","ERROR",MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
 
             }
         }
-        private void fillTextbox(DroneToList d)
-        {
 
-            txbDroneId.Text = d.id.ToString();
-            txbUpdateModel.Text = d.droneModel.ToString();
-            txbWeight.Text = d.weight.ToString();
-           // txbBattery.Text= d.batteryStatus.ToString() + "%";
-            txbStatus.Text = d.droneStatus.ToString();
-            txbParcelID.Text = d.parcelId.ToString();
-            txbLongitude.Text = d.location.longitude.ToString();
-            txbLatitude.Text = d.location.latitude.ToString();
-        }
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-               
+
             try
             {
                 ValidateString(txbUpdateModel.Text);
-                if (drt.droneModel == txbUpdateModel.Text)
-                {
-                    MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                else
-                {
-                    bL.updateDroneName(drt.id, txbUpdateModel.Text);
+                //if (dr.droneModel == txbUpdateModel.Text)
+                //{
+                //    MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
+                //    this.Close();
+                //}
+                //else
+                //{
+                    bL.updateDroneName(dr.id, txbUpdateModel.Text);
                     MessageBox.Show("succsesfully update the drone name!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-             
+                //}
+
             }
             catch (Exception exp)
             {
@@ -147,87 +129,53 @@ namespace PL
 
             }
         }
+    
+     
 
         private void btnSendToCharge_Click(object sender, RoutedEventArgs e)
-        {
-            try
             {
-                bL.SendToCharge(drt.id);
-                MessageBox.Show("succsesfully drone sent to charge!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);                
-                this.Close();
+                try
+                {
+                    bL.SendToCharge(Convert.ToInt32(txbDroneId.Text));
+                    MessageBox.Show("succsesfully drone sent to charge!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.Close();
+                }
+                catch (Exception exp)
+                {
+                    MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                }
             }
-            catch (Exception exp)
-            {
-                MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
 
+            private void btnRelesingDrone_Click_1(object sender, RoutedEventArgs e)
+            {
+                try
+                {
+
+                    TimeSpan t = DateTime.Now.TimeOfDay;
+                    bL.releasingDrone(Convert.ToInt32(txbDroneId.Text), t);
+                    MessageBox.Show("succsesfully relesing drone charge!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.Close();
+                }
+                catch (Exception exp)
+                {
+                    MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                }
             }
-        }
-       
-
-        private void btnRelesingDrone_Click_1(object sender, RoutedEventArgs e)
-        {
-            try
+            private void btnMatchingDroneToParcel_Click(object sender, RoutedEventArgs e)
             {
+                try
+                {
+                    bL.matchingDroneToParcel(drt.id);
+                    MessageBox.Show("succsesfully matched drone to parcel!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.Close();
+                }
+                catch (Exception exp)
+                {
+                    MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
 
-                TimeSpan t = DateTime.Now.TimeOfDay;
-                bL.releasingDrone(drt.id, t);
-                MessageBox.Show("succsesfully relesing drone charge!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
-            }
-            catch (Exception exp)
-            {
-                MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            }
-        }
-
-        private void btnMatchingDroneToParcel_Click(object sender, RoutedEventArgs e)
-        {
-
-            try
-            {
-                bL.matchingDroneToParcel(drt.id);
-                MessageBox.Show("succsesfully matched drone to parcel!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
-            }
-            catch (Exception exp)
-            {
-                MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-
+                }
             }
         }
-
-        private void btnPickUpParcelByDrone_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                bL.pickedUpParcelByDrone(drt.id);
-                MessageBox.Show("succsesfully pick up parcel by drone!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
-            }
-            catch (Exception exp)
-            {
-                MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            }
-        }
-
-        private void btnDeliveryToCustomer_Click(object sender, RoutedEventArgs e)
-        {
-
-            try
-            {
-                bL.deliveryParcelToCustomer(drt.id);
-                MessageBox.Show("succsesfully delivery parcel to customer!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
-            }
-            catch (Exception exp)
-            {
-                MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            }
-        }
-
-        
     }
-}

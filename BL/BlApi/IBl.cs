@@ -46,8 +46,10 @@ namespace BlApi
         public void updateCustomer(int customerID, string Name = " ", int phoneNum = 0);
 
         public void SendToCharge(int droneID);
-
+        public IEnumerable<BO.Parcel> allParcels(Func<BO.Parcel, bool> predicate);
         public void releasingDrone(int droneID, TimeSpan chargingTime);
+        public ParcelCustomer GetParcelToCustomer(int id);
+        public void deleteParcel(int parcelId);
 
         public void deliveryParcelToCustomer(int id);
         public void pickedUpParcelByDrone(int droneID);

@@ -43,8 +43,7 @@ namespace Dal
             throw new findException("customer");
         }
         public IEnumerable<Customer> GetCustomers()
-        {
-           
+        { 
             return DataSource.Customers;
         }
         public IEnumerable<Parcel> GetCustomerReceivedParcels(int customerId) //אני לא בטוחה שזה טוב אבל מה שניסיתי לעשות זה לבדוק ברשיה של כל החבילות אם התז אותו דבר כמו של הלקוח וגם המאפיין הבוליאני אם רבלתי שוו  אז החבילה שייכת לו
@@ -75,14 +74,15 @@ namespace Dal
         }
         public void updateCustomer(int customerId, Customer cust)
         {
-            bool flag = false;
-
-            DataSource.Customers.ForEach(c => { if (c.id == customerId) { c=cust; flag = true; } });
+            bool flag = true;
+            Customer cu = new();
+            DataSource.Customers.ForEach(c => { if (c.id == customerId) {cu=c; flag = true;} });
+            DataSource.Customers.Remove(cu);
+            DataSource.Customers.Add(cust);
             if (!flag)
             {
                 throw new findException("could not find customer");
             }
-
         }
         public IEnumerable<Customer> GetCustomer(Func<Customer, bool> predicate = null)
       => predicate == null ? DataSource.Customers : DataSource.Customers.Where(predicate);

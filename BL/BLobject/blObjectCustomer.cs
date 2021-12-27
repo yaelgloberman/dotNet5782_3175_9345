@@ -85,10 +85,10 @@ namespace BL
                     id = item.id,
                     Name = item.name,
                     PhoneNumber = item.phoneNumber,
-                    Parcles_Delivered_Recieved = dal.GetParcelList().Count(x => x.senderId == item.id && x.requested != null && x.scheduled != null && x.pickedUp != null && x.delivered != null&& x.isRecived==true),
+                    Parcles_Delivered_Recieved = dal.GetParcelList().Count(x => x.senderId == item.id && x.requested != null && x.scheduled != null && x.pickedUp != null && x.delivered != null && x.isRecived == true),
                     Parcels_unrecieved = dal.GetParcelList().Count(x => x.senderId == item.id && x.requested != null && x.scheduled != null && x.pickedUp != null && x.delivered == null),
                     Recieved_Parcels = GetCustomer(item.id).ReceiveParcel.Count(),
-                    ParcelsInDeliver =dal.GetParcelList().Count(x => x.senderId == item.id && x.requested != null && x.scheduled != null && x.pickedUp != null && x.delivered != null && x.isRecived ==false),
+                    ParcelsInDeliver = dal.GetParcelList().Count(x => x.senderId == item.id && x.requested != null && x.scheduled != null && x.pickedUp != null && x.delivered != null && x.isRecived == false),
                 };
                 customerToLists.Add(station);
             }
@@ -129,63 +129,84 @@ namespace BL
         /// </summary>
         /// <param name="customerID"></param>
         /// <returns></returns>
-        public List<BO.Customer> GetCustomers()
+        ///
+        public ParcelCustomer GetParcelToCustomer(int id)
         {
             List<BO.Customer> customers = new List<BO.Customer>();
-            foreach (var c in dal.GetCustomerList())
-            { customers.Add(GetCustomer(c.id)); }
-            return customers;
+            customers.Where(x => x.id == id);
+            {
+                ParcelCustomer pc = new ParcelCustomer()
+                {
+                    id = id,
+                    weight = GetParcel(id).weightCategorie,
+                    parcelStatus = GetParcelToList(id).parcelStatus,
+                    priority = GetParcelToList(id).priority,
+                    CustomerInParcel = null,
+
+                };
+                return pc;
+            }
         }
-        /// <summary>
-        ///  recieving a list pf all the  customers (customer to list) form the  the datasource by recieving the id of the customer  and throwing an exception if the id was in correct
-        /// </summary>
-        /// <returns></returns>
+        public List<BO.Customer> GetCustomers()
+        {
+            var p = GetParcels();
+            List<BO.Customer> customers = new List<BO.Customer>();
+            foreach (var c in dal.GetCustomerList()) { customers.Add(GetCustomer(c.id)); };
+            foreach (var c in dal.GetCustomerList()) { p.Where(p => p.delivered != null && p.receive.id == c.id); GetCustomer(c.id).ReceiveParcel.Add(GetParcelToCustomer(c.id)); };
+            return customers;
+            
+        }
+            /// <summary>
+            ///  recieving a list pf all the  customers (customer to list) form the  the datasource by recieving the id of the customer  and throwing an exception if the id was in correct
+            /// </summary>
+            /// <returns></returns>
         public List<BO.CustomerInList> GetCustomersToList()
         {
-            List<BO.CustomerInList> customers = new();
-            foreach (var c in dal.GetCustomerList())
-            { customers.Add(GetCustomerToList(c.id)); }
-            return customers;
+          List<BO.CustomerInList> customers = new();
+          foreach (var c in dal.GetCustomerList())
+          { customers.Add(GetCustomerToList(c.id)); }
+           return customers;
         }
-        #region Add Customer
-        /// <summary>
-        /// adding a customer to the data source and with customer regular features and throwing an exception if any of the users info was incorrect
-        /// </summary>
-        /// <param name="CustomerToAdd"></param>
-        /// <exception cref="validException"></exception>
-        /// <exception cref="AlreadyExistException"></exception>
-        public void addCustomer(BO.Customer CustomerToAdd)
-        {
-            if (!(CustomerToAdd.id >= 10000000 && CustomerToAdd.id <= 1000000000))
-                throw new validException("the id number of the drone is invalid\n");
-            if (!(CustomerToAdd.phoneNumber >= 500000000 && CustomerToAdd.phoneNumber <= 0589999999))
-                throw new validException("the phone number of the Customer is invalid\n");
-            if (CustomerToAdd.location.latitude < (double)31 || CustomerToAdd.location.latitude > 33.3)
-                throw new validException("the given latitude do not exist in this country/\n");
-            if (CustomerToAdd.location.longitude < 34.3 || CustomerToAdd.location.longitude > 35.5)
-                throw new validException("the given longitude do not exist in this country/\n");
-            if (dal.GetCustomers().ToList().Exists(item => item.id == CustomerToAdd.id))
-                throw new AlreadyExistException("Customer already exist");
-            DO.Customer CustomerDo = new DO.Customer();
-            CustomerDo.id = CustomerToAdd.id;
-            CustomerDo.name = CustomerToAdd.Name;
-            CustomerDo.phoneNumber = CustomerToAdd.phoneNumber;
-            CustomerDo.longitude = CustomerToAdd.location.longitude;
-            CustomerDo.latitude = CustomerToAdd.location.latitude;
-            CustomerDo.isActive = true;
-            try
+            #region Add Customer
+            /// <summary>
+            /// adding a customer to the data source and with customer regular features and throwing an exception if any of the users info was incorrect
+            /// </summary>
+            /// <param name="CustomerToAdd"></param>
+            /// <exception cref="validException"></exception>
+            /// <exception cref="AlreadyExistException"></exception>
+            public void addCustomer(BO.Customer CustomerToAdd)
             {
-                dal.addCustomer(CustomerDo);
-            }
-            catch (AddException exp)
-            {
+                if (!(CustomerToAdd.id >= 10000000 && CustomerToAdd.id <= 1000000000))
+                    throw new validException("the id number of the drone is invalid\n");
+                if (!(CustomerToAdd.phoneNumber >= 500000000 && CustomerToAdd.phoneNumber <= 0589999999))
+                    throw new validException("the phone number of the Customer is invalid\n");
+                if (CustomerToAdd.location.latitude < (double)31 || CustomerToAdd.location.latitude > 33.3)
+                    throw new validException("the given latitude do not exist in this country/\n");
+                if (CustomerToAdd.location.longitude < 34.3 || CustomerToAdd.location.longitude > 35.5)
+                    throw new validException("the given longitude do not exist in this country/\n");
+                if (dal.GetCustomers().ToList().Exists(item => item.id == CustomerToAdd.id))
+                    throw new AlreadyExistException("Customer already exist");
+                DO.Customer CustomerDo = new DO.Customer();
+                CustomerDo.id = CustomerToAdd.id;
+                CustomerDo.name = CustomerToAdd.Name;
+                CustomerDo.phoneNumber = CustomerToAdd.phoneNumber;
+                CustomerDo.longitude = CustomerToAdd.location.longitude;
+                CustomerDo.latitude = CustomerToAdd.location.latitude;
+                CustomerDo.isActive = true;
+                try
+                {
+                    dal.addCustomer(CustomerDo);
+                }
+                catch (AddException exp)
+                {
 
-                throw new AlreadyExistException("the customer already exist", exp);
+                    throw new AlreadyExistException("the customer already exist", exp);
+                }
+                // Nה צריך לבדוק עם SentParcels ReceiveParcel
             }
-            // Nה צריך לבדוק עם SentParcels ReceiveParcel
+            #endregion
         }
-        #endregion
-       
     }
-}
+
+
 

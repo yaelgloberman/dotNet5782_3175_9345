@@ -19,7 +19,7 @@ TargetType="Label">
 
         <Style x:Key="myButtonStyle"
  TargetType="Button">
-            
+
             <Setter Property="FontSize"
  Value="12" />
             <Setter Property="FontFamily"
@@ -27,19 +27,27 @@ TargetType="Label">
             <Setter Property="FontWeight"
  Value="Bold" />
         </Style>
+
     </Window.Resources>
     <Grid>
-       
-        <Grid.ColumnDefinitions>
-
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="11*" />
-            <RowDefinition Height="40*" />
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="btnAddCustomer" Content="add customer" Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Left" Style = "{StaticResource myButtonStyle}" Click="btnAddCustomer_Click"/>
-        <ListBox x:Name="customerListBox" ItemsSource="{Binding}" MouseDoubleClick="DoubleClick"  Grid.Column="0" Grid.Row="1" FontSize="22" />
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <ListView x:Name="customerListBox" Grid.Row="1" DataContext="{Binding}" ItemsSource="{Binding}" MouseDoubleClick="DoubleClick"  FontSize="18" BorderBrush="#FFE5EACD" Background="#FFDFD9B7" Grid.ColumnSpan="5" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button x:Name="btnAddCustomer" Content="add customer" Grid.Column="0" Grid.Row="0"  Style = "{StaticResource myButtonStyle}" Click="btnAddCustomer_Click" />
     </Grid>
 </Window>

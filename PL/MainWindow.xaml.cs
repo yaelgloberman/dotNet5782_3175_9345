@@ -44,5 +44,11 @@ namespace PL
             StationToListWindow stationWindow=new StationToListWindow(myBl);
             stationWindow.ShowDialog();
         }
+
+        private void btnParcelLists_Click(object sender, RoutedEventArgs e)
+        {
+            parcelListWindow wndP = new parcelListWindow(myBl);
+            wndP.Show();
+        }
     }
 }
