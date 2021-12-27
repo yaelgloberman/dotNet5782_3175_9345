@@ -38,17 +38,16 @@ namespace PL
             customerListWindow wndC = new customerListWindow(myBl);
             wndC.ShowDialog();
         }
-
-        private void btnStationLists_Click(object sender, RoutedEventArgs e)
-        {
-            StationToListWindow stationWindow=new StationToListWindow(myBl);
-            stationWindow.ShowDialog();
-        }
-
         private void btnParcelLists_Click(object sender, RoutedEventArgs e)
         {
             parcelListWindow wndP = new parcelListWindow(myBl);
             wndP.Show();
+        }
+
+        private void btnStationLists_Click_1(object sender, RoutedEventArgs e)
+        {
+            StationToListWindow stationWindow = new StationToListWindow(myBl);
+            stationWindow.ShowDialog();
         }
     }
 }

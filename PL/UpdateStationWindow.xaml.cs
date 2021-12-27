@@ -168,9 +168,9 @@ namespace PL
         {
             BO.DroneInCharge updateDrone = new DroneInCharge();
             updateDrone = (DroneInCharge)chargingDronesListView.SelectedItem;
-            DroneToList realDrone = new DroneToList();
-            realDrone = bL.GetDrone(updateDrone.id);
-            new DroneWindow(bL, realDrone).ShowDialog();
+            Drone realDrone = new Drone();
+            realDrone = bL.returnsDrone(updateDrone.id);
+            new DroneWindow(realDrone).ShowDialog();
         }
 
         private void chargingDronesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)

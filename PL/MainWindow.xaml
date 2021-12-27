@@ -51,7 +51,7 @@
         <Button x:Name="btnShowDroneList" Content="Enter to see drone list" FontSize="15" FontStyle="Oblique" Click="Button_Click"  Grid.Column="0" Grid.Row="5"/>
         <Button x:Name="btncustomerLists" Content="Enter to see customer list" FontSize="15" FontStyle="Oblique"  Click="customerLists_Click" Grid.Column="1" Grid.Row="5"/>
         <Button x:Name="btnParcelLists" Content="Enter to see parcel list" FontSize="15" FontStyle="Oblique"   Grid.Column="2" Grid.Row="5" Click="btnParcelLists_Click"/>
-        <Button x:Name="btnStationLists" Content="Enter to see station list" FontSize="15" FontStyle="Oblique"   Grid.Column="3" Grid.Row="5"/>
+        <Button x:Name="btnStationLists" Content="Enter to see station list" FontSize="15" FontStyle="Oblique"   Grid.Column="3" Grid.Row="5" Click="btnStationLists_Click_1"/>
 
     </Grid>
 </Window>
