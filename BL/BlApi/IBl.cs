@@ -33,8 +33,7 @@ namespace BlApi
         public IEnumerable<BaseStationToList> allStations(Func<BaseStationToList, bool> predicate);
 
         public IEnumerable<DroneToList> allDrones(Func<DroneToList, bool> predicate);
-       // public IEnumerable<BaseStationToList> allStations(Func<BaseStationToList, bool> predicate);
-
+        public ParcelStatus GetParcelStatus(int id);
         public BO.CustomerInList GetCustomerToList(int id);
         public List<ParcelCustomer> CustomerReceiveParcel(int customerID);
 

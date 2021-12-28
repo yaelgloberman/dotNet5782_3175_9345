@@ -26,7 +26,21 @@
             </ListView.View>
         </ListView>
         <Button x:Name="btnAddParcel" Content="add parcel" Grid.Column="0" Grid.Row="0" Click="btnAddParcel_Click" />
-        <Button x:Name="btnDeleteParcel" Content="delete parcel" Grid.Column="1" Grid.Row="0" Click="btnDeleteParcel_Click" IsEnabled="False" />
+        <Button Name="btnDeleteParcel" Content="delete parcel" Grid.Column="1" Grid.Row="0" Click="btnDeleteParcel_Click">
+            <Button.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger 
+                     Binding ="{Binding ElementName=parcelListBox, Path=SelectedIndex}" 
+                     Value="-1">
+                            <Setter Property="Button.IsEnabled" Value="false"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+
+
 
     </Grid>
 </Window>

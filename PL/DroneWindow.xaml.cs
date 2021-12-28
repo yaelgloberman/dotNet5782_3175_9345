@@ -167,7 +167,7 @@ namespace PL
             {
                 try
                 {
-                    bL.matchingDroneToParcel(drt.id);
+                    bL.matchingDroneToParcel(Convert.ToInt32(txbDroneId.Text));
                     MessageBox.Show("succsesfully matched drone to parcel!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
                     this.Close();
                 }

@@ -39,22 +39,44 @@ namespace PL
              p= bL.GetParcel(ptl.id);
             this.DataContext = p;
             txbID.IsReadOnly = true;
-            if (p.delivered!=null)
+            if(p.droneInParcel!=null)
             {
-                if (p.pickedUp == null)
+                btnDeliveryToCustomer.Visibility = Visibility.Visible;
+                lblDroneInParcel.Visibility = Visibility.Visible;
+                txbDroneInParcelBattery.Visibility = Visibility.Visible;
+                txbDroneInParcelId.Visibility = Visibility.Visible;
+                txbDroneInParcelLocationLatitude.Visibility = Visibility.Visible;
+                txbDroneInParcelLocationLongitude.Visibility = Visibility.Visible;
+                if (p.delivered != null)
                 {
-                    btnPickUpParcelByDrone.Visibility = Visibility.Visible;
 
+                    lblDelivered.Visibility = Visibility.Visible;
+                    txbDeliverd.Visibility = Visibility.Visible;
                 }
-                else
-                    btnDeliveryToCustomer.Visibility = Visibility.Visible;
+            }
+            else
+                btnPickUpParcelByDrone.Visibility = Visibility.Visible;
+            if (p.requested!=null)
+            {
+                lblRequested.Visibility = Visibility.Visible;
+                txbRequested.Visibility = Visibility.Visible;
+            }
+            if(p.scheduled!=null)
+            {
+                lblScheduled.Visibility = Visibility.Visible;
+                txbScheduled.Visibility = Visibility.Visible;
+            }
+            if (p.pickedUp != null)
+            {
+                lblPickedUp.Visibility = Visibility.Visible;
+                txbPickedUp.Visibility = Visibility.Visible;
             }
         }
         private void btnDeliveryToCustomer_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                bL.deliveryParcelToCustomer(p.id);
+                bL.deliveryParcelToCustomer(p.droneInParcel.id);
                 MessageBox.Show("succsesfully delivery parcel to customer!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
             }
@@ -67,7 +89,7 @@ namespace PL
         {
             try
             {
-                bL.pickedUpParcelByDrone(p.id);
+                bL.pickedUpParcelByDrone(p.droneInParcel.id);
                 MessageBox.Show("succsesfully pick up parcel by drone!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
             }

@@ -72,14 +72,18 @@ namespace Dal
             string name=GetCustomer(id).name;
             return name;
         }
-        public void updateCustomer(int customerId, Customer cust)
+
+        public void updateCustomer(int customerId, Customer c)
         {
-            bool flag = true;
-            Customer cu = new();
-            DataSource.Customers.ForEach(c => { if (c.id == customerId) {cu=c; flag = true;} });
-            DataSource.Customers.Remove(cu);
-            DataSource.Customers.Add(cust);
-            if (!flag)
+            try
+            {
+                Customer tmpC = GetCustomer(customerId);
+                DataSource.Customers.Remove(tmpC);
+                tmpC = c;
+                DataSource.Customers.Add(tmpC);
+
+            }
+            catch (Exception e)
             {
                 throw new findException("could not find customer");
             }

@@ -3,11 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -38,7 +33,6 @@ namespace PL
             GridStationinfo.Visibility = Visibility.Hidden;
 
         }
-
         public UpdateStationWindow(IBl bl, BO.BaseStationToList station)
         {
 
