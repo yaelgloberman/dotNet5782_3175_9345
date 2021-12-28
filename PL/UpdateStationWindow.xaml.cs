@@ -155,6 +155,8 @@ namespace PL
             stationObj=bL.GetStation(Convert.ToInt32(TxbIdUpdate.Text));
             
             chargingDronesListView.ItemsSource =stationObj.DroneInChargeList;
+            DataContext = stationObj;
+            GridUpdate.Visibility = Visibility.Hidden;
             GridStationinfo.Visibility = Visibility.Visible;
             
         }
