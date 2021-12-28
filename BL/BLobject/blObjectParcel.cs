@@ -290,10 +290,10 @@ namespace BL
         {
             try
             {
-                dal.deleteDrone(dal.GetDrone(parcelId));
+                dal.deleteParcel(dal.GetParcel(parcelId));
 
             }
-            catch (findException) { throw new deleteException("cant delete this drone\n"); }
+            catch (findException) { throw new deleteException("cant delete this parcel\n"); }
         }
     }
 }

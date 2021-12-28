@@ -92,7 +92,6 @@ namespace PL
             {
                 statusSelector.SelectedIndex = -1;
                 statusSelector = null;
-                statusSelector.Text = "choose a status";
             }
         }
         private void DoubleClick(object sender, MouseButtonEventArgs e)
@@ -108,8 +107,10 @@ namespace PL
         }
         private void refresh_Click_1(object sender, RoutedEventArgs e)
         {
+            DroneListView.ItemsSource = bL.GetDrones();
             WeightSelector.SelectedIndex = -1;
             statusSelector.SelectedIndex = -1;
-        }      
+        }
+         
     }
 }

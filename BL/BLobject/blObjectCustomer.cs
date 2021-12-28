@@ -38,11 +38,12 @@ namespace BL
         /// <param name="Name"></param>
         /// <param name="phoneNum"></param>
         /// <exception cref="dosntExisetException"></exception>
+        /// 
         public void updateCustomer(int customerID, string Name = " ", int phoneNum = 0)
         {
             try
             {
-                DO.Customer customerDl = new DO.Customer();
+                DO.Customer customerDl = new();
                 customerDl = dal.GetCustomer(customerID);
                 customerDl.name = Name;
                 customerDl.phoneNumber = phoneNum;
@@ -50,13 +51,27 @@ namespace BL
             }
             catch (findException exp) { throw new dosntExisetException(exp.Message); }
         }
+        public ParcelStatus GetParcelStatus(int id)
+        {
+            var parcelStatus = GetParcel(id);
+            if (parcelStatus.delivered != null)
+                return ParcelStatus.Delivered;
+            if (parcelStatus.pickedUp != null)
+                return ParcelStatus.PickedUp;
+            if (parcelStatus.scheduled != null)
+                return ParcelStatus.Assigned;
+            return ParcelStatus.Created;
+        }
+
         /// <summary>
         ///  recieving a customer (regular) form the  the datasource by recieving the id of the customer  and throwing an exception if the id was in correct
         /// </summary>
         /// <param name="customerID"></param>
         /// <returns></returns>
+        /// 
+
         public BO.Customer GetCustomer(int id)
-        {
+            {
             try
             {
                 List<BO.Parcel> tempParcels = GetParcels();
@@ -66,8 +81,36 @@ namespace BL
                 CustomerBo.Name = CustomerDo.name;
                 CustomerBo.phoneNumber = CustomerDo.phoneNumber;
                 CustomerBo.location = new Location() { latitude = CustomerDo.latitude, longitude = CustomerDo.longitude };
-                CustomerBo.SentParcels = getCustomerShippedParcels(id).ToList();
-                CustomerBo.ReceiveParcel = CustomerReceiveParcel(id).ToList();
+                IEnumerable<DO.Parcel> lstP = dal.GetParcels();
+                foreach (var item in lstP)
+                {
+                    //מוצא את כל החבילות שהלקוח מקבל
+                    if (item.targetId == CustomerBo.id)
+                    {
+                        ParcelByCustomer tmp = new();
+                        tmp.id = item.id;
+                        tmp.parcelStatus = GetParcelStatus(item.id);
+                        tmp.priority = GetParcelPriorities(item.priority);
+                        tmp.CustomerInParcel = new CustomerInParcel();
+                        tmp.CustomerInParcel.id = item.senderId;
+                        tmp.CustomerInParcel.name = dal.GetCustomer(item.senderId).name;
+                        CustomerBo.SentParcels = new List<ParcelByCustomer>();
+                        CustomerBo.SentParcels.Add(tmp);
+                    }
+                    ////מוצא את כל החבילות שהלקוח שולח
+                    //if (item.senderID == cusBL.ID)
+                    //{
+                    //    ParcelAtCustomer tmp = new ParcelAtCustomer();
+                    //    tmp.ID = item.ID;
+                    //    tmp.status = getParcelStatus(item);
+                    //    tmp.senderOrTaget = new CustomerInParcel();
+                    //    tmp.senderOrTaget.ID = item.targetId;
+                    //    tmp.senderOrTaget.customerName = dl.findCustomer(item.targetId).name;
+                    //    tmp.priority = GetParcelPriorities(item.priority);
+                    //    cusBL.fromCustomer = new List<ParcelAtCustomer>();
+                    //    cusBL.fromCustomer.Add(tmp);
+                    //}
+                }
                 return CustomerBo;
             }
             catch (DO.findException Fex)

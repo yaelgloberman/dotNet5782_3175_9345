@@ -54,13 +54,13 @@ namespace PL
        
         private void btnDeleteParcel_Click(object sender, RoutedEventArgs e)
         {
-            ParcelToList p = (ParcelToList)parcelListBox.SelectedItem;
-            if (p == null)
-                MessageBox.Show($"", "ERROR couldnt delete parcel. choose a parcel", MessageBoxButton.OK, MessageBoxImage.Error);
             try
             {
+                ParcelToList p = (ParcelToList)parcelListBox.SelectedItem;
+                bL.deleteParcel(p.id);
                 MessageBox.Show("succsesfully delete parcel!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-
+                myObservableCollectionParcel = new ObservableCollection<ParcelToList>(bL.GetParcelToLists());
+                DataContext = myObservableCollectionParcel;
             }
             catch (Exception exp)
             {
