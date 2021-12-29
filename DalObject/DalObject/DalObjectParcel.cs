@@ -104,18 +104,10 @@ namespace Dal
         }
         public IEnumerable<Parcel> GetChargedDrone(Func<Parcel, bool> predicate = null)
         => predicate == null ? DataSource.parcels : DataSource.parcels.Where(predicate);
-        /// not sure if needed
-        //public List<Parcel>deliveredNotPickedUp()
-        //{
-        //    List<Parcel> deliveredNotPickedUp1 = new List<Parcel>();
-        //    DateTime dateTime_Help = new DateTime(0, 0, 0);
-        //    foreach (Parcel p in DataSource.parcels)
-        //    {
-        //        if (p.pickedUp == dateTime_Help && p.delivered> dateTime_Help)
-        //            deliveredNotPickedUp1.Add(p);
-        //    }
-        //    return deliveredNotPickedUp1;
-        //}
+
+
+
+       
     }
 }
    

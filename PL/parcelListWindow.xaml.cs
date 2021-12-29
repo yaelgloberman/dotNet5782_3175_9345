@@ -25,7 +25,6 @@ namespace PL
         ObservableCollection<ParcelToList> myObservableCollectionParcel;
         private static ParcelToList ptl = new();
         private static Parcel parcel = new();
-       // private List<BO.ParcelToList> parcelList = new List<BO.ParcelToList>();
         public parcelListWindow(IBl bl)
         {
             InitializeComponent();

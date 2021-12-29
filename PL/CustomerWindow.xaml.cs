@@ -41,6 +41,12 @@ namespace PL
             addCustomer.Visibility = Visibility.Hidden;
             sentParcels.Visibility = Visibility.Hidden;
             txbID.IsReadOnly = true;
+            txbLatitude.IsReadOnly = true;
+            txbLongitude.IsReadOnly = true;
+            
+
+
+
         }
         public static void ValidateString(string string1)
         {
@@ -68,14 +74,21 @@ namespace PL
         {
             try
             {
-                ValidateString(txbName.Text);
-                if (txbName.Text == "" || txbID.Text == null || txbPhoneNumber.Text == null || txbLongitude.Text == null)
+                if (txbName.Text == "" ||txbID.Text == "" || txbPhoneNumber.Text == "" || txbLongitude.Text == ""|| txbLatitude.Text=="")
                 {
-                    MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
+                   throw new Exception("Please enter correct input");
                 }
-                else
-                {
+                ValidateString(txbName.Text);
 
+
+                if (!(Convert.ToInt32(txbID.Text) >= 10000000 && Convert.ToInt32(txbID.Text) <= 1000000000))
+                        throw new validException("the id number of the drone is invalid\n");
+                    if (!(Convert.ToInt32(txbPhoneNumber.Text) >= 500000000 && (Convert.ToInt32(txbPhoneNumber.Text)) <= 0589999999))
+                        throw new validException("the phone number of the Customer is invalid\n");
+                    if ((Convert.ToInt32(txbLatitude.Text)) < (double)31 || (Convert.ToInt32(txbLatitude.Text)) > 33.3)
+                        throw new validException("the given latitude do not exist in this country/\n");
+                    if ((Convert.ToInt32(txbLongitude.Text)) < 34.3 || (Convert.ToInt32(txbLongitude.Text)) > 35.5)
+                        throw new validException("the given longitude do not exist in this country/\n");
                     var c = new BO.Customer()
                     {
                         id = Convert.ToInt32(txbID.Text),
@@ -90,7 +103,7 @@ namespace PL
                     bL.addCustomer(c);
                     MessageBox.Show("succsesfully added a drone!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
                     this.Close();
-                }
+                
             }
             catch (Exception exp)
             {
@@ -99,17 +112,7 @@ namespace PL
             }
         }
 
-        private void btnSentParcels_Click(object sender, RoutedEventArgs e)
-        {
-            sentParcels.Visibility = Visibility.Visible;
-            addCustomer.Visibility = Visibility.Hidden;
-            updateParcels.Visibility = Visibility.Hidden;
-            general.Visibility = Visibility.Hidden;
-            try{ sentParcelsListView.ItemsSource = bL.GetCustomers().ToList().Select(x => x.id == Convert.ToInt32(txbID.Text)); }  catch(BO.dosntExisetException exp)
-            {
-                MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
+      
 
         private void btnUpdateCustomer_Click(object sender, RoutedEventArgs e)
         {
@@ -145,10 +148,40 @@ namespace PL
 
             }
         }
+        private void btnSentParcels_Click(object sender, RoutedEventArgs e)
+        {
+            sentParcels.Visibility = Visibility.Visible;
+            ReciveParcelsListView.Visibility = Visibility.Hidden;
+            addCustomer.Visibility = Visibility.Hidden;
+            updateParcels.Visibility = Visibility.Hidden;
+            general.Visibility = Visibility.Hidden;
+            sentParcelsListView.ItemsSource = customer.SentParcels;
 
+            //try
+            //{
+            //    DataContext = bL.GetCustomer(Convert.ToInt32(txbID.Text)).SentParcels;
+            //}
+            //catch (BO.dosntExisetException exp)
+            //{
+            //    MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            //}
+        }
         private void btnReceiveParcel_Click(object sender, RoutedEventArgs e)
         {
-            ;
+            sentParcels.Visibility = Visibility.Hidden;
+            addCustomer.Visibility = Visibility.Hidden;
+            updateParcels.Visibility = Visibility.Hidden;
+            general.Visibility = Visibility.Hidden;
+            ReciveParcelsListView.ItemsSource = customer.ReceiveParcel;
+            //try
+            //{
+            //    ReciveParcelsListView.ItemsSource = (bL.GetCustomer(Convert.ToInt32(txbID.Text))).ReceiveParcel;
+
+            //}
+            //catch (BO.dosntExisetException exp)
+            //{
+            //    MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            //}
         }
     }
 }

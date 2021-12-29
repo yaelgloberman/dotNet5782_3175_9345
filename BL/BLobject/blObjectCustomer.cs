@@ -29,7 +29,19 @@ namespace BL
                 }
             }
             return recievedParcels;
-
+        }
+        public List<ParcelCustomer> CustomerSentParcel(int customerID)
+        {
+            List<BO.ParcelCustomer> sentParcels = new List<ParcelCustomer>();
+            foreach (var parcel in GetParcels())
+            {
+                if (parcel.sender.id == customerID)
+                {
+                    BO.ParcelCustomer customersPrevioseParcel = new ParcelCustomer { CustomerInParcel = parcel.receive, id = parcel.id, parcelStatus = ParcelStatus.Delivered, priority = parcel.priority, weight = parcel.weightCategorie };
+                    sentParcels.Add(customersPrevioseParcel);
+                }
+            }
+            return sentParcels;
         }
         /// <summary>
         /// an update function that updates the customers name or phonenumber
@@ -62,6 +74,17 @@ namespace BL
                 return ParcelStatus.Assigned;
             return ParcelStatus.Created;
         }
+        public Priority GetParcelPriorty(int id)
+        {
+            var priorty = GetParcel(id);
+            if (Priority.emergency != 0)
+                return Priority.emergency;
+            if (Priority.fast != 0)
+                return Priority.fast;
+            if (Priority.regular != 0)
+                return Priority.regular;
+        }
+
 
         /// <summary>
         ///  recieving a customer (regular) form the  the datasource by recieving the id of the customer  and throwing an exception if the id was in correct
@@ -90,26 +113,26 @@ namespace BL
                         ParcelCustomer tmp = new();
                         tmp.id = item.id;
                         tmp.parcelStatus = GetParcelStatus(item.id);
-                        tmp.priority = (BO.Priority) item.priority;
+                        tmp.priority = (BO.Priority)item.priority;
                         tmp.CustomerInParcel = new CustomerInParcel();
                         tmp.CustomerInParcel.id = item.senderId;
                         tmp.CustomerInParcel.name = dal.GetCustomer(item.senderId).name;
+                        CustomerBo.ReceiveParcel = new List<ParcelCustomer>();
+                        CustomerBo.ReceiveParcel.Add(tmp);
+                    }
+                    //מוצא את כל החבילות שהלקוח שולח
+                    if (item.senderId == CustomerBo.id)
+                    {
+                        ParcelCustomer tmp = new();
+                        tmp.id = item.id;
+                        tmp.parcelStatus = GetParcelStatus(item.id);
+                        tmp.CustomerInParcel = new CustomerInParcel();
+                        tmp.CustomerInParcel.id = item.targetId;
+                        tmp.CustomerInParcel.name = dal.GetCustomer(item.targetId).name;
+                        tmp.priority = GetParcelPriorty(item.id);
                         CustomerBo.SentParcels = new List<ParcelCustomer>();
                         CustomerBo.SentParcels.Add(tmp);
                     }
-                    ////מוצא את כל החבילות שהלקוח שולח
-                    //if (item.senderID == cusBL.ID)
-                    //{
-                    //    ParcelAtCustomer tmp = new ParcelAtCustomer();
-                    //    tmp.ID = item.ID;
-                    //    tmp.status = getParcelStatus(item);
-                    //    tmp.senderOrTaget = new CustomerInParcel();
-                    //    tmp.senderOrTaget.ID = item.targetId;
-                    //    tmp.senderOrTaget.customerName = dl.findCustomer(item.targetId).name;
-                    //    tmp.priority = GetParcelPriorities(item.priority);
-                    //    cusBL.fromCustomer = new List<ParcelAtCustomer>();
-                    //    cusBL.fromCustomer.Add(tmp);
-                    //}
                 }
                 return CustomerBo;
             }
@@ -128,10 +151,10 @@ namespace BL
                     id = item.id,
                     Name = item.name,
                     PhoneNumber = item.phoneNumber,
-                    Parcles_Delivered_Recieved = dal.GetParcelList().Count(x => x.senderId == item.id && x.requested != null && x.scheduled != null && x.pickedUp != null && x.delivered != null && x.isRecived == true),
-                    Parcels_unrecieved = dal.GetParcelList().Count(x => x.senderId == item.id && x.requested != null && x.scheduled != null && x.pickedUp != null && x.delivered == null),
-                    Recieved_Parcels = GetCustomer(item.id).ReceiveParcel.Count(),
-                    ParcelsInDeliver = dal.GetParcelList().Count(x => x.senderId == item.id && x.requested != null && x.scheduled != null && x.pickedUp != null && x.delivered != null && x.isRecived == false),
+                    Parcles_Delivered_Recieved = GetCustomer(item.id).SentParcels.Where(s => s.parcelStatus == ParcelStatus.Delivered).Count(), //dal.GetParcelList().Count(x => x.senderId == item.id && x.requested != null && x.scheduled != null && x.pickedUp != null && x.delivered != null && x.isRecived == true),
+                    Parcels_Delivered_unrecieved =GetCustomer(item.id).SentParcels.Where(s => s.parcelStatus == ParcelStatus.Delivered).Count(),//dal.GetParcelList().Count(x => x.senderId == item.id && x.requested != null && x.scheduled != null && x.pickedUp != null && x.delivered == null),
+                    Recieved_Parcels = GetCustomer(item.id).ReceiveParcel.Where(s => s.parcelStatus == ParcelStatus.Delivered).Count(), //GetCustomer(item.id).ReceiveParcel.Count(),
+                    ParcelsInDeliver = GetCustomer(item.id).SentParcels.Where(s => s.parcelStatus != ParcelStatus.Delivered).Count() //dal.GetParcelList().Count(x => x.senderId == item.id && x.requested != null && x.scheduled != null && x.pickedUp != null && x.delivered != null && x.isRecived == false),
                 };
                 customerToLists.Add(station);
             }
@@ -155,10 +178,10 @@ namespace BL
                 CustomerBo.id = CustomerDo.id;
                 CustomerBo.Name = CustomerDo.name;
                 CustomerBo.PhoneNumber = CustomerDo.phoneNumber;
-                CustomerBo.Parcles_Delivered_Recieved = GetParcels().Count(x => x.delivered != null && x.pickedUp == null);
-                CustomerBo.Parcels_unrecieved = GetParcels().Count(x => x.pickedUp == null && id==x.id);   //נראלי שזה שלא קבלו אומר שהם לא אספו
+                CustomerBo.Parcles_Delivered_Recieved = CustomerSentParcel(id).Count;
+                CustomerBo.Parcels_Delivered_unrecieved = CustomerSentParcel(id).Count;   //נראלי שזה שלא קבלו אומר שהם לא אספו
                 CustomerBo.Recieved_Parcels = CustomerReceiveParcel(id).Count;////לא בטוחה צריך לבדוק את זה
-                CustomerBo.ParcelsInDeliver = GetParcels().Count(x => x.delivered != null);
+                CustomerBo.ParcelsInDeliver = CustomerSentParcel(id).Count;
                 return CustomerBo;
             }
             catch (DO.findException Fex)
@@ -197,7 +220,8 @@ namespace BL
             {
                 var p = GetParcels();
                 foreach (var c in dal.GetCustomerList()) { customers.Add(GetCustomer(c.id)); };
-                foreach (var c in dal.GetCustomerList()) { p.Where(p => p.delivered != null && p.receive.id == c.id); GetCustomer(c.id).ReceiveParcel.Add(GetParcelToCustomer(c.id)); };
+                foreach (var c in dal.GetCustomerList()) { p.Where(p => p.delivered != null && p.receive.id == c.id);
+                    GetCustomer(c.id).ReceiveParcel.Add(GetParcelToCustomer(c.id)); };
             }catch(dosntExisetException exp) { throw new dosntExisetException(exp.Message); }
             return customers;
             
@@ -221,18 +245,18 @@ namespace BL
             /// <exception cref="validException"></exception>
             /// <exception cref="AlreadyExistException"></exception>
             public void addCustomer(BO.Customer CustomerToAdd)
-            {
-                if (!(CustomerToAdd.id >= 10000000 && CustomerToAdd.id <= 1000000000))
-                    throw new validException("the id number of the drone is invalid\n");
-                if (!(CustomerToAdd.phoneNumber >= 500000000 && CustomerToAdd.phoneNumber <= 0589999999))
-                    throw new validException("the phone number of the Customer is invalid\n");
-                if (CustomerToAdd.location.latitude < (double)31 || CustomerToAdd.location.latitude > 33.3)
-                    throw new validException("the given latitude do not exist in this country/\n");
-                if (CustomerToAdd.location.longitude < 34.3 || CustomerToAdd.location.longitude > 35.5)
-                    throw new validException("the given longitude do not exist in this country/\n");
-                if (dal.GetCustomers().ToList().Exists(item => item.id == CustomerToAdd.id))
-                    throw new AlreadyExistException("Customer already exist");
-                DO.Customer CustomerDo = new DO.Customer();
+        {
+        //    if (!(CustomerToAdd.id >= 10000000 && CustomerToAdd.id <= 1000000000))
+        //        throw new validException("the id number of the drone is invalid\n");
+        //    if (!(CustomerToAdd.phoneNumber >= 500000000 && CustomerToAdd.phoneNumber <= 0589999999))
+        //        throw new validException("the phone number of the Customer is invalid\n");
+        //    if (CustomerToAdd.location.latitude < (double)31 || CustomerToAdd.location.latitude > 33.3)
+        //        throw new validException("the given latitude do not exist in this country/\n");
+        //    if (CustomerToAdd.location.longitude < 34.3 || CustomerToAdd.location.longitude > 35.5)
+        //        throw new validException("the given longitude do not exist in this country/\n");
+        //    if (dal.GetCustomers().ToList().Exists(item => item.id == CustomerToAdd.id))
+        //        throw new AlreadyExistException("Customer already exist");
+            DO.Customer CustomerDo = new DO.Customer();
                 CustomerDo.id = CustomerToAdd.id;
                 CustomerDo.name = CustomerToAdd.Name;
                 CustomerDo.phoneNumber = CustomerToAdd.phoneNumber;

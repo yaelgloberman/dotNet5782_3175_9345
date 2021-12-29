@@ -14,7 +14,8 @@ namespace DO
             public Proirities priority { set; get; }
             public WeightCatigories weight { set; get; }
             public int droneId { set; get; }
-            public DateTime? requested { set; get; }
+             bool active { set; get; }
+             public DateTime? requested { set; get; }
             public DateTime? scheduled { set; get; }
             public DateTime? pickedUp { set; get; }
             public DateTime? delivered { set; get; }

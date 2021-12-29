@@ -43,7 +43,11 @@ namespace BL
                     drt.weight = (BO.Weight)(int)item.maxWeight;
                     int parcelID = dal.GetParcelList().ToList().Find(x => x.droneId == drt.id).id;
                     drt.parcelId = parcelID;
-                    var baseStationLocations = BaseStationLocationslist();
+                    if (parcelID != 0)
+                    {
+                        drt.droneStatus = DroneStatus.delivery;
+                    }
+                     var baseStationLocations = BaseStationLocationslist();
                     foreach (var pr in p)
                     {
                         if (pr.id == item.id && pr.delivered == null)
@@ -97,9 +101,7 @@ namespace BL
                             Console.WriteLine(b.unavailableChargeSlots);
                             GetStation(DC.stationId).decreasingChargeSlots();
                             Console.WriteLine(b.unavailableChargeSlots);
-
                             dal.AddDroneCharge(DC);
-                          
                             drt.location = new Location { latitude = s.latitude, longitude = s.longitude };
                             drt.batteryStatus = rnd.Next(0, 21); // 100/;
                         }
@@ -197,7 +199,6 @@ namespace BL
                     if (drone.droneStatus == DroneStatus.charge)
                     {
                         DroneToList d = GetDrone(drone.id);
-                        deleteDrone(d.id);
                         d.droneStatus = DroneStatus.available;
                         int num = rand.Next(1, dal.GetStationList().Count());
                         var stationId = dal.GetStationList().ToArray()[num].id;
@@ -322,7 +323,7 @@ namespace BL
                     return GetCustomer(parcel.senderId).location;
                 }
             }
-            if (drone.droneStatus == DroneStatus.available)
+            if (drone.droneStatus == DroneStatus.available)////
             {
                 var targetsIds = dal.GetParcels()
                     .Where(parcel => parcel.droneId == drone.id)

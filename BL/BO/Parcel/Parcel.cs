@@ -17,7 +17,6 @@ namespace BO
         public override string ToString()
         {
             return string.Format($"Id: {id}, Sender Id:\n {sender}, receiver Id:\n {receive}, Priority: {priority}, Drone in parcel: {droneInParcel},  Weight Catigory: {weightCategorie}, Requested: {requested}, Scheduled: {scheduled}, PickedUp: {pickedUp}, DateTime?: {delivered}  ");
-
         }
        
     }

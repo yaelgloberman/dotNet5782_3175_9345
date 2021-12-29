@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="UpdateStationWindow" Height="441" Width="769">
     <Grid>
         <Grid x:Name="GridUpdate" d:IsHidden="True">
