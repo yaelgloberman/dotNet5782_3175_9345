@@ -41,7 +41,7 @@ TargetType="Label">
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <ListView x:Name="customerListBox" Grid.Row="1" DataContext="{Binding}" ItemsSource="{Binding}" MouseDoubleClick="DoubleClick"  FontSize="18" BorderBrush="#FFE5EACD" Background="#FFDFD9B7" Grid.ColumnSpan="5" >
+        <ListView x:Name="customerListBox" Grid.Row="1" DataContext="{Binding}" ItemsSource="{Binding}" MouseDoubleClick="DoubleClick" UseLayoutRounding="True" FontSize="18" BorderBrush="#FFE5EACD" Background="#FFDFD9B7" Grid.ColumnSpan="5" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

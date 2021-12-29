@@ -47,8 +47,8 @@ namespace PL
         private void Button_Click_Worker(object sender, RoutedEventArgs e)
         {
             
-            GridUser.Visibility = Visibility.Hidden;
-            //new MainWindow().ShowDialog();
+           // GridUser.Visibility = Visibility.Hidden;
+            new MainWindow().ShowDialog();
             Close();
         }
 
@@ -59,7 +59,8 @@ namespace PL
 
         private void Button_Click_CreateAccount(object sender, RoutedEventArgs e)
         {
-            new CustomerWindow().ShowDialog();
+            var wnd = new CustomerWindow();
+            wnd.ShowDialog();
             Close();
         }
 
@@ -67,5 +68,11 @@ namespace PL
         {
             GridPassword.Visibility = Visibility.Visible;   
         }
+
+        private void Button_Click_Back(object sender, RoutedEventArgs e)
+        {
+            GridLogCustomer.Visibility=Visibility.Hidden;   
+        }
+
     }
 }

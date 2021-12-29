@@ -126,7 +126,7 @@ namespace BL
         public BO.Drone returnsDrone(int id)
         {
 
-            var drn = drones.Find(x => x.id == id);
+            var drn = GetDrones().Find(x => x.id == id);
             if (drn == null)
                 throw new dosntExisetException("Error! the drone doesn't found");
             BO.Drone d = new BO.Drone();
@@ -196,7 +196,7 @@ namespace BL
                 droneBo.location = drone.location;
                 droneBo.batteryStatus = drone.batteryStatus;
                 droneBo.droneStatus = drone.droneStatus;
-                int parcelID = dal.GetParcelList().ToList().Find(x => x.droneId == droneBo.id).id;
+                 int parcelID = dal.GetParcelList().ToList().Find(x => x.droneId == droneBo.id).id;
                 if (parcelID != 0)
                 {
                     droneBo.parcelId = parcelID;

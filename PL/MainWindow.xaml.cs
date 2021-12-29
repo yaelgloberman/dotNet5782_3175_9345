@@ -41,13 +41,19 @@ namespace PL
         private void btnParcelLists_Click(object sender, RoutedEventArgs e)
         {
             parcelListWindow wndP = new parcelListWindow(myBl);
-            wndP.Show();
+            wndP.ShowDialog();
         }
 
         private void btnStationLists_Click_1(object sender, RoutedEventArgs e)
         {
             StationToListWindow stationWindow = new StationToListWindow(myBl);
             stationWindow.ShowDialog();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            var wndPassword = new PasswordWindow();
+            wndPassword.ShowDialog();
         }
     }
 }

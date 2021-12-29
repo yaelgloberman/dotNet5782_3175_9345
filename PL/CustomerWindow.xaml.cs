@@ -24,6 +24,7 @@ namespace PL
         private static CustomerInList customerInList = new();
         private static Customer customer = new();
         IBl bL;
+
         public CustomerWindow()//add
         {
             InitializeComponent();
@@ -104,7 +105,10 @@ namespace PL
             addCustomer.Visibility = Visibility.Hidden;
             updateParcels.Visibility = Visibility.Hidden;
             general.Visibility = Visibility.Hidden;
-            sentParcelsListView.ItemsSource = bL.GetCustomers().ToList().Select(x=> x.id== Convert.ToInt32(txbID.Text));   
+            try{ sentParcelsListView.ItemsSource = bL.GetCustomers().ToList().Select(x => x.id == Convert.ToInt32(txbID.Text)); }  catch(BO.dosntExisetException exp)
+            {
+                MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void btnUpdateCustomer_Click(object sender, RoutedEventArgs e)
@@ -112,6 +116,10 @@ namespace PL
             
             try
             {
+                //deliverObservableCollection = new ObservableCollection<ParcelCustomer>(customer.parcelsdelivered);
+                //sentParcelsListView.DataContext = deliverObservableCollection;
+                //receiveObservableCollection = new ObservableCollection<ParcelinCustomer>(customer.parcelsOrdered);
+                //receivedParcelsList.DataContext = receiveObservableCollection;
                 //if (txbName.Text == c.Name && Convert.ToInt32(txbPhoneNumber.Text) == c.phoneNumber) 
                 //{
                 //    MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -127,14 +135,21 @@ namespace PL
              
             }
 
-            catch (Exception exp)
+            //catch (Exception exp)
+            //{
+            //    MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            //}
+            catch(BO.dosntExisetException exp)
             {
-                MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                 MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+
             }
         }
 
-
-       
+        private void btnReceiveParcel_Click(object sender, RoutedEventArgs e)
+        {
+            ;
+        }
     }
 }
 

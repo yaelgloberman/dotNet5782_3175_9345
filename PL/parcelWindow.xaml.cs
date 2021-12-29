@@ -89,14 +89,19 @@ namespace PL
         {
             try
             {
-                bL.pickedUpParcelByDrone(p.droneInParcel.id);
+                
+                bL.pickedUpParcelByDrone(Convert.ToInt32(txbID.Text));
                 MessageBox.Show("succsesfully pick up parcel by drone!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
             }
-            catch (Exception exp)
+            catch (validException exp)
             {
                 MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
 
+            }
+            catch(dosntExisetException exp)
+            {
+                MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

@@ -21,7 +21,7 @@
     <Button x:Name="btnReceiveParcel" Content="ReceiveParcel" Grid.Column="3" Grid.Row="7" />
     <Button x:Name="btnAddCustomer" Content="add customer" Grid.Column="4" Grid.Row="7" Click="btnAddCustomer_Click" />-->
     <Grid>
-        <Grid x:Name="sentParcels">
+        <Grid x:Name="sentParcels" d:IsHidden="True">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50*"/>
                 <RowDefinition Height="400*"/>
@@ -113,7 +113,7 @@
             </Grid.RowDefinitions>
             <Button x:Name="btnUpdateCustomer" Content="update customer" Grid.Column="1" Grid.Row="7" Click="btnUpdateCustomer_Click" />
             <Button x:Name="btnSentParcels" Content="SentParcels" Grid.Column="2" Grid.Row="7" Click="btnSentParcels_Click" />
-            <Button x:Name="btnReceiveParcel" Content="ReceiveParcel" Grid.Column="3" Grid.Row="7" />
+            <Button x:Name="btnReceiveParcel" Content="ReceiveParcel" Grid.Column="3" Grid.Row="7" Click="btnReceiveParcel_Click" />
         </Grid>
     </Grid>
 

@@ -128,8 +128,13 @@ namespace BL
         public List<BO.Parcel> GetParcels()
         {
             List<BO.Parcel> parcels = new List<BO.Parcel>();
-            foreach (var p in dal.GetParcelList())
-            { parcels.Add(GetParcel(p.id)); }
+            try
+            {
+                foreach (var p in dal.GetParcelList())
+                { parcels.Add(GetParcel(p.id)); }
+            }
+            catch(dosntExisetException exp)
+            { throw new dosntExisetException(exp.Message); }
             return parcels;
         }
         /// <summary>

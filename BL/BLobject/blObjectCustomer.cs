@@ -87,14 +87,14 @@ namespace BL
                     //מוצא את כל החבילות שהלקוח מקבל
                     if (item.targetId == CustomerBo.id)
                     {
-                        ParcelByCustomer tmp = new();
+                        ParcelCustomer tmp = new();
                         tmp.id = item.id;
                         tmp.parcelStatus = GetParcelStatus(item.id);
-                        tmp.priority = GetParcelPriorities(item.priority);
+                        tmp.priority = (BO.Priority) item.priority;
                         tmp.CustomerInParcel = new CustomerInParcel();
                         tmp.CustomerInParcel.id = item.senderId;
                         tmp.CustomerInParcel.name = dal.GetCustomer(item.senderId).name;
-                        CustomerBo.SentParcels = new List<ParcelByCustomer>();
+                        CustomerBo.SentParcels = new List<ParcelCustomer>();
                         CustomerBo.SentParcels.Add(tmp);
                     }
                     ////מוצא את כל החבילות שהלקוח שולח
@@ -156,7 +156,7 @@ namespace BL
                 CustomerBo.Name = CustomerDo.name;
                 CustomerBo.PhoneNumber = CustomerDo.phoneNumber;
                 CustomerBo.Parcles_Delivered_Recieved = GetParcels().Count(x => x.delivered != null && x.pickedUp == null);
-                CustomerBo.Parcels_unrecieved = GetParcels().Count(x => x.pickedUp == null);   //נראלי שזה שלא קבלו אומר שהם לא אספו
+                CustomerBo.Parcels_unrecieved = GetParcels().Count(x => x.pickedUp == null && id==x.id);   //נראלי שזה שלא קבלו אומר שהם לא אספו
                 CustomerBo.Recieved_Parcels = CustomerReceiveParcel(id).Count;////לא בטוחה צריך לבדוק את זה
                 CustomerBo.ParcelsInDeliver = GetParcels().Count(x => x.delivered != null);
                 return CustomerBo;
@@ -192,10 +192,13 @@ namespace BL
         }
         public List<BO.Customer> GetCustomers()
         {
-            var p = GetParcels();
             List<BO.Customer> customers = new List<BO.Customer>();
-            foreach (var c in dal.GetCustomerList()) { customers.Add(GetCustomer(c.id)); };
-            foreach (var c in dal.GetCustomerList()) { p.Where(p => p.delivered != null && p.receive.id == c.id); GetCustomer(c.id).ReceiveParcel.Add(GetParcelToCustomer(c.id)); };
+            try
+            {
+                var p = GetParcels();
+                foreach (var c in dal.GetCustomerList()) { customers.Add(GetCustomer(c.id)); };
+                foreach (var c in dal.GetCustomerList()) { p.Where(p => p.delivered != null && p.receive.id == c.id); GetCustomer(c.id).ReceiveParcel.Add(GetParcelToCustomer(c.id)); };
+            }catch(dosntExisetException exp) { throw new dosntExisetException(exp.Message); }
             return customers;
             
         }
