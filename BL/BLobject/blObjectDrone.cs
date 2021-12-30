@@ -99,24 +99,8 @@ namespace BL
             drones.Add(droneToAdd);
         }
         #endregion
-        /// <summary>
-        /// deleting a drone for the datasource  and throwing an exception of the drone was not found
-        /// </summary>
-        /// <param name="droneID"></param>
-        /// <exception cref="deleteException"></exception>
-        #region DELETE DRONE
-        public void deleteDrone(int droneID)
-        {
-            try
-            {
-                if (GetDrone(droneID).droneStatus == DroneStatus.charge)
-                { var DC = dal.chargingGetDroneList().ToList().Find(x => x.droneId == droneID); dal.RemoveDroneCharge(DC); }
-                dal.deleteDrone(dal.GetDrone(droneID));
-
-            }
-            catch (findException) { throw new deleteException("cant delete this drone\n"); }
-        }
-        #endregion
+       
+      
         /// <summary>
         /// recieving a drone from the data source and returning ot to the progrmmer with the bl Drone (regular) features
         /// </summary>
@@ -195,13 +179,14 @@ namespace BL
                 droneBo.weight = drone.weight;
                 droneBo.location = drone.location;
                 droneBo.batteryStatus = drone.batteryStatus;
-                droneBo.droneStatus = drone.droneStatus;
-                 int parcelID = dal.GetParcelList().ToList().Find(x => x.droneId == droneBo.id).id;
+                int parcelID = dal.GetParcelList().ToList().Find(x => x.droneId == droneBo.id).id;
                 if (parcelID != 0)
                 {
                     droneBo.parcelId = parcelID;
                     droneBo.droneStatus = DroneStatus.delivery;
                 }
+                else
+                     droneBo.droneStatus = drone.droneStatus;
                 return droneBo;
             }
             catch (ArgumentNullException exp)
@@ -266,16 +251,12 @@ namespace BL
             int droneIndex = drones.ToList().FindIndex(x => x.id == droneID);
             if (station.avilableChargeSlots > 0)
             {
-                dal.deleteStation(dal.GetStation(station.id));
                 station.decreasingChargeSlots();
                 addStation(station);
             }
             drones[droneIndex].batteryStatus = calcMinBatteryRequired(drones[droneIndex]);//not sure that if it needs to be 100%
             drones[droneIndex].location = station.location;
             drones[droneIndex].droneStatus = DroneStatus.charge;
-            try { deleteDrone(droneID); }
-            catch (deleteException exp) { throw new deleteException(exp.Message); }
-            catch (findException exp) { throw new dosntExisetException(exp.Message); }
             addDrone(drones[droneIndex], station.id);
             DO.droneCharges DC = new droneCharges { droneId = droneID, stationId = station.id };
             dal.AddDroneCharge(DC);
@@ -309,11 +290,9 @@ namespace BL
                 drones[index].batteryStatus = timeInMinutes * GetChargeCapacity().pwrRateLoadingDrone + droneItem.batteryStatus; // the battery calculation
                 if (droneItem.batteryStatus > 100) //battery can't has more than a 100 percent
                     droneItem.batteryStatus = 100;
-                dal.deleteStation(dal.GetStation(DC.stationId));
                 bstation.addingChargeSlots();
                 addStation(bstation);
                 dal.RemoveDroneCharge(DC);
-                dal.deleteDrone(dal.GetDrone(droneID));
                 drones[index].droneStatus = DroneStatus.available;
                 Console.WriteLine(drones[index].ToString());
                 addDrone(drones[index], DC.stationId);

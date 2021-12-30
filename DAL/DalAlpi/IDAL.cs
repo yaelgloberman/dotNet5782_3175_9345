@@ -36,10 +36,11 @@ namespace DalApi
             void SendToCharge(int droneId, int stationId);
             IEnumerable<Station> GetStationList();
             public List<Parcel> UndiliveredParcels();
-            public void deleteDrone(Drone d);
-            public void deleteParcel(Parcel p);
-            public void deleteStation(Station s);
 
+            /// ////////////////////////////////////////////////////////////
+            /// </summary>
+            /// <param name="d"></param>
+            public void deleteParcel(Parcel p);
            public void updateStation(int stationId, Station s);
             public int AvailableChargingSlots();
             public void updateDrone(int droneId, string droneModel);

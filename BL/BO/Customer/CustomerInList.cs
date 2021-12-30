@@ -12,12 +12,12 @@ namespace BO
         public string Name { get; set; }
         public int  PhoneNumber { get; set; }
         public int Parcles_Delivered_Recieved { get; set; }
-        public int Parcels_unrecieved { get; set; }
+        public int Parcels_Delivered_unrecieved { get; set; }
         public int Recieved_Parcels { get; set; }
         public int ParcelsInDeliver { get; set; }
         public override string ToString()
         {
-            return string.Format($"Id:{id} , name:{Name}, phonenumber: 05{PhoneNumber}, parceles delivered recived: {Parcles_Delivered_Recieved}, parcel unrecived: {Parcels_unrecieved} , recived parcels: {Recieved_Parcels} , parcel in deliver: {ParcelsInDeliver}");
+            return string.Format($"Id:{id} , name:{Name}, phonenumber: 05{PhoneNumber}, parceles delivered recived: {Parcles_Delivered_Recieved}, parcel unrecived: {Parcels_Delivered_unrecieved} , recived parcels: {Recieved_Parcels} , parcel in deliver: {ParcelsInDeliver}");
         }
     }
 }

@@ -28,16 +28,19 @@ namespace BL
                 throw new validException("the given weight is not valid\n");
             if (!(parcelToAdd.priority >= (Priority)0 && parcelToAdd.priority <= (Priority)3))
                 throw new validException("the given priority is not valid\n");
-            DO.Parcel parcelDo = new ();
-            parcelDo.senderId = parcelToAdd.sender.id;
-            parcelDo.targetId = parcelToAdd.receive.id;
-            parcelDo.weight = (WeightCatigories)parcelToAdd.weightCategorie;
-            parcelDo.priority = (Proirities)parcelToAdd.priority;
-            parcelDo.requested = DateTime.Now;
-            parcelDo.scheduled = null;
-            parcelDo.pickedUp = null;
-            parcelDo.delivered = null;
-            parcelDo.droneId = 0;
+            DO.Parcel parcelDo = new()
+            {
+                senderId = parcelToAdd.sender.id,
+                targetId = parcelToAdd.receive.id,
+                weight = (WeightCatigories)parcelToAdd.weightCategorie,
+                priority = (Proirities)parcelToAdd.priority,
+                requested = DateTime.Now,
+                scheduled = null,
+                pickedUp = null,
+                delivered = null,
+                droneId = 0,
+            };
+           
             try
             {
                 return dal.addParcel(parcelDo);
@@ -174,7 +177,6 @@ namespace BL
                 drone.location.latitude = station.latitude;
                 drone.location.longitude = station.longitude;
                 drone.droneStatus = DroneStatus.available;
-                dal.deleteDrone(dal.GetDrone(id));
                 addDrone(drone, station.id);
                 parcel.requested = DateTime.Now;   //מה זה זמן אספקה
                 var parcelBL = GetParcel(parcel.id);
@@ -207,7 +209,6 @@ namespace BL
                 DO.Parcel myParcel = findTheParcel(myDrone.weight, myDrone.location, myDrone.batteryStatus, DO.Proirities.emergency);
                 dal.attribute(myDrone.id, myParcel.id);
                 int index = drones.FindIndex(x => x.id == droneId);
-                deleteDrone(myDrone.id);
                 drones.RemoveAt(index);
                 myDrone.droneStatus = DroneStatus.delivery;
                 myDrone.parcelId = myParcel.id;
@@ -245,7 +246,6 @@ namespace BL
                     if (item.pickedUp == null && item.delivered == null)
                     {
                         int index = drones.FindIndex(x => x.id == d.id);
-                        deleteDrone(droneID);
                         drones.RemoveAt(index);
                         d.batteryStatus = d.batteryStatus - Distance(d.location, new BO.Location { latitude = dal.GetCustomer(item.targetId).latitude, longitude = dal.GetCustomer(item.targetId).longitude }) * GetChargeCapacity().chargeCapacityArr[(int)(item.weight)];
                         d.location.longitude = dal.GetCustomer(item.senderId).longitude;
@@ -255,6 +255,7 @@ namespace BL
                         par.pickedUp = DateTime.Now;
                         int parcelNewID = dal.addParcel(par);
                         d.parcelId = parcelNewID;
+                        d.droneStatus = DroneStatus.delivery;
                         var station = GetStationByDrone(d);
                         addDrone(d, station.id);
                         return;

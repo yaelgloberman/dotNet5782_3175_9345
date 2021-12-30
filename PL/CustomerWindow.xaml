@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="CustomerWindow" Height="450" Width="800">
     <!--<Label x:Name="read_" Content="id:" Grid.Column="1" FontSize="22"/>
     <Label Name="lblName" Content="name:" Grid.Column="1" Grid.Row="1" FontSize="22"/>
@@ -26,17 +27,13 @@
                 <RowDefinition Height="50*"/>
                 <RowDefinition Height="400*"/>
             </Grid.RowDefinitions>
-            <ListView x:Name="sentParcelsListView" Grid.Row="1" BorderBrush="#FFE5EACD" Background="#FFDFD9B7" >
-            <GridViewColumn Header="id"  DisplayMemberBinding="{Binding id}"/>
-                <GridViewColumn Header="Name"  DisplayMemberBinding="{Binding Name}"/>
-                <GridViewColumn Header="number"  DisplayMemberBinding="{Binding number}"/>
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn/>
-                    </GridView>
-                </ListView.View>
+            <ListView x:Name="sentParcelsListView"  DataContext="{Binding}" ItemsSource="{Binding}"  Grid.Row="1" BorderBrush="#FFE5EACD" Background="#FFDFD9B7" >
+
             </ListView>
         </Grid>
+        <ListView x:Name="ReciveParcelsListView"  DataContext="{Binding}" ItemsSource="{Binding}"  Grid.Row="1" BorderBrush="#FFE5EACD" Background="#FFDFD9B7" >
+       
+         </ListView>
         <Grid x:Name="general">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -113,7 +110,7 @@
             </Grid.RowDefinitions>
             <Button x:Name="btnUpdateCustomer" Content="update customer" Grid.Column="1" Grid.Row="7" Click="btnUpdateCustomer_Click" />
             <Button x:Name="btnSentParcels" Content="SentParcels" Grid.Column="2" Grid.Row="7" Click="btnSentParcels_Click" />
-            <Button x:Name="btnReceiveParcel" Content="ReceiveParcel" Grid.Column="3" Grid.Row="7" Click="btnReceiveParcel_Click" />
+            <Button x:Name="btnReceiveParcel" Content="ReceiveParcel" Grid.Column="3" Grid.Row="7" Click="btnReceiveParcel_Click" Height="48" Grid.RowSpan="2" VerticalAlignment="Top" />
         </Grid>
     </Grid>
 

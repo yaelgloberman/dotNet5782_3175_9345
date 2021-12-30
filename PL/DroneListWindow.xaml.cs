@@ -28,7 +28,7 @@ namespace PL
         private static Drone drone = new();
         static Weight? weightFilter;
         static DroneStatus? statusFilter;
-
+        
         public DroneListWindow(IBl bl)
         {
             InitializeComponent();

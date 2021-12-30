@@ -31,14 +31,12 @@ namespace BlApi
         public List<BO.ParcelToList> GetParcelToLists();
         public IEnumerable<BaseStationToList> GetBaseStationToList();
         public IEnumerable<BaseStationToList> allStations(Func<BaseStationToList, bool> predicate);
+        public List<ParcelCustomer> CustomerSentParcel(int customerID);
 
         public IEnumerable<DroneToList> allDrones(Func<DroneToList, bool> predicate);
         public ParcelStatus GetParcelStatus(int id);
+        public Priority GetParcelPriorty(int id);
         public BO.CustomerInList GetCustomerToList(int id);
-        public List<ParcelCustomer> CustomerReceiveParcel(int customerID);
-
-        public void deleteDrone(int droneID);
-
         public void updateDroneName(int droneID, string dModel);
 
         public void updateStation(int stationID, int AvlblDCharges, string Name = " ");
