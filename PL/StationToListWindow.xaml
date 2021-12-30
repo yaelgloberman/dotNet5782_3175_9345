@@ -19,7 +19,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <ListView x:Name="StationToListView" DataContext="{Binding}" ItemsSource="{Binding}"  MouseDoubleClick="DoubleClick" Grid.ColumnSpan="4" FontSize="16" FontStretch="Expanded" FontStyle="Italic" FontWeight="Bold" Grid.Row="1" HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Width="Auto" SelectionChanged="StationToListView_SelectionChanged">
+        <ListView x:Name="StationToListView" DataContext="{Binding}" ItemsSource="{Binding}"  MouseDoubleClick="DoubleClick" Grid.ColumnSpan="6" FontSize="16" FontStretch="Expanded" FontStyle="Italic" FontWeight="Bold" Height="Auto" Width="Auto" SelectionChanged="StationToListView_SelectionChanged" Margin="0,51,1,0" Grid.RowSpan="2">
             <!--<ListView.Background>
                 <ImageBrush ImageSource="C:\Users\rinaw\source\repos\yaelgloberman\dotNet5782_3175_9345\PL\pics\imageedit_1_3256771342.jpg" Opacity="0.4"/>
             </ListView.Background>-->
@@ -39,11 +39,10 @@
                         </DataTemplate>
                     </GroupStyle.HeaderTemplate>
                 </GroupStyle>
-            </ListView.GroupStyle>c:\users\yaeli\desktop\dotnet5782_3175_9344\bl\bo\station\basestationtolist.cs
-
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
+            </ListView.GroupStyle>
+            <GridView>
+                <GridViewColumn/>
+            </GridView>
         </ListView>
         <Button Content="Available Slots"  Grid.Row="0" Click="Button_Click" Grid.Column="1" BorderThickness="10,10,10,10" SnapsToDevicePixels="True" ClipToBounds="True" Background="#FFC191D2" FontFamily="Algerian" FontSize="14">
             <Button.BorderBrush>

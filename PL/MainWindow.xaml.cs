@@ -27,7 +27,6 @@ namespace PL
             myBl = BL.BL.Instance;
             InitializeComponent();
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             DroneListWindow wnd = new DroneListWindow(myBl);
@@ -47,8 +46,8 @@ namespace PL
 
         private void btnStationLists_Click_1(object sender, RoutedEventArgs e)
         {
-            StationToListWindow stationWindow = new StationToListWindow(myBl);
-            stationWindow.ShowDialog();
+            StationToListWindow wndS = new StationToListWindow(myBl);
+            wndS.ShowDialog();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

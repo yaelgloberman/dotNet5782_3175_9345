@@ -47,7 +47,7 @@ namespace PL
         private void Button_Click_Worker(object sender, RoutedEventArgs e)
         {
             
-           // GridUser.Visibility = Visibility.Hidden;
+           // ridUser.Visibility = Visibility.Hidden;
             new MainWindow().ShowDialog();
             Close();
         }

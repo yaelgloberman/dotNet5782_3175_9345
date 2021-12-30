@@ -20,11 +20,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <ListView x:Name="parcelListBox" Grid.Row="1" ItemsSource="{Binding}" DataContext="{Binding}" MouseDoubleClick="DoubleClick"  FontSize="18" BorderBrush="#FFE5EACD" Background="#FFDFD9B7" Grid.ColumnSpan="5" >
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
+          
         </ListView>
         <Button x:Name="btnAddParcel" Content="add parcel" Grid.Column="0" Grid.Row="0" Click="btnAddParcel_Click" />
         <Button Name="btnDeleteParcel" Content="delete parcel" Grid.Column="1" Grid.Row="0" Click="btnDeleteParcel_Click">
