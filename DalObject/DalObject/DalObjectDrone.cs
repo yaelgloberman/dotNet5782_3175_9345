@@ -83,7 +83,7 @@ namespace Dal
                 throw new findException("drone");
             DataSource.drones.Remove(d);
         }
-   
+
         public IEnumerable<Drone> GetDrones()
         {
             return DataSource.drones;

@@ -308,8 +308,10 @@ namespace BL
             Location stationLocation = findClosestStationLocation(drone.location, false, BaseStationLocationslist());//not sure where and what its from
             station = GetStations().Find(x => x.location.longitude == stationLocation.longitude && x.location.latitude == stationLocation.latitude);
             int droneIndex = drones.ToList().FindIndex(x => x.id == droneID);
+            dal.deleteDrone(dal.GetDrone(drones[droneIndex].id));
             if (station.avilableChargeSlots > 0)
             {
+                dal.deleteStation(dal.GetStation(station.id));
                 station.decreasingChargeSlots();
                 addStation(station);
             }
@@ -317,6 +319,7 @@ namespace BL
             drones[droneIndex].location = station.location;
             drones[droneIndex].droneStatus = DroneStatus.charge;
             addDrone(drones[droneIndex], station.id);
+            drones.RemoveAt(droneIndex);
             DO.droneCharges DC = new droneCharges { droneId = droneID, stationId = station.id };
             dal.AddDroneCharge(DC);
         }
