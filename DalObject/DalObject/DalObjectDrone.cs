@@ -88,6 +88,7 @@ namespace Dal
         {
             return DataSource.drones;
         }
+       
         public IEnumerable<Drone> IEDroneList(Func<Drone, bool> predicate = null)
         {
             List<Drone> droneList = new List<Drone>();

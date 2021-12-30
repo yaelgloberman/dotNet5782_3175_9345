@@ -74,6 +74,20 @@ namespace PL
             ParcelToList p = (ParcelToList)parcelListBox.SelectedItem;
            
         }
+
+        private void btnGroupByS_Click(object sender, RoutedEventArgs e)
+        {
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(parcelListBox.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("senderName");
+            view.GroupDescriptions.Add(groupDescription);
+        }
+
+        private void btnGroupByR_Click(object sender, RoutedEventArgs e)
+        {
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(parcelListBox.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("receiveName");
+            view.GroupDescriptions.Add(groupDescription);
+        }
     }
 
 }

@@ -11,10 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 using BO;
 using BlApi;
-using System.Collections.ObjectModel;
-
 namespace PL
 {
     /// <summary>
@@ -22,15 +21,16 @@ namespace PL
     /// </summary>
     public partial class StationToListWindow : Window
     {
+       
         IBl bL;
         ObservableCollection<BaseStationToList> myObservableCollection;
         public StationToListWindow(IBl bl)
         {
             InitializeComponent();
             this.bL = bl;
-            myObservableCollection = new ObservableCollection<BaseStationToList>(bl.GetBaseStationToList());
+            myObservableCollection = new ObservableCollection<BaseStationToList>(bl.GetBaseStationToList().ToList());
             DataContext = myObservableCollection;
-            StationToListView.ItemsSource = bL.GetBaseStationToLists();
+            StationToListView.ItemsSource = bL.GetBaseStationToLists().ToList();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

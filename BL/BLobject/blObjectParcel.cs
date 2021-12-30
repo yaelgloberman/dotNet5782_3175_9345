@@ -210,6 +210,8 @@ namespace BL
                 dal.attribute(myDrone.id, myParcel.id);
                 int index = drones.FindIndex(x => x.id == droneId);
                 drones.RemoveAt(index);
+                DO.Drone drone = dal.GetDrone(myDrone.id);
+                dal.deleteDrone(drone);
                 myDrone.droneStatus = DroneStatus.delivery;
                 myDrone.parcelId = myParcel.id;
                 addDrone(myDrone, station.id);

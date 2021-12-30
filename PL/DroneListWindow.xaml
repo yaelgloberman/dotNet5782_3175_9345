@@ -30,12 +30,12 @@
                     <Button x:Name="groupByStatus" Content="group by status" Grid.Column="5" Click="groupByStatus_Click"/>
                     <Button x:Name="groupByWeight" Content="group by weight" Grid.Column="4"/>
         </Grid>
-               <ListView x:Name="DroneListView" ItemsSource="{Binding}" DataContext="{Binding}" HorizontalContentAlignment="Stretch" MouseDoubleClick="DoubleClick" BorderBrush="#FFE5EACD" Background="#FFDFD9B7" Margin="0,48,0,48" Grid.RowSpan="2">
+               <ListView x:Name="DroneListView" ItemsSource="{Binding UpdateSourceTrigger=PropertyChanged}" DataContext="{Binding UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Stretch" MouseDoubleClick="DoubleClick" BorderBrush="#FFE5EACD" Background="#FFDFD9B7" Margin="0,48,0,48" Grid.RowSpan="2">
                     <ListView.View>
                         <GridView>
                     <GridViewColumn Header="id" Width="100" DisplayMemberBinding="{Binding id}" />
                     <GridViewColumn Header="drone Model" Width="100" DisplayMemberBinding="{Binding droneModel}" />
-                    <GridViewColumn Header="status" Width="100" DisplayMemberBinding="{Binding droneStatus}" />
+                    <GridViewColumn Header="status" Width="100" DisplayMemberBinding="{Binding droneStatus }" />
                     <GridViewColumn Header="weight" Width="100" DisplayMemberBinding="{Binding weight}" />
                     <GridViewColumn Header="battery status" Width="80" DisplayMemberBinding="{Binding batteryStatus}" />
                     <GridViewColumn Header="location" Width="200" DisplayMemberBinding="{Binding location}" />

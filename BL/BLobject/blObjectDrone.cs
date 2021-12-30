@@ -239,13 +239,13 @@ namespace BL
                 droneBo.location = drone.location;
                 droneBo.batteryStatus = drone.batteryStatus;
                 int parcelID = dal.GetParcelList().ToList().Find(x => x.droneId == droneBo.id).id;
-                if (parcelID != 0)
-                {
-                    droneBo.parcelId = parcelID;
-                    droneBo.droneStatus = DroneStatus.delivery;
-                }
-                else
-                     droneBo.droneStatus = drone.droneStatus;
+                //if (parcelID != 0)
+                //{
+                //    droneBo.parcelId = parcelID;
+                //    droneBo.droneStatus = DroneStatus.delivery;
+                //}
+                //else
+                droneBo.droneStatus = drone.droneStatus;
                 return droneBo;
             }
             catch (ArgumentNullException exp)
