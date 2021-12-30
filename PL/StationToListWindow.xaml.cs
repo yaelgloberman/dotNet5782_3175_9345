@@ -67,6 +67,12 @@ namespace PL
             Close();
         }
 
+        private void StationToListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
+           CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(StationToListView.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("stationName");
+            view.GroupDescriptions.Add(groupDescription);
+        }
     }
 }

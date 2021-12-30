@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
-        mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="StationToListWindow" Height="450" Width="800">
     <Grid>
@@ -13,20 +12,38 @@
             <RowDefinition Height="383*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100*"/>
-            <ColumnDefinition Width="100*"/>
-            <ColumnDefinition Width="100*"/>
-            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <ListView x:Name="StationToListView" DataContext="{Binding}" ItemsSource="{Binding}"  MouseDoubleClick="DoubleClick" Grid.ColumnSpan="4" FontSize="16" FontStretch="Expanded" FontStyle="Italic" FontWeight="Bold" Grid.Row="1" HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Width="Auto">
-            <ListView.Background>
+        <ListView x:Name="StationToListView" DataContext="{Binding}" ItemsSource="{Binding}"  MouseDoubleClick="DoubleClick" Grid.ColumnSpan="4" FontSize="16" FontStretch="Expanded" FontStyle="Italic" FontWeight="Bold" Grid.Row="1" HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Width="Auto" SelectionChanged="StationToListView_SelectionChanged">
+            <!--<ListView.Background>
                 <ImageBrush ImageSource="C:\Users\rinaw\source\repos\yaelgloberman\dotNet5782_3175_9345\PL\pics\imageedit_1_3256771342.jpg" Opacity="0.4"/>
-            </ListView.Background>
+            </ListView.Background>-->
             <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="id" Width="100" DisplayMemberBinding="{Binding id}" />
+                    <GridViewColumn Header="station name" Width="130" DisplayMemberBinding="{Binding stationName}" />
+                    <GridViewColumn Header="avilableChargeSlots" Width="200" DisplayMemberBinding="{Binding avilableChargeSlots}" />
+                    <GridViewColumn Header="unavilableChargeSlots" Width="200" DisplayMemberBinding="{Binding unavilableChargeSlots}"/>
+                </GridView>
+            </ListView.View>
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <Label FontWeight="Bold" FontSize="80"  Content="{Binding avilableChargeSlots}" />
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </ListView.GroupStyle>c:\users\yaeli\desktop\dotnet5782_3175_9344\bl\bo\station\basestationtolist.cs
+
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
-            </ListView.View>
         </ListView>
         <Button Content="Available Slots"  Grid.Row="0" Click="Button_Click" Grid.Column="1" BorderThickness="10,10,10,10" SnapsToDevicePixels="True" ClipToBounds="True" Background="#FFC191D2" FontFamily="Algerian" FontSize="14">
             <Button.BorderBrush>
@@ -61,5 +78,15 @@
                 </LinearGradientBrush>
             </Button.BorderBrush>
         </Button>
+        <Button x:Name="groupByAvlChargeS" Content="glgroup by CS" Grid.Column="4"  Height="Auto" Width="Auto" BorderThickness="7,10,10,10" SnapsToDevicePixels="True" Foreground="#FF67486C" Background="#FFC191D2" FontFamily="Algerian" FontSize="14">
+            <Button.BorderBrush>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#FF612275" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.BorderBrush>
+        </Button>
     </Grid>
 </Window>
+
+

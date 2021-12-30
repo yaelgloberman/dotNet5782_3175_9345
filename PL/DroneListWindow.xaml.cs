@@ -28,15 +28,16 @@ namespace PL
         private static Drone drone = new();
         static Weight? weightFilter;
         static DroneStatus? statusFilter;
-        
+
         public DroneListWindow(IBl bl)
         {
             InitializeComponent();
             this.bL = bl;
             WeightSelector.ItemsSource = Enum.GetValues(typeof(BO.Weight));
-            statusSelector.ItemsSource= Enum.GetValues(typeof(BO.DroneStatus));
+            statusSelector.ItemsSource = Enum.GetValues(typeof(BO.DroneStatus));
             myObservableCollectionDrone = new ObservableCollection<DroneToList>(bL.GetDrones());
             DataContext = myObservableCollectionDrone;
+            DroneListView.ItemsSource = bL.GetDrones();
         }
         private void addDrone_Click(object sender, RoutedEventArgs e)
         {
@@ -50,6 +51,7 @@ namespace PL
         {
             Close();
         }
+   
         private void selectWeight(Object sender, SelectionChangedEventArgs e)
         {
             if (WeightSelector.SelectedIndex != -1)
@@ -111,6 +113,12 @@ namespace PL
             WeightSelector.SelectedIndex = -1;
             statusSelector.SelectedIndex = -1;
         }
-         
+
+        private void groupByStatus_Click(object sender, RoutedEventArgs e)
+        {
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(DroneListView.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("droneStatus");
+            view.GroupDescriptions.Add(groupDescription);
+        }
     }
 }

@@ -47,7 +47,7 @@ namespace BL
                     {
                         drt.droneStatus = DroneStatus.delivery;
                     }
-                     var baseStationLocations = BaseStationLocationslist();
+                    var baseStationLocations = BaseStationLocationslist();
                     foreach (var pr in p)
                     {
                         if (pr.id == item.id && pr.delivered == null)

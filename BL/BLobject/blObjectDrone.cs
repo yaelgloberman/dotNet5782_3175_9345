@@ -99,8 +99,8 @@ namespace BL
             drones.Add(droneToAdd);
         }
         #endregion
-       
-      
+
+
         /// <summary>
         /// recieving a drone from the data source and returning ot to the progrmmer with the bl Drone (regular) features
         /// </summary>
@@ -109,26 +109,25 @@ namespace BL
         /// <exception cref="dosntExisetException"></exception>
         public BO.Drone returnsDrone(int id)
         {
-
-            var drn = GetDrones().Find(x => x.id == id);
-            if (drn == null)
+            var drtl = GetDrones().Find(x => x.id == id);
+            if (drtl == null)
                 throw new dosntExisetException("Error! the drone doesn't found");
-            BO.Drone d = new BO.Drone();
-            d.id = drn.id;
-            d.droneModel = drn.droneModel;
-            d.weight = drn.weight;
-            d.droneStatus = drn.droneStatus;
-            d.batteryStatus = drn.batteryStatus;
+            BO.Drone d = new();
+            d.id = drtl.id;
+            d.droneModel = drtl.droneModel;
+            d.weight = drtl.weight;
+            d.droneStatus = drtl.droneStatus;
+            d.batteryStatus = drtl.batteryStatus;
             d.location = new BO.Location();
-            d.location = drn.location;
+            d.location = drtl.location;
             BO.ParcelInTransfer pt = new BO.ParcelInTransfer();
-            if (drn.droneStatus == BO.DroneStatus.delivery)
+            if (drtl.droneStatus == BO.DroneStatus.delivery)
             {
-                pt.id = drn.parcelId;
+                pt.id = drtl.parcelId;
                 DO.Parcel p = new DO.Parcel();
                 try
                 {
-                    p = dal.GetParcel(drn.parcelId);//get the parcel from the dal
+                    p = dal.GetParcel(drtl.parcelId);//get the parcel from the dal
                 }
                 catch (Exception)
                 {
@@ -158,6 +157,66 @@ namespace BL
             }
             return d;
         }
+        //public BO.Drone returnsDrone(int id)
+        //{
+        //    try
+        //    {
+        //        var drn = drones.Find(x => x.id == id);
+        //        if (drn == null)
+        //            throw new Exception("Error! the drone doesn't found");
+        //        BO.Drone d = new();
+        //        d.id = drn.id;
+        //        d.droneModel = drn.droneModel;
+        //        d.weight = drn.weight;
+        //        d.droneStatus = drn.droneStatus;
+        //        d.batteryStatus = drn.batteryStatus;
+        //        d.location = new Location();
+        //        d.location = drn.location;
+        //        ParcelInTransfer pt = new ParcelInTransfer();
+        //        if (drn.droneStatus == DroneStatus.delivery)
+        //        {
+        //            pt.id = drn.parcelId;
+        //            DO.Parcel p = new DO.Parcel();
+        //            try
+        //            {
+        //                p = dal.findParcel(drn.parcelId);//get the parcel from the dal
+        //            }
+        //            catch (Exception)
+        //            {
+        //                throw new Exception("Error! the parcel not found");
+        //            }
+        //            if (p.pickedUp == DateTime.MinValue)
+        //                pt.parcelStatus = false;
+        //            else
+        //                pt.parcelStatus = true;
+        //            pt.priority = (Priority)p.priority;
+        //            pt.weight = (Weight)p.weight;
+        //            pt.sender = new CustomerInParcel();
+        //            pt.sender = getCustomerInParcel(p.senderId);
+        //            pt.receive = new CustomerInParcel();
+        //            pt.receive = getCustomerInParcel(p.targetId);
+        //            DO.Customer sender = dal.findCustomer(p.senderId);
+        //            DO.Customer target = dal.findCustomer(p.targetId);
+        //            pt.collection = new Location();
+        //            pt.collection.longitude = sender.longitude;
+        //            pt.collectionLocation.latitude = sender.lattitude;
+        //            pt.targetLocation = new Location();
+        //            pt.targetLocation.longitude = target.longitude;
+        //            pt.targetLocation.latitude = target.lattitude;
+        //            pt.distance = distance(pt.collectionLocation, pt.targetLocation);
+
+        //            d.parcel = new ParcelInTransfer();
+        //            d.parcel = pt;
+        //        }
+        //        return d;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw new BLgeneralException(e.Message /, e /);
+        //    }
+        //}
+
+
         //#endregion
         #region Get Drone
         /// <summary>

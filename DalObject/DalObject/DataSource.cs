@@ -100,8 +100,6 @@ namespace Dal
             for (int i = 0; i < 10; i++)
             {
                var parcel=new Parcel();
-
-                
                 parcel.id = Config.parcelSerial++;
                 parcel.senderId = Customers[(i + 5) % 9].id;
                 parcel.targetId = Customers[i].id;
@@ -111,7 +109,6 @@ namespace Dal
                 {
                     parcel.droneId = drones.ToArray()[i].id;
                     parcel.requested = DateTime.Now;
-
                 }
                 else
                     parcel.droneId =0;
@@ -120,7 +117,7 @@ namespace Dal
                 parcel.pickedUp = null;
                 parcel.delivered = null;
                 parcels.Add(parcel);
-             }
+            }
                 Config.numberId++;
             }
         }
