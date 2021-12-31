@@ -38,22 +38,21 @@ namespace PL
         {
             InitializeComponent();
             bL = BlApi.BlFactory.GetBl();
-            dr = bL.returnsDrone(drone.id);
-            dr.parcelInTransfer = new ParcelInTransfer();
-            this.DataContext = dr;
+            this.DataContext = drone;
             addDrone.Visibility = Visibility.Hidden;
             btnModelUpdate.Visibility = Visibility.Visible;
-            if (dr.droneStatus == DroneStatus.available)
+            if (drone.droneStatus == DroneStatus.available)
             {
                 btnSendToCharge.Visibility = Visibility.Visible;
                 btnMatchingDroneToParcel.Visibility = Visibility.Visible;
             }
-            if (dr.droneStatus == DroneStatus.charge)
+            if (drone.droneStatus == DroneStatus.charge)
             {
                 btnRelesingDrone.Visibility = Visibility.Visible;
             }
 
         }
+       
         public static void ValidateString(string string1)
         {
             List<string> invalidChars = new List<string>() { "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-" };
@@ -111,16 +110,16 @@ namespace PL
             try
             {
                 ValidateString(txbUpdateModel.Text);
-                //if (dr.droneModel == txbUpdateModel.Text)
-                //{
-                //    MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
-                //    this.Close();
-                //}
-                //else
-                //{
-                    bL.updateDroneName(dr.id, txbUpdateModel.Text);
+                if (dr.droneModel == txbUpdateModel.Text)
+                {
+                    MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
+                    this.Close();
+                }
+                else
+                {
+                    bL.updateDroneName(Convert.ToInt32(txbDroneId.Text), txbUpdateModel.Text);
                     MessageBox.Show("succsesfully update the drone name!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                //}
+                }
 
             }
             catch (Exception exp)
@@ -143,7 +142,6 @@ namespace PL
                 catch (Exception exp)
                 {
                     MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-
                 }
             }
 

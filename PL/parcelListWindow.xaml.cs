@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using BO;
 using BlApi;
 namespace PL
@@ -82,7 +83,9 @@ namespace PL
             view.GroupDescriptions.Add(groupDescription);
         }
 
-        private void btnGroupByR_Click(object sender, RoutedEventArgs e)
+        
+
+        private void btnGroupByR_Click_(object sender, RoutedEventArgs e)
         {
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(parcelListBox.ItemsSource);
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("receiveName");

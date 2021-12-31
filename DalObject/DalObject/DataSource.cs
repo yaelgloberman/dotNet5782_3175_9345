@@ -81,7 +81,7 @@ namespace Dal
 
         static void createCustomer()
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 100; i++)
             {
                 Customers.Add(new Customer()
                 {
@@ -90,8 +90,7 @@ namespace Dal
                     phoneNumber = r.Next(11111111, 99999999),
                     longitude = getRandomCordinates(34.3, 35.5),
                     latitude = getRandomCordinates(31.0, 33.3),
-                    isActive=true
-                }) ;
+                });
             }
         }
 
@@ -99,7 +98,9 @@ namespace Dal
         {
             for (int i = 0; i < 10; i++)
             {
-               var parcel=new Parcel();
+                var parcel = new Parcel();
+
+
                 parcel.id = Config.parcelSerial++;
                 parcel.senderId = Customers[(i + 5) % 9].id;
                 parcel.targetId = Customers[i].id;
@@ -109,20 +110,21 @@ namespace Dal
                 {
                     parcel.droneId = drones.ToArray()[i].id;
                     parcel.requested = DateTime.Now;
+
                 }
                 else
-                    parcel.droneId =0;
+                    parcel.droneId = 0;
                 parcel.requested = null;
                 parcel.scheduled = null;
                 parcel.pickedUp = null;
                 parcel.delivered = null;
                 parcels.Add(parcel);
             }
-                Config.numberId++;
-            }
+            Config.numberId++;
         }
-
     }
+
+}
 
 
 

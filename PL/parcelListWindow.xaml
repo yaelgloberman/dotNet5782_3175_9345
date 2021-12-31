@@ -34,7 +34,7 @@
                 <GroupStyle>
                     <GroupStyle.HeaderTemplate>
                         <DataTemplate>
-                            <Label FontWeight="Bold" FontSize="80" Content="{Binding senderName}"/>
+                            <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Name}"/>
                         </DataTemplate>
                     </GroupStyle.HeaderTemplate>
                 </GroupStyle>
@@ -42,7 +42,7 @@
         </ListView>
         <Button x:Name="btnAddParcel" Content="add parcel" Grid.Column="0" Grid.Row="0" Click="btnAddParcel_Click" />
         <Button x:Name="btnGroupByS" Content="group by sender" Grid.Column="2" Grid.Row="0" Click="btnGroupByS_Click" />
-        <Button x:Name="btnGroupByR" Content="group by recive" Grid.Column="3" Grid.Row="0" Click="btnGroupByR_Click" />
+        <Button x:Name="btnGroupByR" Content="group by recive" Grid.Column="3" Grid.Row="0" Click=" btnGroupByR_Click_" />
         <Button Name="btnDeleteParcel" Content="delete parcel" Grid.Column="1" Grid.Row="0" Click="btnDeleteParcel_Click">
 
             <Button.Style>

@@ -43,23 +43,31 @@ namespace PL
             add.Visibility = Visibility.Hidden;
             parcel= bL.GetParcel(ptl.id);
             this.DataContext = parcel;
-            txbID.IsReadOnly = true;
             if(parcel.droneInParcel!=null)
             {
-                btnDeliveryToCustomer.Visibility = Visibility.Visible;
-                lblDroneInParcel.Visibility = Visibility.Visible;
-                txbDroneInParcelBattery.Visibility = Visibility.Visible;
-                txbDroneInParcelId.Visibility = Visibility.Visible;
-                txbDroneInParcelLocationLatitude.Visibility = Visibility.Visible;
-                txbDroneInParcelLocationLongitude.Visibility = Visibility.Visible;
+                if (parcel.delivered == null)
+                {
+                    btnPickUpParcelByDrone.Visibility = Visibility.Visible;
+                    btnDroneParcelW.Visibility = Visibility.Visible;
+                    btnCustomerSenderParcelW.Visibility = Visibility.Visible;
+                    btnCustomerReciverParcelW.Visibility = Visibility.Visible;
+                    if (parcel.pickedUp != null)
+                    {
+                        btnDeliveryToCustomer.Visibility = Visibility.Visible;
+                    }
+                }
+                //lblDroneInParcel.Visibility = Visibility.Visible;
+                //txbDroneInParcelBattery.Visibility = Visibility.Visible;
+                //txbDroneInParcelId.Visibility = Visibility.Visible;
+                //txbDroneInParcelLocationLatitude.Visibility = Visibility.Visible;
+                //txbDroneInParcelLocationLongitude.Visibility = Visibility.Visible;
                 if (parcel.delivered != null)
                 {
                     lblDelivered.Visibility = Visibility.Visible;
                     txbDeliverd.Visibility = Visibility.Visible;
+                    checkBoxAgree.Visibility = Visibility.Visible;
                 }
             }
-            else
-                btnPickUpParcelByDrone.Visibility = Visibility.Visible;
             if (parcel.requested!=null)
             {
                 lblRequested.Visibility = Visibility.Visible;
@@ -93,8 +101,7 @@ namespace PL
         {
             try
             {
-                
-                bL.pickedUpParcelByDrone(Convert.ToInt32(txbID.Text));
+                bL.pickedUpParcelByDrone(parcel.droneInParcel.id);
                 MessageBox.Show("succsesfully pick up parcel by drone!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
             }
@@ -149,6 +156,26 @@ namespace PL
                 MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
 
             }
+        }
+
+        private void btnDroneParcel_Click(object sender, RoutedEventArgs e)
+        {
+            DroneWindow wnd = new DroneWindow(bL.returnsDrone(parcel.droneInParcel.id));
+            wnd.ShowDialog();
+
+        }
+
+        private void btnCustomerSParcel_Click(object sender, RoutedEventArgs e)
+        {
+
+            CustomerWindow wnd = new CustomerWindow(bL.GetCustomer(parcel.sender.id));
+            wnd.ShowDialog();
+        }
+        private void btnCustomerRParcel_Click(object sender, RoutedEventArgs e)
+        {
+
+            CustomerWindow wnd = new CustomerWindow(bL.GetCustomer(parcel.receive.id));
+            wnd.ShowDialog();
         }
     }
 }

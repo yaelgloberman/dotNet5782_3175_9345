@@ -43,10 +43,6 @@ namespace PL
             txbID.IsReadOnly = true;
             txbLatitude.IsReadOnly = true;
             txbLongitude.IsReadOnly = true;
-            
-
-
-
         }
         public static void ValidateString(string string1)
         {
@@ -79,8 +75,6 @@ namespace PL
                    throw new Exception("Please enter correct input");
                 }
                 ValidateString(txbName.Text);
-
-
                 if (!(Convert.ToInt32(txbID.Text) >= 10000000 && Convert.ToInt32(txbID.Text) <= 1000000000))
                         throw new validException("the id number of the drone is invalid\n");
                     if (!(Convert.ToInt32(txbPhoneNumber.Text) >= 500000000 && (Convert.ToInt32(txbPhoneNumber.Text)) <= 0589999999))
@@ -157,14 +151,6 @@ namespace PL
             general.Visibility = Visibility.Hidden;
             sentParcelsListView.ItemsSource = customer.SentParcels;
 
-            //try
-            //{
-            //    DataContext = bL.GetCustomer(Convert.ToInt32(txbID.Text)).SentParcels;
-            //}
-            //catch (BO.dosntExisetException exp)
-            //{
-            //    MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-            //}
         }
         private void btnReceiveParcel_Click(object sender, RoutedEventArgs e)
         {
@@ -173,15 +159,7 @@ namespace PL
             updateParcels.Visibility = Visibility.Hidden;
             general.Visibility = Visibility.Hidden;
             ReciveParcelsListView.ItemsSource = customer.ReceiveParcel;
-            //try
-            //{
-            //    ReciveParcelsListView.ItemsSource = (bL.GetCustomer(Convert.ToInt32(txbID.Text))).ReceiveParcel;
-
-            //}
-            //catch (BO.dosntExisetException exp)
-            //{
-            //    MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-            //}
+          
         }
     }
 }

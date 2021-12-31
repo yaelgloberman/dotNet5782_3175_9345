@@ -105,6 +105,8 @@ namespace BL
                 CustomerBo.phoneNumber = CustomerDo.phoneNumber;
                 CustomerBo.location = new Location() { latitude = CustomerDo.latitude, longitude = CustomerDo.longitude };
                 IEnumerable<DO.Parcel> lstP = dal.GetParcels();
+                CustomerBo.SentParcels = new List<ParcelCustomer>();
+                CustomerBo.ReceiveParcel = new List<ParcelCustomer>();
                 foreach (var item in lstP)
                 {
                     //מוצא את כל החבילות שהלקוח מקבל
@@ -117,7 +119,6 @@ namespace BL
                         tmp.CustomerInParcel = new CustomerInParcel();
                         tmp.CustomerInParcel.id = item.senderId;
                         tmp.CustomerInParcel.name = dal.GetCustomer(item.senderId).name;
-                        CustomerBo.ReceiveParcel = new List<ParcelCustomer>();
                         CustomerBo.ReceiveParcel.Add(tmp);
                     }
                     //מוצא את כל החבילות שהלקוח שולח
@@ -130,7 +131,6 @@ namespace BL
                         tmp.CustomerInParcel.id = item.targetId;
                         tmp.CustomerInParcel.name = dal.GetCustomer(item.targetId).name;
                         tmp.priority = GetParcelPriorty(item.id);
-                        CustomerBo.SentParcels = new List<ParcelCustomer>();
                         CustomerBo.SentParcels.Add(tmp);
                     }
                 }
@@ -272,7 +272,8 @@ namespace BL
 
                     throw new AlreadyExistException("the customer already exist", exp);
                 }
-                // Nה צריך לבדוק עם SentParcels ReceiveParcel
+                // Nה צריך לבדוק עם
+                // ReceiveParcel
             }
             #endregion
         }
