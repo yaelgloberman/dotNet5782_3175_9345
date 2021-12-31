@@ -36,8 +36,9 @@ namespace PL
             WeightSelector.ItemsSource = Enum.GetValues(typeof(BO.Weight));
             statusSelector.ItemsSource = Enum.GetValues(typeof(BO.DroneStatus));
             myObservableCollectionDrone = new ObservableCollection<DroneToList>(bL.GetDrones());
+
+            //myObservableCollectionDrone = new ObservableCollection<DroneToList>(bL.allDrones(x=>x is DroneToList));
             DataContext = myObservableCollectionDrone;
-            DroneListView.ItemsSource = bL.GetDrones();
         }
         private void addDrone_Click(object sender, RoutedEventArgs e)
         {
@@ -107,6 +108,8 @@ namespace PL
             myObservableCollectionDrone = new ObservableCollection<DroneToList>(bL.GetDrones());
             DataContext = myObservableCollectionDrone;
         }
+
+   
         private void refresh_Click_1(object sender, RoutedEventArgs e)
         {
             DroneListView.ItemsSource = bL.GetDrones();

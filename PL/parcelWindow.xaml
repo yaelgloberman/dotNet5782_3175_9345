@@ -35,26 +35,25 @@
             </Grid.RowDefinitions>
             <Label Name="lblSender" Content="sender:" Grid.Column="1" Grid.Row="1" FontSize="22"/>
             <Label Name="lblRecive" Content="recive:" Grid.Column="1" Grid.Row="2" FontSize="22"/>
-            <Label Name="lblWeight" Content="weight:" Grid.Column="1" Grid.Row="3" FontSize="22" Grid.ColumnSpan="2"/>
+            <Label Name="lblWeight" Content="weight:" Grid.Column="1" Grid.Row="3" FontSize="22" />
             <Label Name="lblPriority" Content="priority:" Grid.Column="1" Grid.Row="4" FontSize="22"/>
-            <Label Name="lblDroneInParcel" Content="drone in parcel:" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="5" FontSize="22" Visibility="Hidden"/>
-            <Label Name="lblRequested" Visibility="Hidden" Content="requested:" Grid.Column="1" Grid.Row="6" FontSize="22"/>
-            <Label Name="lblScheduled" Visibility="Hidden" Content="scheduled:" Grid.Column="1" Grid.Row="7" FontSize="22"/>
-            <Label Name="lblDelivered" Visibility="Hidden" Content="delivered:" Grid.Column="1" Grid.Row="8" FontSize="22"/>
-            <Label Name="lblPickedUp" Visibility="Hidden" Content="pickedUp:" Grid.Column="1" Grid.Row="9" FontSize="22"/>
+            <!--<Label Name="lblDroneInParcel" Content="drone in parcel:" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="5" FontSize="22" />-->
+            <Label Name="lblRequested"  Content="requested:" Grid.Column="1" Grid.Row="6" FontSize="22"/>
+            <Label Name="lblScheduled"  Content="scheduled:" Grid.Column="1" Grid.Row="7" FontSize="22"/>
+            <Label Name="lblDelivered"  Content="delivered:" Grid.Column="1" Grid.Row="8" FontSize="22"/>
+            <Label Name="lblPickedUp"  Content="pickedUp:" Grid.Column="1" Grid.Row="9" FontSize="22"/>
         </Grid>
-              
-        
-        
-        
+
+
+
+
         <Grid x:Name="general">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50" />
                 <ColumnDefinition Width="120" />
-                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="90" />
                 <ColumnDefinition Width="100" />
                 <ColumnDefinition Width="70" />
-                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -72,30 +71,39 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Label x:Name="lblId" Content="id:" Grid.Column="1" FontSize="22"/>
-            <TextBox Name="txbID" Text="{Binding id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="0"  Grid.Column="2"/>
+            <Label x:Name="lblId" Content="id:" Grid.Row="0"  Grid.Column="1" FontSize="22"/>
+            <TextBlock Name="txbID" Text="{Binding id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  FontSize="22" Grid.Row="0"  Grid.Column="2"/>
             <Label Name="lblSenderId" Content="id:" Grid.Column="2" Grid.Row="1" FontSize="22"/>
-            <Label Name="lblSenderName" Content="name:" Grid.Column="3" Grid.Row="1" FontSize="22"/>
-            <Label Name="lblReciveName" Content="name:" Grid.Column="3" Grid.Row="2" FontSize="22"/>
+            <Label Name="lblSenderName" Content="name:" Grid.Column="4" Grid.Row="1" FontSize="22"/>
+            <Label Name="lblReciveName" Content="name:" Grid.Column="4" Grid.Row="2" FontSize="22"/>
             <Label Name="lblReciveId" Content="id:" Grid.Column="2" Grid.Row="2" FontSize="22"/>
-            <TextBox Name="txbSenderId" Text="{Binding sender.id , Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"   Grid.Column="2" Grid.Row="1" />
-            <TextBox Name="txbSenderName" Text="{Binding sender.name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"   Grid.Column="4" Grid.Row="1" />
-            <TextBox Name="txbReciveId" Text="{Binding receive.id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.Row="2" />
-            <TextBox Name="txbReciveName" Text="{Binding receive.name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="4" Grid.Row="2" />
-            <TextBox Name="txbWeight" Text="{Binding weightCategorie, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.Row="3"  />
-            <TextBox Name="txbPriority" Text="{Binding priority, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.Row="4"/>
-            <TextBox Name="txbDroneInParcelId" Visibility="Hidden" Text="{Binding droneInParcel.id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.Row="5" />
-            <TextBox Name="txbDroneInParcelBattery" Visibility="Hidden" Text="{Binding droneInParcel.battery, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="5" />
-            <TextBox Name="txbDroneInParcelLocationLongitude" Visibility="Hidden" Text="{Binding droneInParcel.location.longitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="4" Grid.Row="5" />
-            <TextBox Name="txbDroneInParcelLocationLatitude" Visibility="Hidden" Text="{Binding droneInParcel.location.latitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="5" Grid.Row="5" />
-            <TextBox Name="txbRequested" Visibility="Hidden" Text="{Binding requested, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="6" />
-            <TextBox Name="txbScheduled" Visibility="Hidden" Text="{Binding scheduled, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="7" />
-            <TextBox Name="txbDeliverd" Visibility="Hidden" Text="{Binding delivered, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="8"/>
-            <TextBox Name="txbPickedUp" Visibility="Hidden" Text="{Binding pickedUp,Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="9" />
-            <Button x:Name="btnDeliveryToCustomer" Content="delivery parcel to customer"  Grid.Column="5" Grid.Row="9"   Click="btnDeliveryToCustomer_Click" Background="#FFF49F9F" FontFamily="Baskerville Old Face" FontSize="13" Visibility="Hidden"  />
-            <Button x:Name="btnPickUpParcelByDrone" Content="pick up parcel by drone" Grid.Column="4" Grid.Row="9"   Click="btnPickUpParcelByDrone_Click"  Background="#FFF6C594" FontFamily="Baskerville Old Face" FontSize="14" Visibility="Hidden" />
+            <TextBlock Name="txbSenderId" Text="{Binding sender.id , Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"   Grid.Column="3" Grid.Row="1" FontSize="22" />
+            <TextBlock Name="txbSenderName" Text="{Binding sender.name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"   Grid.Column="5" Grid.Row="1" FontSize="22" />
+            <TextBlock Name="txbReciveId" Text="{Binding receive.id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="2" FontSize="22" />
+            <TextBlock Name="txbReciveName" Text="{Binding receive.name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="5" Grid.Row="2" FontSize="22" />
+            <TextBlock Name="txbWeight" Text="{Binding weightCategorie, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.Row="3" FontSize="22"  />
+            <TextBlock Name="txbPriority" Text="{Binding priority, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.Row="4" FontSize="22"/>
+            <!--<TextBlock Name="txbDroneInParcelId"  Text="{Binding droneInParcel, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="1" Grid.ColumnSpan="7" Grid.Row="5" FontSize="22" />-->
+            <!--<TextBlock Name="txbDroneInParcelId"  Text="{Binding droneInParcel.id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="5" FontSize="22" />
+            <TextBlock Name="txbDroneInParcelBattery" Text="{Binding droneInParcel.battery, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="5" FontSize="22"/>
+            <TextBlock Name="txbDroneInParcelLocationLongitude" Text="{Binding droneInParcel.location.longitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="4" Grid.Row="5" FontSize="22"/>
+            <TextBlock Name="txbDroneInParcelLocationLatitude" Text="{Binding droneInParcel.location.latitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="5" Grid.Row="5" FontSize="22"/>-->
+            <TextBlock Name="txbRequested"  Text="{Binding requested, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.Row="6" Grid.ColumnSpan="2" FontSize="22"/>
+            <TextBlock Name="txbScheduled"  Text="{Binding scheduled, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.Row="7" Grid.ColumnSpan="2"  FontSize="22" />
+            <TextBlock Name="txbDeliverd"  Text="{Binding delivered, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="8" FontSize="22"/>
+            <TextBlock Name="txbPickedUp" Text="{Binding pickedUp,Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.Row="9" FontSize="22" Grid.ColumnSpan="2" />
+            <Button x:Name="btnDeliveryToCustomer" Content="delivery parcel to customer"   Grid.Column="5" Grid.Row="9"   Click="btnDeliveryToCustomer_Click" Background="#FFF49F9F" FontFamily="Baskerville Old Face" FontSize="13" Visibility="Hidden" IsEnabled="{Binding ElementName=checkBoxAgree, Path=IsChecked}"/>
+            <Button x:Name="btnPickUpParcelByDrone" Content="pick up parcel by drone" Grid.Column="4" Grid.Row="9"   Click="btnPickUpParcelByDrone_Click"  Background="#FFF6C594" FontFamily="Baskerville Old Face" FontSize="14" Visibility="Hidden" IsEnabled="{Binding ElementName=checkBoxAgree, Path=IsChecked}" />
+            <Button x:Name="btnDroneParcelW" Content="open drone view"  Grid.Column="4"  HorizontalAlignment="Center"  Grid.ColumnSpan="2" Grid.Row="8"  Click="btnDroneParcel_Click"  />
+            <Button x:Name="btnCustomerSenderParcelW" Content="open customer S view"  HorizontalAlignment="Center"  Grid.Column="6" Grid.ColumnSpan="2" Grid.Row="8" Click="btnCustomerSParcel_Click"  />
+            <Button x:Name="btnCustomerReciverParcelW" Content="open customer R view" HorizontalAlignment="Center" Grid.Column="8" Grid.ColumnSpan="2" Grid.Row="8" Click="btnCustomerRParcel_Click"  />
+            <CheckBox x:Name="checkBoxAgree" Content="do you agree to pick up the parcel and deliverd id? " Grid.Column="5" Grid.ColumnSpan="5" Grid.Row="7" FontSize="15" IsChecked="False"  />
+            <TextBlock x:Name="dronInParcel" Text="{Binding droneInParcel, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"   Grid.Column="1" Grid.ColumnSpan="7" Grid.Row="5"/>
+            
+
+
         </Grid>
-        <Grid x:Name="add">
+        <Grid x:Name="add" d:IsHidden="True">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50" />
                 <ColumnDefinition Width="120" />
@@ -122,10 +130,16 @@
             </Grid.RowDefinitions>
             <ComboBox x:Name="comboBoxS" Grid.Column="2" Grid.Row="1"/>
             <ComboBox x:Name="comboBoxR" Grid.Column="2" Grid.Row="2" />
-            <ComboBox x:Name="comboBoxW" Grid.Column="2" Grid.Row="3"  /> 
+            <ComboBox x:Name="comboBoxW" Grid.Column="2" Grid.Row="3"  />
             <ComboBox x:Name="comboBoxP" Grid.Column="2" Grid.Row="4"/>
             <Button x:Name="btnAddParcel" Content="add"  Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="9" Click="btnAddParcel_Click"/>
 
+
         </Grid>
     </Grid>
+    
+    
+    
+    
+
 </Window>

@@ -69,7 +69,6 @@ namespace Dal
         public void updateDrone(int droneId,string droneModel)
         {
             bool flag = false;
-           
             DataSource.drones.ForEach(d => { if (d.id == droneId) { d.model = droneModel; flag = true; } }); 
             if (!flag)
             {
