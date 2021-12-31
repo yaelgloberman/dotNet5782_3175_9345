@@ -290,7 +290,7 @@ namespace BL
                     parcelStatus = (ParcelStatus)parcelStatus(parcel1)
                     
                 };
-                parcelToLists.Add(parcel);
+                parcelToLists.Add(parcel);//hi
             }
             return parcelToLists.Take(parcelToLists.Count).ToList();
         }
