@@ -47,7 +47,7 @@ namespace PL
         private void btnStationLists_Click_1(object sender, RoutedEventArgs e)
         {
             StationToListWindow wndS = new StationToListWindow(myBl);
-            wndS.ShowDialog();
+            wndS.Show();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

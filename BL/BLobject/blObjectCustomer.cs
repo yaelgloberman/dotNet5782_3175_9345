@@ -103,6 +103,7 @@ namespace BL
                 CustomerBo.id = CustomerDo.id;
                 CustomerBo.Name = CustomerDo.name;
                 CustomerBo.phoneNumber = CustomerDo.phoneNumber;
+                CustomerBo.PassWord = CustomerDo.Password;
                 CustomerBo.location = new Location() { latitude = CustomerDo.latitude, longitude = CustomerDo.longitude };
                 IEnumerable<DO.Parcel> lstP = dal.GetParcels();
                 CustomerBo.SentParcels = new List<ParcelCustomer>();
@@ -177,6 +178,8 @@ namespace BL
                 DO.Customer CustomerDo = dal.GetCustomer(id);
                 CustomerBo.id = CustomerDo.id;
                 CustomerBo.Name = CustomerDo.name;
+                CustomerBo.Password = CustomerDo.Password;
+                CustomerBo.isCustomer = CustomerDo.isCustomer;
                 CustomerBo.PhoneNumber = CustomerDo.phoneNumber;
                 CustomerBo.Parcles_Delivered_Recieved = CustomerSentParcel(id).Count;
                 CustomerBo.Parcels_Delivered_unrecieved = CustomerSentParcel(id).Count;   //נראלי שזה שלא קבלו אומר שהם לא אספו
@@ -262,6 +265,7 @@ namespace BL
                 CustomerDo.phoneNumber = CustomerToAdd.phoneNumber;
                 CustomerDo.longitude = CustomerToAdd.location.longitude;
                 CustomerDo.latitude = CustomerToAdd.location.latitude;
+            CustomerDo.Password = CustomerToAdd.PassWord;
                 CustomerDo.isActive = true;
                 try
                 {

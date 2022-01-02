@@ -14,6 +14,8 @@ using DO;
             public double longitude { set; get; }
             public double latitude { set; get; }
             public bool isActive { get; set; }
+        public string Password { get; set; }
+        public bool isCustomer { get; set; }
 
         public override string ToString()
             { 

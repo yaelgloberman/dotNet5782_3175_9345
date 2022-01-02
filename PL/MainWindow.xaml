@@ -14,8 +14,8 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Grid>
-                            <Ellipse Width="175" Height="70" Fill="#FFF9E35F" />
-                            <ContentControl Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <Ellipse Width="175" Height="70" Fill="#FFE8B099" />
+                            <ContentControl Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Black" />
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>

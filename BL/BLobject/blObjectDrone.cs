@@ -663,7 +663,7 @@ namespace BL
             if (drone.droneStatus != DroneStatus.available)
                 throw new unavailableException("the drone is unavailable");
             Location stationLocation = findClosestStationLocation(drone.location, false, BaseStationLocationslist());//not sure where and what its from
-            tation = GetStations().Find(x => x.location.longitude == stationLocation.longitude && x.location.latitude == stationLocation.latitude);
+            station = GetStations().Find(x => x.location.longitude == stationLocation.longitude && x.location.latitude == stationLocation.latitude);
             int droneIndex = drones.ToList().FindIndex(x => x.id == droneID);
             if (station.avilableChargeSlots > 0)
             {

@@ -53,7 +53,9 @@ namespace BlApi
         public BO.Drone returnsDrone(int id);
         public void matchingDroneToParcel(int droneID);
         public ParcelStatus parcelStatus(BO.Parcel parcel);
-        public IEnumerable<DO.droneCharges> GetChargegingDrones();
+        //public IEnumerable<DO.droneCharges> GetChargegingDrones();
+        public bool CheckValidPassword(string name, string Password);///have to ask if i could make it public ??????
+
 
     }
 }

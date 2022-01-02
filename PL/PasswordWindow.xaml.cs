@@ -27,18 +27,29 @@ namespace PL
         {
             InitializeComponent();
             myBl = BL.BL.Instance;
-            GridUser.Visibility = Visibility.Hidden;
+            GridUser.Visibility = Visibility.Visible;
+            GridPassword.Visibility = Visibility.Hidden;
             GridLogCustomer.Visibility = Visibility.Hidden; 
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (passwordBox.Password == "1234")
+            try
             {
-                GridUser.Visibility = Visibility.Visible;
-               // GridPassword.Visibility = Visibility.Hidden;
+                if (myBl.CheckValidPassword(NameBox.Text, passwordBox.Text))
+                {
+                   var C= myBl.GetCustomersToList().ToList().Find(x => x.Password == passwordBox.Text && x.isCustomer);
+                    if(C != null)//varifyig the customer is a customer and not a worker 
+                    { new MainCustomerWindow().ShowDialog();
+                        Close();
+                    }
+                    else
+                        throw new dosntExisetException();
+                    // GridPassword.Visibility = Visibility.Hidden;
+                }
             }
-            else
+            catch(dosntExisetException )
             {
+
                 MessageBox.Show("the password is incorrect!");
                 passwordBox.Clear();    
             }
@@ -54,19 +65,27 @@ namespace PL
 
         private void Button_Click_Customer(object sender, RoutedEventArgs e)
         {
+            GridUser.Visibility = Visibility.Hidden;
             GridLogCustomer.Visibility= Visibility.Visible; 
+
         }
 
         private void Button_Click_CreateAccount(object sender, RoutedEventArgs e)
         {
+            GridLogCustomer.Visibility = Visibility.Hidden;
+
             var wnd = new CustomerWindow();
             wnd.ShowDialog();
-            Close();
+            new MainCustomerWindow().ShowDialog();
+         //   Close();
         }
 
         private void Button_Click_LogIn(object sender, RoutedEventArgs e)
         {
-            GridPassword.Visibility = Visibility.Visible;   
+            GridPassword.Visibility = Visibility.Visible;
+
+            GridUser.Visibility = Visibility.Hidden;
+            GridLogCustomer.Visibility = Visibility.Hidden;
         }
 
         private void Button_Click_Back(object sender, RoutedEventArgs e)

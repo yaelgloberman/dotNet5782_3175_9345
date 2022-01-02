@@ -24,13 +24,17 @@ namespace PL
        
         IBl bL;
         ObservableCollection<BaseStationToList> myObservableCollection;
+        private static BaseStationToList ptl = new();
+       // private static StationToListView StationToListView = new();
+
+
         public StationToListWindow(IBl bl)
         {
             InitializeComponent();
             this.bL = bl;
-            myObservableCollection = new ObservableCollection<BaseStationToList>(bl.GetBaseStationToList().ToList());
+            myObservableCollection = new ObservableCollection<BaseStationToList>(bL.GetBaseStationToList());
             DataContext = myObservableCollection;
-            StationToListView.ItemsSource = bL.GetBaseStationToLists().ToList();
+           // StationToListView.ItemsSource = bL.GetBaseStationToLists().ToList();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

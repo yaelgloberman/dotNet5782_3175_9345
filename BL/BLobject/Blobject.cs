@@ -147,77 +147,17 @@ namespace BL
             chargeCapacity chargingUsage = new chargeCapacity { pwrAvailable = arr[0], pwrLight = arr[1], pwrAverge = arr[2], pwrHeavy = arr[3], pwrRateLoadingDrone = arr[4], chargeCapacityArr = arr };
             return chargingUsage;
         }
-        public IEnumerable<droneCharges> GetChargegingDrones()
+        public bool CheckValidPassword(string name, string Password)///have to ask if i could make it public ??????
         {
-           
-           return  dal.chargingGetDroneList();
-        }
-        #region Init drone
-       /// <summary>
-       /// intializes the drones in the cinstructor- was not used in the end
-       /// </summary>
-       /// <exception cref="ArgumentException"></exception>
-        private void initializeDrones()
-        {
-            try
-            {
-                foreach (var drone in dal.GetDrones())
-                {
-                    drones.Add(new DroneToList
-                    {
-                        id = drone.id,
-                        droneModel = drone.model,
-                        weight = (Weight)drone.maxWeight,
-                        droneStatus = DroneStatus.available,
-                        batteryStatus = 100,
-                        location = new Location
-                        {
-                            longitude = getRandomCordinatesBL(34.3, 35.5),
-                            latitude = getRandomCordinatesBL(31.0, 33.3),
-                        }
-                    }
-                    );
-                }
+            try { var Customer1 = GetCustomersToList().ToList().Where(x => x.Name == name && x.Password == Password );
+                if (Customer1 != null)
+                    return true;
+                return false;
             }
-            catch (ArgumentException exp)
-            {
-                throw new ArgumentException(exp.Message);
-            }
+            catch(dosntExisetException exp)
+            { throw new  dosntExisetException(exp.Message); }
 
-            foreach (var drone in drones.ToList())
-            {
-                if (isDroneWhileShipping(drone))
-                {
-                    drone.droneStatus = DroneStatus.delivery;
-                    drone.location = findDroneLocation(drone);
-                    int minBattery = calcMinBatteryRequired(drone);
-                    drone.batteryStatus = (double)rand.Next(minBattery, 100) / 100;
-                }
-                else
-                {
-                    drone.droneStatus = (DroneStatus)rand.Next(1, 2);
-                    if (drone.droneStatus == DroneStatus.charge)
-                    {
-                        DroneToList d = GetDrone(drone.id);
-                        d.droneStatus = DroneStatus.available;
-                        int num = rand.Next(1, dal.GetStationList().Count());
-                        var stationId = dal.GetStationList().ToArray()[num].id;
-                        addDrone(d, stationId);
-                        drone.location = getBaseStationLocation(stationId);
-                        drone.batteryStatus = (double)rand.Next(5, 20);
-                        drone.parcelId = 0;
-                    }
-                    if (drone.droneStatus == DroneStatus.available)
-                    {
-                        drone.location = findDroneLocation(drone);
-                        drone.parcelId = 0;
-                        int minBattery = calcMinBatteryRequired(drone);
-                        drone.batteryStatus = (double)rand.Next(minBattery, 100) / 100;
-                    }
-                }
-            }
         }
-        #endregion
         #region Get Used ChargingSlots
         /// <summary>
         /// a function that returns the unavailable chatrged slots
