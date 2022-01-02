@@ -10,7 +10,7 @@ using DO;
         {
             public int id { set; get; }
             public string name { set; get; }
-            public int phoneNumber { set; get; }
+            public string phoneNumber { set; get; }
             public double longitude { set; get; }
             public double latitude { set; get; }
             public bool isActive { get; set; }

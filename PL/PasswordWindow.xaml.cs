@@ -54,6 +54,11 @@ namespace PL
                 passwordBox.Clear();    
             }
         }
+        private void Button_Click_cancel(object sender, RoutedEventArgs e)
+        {
+            NameBox.Clear();
+            passwordBox.Clear();
+        }
 
         private void Button_Click_Worker(object sender, RoutedEventArgs e)
         {
@@ -93,5 +98,11 @@ namespace PL
             GridLogCustomer.Visibility=Visibility.Hidden;   
         }
 
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            GridPassword.Visibility = Visibility.Hidden;
+            GridUser.Visibility = Visibility.Visible;
+
+        }
     }
 }

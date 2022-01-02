@@ -10,7 +10,7 @@ namespace BO
     {
         public int id { get; set; }
         public string Name { get; set; }
-        public int phoneNumber { get; set; }
+        public string phoneNumber { get; set; }
         public Location location { get; set; }
         public List<ParcelCustomer> SentParcels { get; set; }
         public List<ParcelCustomer> ReceiveParcel { get; set; }

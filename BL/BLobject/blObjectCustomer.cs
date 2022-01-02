@@ -51,7 +51,7 @@ namespace BL
         /// <param name="phoneNum"></param>
         /// <exception cref="dosntExisetException"></exception>
         /// 
-        public void updateCustomer(int customerID, string Name = " ", int phoneNum = 0)
+        public void updateCustomer(int customerID, string Name, string phoneNum)
         {
             try
             {

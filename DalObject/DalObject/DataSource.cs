@@ -90,7 +90,7 @@ namespace Dal
                 {
                     id = r.Next(11111111, 99999999),
                     name = customerName[i],
-                    phoneNumber = r.Next(11111111, 99999999),
+                    phoneNumber = "05"+r.Next(11111111, 99999999),
                     longitude = getRandomCordinates(34.3, 35.5),
                     latitude = getRandomCordinates(31.0, 33.3),
                     Password = CapatalLetters[i] + p,
@@ -103,7 +103,7 @@ namespace Dal
                 {
                     id = r.Next(100000000, 999999999),
                     name = customerName[i],
-                    phoneNumber = r.Next(00000000, 99999999),
+                    phoneNumber ="05"+ r.Next(00000000, 99999999),
                     longitude = getRandomCordinates(34.3, 35.5),
                     latitude = getRandomCordinates(31.0, 33.3),
                     Password = CapatalLetters[i] + p,

@@ -83,11 +83,12 @@ namespace PL
                         throw new validException("the given latitude do not exist in this country/\n");
                     if ((Convert.ToInt32(txbLongitude.Text)) < 34.3 || (Convert.ToInt32(txbLongitude.Text)) > 35.5)
                         throw new validException("the given longitude do not exist in this country/\n");
-                    var c = new BO.Customer()
-                    {
-                        id = Convert.ToInt32(txbID.Text),
-                        Name = txbName.Text,
-                        phoneNumber = Convert.ToInt32(txbPhoneNumber.Text),
+                var c = new BO.Customer()
+                {
+                    id = Convert.ToInt32(txbID.Text),
+                    Name = txbName.Text,
+                    PassWord = txbPassword.Text,
+                        phoneNumber = txbPhoneNumber.Text,
                         location = new Location()
                         {
                             longitude = Convert.ToDouble(txbLongitude.Text),
@@ -125,7 +126,7 @@ namespace PL
                 //else
                 //{
                 ValidateString(txbName.Text);
-                bL.updateCustomer(Convert.ToInt32(txbID.Text), txbName.Text, Convert.ToInt32(txbPhoneNumber.Text));
+                bL.updateCustomer(Convert.ToInt32(txbID.Text), txbName.Text,txbPhoneNumber.Text);
                 var a = bL.GetCustomersToList();
                 MessageBox.Show("succsesfully update customer!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
                 //}

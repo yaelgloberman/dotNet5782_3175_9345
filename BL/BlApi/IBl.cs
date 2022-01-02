@@ -40,7 +40,7 @@ namespace BlApi
         public void updateDroneName(int droneID, string dModel);
 
         public void updateStation(int stationID, int AvlblDCharges, string Name = " ");
-        public void updateCustomer(int customerID, string Name = " ", int phoneNum = 0);
+        public void updateCustomer(int customerID, string Name, string phoneNum);
 
         public void SendToCharge(int droneID);
         public IEnumerable<BO.Parcel> allParcels(Func<BO.Parcel, bool> predicate);
