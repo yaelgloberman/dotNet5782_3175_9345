@@ -34,7 +34,9 @@ namespace PL
             this.bL = bl;
             myObservableCollection = new ObservableCollection<BaseStationToList>(bL.GetBaseStationToList());
             DataContext = myObservableCollection;
-           // StationToListView.ItemsSource = bL.GetBaseStationToLists().ToList();
+            StationToListView.Items.Clear();
+            //   StationToListView.ItemsSource = bL.GetBaseStationToLists().ToList();
+            StationToListView.ItemsSource = myObservableCollection;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

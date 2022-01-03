@@ -48,7 +48,6 @@ namespace PL
         {
             StationToListWindow wndS = new StationToListWindow(myBl);
              wndS.Show(); 
-             
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
