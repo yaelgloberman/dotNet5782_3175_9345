@@ -26,10 +26,12 @@ namespace PL
         ObservableCollection<ParcelToList> myObservableCollectionParcel;
         private static ParcelToList ptl = new();
         private static Parcel parcel = new();
+        static ParcelStatus? statusFilter;
         public parcelListWindow(IBl bl)
         {
             InitializeComponent();
             this.bL = bl;
+            comboBoxStatusSelectorParcel.ItemsSource = Enum.GetValues(typeof(BO.ParcelStatus));
             myObservableCollectionParcel = new ObservableCollection<ParcelToList>(bL.GetParcelToLists());
             DataContext = myObservableCollectionParcel;
         }
@@ -40,18 +42,24 @@ namespace PL
             myObservableCollectionParcel = new ObservableCollection<ParcelToList>(bL.GetParcelToLists());
             DataContext = myObservableCollectionParcel;
         }
+
         private void DoubleClick(object sender, RoutedEventArgs e)
         {
-            ParcelToList ptl = new();
-            ptl = (ParcelToList)parcelListBox.SelectedItem;
-            BO.Parcel parcel = new();
-            parcel = bL.GetParcel(ptl.id);
-            DataContext = parcel;
-            new parcelWindow(parcel).ShowDialog();
-            myObservableCollectionParcel = new ObservableCollection<ParcelToList>(bL.GetParcelToLists());
-            DataContext = myObservableCollectionParcel;
+            try
+            {
+                ParcelToList ptl = new();
+                ptl = (ParcelToList)parcelListBox.SelectedItem;
+                BO.Parcel parcel = new();
+                parcel = bL.GetParcel(ptl.id);
+                DataContext = parcel;
+                new parcelWindow(parcel).ShowDialog();
+                myObservableCollectionParcel = new ObservableCollection<ParcelToList>(bL.GetParcelToLists());
+                DataContext = myObservableCollectionParcel;
+            }
+            catch (System.NullReferenceException ex) { MessageBox.Show(ex.Message + "the parcel is empty"); };
+          
         }
-       
+
         private void btnDeleteParcel_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -73,7 +81,7 @@ namespace PL
         private void btnDeleteParcel_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             ParcelToList p = (ParcelToList)parcelListBox.SelectedItem;
-           
+
         }
 
         private void btnGroupByS_Click(object sender, RoutedEventArgs e)
@@ -83,7 +91,7 @@ namespace PL
             view.GroupDescriptions.Add(groupDescription);
         }
 
-        
+
 
         private void btnGroupByR_Click_(object sender, RoutedEventArgs e)
         {
@@ -91,6 +99,35 @@ namespace PL
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("receiveName");
             view.GroupDescriptions.Add(groupDescription);
         }
-    }
+   
+        private void selectStatusParcel(object sender, SelectionChangedEventArgs e)
+        {
+            if (comboBoxStatusSelectorParcel.SelectedIndex != -1)
+            {
+                statusFilter = (ParcelStatus)comboBoxStatusSelectorParcel.SelectedItem;
+                parcelListBox.ItemsSource = bL.allParcelsToList(x => x.parcelStatus == statusFilter);
 
+            }
+        }
+        private void refresh_Click(object sender, RoutedEventArgs e)
+        {
+            parcelListBox.ItemsSource = bL.GetParcels();
+            comboBoxStatusSelectorParcel.SelectedIndex = -1;
+        }
+
+        private void comboBoxDateFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            IEnumerable<ParcelToList> ptl = new List<ParcelToList>();
+            ptl = bL.GetParcelToLists();
+            if (comboBoxDateFilter.SelectedIndex == 0)
+                ptl = bL.allParcelsToList().Where(x => bL.GetParcel(x.id).requested > DateTime.Now.AddDays(-1));
+            if (comboBoxDateFilter.SelectedIndex == 1)
+                ptl = bL.allParcelsToList().Where(x => bL.GetParcel(x.id).requested > DateTime.Now.AddDays(-7));
+            if (comboBoxDateFilter.SelectedIndex == 2)
+                ptl = bL.allParcelsToList().Where(x => bL.GetParcel(x.id).requested > DateTime.Now.AddMonths(-1));
+            if (comboBoxDateFilter.SelectedIndex == 3)
+                ptl = bL.allParcelsToList().Where(x => bL.GetParcel(x.id).requested > DateTime.Now.AddYears(-1));
+            parcelListBox.ItemsSource = ptl;
+        }
+    }
 }

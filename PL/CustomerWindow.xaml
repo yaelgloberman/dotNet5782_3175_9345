@@ -7,34 +7,32 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="CustomerWindow" Height="450" Width="800">
-    <!--<Label x:Name="read_" Content="id:" Grid.Column="1" FontSize="22"/>
-    <Label Name="lblName" Content="name:" Grid.Column="1" Grid.Row="1" FontSize="22"/>
-    <Label Name="lblPhoneNumber" Content="phone number:" Grid.Column="1" Grid.Row="2" FontSize="22" Grid.ColumnSpan="2"/>
-    <Label Name="lblLongitude" Content="longitude:" Grid.Column="1" Grid.Row="3" FontSize="22"/>
-    <Label Name="lblLatitude" Content="latitude:" Grid.Column="1" Grid.Row="4" FontSize="22"/>
-    <TextBox Name="txbID" Text="{Binding id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="0"  Grid.Column="3" Height="48" VerticalAlignment="Top" />
-    <TextBox Name="txbName" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true,UpdateSourceTrigger=LostFocus}"   Grid.Column="3" Grid.Row="1"/>
-    <TextBox Name="txbPhoneNumber" Text="{Binding phoneNumber, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="2"/>
-    <TextBox Name="txbLongitude" Text="{Binding location.longitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="3" />
-    <TextBox Name="txbLatitude" Text="{Binding location.latitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="4" />
-    <Button x:Name="btnUpdateCustomer" Content="update customer" Grid.Column="1" Grid.Row="7" Click="btnUpdateCustomer_Click" />
-    <Button x:Name="btnSentParcels" Content="SentParcels" Grid.Column="2" Grid.Row="7" Click="btnSentParcels_Click" />
-    <Button x:Name="btnReceiveParcel" Content="ReceiveParcel" Grid.Column="3" Grid.Row="7" />
-    <Button x:Name="btnAddCustomer" Content="add customer" Grid.Column="4" Grid.Row="7" Click="btnAddCustomer_Click" />-->
+    <Window.Resources>
+        <Style x:Key="myButton"
+ TargetType="Button">
+            <Setter Property="FontSize"
+ Value="18" />
+            <Setter Property="FontFamily"
+ Value="Candara" />
+            <Setter Property="Background" Value="#FFFAE0D5" />
+            <Setter Property="FontWeight"
+ Value="Bold" />
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid x:Name="sentParcels" d:IsHidden="True">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50*"/>
                 <RowDefinition Height="400*"/>
             </Grid.RowDefinitions>
-            <ListView x:Name="sentParcelsListView"  DataContext="{Binding}" ItemsSource="{Binding}"  Grid.Row="1" BorderBrush="#FFE5EACD" Background="#FFDFD9B7" >
+            <ListView x:Name="sentParcelsListView"  DataContext="{Binding}" ItemsSource="{Binding}"  Grid.Row="1" BorderBrush="#FFE5EACD" Background="#FFDFD9B7"  >
 
             </ListView>
         </Grid>
         <ListView x:Name="ReciveParcelsListView"  DataContext="{Binding}" ItemsSource="{Binding}"  Grid.Row="1" BorderBrush="#FFE5EACD" Background="#FFDFD9B7" >
-       
-         </ListView>
-        <Grid x:Name="general">
+
+        </ListView>
+        <Grid x:Name="general" d:IsHidden="True">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -68,7 +66,7 @@
             <TextBox Name="txbPassword" Text="{Binding Password, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="5" Margin="0,10,0,10" />
 
         </Grid>
-        <Grid x:Name="addCustomer" HorizontalAlignment="Stretch" Margin="10,10,10,10" Width="Auto" >
+        <Grid x:Name="addCustomer" HorizontalAlignment="Stretch" Margin="10,10,10,10" Width="Auto" d:IsHidden="True" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -90,7 +88,7 @@
             </Grid.RowDefinitions>
             <Button x:Name="btnAddCustomer" Content="add" Grid.Column="4" Grid.Row="7" Click="btnAddCustomer_Click" />
         </Grid>
-        <Grid x:Name="updateParcels" Margin="1,1,1,1" HorizontalAlignment="Center" Height="5">
+        <Grid x:Name="updateParcels">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -111,11 +109,41 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Button x:Name="btnUpdateCustomer" Content="update customer" Grid.Column="1" Grid.Row="7" Click="btnUpdateCustomer_Click" />
-            <Button x:Name="btnSentParcels" Content="SentParcels" Grid.Column="2" Grid.Row="7" Click="btnSentParcels_Click" />
-            <Button x:Name="btnReceiveParcel" Content="ReceiveParcel" Grid.Column="3" Grid.Row="7" Click="btnReceiveParcel_Click" Height="48" Grid.RowSpan="2" VerticalAlignment="Top" />
+            <Button x:Name="btnUpdateCustomer" Content="update customer" Grid.Column="1" Grid.Row="7" Click="btnUpdateCustomer_Click" Style = "{StaticResource myButton}"/>
+            <Button x:Name="btnSentParcels" Content="SentParcels" Grid.Column="2" Grid.Row="7" Click="btnSentParcels_Click" Style = "{StaticResource myButton}" />
+            <Button x:Name="btnReceiveParcel" Content="ReceiveParcel" Grid.Column="3" Grid.Row="7" Click="btnReceiveParcel_Click"  Style = "{StaticResource myButton}" />
+        </Grid>
+
+
+
+        <Grid x:Name="customerParcelGrid">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Name="lblname" Content="name:" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" FontSize="22"/>
+            <Label Name="lblId" Content="id:" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" FontSize="22"/>
+            <TextBox Name="txbid" Text="{Binding id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="2"  />
+            <TextBox Name="txbname" Text="{Binding name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.ColumnSpan="2"  Grid.Column="2" Grid.Row="2" />
+            <Button x:Name="btnFullCustomer" Content="show full customer" Grid.Column="2" Grid.Row="5"  Grid.ColumnSpan="4" Click="btnFullCustomer_Click" Style = "{StaticResource myButton}"  />
         </Grid>
     </Grid>
-
-
 </Window>

@@ -16,8 +16,11 @@ namespace BlApi
         public BaseStation GetStation(int id);
         
         public DroneToList GetDrone(int id);
+        public DroneInParcel GetDroneInParcel(int id);
 
         public BO.Parcel GetParcel(int id);
+        public IEnumerable<BO.ParcelToList> allParcelsToList(Func<BO.ParcelToList, bool> predicate = null);
+
 
         public BO.ParcelToList GetParcelToList(int id);
         public List<BaseStation> GetStations();
@@ -27,6 +30,7 @@ namespace BlApi
         public List<BO.Customer> GetCustomers();
         public BO.Customer GetCustomer(int id);
         public List<BO.Parcel> GetParcels();
+        public BO.CustomerInParcel GetCustomerParcel(int id);
 
         public List<BO.ParcelToList> GetParcelToLists();
         public IEnumerable<BaseStationToList> GetBaseStationToList();

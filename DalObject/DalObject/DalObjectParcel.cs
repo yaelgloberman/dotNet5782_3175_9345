@@ -17,7 +17,11 @@ namespace Dal
         {
             if (DataSource.parcels.Exists(item => item.id == p.id))
                 throw new AddException("drone already exist");
-            p.id = DataSource.Config.parcelSerial++;
+            if(p.id==0)
+            {
+                p.id = DataSource.Config.parcelSerial++;
+
+            }
             DataSource.parcels.Add(p);
             return p.id;
         }

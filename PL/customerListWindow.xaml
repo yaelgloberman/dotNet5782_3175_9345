@@ -18,18 +18,18 @@ TargetType="Label">
  Value="Bold" />
         </Style>
 
-        <Style x:Key="myButtonStyle"
+            <Style x:Key="myButton"
  TargetType="Button">
-
-            <Setter Property="FontSize"
- Value="12" />
-            <Setter Property="FontFamily"
- Value="Consolas" />
-            <Setter Property="FontWeight"
+                <Setter Property="FontSize"
+ Value="18" />
+                <Setter Property="FontFamily"
+ Value="Candara" />
+                <Setter Property="Background" Value="#FFFAE0D5" />
+                <Setter Property="FontWeight"
  Value="Bold" />
-        </Style>
+            </Style>
+        </Window.Resources>
 
-    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
@@ -49,6 +49,6 @@ TargetType="Label">
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="btnAddCustomer" Content="add customer" Grid.Column="0" Grid.Row="0"  Style = "{StaticResource myButtonStyle}" Click="btnAddCustomer_Click" />
+        <Button x:Name="btnAddCustomer" Content="add customer" Grid.Column="0" Grid.Row="0"  Style = "{StaticResource myButton}" Click="btnAddCustomer_Click" />
     </Grid>
 </Window>

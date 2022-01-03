@@ -11,7 +11,7 @@ namespace Dal
         /// <summary>
         /// creating list from each object . drone,pardel,station,Customer,chargingDrones
         /// </summary>
-          
+
         internal static string[] CapatalLetters = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "L" };
         internal static string[] stationName = { "Jerusalem", "Eilat" };
         internal static string[] droneName = { "Reaper", "Shadow", "Grey Eagle", "Global Hawk", "Pioneer", "Fire Scout", "Snowgoose", "Hunter", "Stalker", "GNAT", "Wing Loong II", "AVENGER", "Apollo Earthly", "AirHaven", "indRazer", "Godspeed", "Phantom", "Novotek", "Tri-Propeller", "WikiDrone" };
@@ -78,7 +78,7 @@ namespace Dal
                     id = r.Next(111111111, 999999999),
                     model = droneName[i],
                     maxWeight = (WeightCatigories)r.Next(1, 3),
-                }) ;
+                });
             }
         }
         static void createCustomer()
@@ -90,7 +90,7 @@ namespace Dal
                 {
                     id = r.Next(11111111, 99999999),
                     name = customerName[i],
-                    phoneNumber = "05"+r.Next(11111111, 99999999),
+                    phoneNumber = "05" + r.Next(11111111, 99999999),
                     longitude = getRandomCordinates(34.3, 35.5),
                     latitude = getRandomCordinates(31.0, 33.3),
                     Password = CapatalLetters[i] + p,
@@ -103,7 +103,7 @@ namespace Dal
                 {
                     id = r.Next(100000000, 999999999),
                     name = customerName[i],
-                    phoneNumber ="05"+ r.Next(00000000, 99999999),
+                    phoneNumber = "05" + r.Next(00000000, 99999999),
                     longitude = getRandomCordinates(34.3, 35.5),
                     latitude = getRandomCordinates(31.0, 33.3),
                     Password = CapatalLetters[i] + p,
@@ -123,18 +123,25 @@ namespace Dal
                 parcel.targetId = Customers[i].id;
                 parcel.priority = (Proirities)r.Next(1, 3);
                 parcel.weight = (WeightCatigories)r.Next(1, 3);
+
                 if ((drones.ToArray()[i].id) % 2 == 0)
                 {
                     parcel.droneId = drones.ToArray()[i].id;
-                    parcel.requested = DateTime.Now;
-
+                    parcel.requested = DateTime.Now.AddDays(-1);
+                    if ((drones.ToArray()[i].id) % 4 == 0)
+                    {
+                        parcel.scheduled = DateTime.Now;
+                        parcel.pickedUp = DateTime.Now.AddDays(2);
+                    }
                 }
                 else
+                {
                     parcel.droneId = 0;
-                parcel.requested = DateTime.Now;
-                parcel.scheduled = DateTime.Now;
-                parcel.pickedUp = null;
-                parcel.delivered = null;
+                    parcel.requested = DateTime.Now;
+                    parcel.scheduled = null;
+                    parcel.pickedUp = null;
+                    parcel.delivered = null;
+                }
                 parcels.Add(parcel);
             }
             Config.numberId++;
@@ -142,7 +149,3 @@ namespace Dal
     }
 
 }
-
-
-
-

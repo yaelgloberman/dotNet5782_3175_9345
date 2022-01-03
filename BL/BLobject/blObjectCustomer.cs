@@ -71,8 +71,8 @@ namespace BL
             if (parcelStatus.pickedUp != null)
                 return ParcelStatus.PickedUp;
             if (parcelStatus.scheduled != null)
-                return ParcelStatus.Assigned;
-            return ParcelStatus.Created;
+                return ParcelStatus.Created;
+            return ParcelStatus.Assigned;
         }
         public Priority GetParcelPriorty(int id)
         {
@@ -135,6 +135,22 @@ namespace BL
                         CustomerBo.SentParcels.Add(tmp);
                     }
                 }
+                return CustomerBo;
+            }
+            catch (DO.findException Fex)
+            {
+                throw new validException(Fex.Message);
+            }
+        }
+        public BO.CustomerInParcel GetCustomerParcel (int id)
+        {
+            try
+            {
+                List<BO.Parcel> tempParcels = GetParcels();
+                BO.CustomerInParcel CustomerBo = new ();
+                DO.Customer CustomerDo = dal.GetCustomer(id);
+                CustomerBo.id = CustomerDo.id;
+                CustomerBo.name = CustomerDo.name;
                 return CustomerBo;
             }
             catch (DO.findException Fex)

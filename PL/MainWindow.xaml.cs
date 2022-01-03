@@ -47,13 +47,19 @@ namespace PL
         private void btnStationLists_Click_1(object sender, RoutedEventArgs e)
         {
             StationToListWindow wndS = new StationToListWindow(myBl);
-            wndS.Show();
+             wndS.Show(); 
+             
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             var wndPassword = new PasswordWindow();
             wndPassword.ShowDialog();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("מוישי לך לישון ");
         }
     }
 }

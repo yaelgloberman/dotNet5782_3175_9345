@@ -36,8 +36,6 @@ namespace PL
             WeightSelector.ItemsSource = Enum.GetValues(typeof(BO.Weight));
             statusSelector.ItemsSource = Enum.GetValues(typeof(BO.DroneStatus));
             myObservableCollectionDrone = new ObservableCollection<DroneToList>(bL.GetDrones());
-
-            //myObservableCollectionDrone = new ObservableCollection<DroneToList>(bL.allDrones(x=>x is DroneToList));
             DataContext = myObservableCollectionDrone;
         }
         private void addDrone_Click(object sender, RoutedEventArgs e)
@@ -47,34 +45,31 @@ namespace PL
             myObservableCollectionDrone = new ObservableCollection<DroneToList>(bL.GetDrones());
             DataContext = myObservableCollectionDrone;
         }
-       
+
         private void CloseWindowList_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
-   
+
         private void selectWeight(Object sender, SelectionChangedEventArgs e)
         {
             if (WeightSelector.SelectedIndex != -1)
             {
 
                 weightFilter = (Weight)WeightSelector.SelectedItem;
-                if(statusFilter==null)
+                if (statusFilter == null)
                 {
                     DroneListView.ItemsSource = bL.allDrones(x => x.weight == weightFilter);
 
                 }
                 else
                 {
-                    DroneListView.ItemsSource = bL.allDrones(x => x.weight == weightFilter&&x.droneStatus==statusFilter);
-
+                    DroneListView.ItemsSource = bL.allDrones(x => x.weight == weightFilter && x.droneStatus == statusFilter);
                 }
             }
             else
             {
-                WeightSelector.SelectedIndex = -1;
                 weightFilter = null;
-                WeightSelector.Text = "choose weight";
             }
         }
         private void selectStatus(object sender, SelectionChangedEventArgs e)
@@ -82,7 +77,7 @@ namespace PL
             if (statusSelector.SelectedIndex != -1)
             {
                 statusFilter = (DroneStatus)statusSelector.SelectedItem;
-                if(weightFilter==null)
+                if (weightFilter == null)
                 {
                     DroneListView.ItemsSource = bL.allDrones(x => x.droneStatus == statusFilter);
                 }
@@ -91,11 +86,8 @@ namespace PL
                     DroneListView.ItemsSource = bL.allDrones(x => x.droneStatus == statusFilter && x.weight == weightFilter);
                 }
             }
-            else
-            {
-                statusSelector.SelectedIndex = -1;
-                statusSelector = null;
-            }
+
+
         }
         private void DoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -109,7 +101,7 @@ namespace PL
             DataContext = myObservableCollectionDrone;
         }
 
-   
+
         private void refresh_Click_1(object sender, RoutedEventArgs e)
         {
             DroneListView.ItemsSource = bL.GetDrones();

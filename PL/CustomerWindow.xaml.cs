@@ -23,6 +23,8 @@ namespace PL
     {
         private static CustomerInList customerInList = new();
         private static Customer customer = new();
+        private static CustomerInParcel customerParcel = new();
+
         IBl bL;
 
         public CustomerWindow()//add
@@ -40,10 +42,23 @@ namespace PL
             this.DataContext = customer;
             addCustomer.Visibility = Visibility.Hidden;
             sentParcels.Visibility = Visibility.Hidden;
+            customerParcelGrid.Visibility = Visibility.Hidden;
             txbID.IsReadOnly = true;
             txbLatitude.IsReadOnly = true;
             txbLongitude.IsReadOnly = true;
         }
+        public CustomerWindow(BO.CustomerInParcel CO) 
+        {
+            InitializeComponent();
+            bL = BlApi.BlFactory.GetBl();
+            customerParcel = bL.GetCustomerParcel(CO.id);
+            this.DataContext = customerParcel;
+            addCustomer.Visibility = Visibility.Hidden;
+            sentParcels.Visibility = Visibility.Hidden;
+            general.Visibility = Visibility.Hidden;
+            updateParcels.Visibility = Visibility.Hidden;
+        }
+
         public static void ValidateString(string string1)
         {
             List<string> invalidChars = new List<string>() { "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-" };
@@ -96,7 +111,7 @@ namespace PL
                         }
                     };
                     bL.addCustomer(c);
-                    MessageBox.Show("succsesfully added a drone!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("succsesfully added a customer!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
                     this.Close();
                 
             }
@@ -161,6 +176,12 @@ namespace PL
             general.Visibility = Visibility.Hidden;
             ReciveParcelsListView.ItemsSource = customer.ReceiveParcel;
           
+        }
+
+        private void btnFullCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            CustomerWindow wnd = new CustomerWindow(bL.GetCustomer(customerParcel.id));
+            wnd.ShowDialog();
         }
     }
 }

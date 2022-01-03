@@ -34,7 +34,7 @@ namespace BL
                 targetId = parcelToAdd.receive.id,
                 weight = (WeightCatigories)parcelToAdd.weightCategorie,
                 priority = (Proirities)parcelToAdd.priority,
-                requested = DateTime.Now,
+                requested = null,
                 scheduled = null,
                 pickedUp = null,
                 delivered = null,
@@ -94,6 +94,7 @@ namespace BL
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="dosntExisetException"></exception>
+       
         public BO.Parcel GetParcel(int id)
         {
             try
@@ -161,34 +162,7 @@ namespace BL
         /// <exception cref="ExecutionTheDroneIsntAvilablle"></exception>
         public void deliveryParcelToCustomer(int id)
         {
-        //    var drone = new BO.DroneToList();
-        //    try
-        //    {
-        //        drone = GetDrone(id);
-        //        DO.Parcel parcel = dal.GetParcelList().ToList().Find(p => p.droneId == id);
-        //        var customer = GetCustomer(parcel.targetId);
-        //        var stationLoc = findClosestStationLocation(customer.location, false, BaseStationLocationslist());
-        //        DO.Station station = dal.GetStationList().ToList().Find(s => s.longitude == stationLoc.longitude && s.latitude == stationLoc.latitude);
-        //        double previoseBatteryStatus = drone.batteryStatus;
-        //        if (!(drone.droneStatus == DroneStatus.delivery))   //the drone pickedup but didnt delivert yet
-        //            throw new ExecutionTheDroneIsntAvilablle(" this drone is not in delivery");
-        //        var Location = new Location { longitude = station.longitude, latitude = station.latitude };
-        //        drone.batteryStatus = previoseBatteryStatus - (Distance(drone.location, Location) * GetChargeCapacity().chargeCapacityArr[(int)drone.weight]);
-        //        drone.location.latitude = station.latitude;
-        //        drone.location.longitude = station.longitude;
-        //        drone.droneStatus = DroneStatus.available;
-        //        addDrone(drone, station.id);
-        //        parcel.requested = DateTime.Now;   //מה זה זמן אספקה
-        //        var parcelBL = GetParcel(parcel.id);
-        //        dal.deleteParcel(dal.GetParcel(parcel.id));
-        //        addParcel(parcelBL);
-        //    }
-        //    catch (findException exp)
-        //    {
-        //        throw new dosntExisetException(exp.Message);
-        //    }
-        //    catch (ExecutionTheDroneIsntAvilablle exp) { throw new ExecutionTheDroneIsntAvilablle(exp.Message); }
-        
+    
             var drone = new BO.DroneToList();
             try
             {
@@ -207,7 +181,7 @@ namespace BL
                 drone.droneStatus = DroneStatus.available;
                 dal.deleteDrone(dal.GetDrone(id));
                 addDrone(drone, station.id);
-                parcel.requested = DateTime.Now;   //מה זה זמן אספקה
+                parcel.delivered = DateTime.Now;   //מה זה זמן אספקה
                 var parcelBL = GetParcel(parcel.id);
                 dal.deleteParcel(dal.GetParcel(parcel.id));
                 addParcel(parcelBL);
@@ -276,13 +250,14 @@ namespace BL
                     if (item.pickedUp == null && item.delivered == null)
                     {
                         int index = GetDrones().FindIndex(x => x.id == d.id);
-                        GetDrones().RemoveAt(index);
+                        drones.RemoveAt(index);
                         dal.deleteDrone(dal.GetDrone(droneID));
                         d.batteryStatus = d.batteryStatus - Distance(d.location, new BO.Location { latitude = dal.GetCustomer(item.targetId).latitude, longitude = dal.GetCustomer(item.targetId).longitude }) * GetChargeCapacity().chargeCapacityArr[(int)(item.weight)];
                         d.location.longitude = dal.GetCustomer(item.senderId).longitude;
                         d.location.latitude = dal.GetCustomer(item.senderId).latitude;
                         var par = item;
                         dal.deleteParcel(item);
+                        par.scheduled = DateTime.Now.AddHours(-10);
                         par.pickedUp = DateTime.Now;
                         int parcelNewID = dal.addParcel(par);
                         d.parcelId = parcelNewID;
@@ -303,6 +278,16 @@ namespace BL
             }
             return GetParcels().Where(predicate).ToList();
         }
+        public IEnumerable<BO.ParcelToList> allParcelsToList(Func<BO.ParcelToList, bool> predicate = null)
+        {
+            var parcel = GetParcelToLists();
+            if (predicate == null)
+            {
+                return parcel.Take(parcel.Count).ToList();
+            }
+            return parcel.Where(predicate).ToList();
+        }
+
         public IEnumerable<ParcelToList> GetParcelToList()
         {
             List<ParcelToList> parcelToLists = new();

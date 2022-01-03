@@ -45,7 +45,6 @@
                 <Label x:Name="lblDroneId" Content="ID:" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="108" RenderTransformOrigin="0.572,1.265"/>
                 <TextBox x:Name="txbDroneId" Text="{Binding id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Top" Height="19" IsReadOnly="True" BorderBrush="#FFC789CD" Margin="74,10,555,0"/>
                 <Label x:Name="lblWeight" Content="Weight:" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top" Width="108" RenderTransformOrigin="0.572,1.265"/>
-
                 <Label x:Name="lblLatitude" Content="Latitude:" HorizontalAlignment="Left" Margin="10,189,0,0" VerticalAlignment="Top" Width="127"/>
                 <TextBox x:Name="txbStatus" Margin="74,92,548,0" Text="{Binding droneStatus, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True"  BorderBrush="#FFC789CD"/>
                 <TextBox x:Name="txbWeight" Margin="74,66,554,0" Text="{Binding weight, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True"  BorderBrush="#FFC789CD"/>
@@ -66,13 +65,39 @@
                 </Button>
                 <Button x:Name="btnRelesingDrone" Content="realising drone from charge" HorizontalAlignment="Left" Margin="177,277,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Width="150" Click="btnRelesingDrone_Click_1"  Background="#FFB6F17C" FontFamily="Baskerville Old Face" FontSize="13" Visibility="Hidden" />
                 <Button x:Name="btnMatchingDroneToParcel" Content="Matching Drone To Parcel" HorizontalAlignment="Left" Margin="10,277,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Width="150" Click="btnMatchingDroneToParcel_Click"  Background="#FFF5FA73" FontFamily="Baskerville Old Face" FontSize="13" Visibility="Hidden" />
-
-
             </Grid>
 
-
+            <Grid x:Name="droneInParcel"  Background="#FFF4E5E5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Label x:Name="LblBattery" FontSize="18" Content="Battery:" Grid.Column="1" Grid.Row="3"/>
+                <Label x:Name="LblLongitude" FontSize="18" Grid.Row="5" Grid.Column="1" Content="Longitude:"/>
+                <Label x:Name="LblDroneId"  FontSize="18"  Content="ID:" Grid.Column="1" Grid.Row="2"/>
+                <Label x:Name="LblLatitude"  FontSize="18"  Grid.Row="4" Grid.Column="1" Content="Latitude:" />
+                <TextBox x:Name="TxbLongitude"  Height="35"   Grid.Row="5" Grid.Column="2"  Text="{Binding location.longitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" IsReadOnly="True" BorderBrush="#FFC789CD" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="TxbLatitude"  Height="35"    Grid.Row="4" Grid.Column="2" Text="{Binding location.latitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  IsReadOnly="True" Background="White" BorderBrush="#FFC789CD" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="TxbDroneId"   Height="35"  Grid.Row="2" Grid.Column="2" Text="{Binding id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" IsReadOnly="True" BorderBrush="#FFC789CD" Grid.ColumnSpan="2" />
+                <TextBox x:Name="TxbBattery" Height="35"  Grid.Row="3" Grid.Column="2" Text="{Binding battery, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  IsReadOnly="True" BorderBrush="#FFC789CD" Grid.ColumnSpan="2"/>
+                <Button x:Name="btnDroneInParcelFull" Height="35" Grid.Column="2" Grid.Row="6" Grid.ColumnSpan="2" Content="Show full drone" FontSize="20" Click="btnDroneInParcelFull_Click"/>
+            </Grid>
         </Grid>
-
-
     </Grid>
 </Window>

@@ -23,6 +23,8 @@ namespace PL
         //private BlApi.IBl bl = BlApi.BlFactory.GetBl();
         private static DroneToList drt = new();
         private static Drone dr = new();
+        private static DroneInParcel droneParcel = new();
+
         IBl bL;
 
         public DroneWindow()
@@ -40,6 +42,7 @@ namespace PL
             bL = BlApi.BlFactory.GetBl();
             this.DataContext = drone;
             addDrone.Visibility = Visibility.Hidden;
+            droneInParcel.Visibility = Visibility.Hidden;
             btnModelUpdate.Visibility = Visibility.Visible;
             if (drone.droneStatus == DroneStatus.available)
             {
@@ -52,7 +55,20 @@ namespace PL
             }
 
         }
-       
+        public DroneWindow(BO.DroneInParcel drone) //update
+        {
+            InitializeComponent();
+            bL = BlApi.BlFactory.GetBl();
+            this.DataContext = drone;
+            droneParcel = bL.GetDroneInParcel(drone.id);
+            addDrone.Visibility = Visibility.Hidden;
+            btnModelUpdate.Visibility = Visibility.Hidden;
+            btnSendToCharge.Visibility = Visibility.Hidden;
+            btnMatchingDroneToParcel.Visibility = Visibility.Hidden;
+            btnRelesingDrone.Visibility = Visibility.Hidden;
+            update.Visibility = Visibility.Hidden;
+
+        }
         public static void ValidateString(string string1)
         {
             List<string> invalidChars = new List<string>() { "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-" };
@@ -128,9 +144,6 @@ namespace PL
 
             }
         }
-    
-     
-
         private void btnSendToCharge_Click(object sender, RoutedEventArgs e)
             {
                 try
@@ -175,5 +188,12 @@ namespace PL
 
                 }
             }
+
+        private void btnDroneInParcelFull_Click(object sender, RoutedEventArgs e)
+        {
+
+            DroneWindow wnd = new DroneWindow(bL.returnsDrone(droneParcel.id));  //צריך לחשוב איך אני שמה את הרחפן 
+            wnd.ShowDialog();
         }
+    }
     }

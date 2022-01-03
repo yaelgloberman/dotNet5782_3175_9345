@@ -313,9 +313,9 @@ namespace ConsoleUI_BL
                                 case objectChoice.add:
                                     {
                                         BO.Customer temp = new BO.Customer();
-                                        int id, phoneNumber;
+                                        int id;
                                         double longitude, latitude;
-                                        string name;
+                                        string name, phoneNumber;
                                         BO.Location customerLoc = new Location();
                                         Console.WriteLine("enter the Customers id");
                                         int.TryParse(Console.ReadLine(), out id);
@@ -326,7 +326,9 @@ namespace ConsoleUI_BL
                                         catch (validException exp) {Console.WriteLine(exp.Message); };
                                         temp.Name = name;
                                         Console.WriteLine("enter the Customers phonenumber");
-                                        int.TryParse(Console.ReadLine(), out phoneNumber);
+                                        /////////לבדוק תקינות פלאפון
+                                        ///
+                                        phoneNumber = Console.ReadLine();
                                         temp.phoneNumber = phoneNumber;
                                         Console.WriteLine("enter the Customers longitude");
                                         double.TryParse(Console.ReadLine(), out longitude);
@@ -357,7 +359,8 @@ namespace ConsoleUI_BL
                                         {
                                             case updateCustomer.updateCustomerName:
                                                 {
-                                                    int customerId, phoneNumber;
+                                                    int customerId;
+                                                    string phoneNumber;
                                                     string customerName;
                                                     Console.WriteLine("enter customer id");
                                                     string input = Console.ReadLine();
@@ -365,8 +368,8 @@ namespace ConsoleUI_BL
                                                     Console.WriteLine("enter new name");
                                                     customerName = Console.ReadLine();
                                                     Console.WriteLine("enter new phone number");
+                                                    phoneNumber = Console.ReadLine();
                                                     input = Console.ReadLine();
-                                                    int.TryParse(input, out phoneNumber);
                                                     try{ bl.updateCustomer(customerId, customerName, phoneNumber);}
                                                     catch (validException exp){Console.WriteLine(exp.Message);}
                                                     catch (dosntExisetException exp) { Console.WriteLine(exp.Message); }

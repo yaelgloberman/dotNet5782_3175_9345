@@ -5,33 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-                        WindowStartupLocation="CenterScreen"
-
-        Title="DroneListWindow" Height="450" Width="800">
-            <Grid Name="MainGrid">
-                
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50*"/>
-                    <RowDefinition Height="400*"/>
-                </Grid.RowDefinitions>
-                <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+        WindowStartupLocation="CenterScreen"
+        
+    Title="DroneListWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Style x:Key="myButton"
+ TargetType="Button">
+            <Setter Property="FontSize"
+ Value="18" />
+            <Setter Property="FontFamily"
+ Value="Candara" />
+            <Setter Property="Background" Value="#FFFAE0D5" />
+            <Setter Property="FontWeight"
+ Value="Bold" />
+        </Style>
+    </Window.Resources>
+    <Grid Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="400*"/>
+        </Grid.RowDefinitions>
+        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
-                    <ComboBox x:Name="WeightSelector" Grid.Column="0"  SelectionChanged="selectWeight" />
-                    <ComboBox x:Name="statusSelector" Grid.Column="1"  SelectionChanged="selectStatus" />
-                    <Button x:Name="addDrone"  Content="Add drone" Grid.Column="2" FontSize="20" Click="addDrone_Click" FontFamily="Elephant" Background="#FFB2CBF6" />
-                    <Button x:Name="CloseWindowDroneList" Content="Close Drone List Window" Grid.Column="3" Grid.ColumnSpan="2" FontSize="14" Click="CloseWindowList_Click" FontFamily="Elephant" Background="#FFB6AFE4"/>
-                    <Button x:Name="groupByStatus" Content="group by status" Grid.Column="5" Click="groupByStatus_Click"/>
+            <ComboBox x:Name="WeightSelector" Grid.Column="0"  SelectionChanged="selectWeight" />
+            <ComboBox x:Name="statusSelector" Grid.Column="1"  SelectionChanged="selectStatus"  />
+            <Button x:Name="addDrone"  Content="Add drone" Grid.Column="2" Click="addDrone_Click" Style = "{StaticResource myButton}"/>
+            <Button x:Name="CloseWindowDroneList" Content="Close Drone List Window" Grid.Column="3" Click="CloseWindowList_Click" Style = "{StaticResource myButton}"/>
+            <Button x:Name="groupByStatus" Content="group by status" Grid.Column="5" Click="groupByStatus_Click" Style = "{StaticResource myButton}"/>
+            <Button x:Name="refresh" Content="refresh" Grid.Column="4" Grid.Row="0" Click="refresh_Click_1" Style = "{StaticResource myButton}"/>
+
         </Grid>
-               <ListView x:Name="DroneListView" ItemsSource="{Binding}" DataContext="{Binding}" HorizontalContentAlignment="Stretch" MouseDoubleClick="DoubleClick" BorderBrush="#FFE5EACD" Background="#FFDFD9B7" Margin="0,48,0,48" Grid.RowSpan="2">
-                    <ListView.View>
-                        <GridView>
+        <ListView x:Name="DroneListView" ItemsSource="{Binding}" DataContext="{Binding}" HorizontalContentAlignment="Stretch" MouseDoubleClick="DoubleClick" BorderBrush="#FFE5EACD" Background="#FFDFD9B7" Margin="0,48,0,0" Grid.RowSpan="2">
+            <ListView.View>
+                <GridView>
                     <GridViewColumn Header="id" Width="100" DisplayMemberBinding="{Binding id}" />
                     <GridViewColumn Header="drone Model" Width="100" DisplayMemberBinding="{Binding droneModel}" />
                     <GridViewColumn Header="status" Width="100" DisplayMemberBinding="{Binding droneStatus }" />
@@ -39,8 +52,8 @@
                     <GridViewColumn Header="battery status" Width="80" DisplayMemberBinding="{Binding batteryStatus}" />
                     <GridViewColumn Header="location" Width="200" DisplayMemberBinding="{Binding location}" />
                     <GridViewColumn Header="parcel Id" Width="110" DisplayMemberBinding="{Binding parcelId}" />
-                    </GridView>
-                    </ListView.View>
+                </GridView>
+            </ListView.View>
             <ListView.GroupStyle>
                 <GroupStyle>
                     <GroupStyle.HeaderTemplate>
@@ -52,6 +65,5 @@
             </ListView.GroupStyle>
         </ListView>
 
-        <Button x:Name="refresh" Content="Button" HorizontalAlignment="Left" Margin="37,348,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="58" Click="refresh_Click_1"/>
-            </Grid>
+    </Grid>
 </Window>
