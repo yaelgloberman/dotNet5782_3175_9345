@@ -36,7 +36,7 @@
             <Label Name="lblRecive" Content="recive:" Grid.Column="1" Grid.Row="2" FontSize="20" />
             <Label Name="lblWeight" Content="weight:" Grid.Column="1" Grid.Row="3"  FontSize="20" />
             <Label Name="lblPriority" Content="priority:" Grid.Column="1" Grid.Row="4" FontSize="20" />
-            <Label Name="lblRequested"  Content="requested:" Grid.Column="1" Grid.Row="6"  FontSize="20"/>
+            <Label Name="lblRequested"  Content="Created:" Grid.Column="1" Grid.Row="6"  FontSize="20"/>
             <Label Name="lblScheduled"  Content="scheduled:" Grid.Column="1" Grid.Row="7"  FontSize="20"/>
             <Label Name="lblDelivered"  Content="delivered:" Grid.Column="1" Grid.Row="8"  FontSize="20"/>
             <Label Name="lblPickedUp"  Content="pickedUp:" Grid.Column="1" Grid.Row="9" FontSize="20" />

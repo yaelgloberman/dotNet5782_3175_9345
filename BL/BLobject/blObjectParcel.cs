@@ -72,12 +72,12 @@ namespace BL
                 parcel.receiveName = dal.GetCustomer(dalParcel.targetId).name;
                 parcel.weight = (Weight)dalParcel.weight;
                 parcel.senderName = dal.GetCustomer(dalParcel.senderId).name;
-                if (dalParcel.pickedUp != null)
-                    parcel.parcelStatus = BO.ParcelStatus.PickedUp;
-                if (dalParcel.requested != null)
-                    parcel.parcelStatus = BO.ParcelStatus.Assigned;
                 if (dalParcel.scheduled != null)
                     parcel.parcelStatus = BO.ParcelStatus.Created;
+                if (dalParcel.requested != null)
+                    parcel.parcelStatus = BO.ParcelStatus.Assigned;
+                if (dalParcel.pickedUp != null)
+                    parcel.parcelStatus = BO.ParcelStatus.PickedUp;
                 if (dalParcel.delivered != null)
                     parcel.parcelStatus = BO.ParcelStatus.Delivered;
             }
@@ -229,6 +229,8 @@ namespace BL
                 return ParcelStatus.PickedUp;
             if (parcel.scheduled != null)
                 return ParcelStatus.Assigned;
+            if ( parcel.droneInParcel.id == 0)
+                return ParcelStatus.Created;
             else
                 return ParcelStatus.Created;
         }
