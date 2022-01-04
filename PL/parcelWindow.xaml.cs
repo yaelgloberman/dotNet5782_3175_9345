@@ -45,12 +45,15 @@ namespace PL
             this.DataContext = parcel;
             if (parcel.droneInParcel != null)
             {
-                if (parcel.requested != null && parcel.pickedUp == null)
+                if (parcel.scheduled != null && parcel.pickedUp == null)
                 {
                     btnPickUpParcelByDrone.Visibility = Visibility.Visible;
                     btnDroneParcelW.Visibility = Visibility.Visible;
                     btnCustomerSenderParcelW.Visibility = Visibility.Visible;
                     btnCustomerReciverParcelW.Visibility = Visibility.Visible;
+                    checkBoxAgree.Visibility = Visibility.Hidden;
+                    btnPickUpParcelByDrone.Visibility = Visibility.Hidden;
+
 
                 }
                 if (parcel.pickedUp != null)
@@ -68,10 +71,17 @@ namespace PL
                     //  checkBoxAgree.Visibility = Visibility.Visible;
                 }
             }
-            if (parcel.requested != null)
+            else
             {
-                lblRequested.Visibility = Visibility.Visible;
-                txbRequested.Visibility = Visibility.Visible;
+                if (parcel.requested != null)
+                {
+                    lblRequested.Visibility = Visibility.Visible;
+                    txbRequested.Visibility = Visibility.Visible;
+                    btnDroneParcelW.Visibility = Visibility.Hidden;
+                    checkBoxAgree.Visibility = Visibility.Hidden;
+                    lblDronInParcel.Visibility = Visibility.Hidden;
+
+                }
             }
             if (parcel.scheduled != null)
             {

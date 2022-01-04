@@ -95,7 +95,7 @@
             <Label Content="Station Id:" HorizontalAlignment="Left" Margin="36,12,0,0" VerticalAlignment="Top" RenderTransformOrigin="3.65,-1.773" Height="26" Width="92"/>
             <TextBox x:Name="stationIdText"  HorizontalAlignment="Left" Margin="133,17,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"  Text="{Binding id,Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True }" IsReadOnly="true"/>
             <Label Content="Name:" HorizontalAlignment="Left" Margin="36,51,0,0" VerticalAlignment="Top" RenderTransformOrigin="3.65,-1.773" Height="26" Width="92"/>
-            <TextBox x:Name="nameText" HorizontalAlignment="Left" Margin="133,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding stationName,Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" IsReadOnly="true"/>
+            <TextBox x:Name="txbNameText"  HorizontalAlignment="Left" Margin="133,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"  Text="{Binding stationName,Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True }" IsReadOnly="true"/>
             <Label x:Name="latitudeRead" Content="Latitude:" HorizontalAlignment="Left" Margin="400,47,0,0" VerticalAlignment="Top"/>
             <TextBox x:Name="latitudeText" HorizontalAlignment="Left" Margin="471,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding location.latitude,Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" IsReadOnly="true"/>
             <Label x:Name="inUseRead" Content="Charges In Use:" HorizontalAlignment="Left" Margin="367,17,0,0" VerticalAlignment="Top" Width="99"/>

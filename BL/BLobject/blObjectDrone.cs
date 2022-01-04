@@ -189,6 +189,7 @@ namespace BL
             {
                 DroneToList droneBo = new DroneToList();
                 DO.Drone droneDo = dal.GetDrone(id);
+                
                 DroneToList drone = drones.ToList().Find(d => d.id == id);
                 droneBo.id = droneDo.id;
                 droneBo.droneModel = drone.droneModel;
