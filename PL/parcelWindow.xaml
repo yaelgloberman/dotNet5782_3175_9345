@@ -38,8 +38,8 @@
             <Label Name="lblPriority" Content="priority:" Grid.Column="1" Grid.Row="4" FontSize="20" />
             <Label Name="lblRequested"  Content="Created:" Grid.Column="1" Grid.Row="6"  FontSize="20"/>
             <Label Name="lblScheduled"  Content="scheduled:" Grid.Column="1" Grid.Row="7"  FontSize="20"/>
-            <Label Name="lblDelivered"  Content="delivered:" Grid.Column="1" Grid.Row="8"  FontSize="20"/>
-            <Label Name="lblPickedUp"  Content="pickedUp:" Grid.Column="1" Grid.Row="9" FontSize="20" />
+            <Label Name="lblDelivered"  Content="delivered:" Grid.Column="1" Grid.Row="9"  FontSize="20"/>
+            <Label Name="lblPickedUp"  Content="pickedUp:" Grid.Column="1" Grid.Row="8" FontSize="20" />
         </Grid>
 
 
@@ -83,8 +83,8 @@
             <TextBlock Name="txbPriority" Text="{Binding priority, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="2" FontSize="20"  Height="30"/>
             <TextBlock Name="txbRequested"  Text="{Binding requested, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.Row="6" Grid.ColumnSpan="2" FontSize="18"  Height="30"/>
             <TextBlock Name="txbScheduled"  Text="{Binding scheduled, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.Row="7" Grid.ColumnSpan="2"  FontSize="18"  Height="30"/>
-            <TextBlock Name="txbDeliverd"  Text="{Binding delivered, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="8"  FontSize="18"  Height="30"/>
-            <TextBlock Name="txbPickedUp" Text="{Binding pickedUp,Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.Row="9"  Grid.ColumnSpan="2"  FontSize="18" Height="30" />
+            <TextBlock Name="txbDeliverd"  Text="{Binding delivered, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="9"  FontSize="18"  Height="30"/>
+            <TextBlock Name="txbPickedUp" Text="{Binding pickedUp,Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.Row="8"  Grid.ColumnSpan="2"  FontSize="18" Height="30" />
             <Button x:Name="btnDeliveryToCustomer" Content="delivery parcel to customer"   Grid.Column="5" Grid.Row="9" Grid.ColumnSpan="2"  Visibility="Hidden"  Click="btnDeliveryToCustomer_Click" Background="#FFF6DBA1" FontFamily="Baskerville Old Face"  IsEnabled="{Binding ElementName=checkBoxAgree, Path=IsChecked}" FontSize="20"/>
             <Button x:Name="btnPickUpParcelByDrone" Content="pick up parcel by drone" Grid.Column="5" Grid.Row="9" Grid.ColumnSpan="2" Visibility="Hidden"  Click="btnPickUpParcelByDrone_Click"  Background="#FFF6DBA1" FontFamily="Baskerville Old Face"   IsEnabled="{Binding ElementName=checkBoxAgree, Path=IsChecked}"  FontSize="20"/>
             <Button x:Name="btnDroneParcelW" Content="open drone view"   Grid.Column="3" Grid.Row="5" Width="100" Grid.ColumnSpan="3" HorizontalAlignment="Center" Click="btnDroneParcel_Click" Height="30" FontSize="18" Background="#FFF6DBA1"/>

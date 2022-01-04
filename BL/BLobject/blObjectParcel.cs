@@ -66,20 +66,21 @@ namespace BL
                 dalParcel = dal.GetParcel(id);
                 var droneIP = GetDrones().Find(x=>x.id==dalParcel.droneId);
                 if (droneIP != null)
-                { var droneInParcel = new DroneInParcel { id = dalParcel.droneId, battery = droneIP.batteryStatus, location = droneIP.location }; }
+                {  var droneInParcel = new DroneInParcel { id = dalParcel.droneId, battery = droneIP.batteryStatus, location = droneIP.location };}
                 parcel.id = dalParcel.id;
                 parcel.priority = (BO.Priority)dalParcel.priority;
                 parcel.receiveName = dal.GetCustomer(dalParcel.targetId).name;
                 parcel.weight = (Weight)dalParcel.weight;
                 parcel.senderName = dal.GetCustomer(dalParcel.senderId).name;
-                if (dalParcel.scheduled != null)
-                    parcel.parcelStatus = BO.ParcelStatus.Created;
-                if (dalParcel.requested != null)
-                    parcel.parcelStatus = BO.ParcelStatus.Assigned;
-                if (dalParcel.pickedUp != null)
-                    parcel.parcelStatus = BO.ParcelStatus.PickedUp;
-                if (dalParcel.delivered != null)
-                    parcel.parcelStatus = BO.ParcelStatus.Delivered;
+               parcel.parcelStatus= parcelStatus(GetParcel(parcel.id));
+                //if (dalParcel.scheduled != null)
+                    //parcel.parcelStatus = BO.ParcelStatus.Created;
+                //if (dalParcel.requested != null)
+                    //parcel.parcelStatus = BO.ParcelStatus.Assigned;
+                //if (dalParcel.pickedUp != null)
+                    //parcel.parcelStatus = BO.ParcelStatus.PickedUp;
+                //if (dalParcel.delivered != null)
+                    //parcel.parcelStatus = BO.ParcelStatus.Delivered;
             }
             catch (findException exp)
             {
@@ -227,10 +228,11 @@ namespace BL
                 return ParcelStatus.Delivered;
             if (parcel.pickedUp != null)
                 return ParcelStatus.PickedUp;
+            if (parcel.scheduled == null)
+                return ParcelStatus.Created;
             if (parcel.scheduled != null)
                 return ParcelStatus.Assigned;
-            if ( parcel.droneInParcel.id == 0)
-                return ParcelStatus.Created;
+
             else
                 return ParcelStatus.Created;
         }
@@ -303,7 +305,7 @@ namespace BL
                     receiveName = parcel1.receive.name,
                     weight = (Weight)item.weight,
                     priority = (Priority)item.priority,
-                    parcelStatus = (ParcelStatus)parcelStatus(parcel1)
+                    parcelStatus = parcelStatus(parcel1)
                     
                 };
                 parcelToLists.Add(parcel);//hi

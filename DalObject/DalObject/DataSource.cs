@@ -128,9 +128,10 @@ namespace Dal
                 {
                     parcel.droneId = drones.ToArray()[i].id;
                     parcel.requested = DateTime.Now.AddDays(-1);
+                    parcel.scheduled = DateTime.Now;
+
                     if ((drones.ToArray()[i].id) % 4 == 0)
                     {
-                        parcel.scheduled = DateTime.Now;
                         parcel.pickedUp = DateTime.Now.AddDays(2);
                     }
                 }

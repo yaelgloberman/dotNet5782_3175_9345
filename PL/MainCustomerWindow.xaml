@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="MainCustomerWindow" Height="450" Width="800">
     <Grid>
-        <Grid.Background>
+        <!--<Grid.Background>
             <ImageBrush ImageSource="C:\Users\rinaw\Source\Repos\dotNet5782_3175_9345\PL\dronePic.jpg" Opacity="0.4"/>
-        </Grid.Background>
+        </Grid.Background>-->
         <Button Content="Customer" HorizontalAlignment="Left" Margin="77,341,0,0" VerticalAlignment="Top" Height="39" Width="198" Click="Button_Click_Customer"/>
         <Button Content="Parcel" HorizontalAlignment="Left" Margin="492,341,0,0" VerticalAlignment="Top" Height="39" Width="168" Click="Button_Click_Parcel"/>
 

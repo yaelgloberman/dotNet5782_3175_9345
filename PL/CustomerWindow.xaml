@@ -63,7 +63,7 @@
             <TextBox Name="txbPhoneNumber" Text="{Binding phoneNumber, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="2" Margin="0,10,0,10"/>
             <TextBox Name="txbLongitude" Text="{Binding location.longitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="3" Margin="0,10,0,10"/>
             <TextBox Name="txbLatitude" Text="{Binding location.latitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="4" Margin="0,10,0,10"/>
-            <TextBox Name="txbPassword" Text="{Binding Password, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="5" Margin="0,10,0,10" />
+            <TextBox Name="txbPassword" Text="{Binding PassWord, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="5" Margin="0,10,0,10" />
 
         </Grid>
         <Grid x:Name="addCustomer" HorizontalAlignment="Stretch" Margin="10,10,10,10" Width="Auto" d:IsHidden="True" >
