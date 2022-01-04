@@ -40,8 +40,8 @@ namespace Dal
         }
         public void SendToCharge(int droneId, int stationId)//update function that updates the station and drone when the drone is sent to chatge
         {
-            GetDrone(droneId);
-            GetStation(stationId);
+            //GetDrone(droneId);
+            //GetStation(stationId);
             droneCharges dCharge = new droneCharges();
             Station tmpS = new Station();
             dCharge.stationId = stationId;//maching the drones id
