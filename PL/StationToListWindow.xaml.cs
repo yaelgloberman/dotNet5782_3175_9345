@@ -35,8 +35,9 @@ namespace PL
             myObservableCollection = new ObservableCollection<BaseStationToList>(bL.GetBaseStationToList());
             DataContext = myObservableCollection;
             StationToListView.Items.Clear();
-            //   StationToListView.ItemsSource = bL.GetBaseStationToLists().ToList();
             StationToListView.ItemsSource = myObservableCollection;
+            StationToListView.ItemsSource = bL.GetBaseStationToLists().ToList();
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -52,6 +53,8 @@ namespace PL
             wnd.ShowDialog();
             myObservableCollection = new ObservableCollection<BaseStationToList>(bL.GetBaseStationToList());
             DataContext = myObservableCollection;
+            StationToListView.ItemsSource = bL.GetBaseStationToLists().ToList();
+
         }
         private void DoubleClick(object sender, MouseButtonEventArgs e)
         {

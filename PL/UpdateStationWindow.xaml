@@ -38,40 +38,40 @@
             <Label x:Name="Name" Grid.Column="1" Content="Enter A New Name" Grid.Row="3"  HorizontalContentAlignment="Stretch" Margin="0,5,0,5" FontFamily="Bahnschrift SemiLight Condensed" FontSize="22"/>
             <Label x:Name="ChargeSlots" Grid.Column="1" Content="Enter The Amount Of Charge Slots" Grid.Row="4"  HorizontalContentAlignment="Stretch" Margin="0,4,6,5" FontFamily="Bahnschrift SemiLight Condensed" FontSize="18" Grid.ColumnSpan="2"/>
             <TextBox x:Name="TxbIdUpdate"  Text="{Binding id, Mode=TwoWay, NotifyOnTargetUpdated=True, ValidatesOnExceptions=True}" DataContext="{Binding}"  Grid.Column="2"   Grid.Row="2" TextWrapping="Wrap"  VerticalAlignment="Center" Height="18" Margin="20,0,20,0" IsReadOnly="True"/>
-            <TextBox x:Name="TxbNameUpdate" Text="{Binding stationName, Mode=OneWayToSource, NotifyOnTargetUpdated=True, ValidatesOnExceptions=True}" Grid.Column="2"   Grid.Row="3" TextWrapping="Wrap"  VerticalAlignment="Center" Height="18" Margin="20,0,20,0"/>
-            <TextBox x:Name="TxbChargeSlotsUpdate"  Text="{Binding avilableChargeSlots, Mode=OneWayToSource, NotifyOnTargetUpdated=True, ValidatesOnExceptions=True}" Grid.Column="2"  Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" Height="18" Margin="20,0,20,0"/>
+            <TextBox x:Name="TxbNameUpdate" Text="{Binding stationName, Mode=TwoWay, NotifyOnTargetUpdated=True, ValidatesOnExceptions=True}" Grid.Column="2"   Grid.Row="3" TextWrapping="Wrap"  VerticalAlignment="Center" Height="18" Margin="20,0,20,0"/>
+            <TextBox x:Name="TxbChargeSlotsUpdate"  Text="{Binding avilableChargeSlots, Mode=TwoWay, NotifyOnTargetUpdated=True, ValidatesOnExceptions=True}" Grid.Column="2"  Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" Height="18" Margin="20,0,20,0" />
             <Button x:Name="Update" Grid.Column="1"  Grid.Row="5"  Content="Update" Grid.ColumnSpan="2" Click="Update_Click" FontFamily="Franklin Gothic Demi" Effect="{Binding Background, ElementName=Update}" BorderThickness="10,10,10,10" Background="#FFCF9A91" BorderBrush="#FF984B4B"/>
             <Button x:Name="buttonStationInfo" Content="station Info" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="7" Click="Button_Click"/>
 
         </Grid>
 
 
-        <Grid x:Name="GridAdd" d:IsHidden="True">
+        <Grid x:Name="GridAdd">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="33*"/>
                 <ColumnDefinition Width="367*"/>
             </Grid.ColumnDefinitions>
-            <Grid Grid.ColumnSpan="2" d:IsHidden="True">
-                <Image Grid.RowSpan="9" Source="/dronePic.jpg" Stretch="Fill" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Opacity="0.4" d:IsHidden="True">
+            <Grid Grid.ColumnSpan="2">
+                <Image Grid.RowSpan="9" Source="/dronePic.jpg" Stretch="Fill" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Opacity="0.4">
                     <Image.Effect>
                         <BlurEffect/>
                     </Image.Effect>
                 </Image>
-                <TextBox x:Name="Txbid" Text="{Binding id, Mode=TwoWay, NotifyOnTargetUpdated=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Margin="275,80,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120" BorderBrush="#FF7273E0" d:IsHidden="True"/>
-                <TextBlock x:Name="Txbname" Text="{Binding stationName, Mode=TwoWay, NotifyOnTargetUpdated=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Margin="275,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"  d:IsHidden="True"/>
-                <TextBox x:Name="TxbchargeSlots" Text="{Binding avilableChargeSlots, Mode=TwoWay,  NotifyOnTargetUpdated=True, ValidatesOnExceptions=True}"  HorizontalAlignment="Left" Margin="275,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" BorderBrush="#FF7273E0" d:IsHidden="True"/>
-                <TextBox x:Name="TxbLongitude" Text="{Binding location.longitude, Mode=TwoWay, NotifyOnTargetUpdated=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Margin="275,227,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" BorderBrush="#FF7273E0" d:IsHidden="True"/>
-                <TextBox x:Name="TxbLatitude" Text="{Binding location.latitude, Mode=TwoWay, NotifyOnTargetUpdated=True, ValidatesOnExceptions=True }" HorizontalAlignment="Left" Margin="275,277,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" BorderBrush="#FF7273E0" d:IsHidden="True"/>
-                <Label Content="ID:" HorizontalAlignment="Left" Margin="70,70,0,0" VerticalAlignment="Top" Width="69" FontSize="20" FontStyle="Italic" d:IsHidden="True"/>
-                <Label Content="Station Name:" HorizontalAlignment="Left" Margin="70,120,0,0" VerticalAlignment="Top" Width="145" FontSize="20" FontStyle="Italic" d:IsHidden="True"/>
-                <Label Content="Charge Slots:" HorizontalAlignment="Left" Margin="70,170,0,0" VerticalAlignment="Top" Width="189" FontSize="20" FontStyle="Italic" d:IsHidden="True"/>
-                <Label Content="Longitude:" HorizontalAlignment="Left" Margin="70,220,0,0" VerticalAlignment="Top" Width="189" FontSize="20" FontStyle="Italic" d:IsHidden="True"/>
-                <Label Content="Latitude:" HorizontalAlignment="Left" Margin="70,270,0,0" VerticalAlignment="Top" Width="189" FontSize="20" FontStyle="Italic" d:IsHidden="True"/>
-                <Button x:Name="buttonAddStation" Content="Add Station" HorizontalAlignment="Left" Margin="156,345,0,0" VerticalAlignment="Top" RenderTransformOrigin="-3.796,-0.785" Click="buttonAddStation_Click" Height="37" Width="120" FontStyle="Italic" FontSize="18" BorderBrush="#FF1B7284" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" FontWeight="Bold" d:IsHidden="True"/>
+                <TextBox x:Name="Txbid" Text="{Binding id, Mode=TwoWay, NotifyOnTargetUpdated=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Margin="275,80,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120" BorderBrush="#FF7273E0"/>
+                <TextBox x:Name="Txbname" Text="{Binding stationName, Mode=TwoWay,  NotifyOnTargetUpdated=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Margin="275,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="TxbchargeSlots" Text="{Binding avilableChargeSlots, Mode=TwoWay,  NotifyOnTargetUpdated=True, ValidatesOnExceptions=True}"  HorizontalAlignment="Left" Margin="275,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" BorderBrush="#FF7273E0"/>
+                <TextBox x:Name="TxbLongitude"  DataContext="{Binding}" Text="{Binding location.longitude,  Mode=TwoWay, NotifyOnTargetUpdated=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Margin="275,227,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" BorderBrush="#FF7273E0"/>
+                <TextBox x:Name="TxbLatitude" Text="{Binding location.latitude, Mode=TwoWay, NotifyOnTargetUpdated=True, ValidatesOnExceptions=True }" HorizontalAlignment="Left" Margin="275,277,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" BorderBrush="#FF7273E0"/>
+                <Label Content="ID:" HorizontalAlignment="Left" Margin="70,70,0,0" VerticalAlignment="Top" Width="69" FontSize="20" FontStyle="Italic"/>
+                <Label Content="Station Name:" HorizontalAlignment="Left" Margin="70,120,0,0" VerticalAlignment="Top" Width="145" FontSize="20" FontStyle="Italic"/>
+                <Label Content="Charge Slots:" HorizontalAlignment="Left" Margin="70,170,0,0" VerticalAlignment="Top" Width="189" FontSize="20" FontStyle="Italic"/>
+                <Label Content="Longitude:" HorizontalAlignment="Left" Margin="70,220,0,0" VerticalAlignment="Top" Width="189" FontSize="20" FontStyle="Italic"/>
+                <Label Content="Latitude:" HorizontalAlignment="Left" Margin="70,270,0,0" VerticalAlignment="Top" Width="189" FontSize="20" FontStyle="Italic"/>
+                <Button x:Name="buttonAddStation" Content="Add Station" HorizontalAlignment="Left" Margin="156,345,0,0" VerticalAlignment="Top" RenderTransformOrigin="-3.796,-0.785" Click="buttonAddStation_Click" Height="37" Width="120" FontStyle="Italic" FontSize="18" BorderBrush="#FF1B7284" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" FontWeight="Bold"/>
             </Grid>
         </Grid>
 
-        <Grid x:Name="GridStationinfo">
+        <Grid x:Name="GridStationinfo" d:IsHidden="True">
             <!--<Grid.ColumnDefinitions>
 
                 <ColumnDefinition Width="80*" />

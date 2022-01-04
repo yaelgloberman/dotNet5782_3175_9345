@@ -80,7 +80,8 @@ namespace PL
             {
                 int chargeslots;
                 string name;
-                if (TxbchargeSlots.Text == "")
+                
+                if (TxbchargeSlots.Text == " ")
                     chargeslots = -1;
                 else
                 {
@@ -121,6 +122,7 @@ namespace PL
                     var stationToAdd = new BaseStation { id = Convert.ToInt32(Txbid.Text), stationName = Txbname.Text, location = location, avilableChargeSlots = Convert.ToInt32(TxbchargeSlots.Text), unavailableChargeSlots = 0 };///problem with converting here!!!! need to fix!!!
                     bL.addStation(stationToAdd);
                     MessageBox.Show("succsesfully added a Station!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                    new StationToListWindow(bL);
                     this.Close();
                 }
 
@@ -146,9 +148,10 @@ namespace PL
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             BO.BaseStation stationObj = new BO.BaseStation();
-            stationObj=bL.GetStation(Convert.ToInt32(TxbIdUpdate.Text));
+            stationObj=bL.GetStation(Convert.ToInt32(Txbid.Text));
             
             chargingDronesListView.ItemsSource =stationObj.DroneInChargeList;
+            this.Txbname.Text = stationObj.stationName;
             DataContext = stationObj;
             GridUpdate.Visibility = Visibility.Hidden;
             GridStationinfo.Visibility = Visibility.Visible;
