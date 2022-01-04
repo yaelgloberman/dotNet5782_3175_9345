@@ -20,7 +20,7 @@ namespace DalApi
             Customer GetCustomer(int id);
             Drone GetDrone(int id);
             Parcel GetParcel(int id);
-           //public void deleteDrone(Drone p);
+           public void deleteDrone(Drone p);
             public void RemoveDroneCharge(droneCharges droneCharges);
            public Station GetStation(int id);
             public IEnumerable<Drone> IEDroneList(Func<Drone, bool> predicate = null);
@@ -42,7 +42,8 @@ namespace DalApi
             /// </summary>
             /// <param name="d"></param>
             public void deleteParcel(Parcel p);
-           public void updateStation(int stationId, Station s);
+        public void deleteStation(Station s);
+        public void updateStation(int stationId, Station s);
             public int AvailableChargingSlots();
             public void updateDrone(int droneId, string droneModel);
             public void updateCustomer(int customerId, Customer c);
