@@ -33,6 +33,8 @@ namespace PL
             bL = BlApi.BlFactory.GetBl();
             updateParcels.Visibility = Visibility.Hidden;
             sentParcels.Visibility = Visibility.Hidden;
+            customerParcelGrid.Visibility = Visibility.Hidden;
+
         }
         public CustomerWindow(BO.Customer CO) //update
         {
