@@ -21,22 +21,31 @@ namespace PL
     public partial class MainCustomerWindow : Window
     {
         BlApi.IBl myBl;
-
-        public MainCustomerWindow()
+        BO.Customer C1;
+        BO.Parcel P1;
+        public MainCustomerWindow(BO.CustomerInList c)
         {
             InitializeComponent();
             myBl = BL.BL.Instance;
+            C1 = myBl.GetCustomer(c.id);
+         
+        }
+        public MainCustomerWindow(BO.Parcel P)
+        {
+            InitializeComponent();
+            myBl = BL.BL.Instance;
+            P1=P;
 
         }
 
         private void Button_Click_Customer(object sender, RoutedEventArgs e)
         {
-            new customerListWindow(myBl).ShowDialog();
+            new CustomerWindow(C1).ShowDialog();
         }
 
         private void Button_Click_Parcel(object sender, RoutedEventArgs e)
         {
-            new parcelListWindow(myBl).ShowDialog();
+            new parcelWindow(P1).ShowDialog();
         }
     }
 }

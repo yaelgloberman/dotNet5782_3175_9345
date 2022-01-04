@@ -22,11 +22,11 @@ namespace PL
     public partial class PasswordWindow : Window
     {
         BlApi.IBl myBl;
-
         public PasswordWindow()
         {
             InitializeComponent();
             myBl = BL.BL.Instance;
+
             GridUser.Visibility = Visibility.Visible;
             GridPassword.Visibility = Visibility.Hidden;
             GridLogCustomer.Visibility = Visibility.Hidden; 
@@ -38,8 +38,9 @@ namespace PL
                 if (myBl.CheckValidPassword(NameBox.Text, passwordBox.Text))
                 {
                    var C= myBl.GetCustomersToList().ToList().Find(x => x.Password == passwordBox.Text && x.isCustomer);
-                    if(C != null)//varifyig the customer is a customer and not a worker 
-                    { new MainCustomerWindow().ShowDialog();
+                   var P1 = myBl.allParcels(x => x.sender.id == C.id || x.receive.id == C.id);
+                    if (C != null)//varifyig the customer is a customer and not a worker 
+                    { new MainCustomerWindow(C).ShowDialog();
                         Close();
                     }
                     else
@@ -81,7 +82,7 @@ namespace PL
 
             var wnd = new CustomerWindow();
             wnd.ShowDialog();
-            new MainCustomerWindow().ShowDialog();
+            new CustomerWindow().ShowDialog();
          //   Close();
         }
 

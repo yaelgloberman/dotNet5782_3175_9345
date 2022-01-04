@@ -41,7 +41,8 @@ namespace PL
             InitializeComponent();
             bL = BlApi.BlFactory.GetBl();
             add.Visibility = Visibility.Hidden;
-            parcel = bL.GetParcel(ptl.id);
+            try { parcel = bL.GetParcel(ptl.id); }
+            catch(System.NullReferenceException exp) { MessageBox.Show(exp.Message); }
             this.DataContext = parcel;
             if (parcel.droneInParcel != null)
             {
