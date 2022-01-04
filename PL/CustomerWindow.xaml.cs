@@ -34,6 +34,7 @@ namespace PL
             updateParcels.Visibility = Visibility.Hidden;
             sentParcels.Visibility = Visibility.Hidden;
             customerParcelGrid.Visibility = Visibility.Hidden;
+
         }
         public CustomerWindow(BO.Customer CO) //update
         {

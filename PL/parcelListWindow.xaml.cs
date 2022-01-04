@@ -111,7 +111,7 @@ namespace PL
         }
         private void refresh_Click(object sender, RoutedEventArgs e)
         {
-            parcelListBox.ItemsSource = bL.GetParcels();
+            parcelListBox.ItemsSource = bL.GetParcelToLists();
             comboBoxStatusSelectorParcel.SelectedIndex = -1;
         }
 

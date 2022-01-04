@@ -32,6 +32,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{7286FF4E-A95
 		dal-config.xml = dal-config.xml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalXml", "DalXml\DalXml.csproj", "{40ECD781-4E73-4FE6-B95C-F660AC351F1B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +68,10 @@ Global
 		{B5BAF5B1-32A8-42B9-AE50-25D25618CDBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5BAF5B1-32A8-42B9-AE50-25D25618CDBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5BAF5B1-32A8-42B9-AE50-25D25618CDBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40ECD781-4E73-4FE6-B95C-F660AC351F1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40ECD781-4E73-4FE6-B95C-F660AC351F1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40ECD781-4E73-4FE6-B95C-F660AC351F1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40ECD781-4E73-4FE6-B95C-F660AC351F1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
