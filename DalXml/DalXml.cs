@@ -203,31 +203,32 @@ namespace Dal
         }
         public IEnumerable<Station> GetStationList()
         {
-            XElement stationRoot = XMLTools.LoadListFromXMLElement(stationPath);
-            IEnumerable<XElement> list = stationRoot.Elements();
-            List<Station> stationList = (from item in stationRoot.Elements()
-                                         select new Station()
-                                         {
-                                             id = int.Parse(stationRoot.Element("station id").Value),
-                                             name = stationRoot.Element("name").Value,
-                                             longitude = double.Parse(stationRoot.Element("longitude").Value),
-                                             latitude = double.Parse(stationRoot.Element("latitude").Value),
-                                             chargeSlots = int.Parse(stationRoot.Element("chargeSlots").Value)
-                                         }).ToList();
-            foreach (Station item in stationList)
-            {
-                yield return item;
-            }
             //XElement stationRoot = XMLTools.LoadListFromXMLElement(stationPath);
-            //return from s in stationRoot.Elements()
-            //       select new Station()
-            //       {
-            //           id = Convert.ToInt32(s.Element("station id").Value),
-            //           name = s.Element("name").Value,
-            //           longitude =Convert.ToDouble(s.Element("longitude").Value),
-            //           latitude = Convert.ToDouble(s.Element("latitude").Value),
-            //           chargeSlots = Convert.ToInt32(s.Element("chargeSlots").Value)
-            //       };
+            //IEnumerable<XElement> list = stationRoot.Elements();
+            //List<Station> stationList = (from item in stationRoot.Elements()
+            //                             select new Station()
+            //                             {
+            //                                 id = int.Parse(stationRoot.Element("station id").Value),
+            //                                 name = stationRoot.Element("name").Value,
+            //                                 longitude = double.Parse(stationRoot.Element("longitude").Value),
+            //                                 latitude = double.Parse(stationRoot.Element("latitude").Value),
+            //                                 chargeSlots = int.Parse(stationRoot.Element("chargeSlots").Value)
+            //                             }).ToList();
+            //foreach (Station item in stationList)
+            //{
+            //    yield return item;
+            //}
+            XElement stationRoot = XMLTools.LoadListFromXMLElement(stationPath);
+            var allListStation = from s in stationRoot.Elements()
+                                 select new Station()
+                                 {
+                                     id = Convert.ToInt32(s.Element(" id").Value),
+                                     name = s.Element("name").Value,
+                                     longitude = Convert.ToDouble(s.Element("longitude").Value),
+                                     latitude = Convert.ToDouble(s.Element("latitude").Value),
+                                     chargeSlots = Convert.ToInt32(s.Element("chargeSlots").Value)
+                                 };
+            return allListStation;
         }
         public bool checkStation(int id)
         {
