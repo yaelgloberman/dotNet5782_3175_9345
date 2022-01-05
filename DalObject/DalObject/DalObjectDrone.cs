@@ -85,7 +85,11 @@ namespace Dal
 
         public IEnumerable<Drone> GetDrones()
         {
-            return DataSource.drones;
+            var droneList = DataSource.drones;
+            foreach (Drone item in droneList)
+            {
+                yield return item;
+            }
         }
        
         public IEnumerable<Drone> IEDroneList(Func<Drone, bool> predicate = null)

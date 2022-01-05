@@ -39,11 +39,7 @@ namespace Dal
         /// </summary>
         /// <param name="cordinate"></param>
         /// <returns></returns>
-        //private static double getRandomCordinates(int num1,int num2) 
-        //{
-        //    int num3 = r.Next(num1, num2);
-        //    return num3 + r.NextDouble()/10;
-        //}
+      
         private static double getRandomCordinates(double num1, double num2)
         {
             return (r.NextDouble() * (num2 - num1) + num1);
