@@ -20,18 +20,16 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Grid x:Name="sentParcels" d:IsHidden="True">
+        <Grid x:Name="sentParcels">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50*"/>
                 <RowDefinition Height="400*"/>
             </Grid.RowDefinitions>
-            <ListView x:Name="sentParcelsListView"  DataContext="{Binding}" ItemsSource="{Binding}"  Grid.Row="1" BorderBrush="#FFE5EACD" Background="#FFDFD9B7"  >
+            <ListView x:Name="sentParcelsListView" MouseDoubleClick="sentParcelsListView_MouseDoubleClick" DataContext="{Binding}" ItemsSource="{Binding}"  Grid.Row="1" BorderBrush="#FFE5EACD" Background="#FFDFD9B7"  >
 
             </ListView>
         </Grid>
-        <ListView x:Name="ReciveParcelsListView"  DataContext="{Binding}" ItemsSource="{Binding}"  Grid.Row="1" BorderBrush="#FFE5EACD" Background="#FFDFD9B7" >
-
-        </ListView>
+        <ListView x:Name="ReciveParcelsListView" MouseDoubleClick="ReciveParcelsListView_MouseDoubleClick"  DataContext="{Binding}" ItemsSource="{Binding}"   Grid.Row="1" BorderBrush="#FFE5EACD" Background="#FFDFD9B7"  />
         <Grid x:Name="general" d:IsHidden="True">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -88,7 +86,7 @@
             </Grid.RowDefinitions>
             <Button x:Name="btnAddCustomer" Content="add" Grid.Column="4" Grid.Row="7" Click="btnAddCustomer_Click" />
         </Grid>
-        <Grid x:Name="updateParcels">
+        <Grid x:Name="updateParcels" d:IsHidden="True">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -116,7 +114,7 @@
 
 
 
-        <Grid x:Name="customerParcelGrid">
+        <Grid x:Name="customerParcelGrid" d:IsHidden="True">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />

@@ -185,6 +185,22 @@ namespace PL
             CustomerWindow wnd = new CustomerWindow(bL.GetCustomer(customerParcel.id));
             wnd.ShowDialog();
         }
+
+        private void ReciveParcelsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var parcel = new ParcelCustomer();
+            parcel = (ParcelCustomer)ReciveParcelsListView.SelectedItem;
+            try { new parcelWindow(bL.GetParcel(parcel.id)).ShowDialog(); }
+            catch (dosntExisetException exp) { MessageBox.Show(exp.Message); }
+        }
+
+        private void sentParcelsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var parcel = new ParcelCustomer();
+            parcel = (ParcelCustomer)sentParcelsListView.SelectedItem;
+            try { new parcelWindow(bL.GetParcel(parcel.id)).ShowDialog(); }
+            catch (dosntExisetException exp) { MessageBox.Show(exp.Message); }
+        }
     }
 }
 

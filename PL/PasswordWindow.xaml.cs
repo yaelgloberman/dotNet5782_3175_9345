@@ -63,9 +63,9 @@ namespace PL
 
         private void Button_Click_Worker(object sender, RoutedEventArgs e)
         {
-            
-           // ridUser.Visibility = Visibility.Hidden;
-            new MainWindow().ShowDialog();
+
+            // ridUser.Visibility = Visibility.Hidden;
+            try { new MainWindow().ShowDialog(); } catch(System.NullReferenceException exp) { MessageBox.Show(exp.Message); }
             Close();
         }
 
