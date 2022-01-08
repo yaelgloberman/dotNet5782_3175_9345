@@ -10,18 +10,17 @@ using DalApi;
 using DO;
 using Dal;
 
-namespace DalApi
+namespace Dal
 {
-    namespace DalXml
-    {
+
         static internal class XMLTools
         {
-            static string dir = @"xml\";
-            static XMLTools()
+         static string dir = @"xml\";
+        static XMLTools()
             {
-                if (!Directory.Exists(dir))
-                    Directory.CreateDirectory(dir);
-            }
+            if (!Directory.Exists(dir))
+                Directory.CreateDirectory(dir);
+        }
             #region SaveLoadWithXElement
 
             //save a specific xml file according the name- throw exception in case of problems..
@@ -117,5 +116,6 @@ namespace DalApi
             }
             #endregion
         }
-    }
+    
 }
+

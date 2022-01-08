@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DO;
 namespace DO
-    {
+{
         public struct droneCharges
         {
             public int droneId { set; get; }

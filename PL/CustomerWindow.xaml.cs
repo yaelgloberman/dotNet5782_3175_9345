@@ -27,7 +27,7 @@ namespace PL
 
         IBl bL;
 
-        public CustomerWindow()//add
+        public CustomerWindow()
         {
             InitializeComponent();
             bL = BlApi.BlFactory.GetBl();
@@ -146,7 +146,7 @@ namespace PL
                 bL.updateCustomer(Convert.ToInt32(txbID.Text), txbName.Text,txbPhoneNumber.Text);
                 var a = bL.GetCustomersToList();
                 MessageBox.Show("succsesfully update customer!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                //}
+                
              
             }
 

@@ -73,14 +73,7 @@ namespace BL
                 parcel.weight = (Weight)dalParcel.weight;
                 parcel.senderName = dal.GetCustomer(dalParcel.senderId).name;
                parcel.parcelStatus= parcelStatus(GetParcel(parcel.id));
-                //if (dalParcel.scheduled != null)
-                    //parcel.parcelStatus = BO.ParcelStatus.Created;
-                //if (dalParcel.requested != null)
-                    //parcel.parcelStatus = BO.ParcelStatus.Assigned;
-                //if (dalParcel.pickedUp != null)
-                    //parcel.parcelStatus = BO.ParcelStatus.PickedUp;
-                //if (dalParcel.delivered != null)
-                    //parcel.parcelStatus = BO.ParcelStatus.Delivered;
+               
             }
             catch (findException exp)
             {
