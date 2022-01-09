@@ -92,20 +92,22 @@ namespace PL
                 }
             }
         }
-        private void buttonAddDrone_Click(object sender, RoutedEventArgs e)
+        private void buttonAddDrone_Click(object sender, RoutedEventArgs e)//have to change this to binding
         {
+
             try
             {
                 ValidateString(model.Text);
                 SolidColorBrush red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE92617"));
-                BaseStationToList s = (BaseStationToList)station.SelectedItem;
-                if (model.Text == "" || id.Text == null || weightCategories.SelectedItem == null || station.SelectedItem == null || SolidColorBrush.Equals(((SolidColorBrush)txbUpdateModel.BorderBrush).Color, red.Color))
+                var s = bL.GetStation(Convert.ToInt32(station.SelectedItem));
+                if (model.Text == "" || id.Text == null || weightCategories.SelectedIndex == -1 || station.SelectedIndex == -1 || SolidColorBrush.Equals(((SolidColorBrush)txbUpdateModel.BorderBrush).Color, red.Color))
                 {
                     MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
-                    bL.addDrone(Convert.ToInt32(id.Text), Convert.ToInt32(s.id), model.Text, (Weight)(weightCategories.SelectedItem));
+                    BO.DroneToList d = new() { id = Convert.ToInt32(id.Text), droneModel = model.Text, weight = (Weight)weightCategories.SelectedItem, location = s.location };
+                    bL.addDrone(d, s.id);
                     MessageBox.Show("succsesfully added a drone!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
                     this.Close();
                 }
@@ -116,7 +118,6 @@ namespace PL
 
             }
         }
-
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

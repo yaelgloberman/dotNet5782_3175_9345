@@ -128,35 +128,37 @@ namespace PL
 
         private void btnUpdateCustomer_Click(object sender, RoutedEventArgs e)
         {
-            
+
             try
             {
                 //deliverObservableCollection = new ObservableCollection<ParcelCustomer>(customer.parcelsdelivered);
                 //sentParcelsListView.DataContext = deliverObservableCollection;
                 //receiveObservableCollection = new ObservableCollection<ParcelinCustomer>(customer.parcelsOrdered);
                 //receivedParcelsList.DataContext = receiveObservableCollection;
-                //if (txbName.Text == c.Name && Convert.ToInt32(txbPhoneNumber.Text) == c.phoneNumber) 
-                //{
-                //    MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
-                //    this.Close();
-                //}
-                //else
-                //{
-                ValidateString(txbName.Text);
-                bL.updateCustomer(Convert.ToInt32(txbID.Text), txbName.Text,txbPhoneNumber.Text);
-                var a = bL.GetCustomersToList();
-                MessageBox.Show("succsesfully update customer!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                
-             
-            }
+                Customer c = new();
+                c = bL.GetCustomer(Convert.ToInt32(txbID.Text));
+                if(txbName.Text==c.Name && txbPhoneNumber.Text==c.phoneNumber)
+                {
+                    MessageBox.Show("Please enter diffrent name or phone number", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
+                    this.Close();
+                }
+                if (txbName.Text == null && txbPhoneNumber.Text == null)
+                {
+                    MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
+                    this.Close();
+                }
+                else
+                {
+                    ValidateString(txbName.Text);
+                    bL.updateCustomer(Convert.ToInt32(txbID.Text), txbName.Text, txbPhoneNumber.Text);
+                    var a = bL.GetCustomersToList();
+                    MessageBox.Show("succsesfully update customer!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
 
-            //catch (Exception exp)
-            //{
-            //    MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-            //}
-            catch(BO.dosntExisetException exp)
+                }
+            }
+            catch (BO.dosntExisetException exp)
             {
-                 MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
 
             }
         }

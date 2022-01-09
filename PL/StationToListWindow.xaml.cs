@@ -83,5 +83,12 @@ namespace PL
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("stationName");
             view.GroupDescriptions.Add(groupDescription);
         }
+
+        private void groupByAvlChargeS_Click(object sender, RoutedEventArgs e)
+        {
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(StationToListView.ItemsSource);
+                PropertyGroupDescription groupDescription = new PropertyGroupDescription("stationName");
+                view.GroupDescriptions.Add(groupDescription);
+        }
     }
 }

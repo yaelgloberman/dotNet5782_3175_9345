@@ -8,7 +8,7 @@
         WindowStartupLocation="CenterScreen"
         Title="UpdateStationWindow" Height="441" Width="769">
     <Grid>
-        <Grid x:Name="GridUpdate" d:IsHidden="True">
+        <Grid x:Name="GridUpdate">
             <Grid.ColumnDefinitions>
 
                 <ColumnDefinition Width="80*" />
@@ -46,7 +46,7 @@
         </Grid>
 
 
-        <Grid x:Name="GridAdd">
+        <Grid x:Name="GridAdd" d:IsHidden="True">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="33*"/>
                 <ColumnDefinition Width="367*"/>
@@ -72,26 +72,6 @@
         </Grid>
 
         <Grid x:Name="GridStationinfo" d:IsHidden="True">
-            <!--<Grid.ColumnDefinitions>
-
-                <ColumnDefinition Width="80*" />
-                <ColumnDefinition Width="102*" />
-                <ColumnDefinition Width="89*" />
-                <ColumnDefinition Width="49*" />
-                <ColumnDefinition Width="160" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="47*" />
-                <RowDefinition Height="26*" />
-                <RowDefinition Height="21*"/>
-                <RowDefinition Height="47*" />
-                <RowDefinition Height="47*" />
-                <RowDefinition Height="47*" />
-                <RowDefinition Height="47*" />
-                <RowDefinition Height="47*" />
-                <RowDefinition Height="47*" />
-                <RowDefinition Height="47*" />
-            </Grid.RowDefinitions>-->
             <Label Content="Station Id:" HorizontalAlignment="Left" Margin="36,12,0,0" VerticalAlignment="Top" RenderTransformOrigin="3.65,-1.773" Height="26" Width="92"/>
             <TextBox x:Name="stationIdText"  HorizontalAlignment="Left" Margin="133,17,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"  Text="{Binding id,Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True }" IsReadOnly="true"/>
             <Label Content="Name:" HorizontalAlignment="Left" Margin="36,51,0,0" VerticalAlignment="Top" RenderTransformOrigin="3.65,-1.773" Height="26" Width="92"/>

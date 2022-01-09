@@ -78,32 +78,34 @@ namespace PL
         {
             try
             {
-                int chargeslots;
-                string name;
-                
-                if (TxbchargeSlots.Text == " ")
-                    chargeslots = -1;
-                else
-                {
-                    chargeslots = Convert.ToInt32(TxbChargeSlotsUpdate.Text); 
-                }
-                if (TxbNameUpdate.Text=="")
-                    name = " ";
-                else
-                {
-                    name = TxbNameUpdate.Text;
-                    ValidateString(TxbNameUpdate.Text);
-                }
-                bL.updateStation(Convert.ToInt32(TxbIdUpdate.Text), chargeslots,name);//have to find the right id
-                var s = bL.GetBaseStationToList();
-                MessageBox.Show("succsesfully update station!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                Close();
-            }
-            catch (Exception exp)
-            {
-                MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
 
-            }
+
+                    BaseStation s = new BaseStation();
+                    s = bL.GetStation(Convert.ToInt32(Txbid.Text));
+                    if (TxbNameUpdate.Text == s.stationName && Convert.ToInt32(TxbchargeSlots.Text) == s.avilableChargeSlots)
+                    {
+                        MessageBox.Show("Please enter diffrent name or number charge slots", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
+                        this.Close();
+                    }
+                    if (TxbchargeSlots.Text == null && TxbNameUpdate.Text == null)
+                    {
+                        MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
+                        this.Close();
+                    }
+                    else
+                    {
+                        ValidateString(TxbNameUpdate.Text);
+                         bL.updateStation(Convert.ToInt32(TxbIdUpdate.Text), Convert.ToInt32(TxbChargeSlotsUpdate.Text), TxbNameUpdate.Text);//have to find the right id
+                         var st = bL.GetBaseStationToList();
+                         MessageBox.Show("succsesfully update station!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    }
+                }
+                catch (BO.dosntExisetException exp)
+                {
+                    MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                }
         }
         private void buttonAddStation_Click(object sender, RoutedEventArgs e)
         {
@@ -149,7 +151,6 @@ namespace PL
         {
             BO.BaseStation stationObj = new BO.BaseStation();
             stationObj=bL.GetStation(Convert.ToInt32(Txbid.Text));
-            
             chargingDronesListView.ItemsSource =stationObj.DroneInChargeList;
             this.Txbname.Text = stationObj.stationName;
             DataContext = stationObj;

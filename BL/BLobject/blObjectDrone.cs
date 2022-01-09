@@ -343,13 +343,12 @@ namespace BL
                 bstation.addingChargeSlots();
                 addStation(bstation);
                 dal.RemoveDroneCharge(DC);
-                dal.deleteDrone(dal.GetDrone(droneID));
+                var d = dal.GetDrone(droneID);
+                dal.deleteDrone(d);
                 drones[index].droneStatus = DroneStatus.available;
-                Console.WriteLine(drones[index].ToString());
-                addDrone(drones[index], DC.stationId);
+                addDrone(drones[index], s.id);
             }
-        }
-        public IEnumerable<DroneToList> allDrones(Func<DroneToList, bool> predicate = null)
+            public IEnumerable<DroneToList> allDrones(Func<DroneToList, bool> predicate = null)
         {
             if (predicate == null)
             {

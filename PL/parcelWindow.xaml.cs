@@ -52,10 +52,7 @@ namespace PL
                     btnDroneParcelW.Visibility = Visibility.Visible;
                     btnCustomerSenderParcelW.Visibility = Visibility.Visible;
                     btnCustomerReciverParcelW.Visibility = Visibility.Visible;
-                    checkBoxAgree.Visibility = Visibility.Hidden;
-                    btnPickUpParcelByDrone.Visibility = Visibility.Hidden;
-
-
+                    checkBoxAgree.Visibility = Visibility.Visible;
                 }
                 if (parcel.pickedUp != null)
                 {
@@ -63,13 +60,16 @@ namespace PL
                     btnCustomerSenderParcelW.Visibility = Visibility.Visible;
                     btnCustomerReciverParcelW.Visibility = Visibility.Visible;
                     btnDeliveryToCustomer.Visibility = Visibility.Visible;
+                    checkBoxAgree.Visibility = Visibility.Visible;
+                    btnPickUpParcelByDrone.Visibility = Visibility.Hidden;
                 }
                 if (parcel.delivered != null)
                 {
                     lblDelivered.Visibility = Visibility.Visible;
                     txbDeliverd.Visibility = Visibility.Visible;
                     btnDroneParcelW.Visibility = Visibility.Hidden;
-                    //  checkBoxAgree.Visibility = Visibility.Visible;
+                    btnDeliveryToCustomer.Visibility = Visibility.Visible;
+                    checkBoxAgree.Visibility = Visibility.Visible;
                 }
             }
             else
@@ -81,7 +81,6 @@ namespace PL
                     btnDroneParcelW.Visibility = Visibility.Hidden;
                     checkBoxAgree.Visibility = Visibility.Hidden;
                     lblDronInParcel.Visibility = Visibility.Hidden;
-
                 }
             }
             if (parcel.scheduled != null)
@@ -132,7 +131,6 @@ namespace PL
             try
             {
                 Parcel parcelToAdd = new();
-
                 if (comboBoxS.SelectedItem == null)
                     throw new Exception("choose a sender");
                 if (comboBoxR.SelectedItem == null)
@@ -143,24 +141,19 @@ namespace PL
                 if (comboBoxP.SelectedItem== null)
                    throw new Exception("choose a priorty");
                 parcelToAdd.priority = (Priority)(comboBoxP.SelectedItem);
-                CustomerInParcel senderTmp = new()
-                {
-                    id = Convert.ToInt32(((CustomerInList)comboBoxS.SelectedItem).id),
-                    name = ((CustomerInList)(comboBoxS.SelectedItem)).Name
-                };
+                CustomerInParcel senderTmp = new();
+                senderTmp.id = Convert.ToInt32(comboBoxS.SelectedItem);
+                senderTmp.name = bL.GetCustomer(Convert.ToInt32(comboBoxS.SelectedItem)).Name;
                 parcelToAdd.sender = senderTmp;
-                CustomerInParcel reciveTemp = new()
-                {
-                    id = Convert.ToInt32(((CustomerInList)comboBoxR.SelectedItem).id),
-                    name = ((CustomerInList)(comboBoxR.SelectedItem)).Name
-                };
+                CustomerInParcel reciveTemp = new();
+                reciveTemp.id = Convert.ToInt32(comboBoxR.SelectedItem);
+                senderTmp.name = bL.GetCustomer(Convert.ToInt32(comboBoxR.SelectedItem)).Name;
                 parcelToAdd.receive = reciveTemp;
                 if (parcelToAdd.receive.id == parcelToAdd.sender.id)
                     throw new Exception("the sender and the reciver can not be the same person");
-                bL.addParcel(parcelToAdd);
-                MessageBox.Show("succsesfully added a drone!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                parcelToAdd.id=bL.addParcel(parcelToAdd);
+                MessageBox.Show("succsesfully added a parcel!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
-
             }
             catch (Exception exp)
             {
