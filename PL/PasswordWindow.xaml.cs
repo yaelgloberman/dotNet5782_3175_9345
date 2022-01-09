@@ -25,8 +25,7 @@ namespace PL
         public PasswordWindow()
         {
             InitializeComponent();
-            myBl = BL.BL.Instance;
-
+            myBl = BlApi.BlFactory.GetBl();
             GridUser.Visibility = Visibility.Visible;
             GridPassword.Visibility = Visibility.Hidden;
             GridLogCustomer.Visibility = Visibility.Hidden; 

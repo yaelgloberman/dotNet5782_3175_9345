@@ -338,7 +338,8 @@ namespace BL
                 drones[index].batteryStatus = timeInMinutes * GetChargeCapacity().pwrRateLoadingDrone + droneItem.batteryStatus; // the battery calculation
                 if (droneItem.batteryStatus > 100) //battery can't has more than a 100 percent
                     droneItem.batteryStatus = 100;
-                dal.deleteStation(dal.GetStation(DC.stationId));
+                var s = dal.GetStation(DC.stationId);
+                dal.deleteStation(s);
                 bstation.addingChargeSlots();
                 addStation(bstation);
                 dal.RemoveDroneCharge(DC);

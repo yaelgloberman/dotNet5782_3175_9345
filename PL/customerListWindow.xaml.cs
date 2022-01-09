@@ -36,8 +36,7 @@ namespace PL
         }
         private void DoubleClick(object sender, MouseButtonEventArgs e)
         {
-            CustomerInList cil = new();
-            cil = (CustomerInList)customerListBox.SelectedItem;
+            CustomerInList cil = (CustomerInList)customerListBox.SelectedItem;
             Customer customer = new();
             customer = bL.GetCustomer(cil.id);
             DataContext = customer;
