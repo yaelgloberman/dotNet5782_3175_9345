@@ -243,20 +243,21 @@ namespace Dal
                        where int.Parse( p.Element("id").Value) == id
                        select p).FirstOrDefault();
 
-        if (station != null)
-        {
-           var s = new Station()
-           {
-               id = Convert.ToInt32(station.Element("id").Value),
-               name = station.Element("name").Value,
-               latitude = Convert.ToDouble(station.Element("latitude").Value),
-               longitude = Convert.ToDouble(station.Element("longitude").Value),
-               chargeSlots = Convert.ToInt32(station.Element("chargeSlots").Value),
-           };
-            return s;
+            if (station != null)
+            {
+                var s = new Station()
+                {
+                    id = Convert.ToInt32(station.Element("id").Value),
+                    name = station.Element("name").Value,
+                    latitude = Convert.ToDouble(station.Element("latitude").Value),
+                    longitude = Convert.ToDouble(station.Element("longitude").Value),
+                    chargeSlots = Convert.ToInt32(station.Element("chargeSlots").Value),
+                };
+                return s;
+            }
+            throw new findException("The station doesn't exist in system");
         }
-        throw new findException("The station doesn't exist in system");
-}
+
 
     public void deleteStation(Station s)
         {
