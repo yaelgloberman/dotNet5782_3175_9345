@@ -27,9 +27,9 @@ namespace Dal
 
         public static Random random = new();
         static readonly IDal instance = new DalXml();
-        private DalXml() { }
+     private DalXml() { }
         public static IDal Instance { get => instance; }
-      // private DalXml() { Initialize(); } // default constructer calls on initialize func
+      //private DalXml() { Initialize(); } // default constructer calls on initialize func
         #region DS XML Files
         string configPath = @"ConfigXml.xml";
         string dronesPath = @"DroneXml.xml";
@@ -238,46 +238,26 @@ namespace Dal
         }
         public Station GetStation(int id)
         {
+            XElement stationRoot = XMLTools.LoadListFromXMLElement(stationPath);
+            var station = (from p in stationRoot.Elements()
+                           where int.Parse(p.Element("id").Value) == id
+                           select p).FirstOrDefault();
 
-        //    XElement stationRoot = XMLTools.LoadListFromXMLElement(stationPath);
-        //    Station station = (from p in stationRoot.Elements()
-        //                       where p.Element("id").Value == id.ToString()
-        //                       select new Station()
-        //                       {
-        //                           id = Convert.ToInt32(p.Element("id").Value),
-        //                           name = p.Element("name").Value,
-        //                           latitude = Convert.ToDouble(p.Element("latitude").Value),
-        //                           longitude = Convert.ToDouble(p.Element("longitude").Value),
-        //                           chargeSlots = Convert.ToInt32(p.Element("chargeSlots").Value),
-        //                       }).FirstOrDefault();
-
-        //    if (station.id != 0)
-        //    {
-        //        return station;
-        //    }
-        //    throw new findException("The station doesn't exist in system");
-
-        //}
-      //  throw new findException("The station doesn't exist in system");
-        XElement stationRoot = XMLTools.LoadListFromXMLElement(stationPath);
-        var station = (from p in stationRoot.Elements()
-                       where int.Parse( p.Element("id").Value) == id
-                       select p).FirstOrDefault();
-
-        if (station != null)
-        {
-           var s = new Station()
-           {
-               id = Convert.ToInt32(station.Element("id").Value),
-               name = station.Element("name").Value,
-               latitude = Convert.ToDouble(station.Element("latitude").Value),
-               longitude = Convert.ToDouble(station.Element("longitude").Value),
-               chargeSlots = Convert.ToInt32(station.Element("chargeSlots").Value),
-           };
-            return s;
+            if (station != null)
+            {
+                var s = new Station()
+                {
+                    id = Convert.ToInt32(station.Element("id").Value),
+                    name = station.Element("name").Value,
+                    latitude = Convert.ToDouble(station.Element("latitude").Value),
+                    longitude = Convert.ToDouble(station.Element("longitude").Value),
+                    chargeSlots = Convert.ToInt32(station.Element("chargeSlots").Value),
+                };
+                return s;
+            }
+            throw new findException("The station doesn't exist in system");
         }
-        throw new findException("The station doesn't exist in system");
-}
+
 
     public void deleteStation(Station s)
         {
@@ -480,6 +460,7 @@ namespace Dal
             if (listOfAllDrone.Exists(item => item.id == d.id))
                 throw new AddException("drone already exist");
             listOfAllDrone.Add(d);
+            XMLTools.SaveListToXMLSerializer<Drone>(listOfAllDrone, dronesPath);
         }
         public Drone GetDrone(int id)//function that gets id and finding the drone in the drones list and returns drone 
         {
@@ -532,12 +513,13 @@ namespace Dal
         }
         public void updateDrone(int droneId, string droneModel)
         {
-            bool flag = false;
             List<Drone> listOfAllUsers = XMLTools.LoadListFromXMLSerializer<Drone>(dronesPath);
             Drone myDrone = listOfAllUsers.Find(x => x.id == droneId);
+            listOfAllUsers.Remove(myDrone);
             myDrone.model = droneModel;
+            listOfAllUsers.Add(myDrone);
             XMLTools.SaveListToXMLSerializer<Drone>(listOfAllUsers, dronesPath);
-            if (!flag)
+            if (myDrone.id==0)
                 throw new findException("This user doesn't exist in the system");
         }
         public IEnumerable<Drone> GetDrones()

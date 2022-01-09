@@ -44,6 +44,7 @@ namespace PL
             wnd.ShowDialog();
             myObservableCollectionDrone = new ObservableCollection<DroneToList>(bL.GetDrones());
             DataContext = myObservableCollectionDrone;
+
         }
 
         private void CloseWindowList_Click(object sender, RoutedEventArgs e)
@@ -99,6 +100,7 @@ namespace PL
             new DroneWindow(drone).ShowDialog();
             myObservableCollectionDrone = new ObservableCollection<DroneToList>(bL.GetDrones());
             DataContext = myObservableCollectionDrone;
+
         }
 
 
