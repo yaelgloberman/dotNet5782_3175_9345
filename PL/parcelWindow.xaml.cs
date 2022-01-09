@@ -33,8 +33,8 @@ namespace PL
             general.Visibility = Visibility.Hidden;
             comboBoxP.ItemsSource = Enum.GetValues(typeof(BO.Priority));
             comboBoxW.ItemsSource = Enum.GetValues(typeof(BO.Weight));
-            comboBoxS.ItemsSource = bL.GetCustomersToList();
-            comboBoxR.ItemsSource = bL.GetCustomersToList();
+            comboBoxS.ItemsSource = bL.GetCustomersToList().Select(s=>s.id);
+            comboBoxR.ItemsSource = bL.GetCustomersToList().Select(s=>s.id);
         }
         public parcelWindow(BO.Parcel ptl) //update
         {

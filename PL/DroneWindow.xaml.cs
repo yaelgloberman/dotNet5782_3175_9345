@@ -27,14 +27,15 @@ namespace PL
 
         IBl bL;
 
-        public DroneWindow()
+        public DroneWindow()//add
         {
           
             InitializeComponent();
             bL = BlApi.BlFactory.GetBl();
-            station.ItemsSource = bL.GetBaseStationToLists(); //ספציפית פנויות
+            station.ItemsSource = bL.GetBaseStationToLists().Select(s=>s.id); //ספציפית פנויות
             weightCategories.ItemsSource = Enum.GetValues(typeof(Weight));
             update.Visibility = Visibility.Hidden;
+            droneInParcel.Visibility = Visibility.Hidden;
         }
         public DroneWindow(BO.Drone drone) //update
         {

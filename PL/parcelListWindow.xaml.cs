@@ -35,6 +35,14 @@ namespace PL
             myObservableCollectionParcel = new ObservableCollection<ParcelToList>(bL.GetParcelToLists());
             DataContext = myObservableCollectionParcel;
         }
+        public parcelListWindow(IBl bl, BO.Customer customer)
+        {
+            InitializeComponent();
+            this.bL = bl;
+            comboBoxStatusSelectorParcel.ItemsSource = Enum.GetValues(typeof(BO.ParcelStatus));
+            myObservableCollectionParcel = new ObservableCollection<ParcelToList>(bL.GetParcelToLists().Where(x => x.senderName == customer.Name || x.receiveName == customer.Name));
+            DataContext = myObservableCollectionParcel;
+        }
         private void btnAddParcel_Click(object sender, RoutedEventArgs e)
         {
             parcelWindow wnd = new parcelWindow();

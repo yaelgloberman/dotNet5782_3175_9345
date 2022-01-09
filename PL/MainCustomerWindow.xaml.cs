@@ -48,7 +48,7 @@ namespace PL
 
         private void Button_Click_Parcel(object sender, RoutedEventArgs e)
         {
-            ;//not sure how to this yet
+            new parcelListWindow(myBl, C1).ShowDialog();
         }
     }
 }

@@ -25,15 +25,11 @@ namespace Dal
         internal static List<Customer> Customers = new List<Customer>();
         internal static List<droneCharges> chargingDrones = new List<droneCharges>();
 
-
-
         public static Random random = new();
         static readonly IDal instance = new DalXml();
+       private DalXml() { }
         public static IDal Instance { get => instance; }
-       // private DalXml() { }
-        DalXml() { }
-    // private static DalXml Instance { get => instance; }
-    // private DalXml() { Initialize(); } // default constructer calls on initialize func
+        //private DalXml() { Initialize(); } // default constructer calls on initialize func
         #region DS XML Files
         string configPath = @"ConfigXml.xml";
         string dronesPath = @"DroneXml.xml";

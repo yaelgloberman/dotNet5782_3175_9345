@@ -45,7 +45,7 @@
 
 
 
-        <Grid x:Name="general">
+        <Grid x:Name="general" d:IsHidden="True">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10" />
                 <ColumnDefinition Width="120" />
@@ -98,7 +98,7 @@
 
 
         </Grid>
-        <Grid x:Name="add" d:IsHidden="True">
+        <Grid x:Name="add">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10" />
                 <ColumnDefinition Width="120" />
