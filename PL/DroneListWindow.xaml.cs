@@ -95,11 +95,16 @@ namespace PL
             DroneToList drtl = new();
             drtl = (DroneToList)DroneListView.SelectedItem;
             Drone drone = new();
-            drone = bL.returnsDrone(drtl.id);
-            DataContext = drone;
-            new DroneWindow(drone).ShowDialog();
-            myObservableCollectionDrone = new ObservableCollection<DroneToList>(bL.GetDrones());
-            DataContext = myObservableCollectionDrone;
+            if (drtl == null)
+                MessageBox.Show($"choose a drone", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            else
+            {
+                drone = bL.returnsDrone(drtl.id);
+                DataContext = drone;
+                new DroneWindow(drone).ShowDialog();
+                myObservableCollectionDrone = new ObservableCollection<DroneToList>(bL.GetDrones());
+                DataContext = myObservableCollectionDrone;
+            }  
 
         }
 

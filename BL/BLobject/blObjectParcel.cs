@@ -30,6 +30,7 @@ namespace BL
                 throw new validException("the given priority is not valid\n");
             DO.Parcel parcelDo = new()
             {
+                id=parcelToAdd.id,
                 senderId = parcelToAdd.sender.id,
                 targetId = parcelToAdd.receive.id,
                 weight = (WeightCatigories)parcelToAdd.weightCategorie,

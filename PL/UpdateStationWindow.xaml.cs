@@ -44,13 +44,8 @@ namespace PL
             GridUpdate.Visibility = Visibility.Visible;
             GridAdd.Visibility = Visibility.Hidden;
             GridStationinfo.Visibility = Visibility.Hidden;
-
         }
 
-        private void txbID_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
         public static void ValidateString(string string1)
         {
             List<string> invalidChars = new List<string>() { "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-" };

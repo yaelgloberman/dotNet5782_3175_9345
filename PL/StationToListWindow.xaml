@@ -6,7 +6,28 @@
         xmlns:local="clr-namespace:PL"
         WindowStartupLocation="CenterScreen"
         Title="StationToListWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Style x:Key="myButton"
+ TargetType="Button">
+            <Setter Property="FontSize"
+ Value="18" />
+            <Setter Property="FontFamily"
+ Value="Candara" />
+            <Setter Property="Background" Value="#FFFAE0D5" />
+            <Setter Property="FontWeight"
+ Value="Bold" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="Beige"/>
+                    <Setter Property="FontWeight" Value="ExtraBold"/>
+                    <Setter Property="FontSize" Value="22"/>
+                </Trigger>
+            </Style.Triggers>
+
+        </Style>
+    </Window.Resources>
     <Grid>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="51*"/>
             <RowDefinition Height="383*"/>
@@ -42,46 +63,20 @@
                 <GridViewColumn/>
             </GridView>
         </ListView>
-        <Button Content="Available Slots"  Grid.Row="0" Click="Button_Click" Grid.Column="1" BorderThickness="10,10,10,10" SnapsToDevicePixels="True" ClipToBounds="True" Background="#FFC191D2" FontFamily="Algerian" FontSize="14">
-            <Button.BorderBrush>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black"/>
-                    <GradientStop Color="#FF632675" Offset="1"/>
-                    <GradientStop Color="#FF612275" Offset="0.629"/>
-                </LinearGradientBrush>
-            </Button.BorderBrush>
+        <Button Content="Available Slots"  Grid.Row="0" Click="Button_Click" Grid.Column="1" Style = "{StaticResource myButton}">
+
         </Button>
-        <Button Content="Add Station" Click="Button_Click_Add" HorizontalAlignment="Stretch" Width="Auto" Background="#FFC47EDA" BorderThickness="10,10,10,10" ClipToBounds="True" SnapsToDevicePixels="True" FontFamily="Algerian" FontSize="14">
-            <Button.BorderBrush>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black"/>
-                    <GradientStop Color="#FF612275" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.BorderBrush>
+        <Button Content="Add Station" Click="Button_Click_Add" HorizontalAlignment="Stretch"  Style = "{StaticResource myButton}">
+            
         </Button>
-        <Button Content="Refresh" Grid.Column="3" Click="Button_Click_2" HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Width="Auto" BorderThickness="7,10,10,10" SnapsToDevicePixels="True" Foreground="#FF67486C" Background="#FFC191D2" FontFamily="Algerian" FontSize="14">
-            <Button.BorderBrush>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black" Offset="0.35"/>
-                    <GradientStop Color="#FFB278C3" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.BorderBrush>
+        <Button Content="Refresh" Grid.Column="3" Click="Button_Click_2" HorizontalAlignment="Stretch" Height="Auto"  Style = "{StaticResource myButton}">
+            
         </Button>
-        <Button x:Name="Close" Content="Close" Grid.Column="2"  Height="Auto" Width="Auto" Click="Button_Click_ChargingDrones"   BorderThickness="7,10,10,10" SnapsToDevicePixels="True" Foreground="#FF67486C" Background="#FFC191D2" FontFamily="Algerian" FontSize="14">
-            <Button.BorderBrush>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black"/>
-                    <GradientStop Color="#FF612275" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.BorderBrush>
+        <Button x:Name="Close" Content="Close" Grid.Column="2"  Height="Auto" Width="Auto" Click="Button_Click_ChargingDrones" Style = "{StaticResource myButton}">
+         
         </Button>
-        <Button x:Name="groupByAvlChargeS" Content="glgroup by CS" Grid.Column="4"  Height="Auto" Width="Auto" BorderThickness="7,10,10,10" SnapsToDevicePixels="True" Foreground="#FF67486C" Background="#FFC191D2" FontFamily="Algerian" FontSize="14" Click="groupByAvlChargeS_Click">
-            <Button.BorderBrush>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black"/>
-                    <GradientStop Color="#FF612275" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.BorderBrush>
+        <Button x:Name="groupByAvlChargeS" Content="Group by CS" Grid.Column="4"  Style = "{StaticResource myButton}" Click="groupByAvlChargeS_Click">
+           
         </Button>
     </Grid>
 </Window>

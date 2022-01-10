@@ -58,11 +58,19 @@ namespace PL
                 ParcelToList ptl = new();
                 ptl = (ParcelToList)parcelListBox.SelectedItem;
                 BO.Parcel parcel = new();
-                parcel = bL.GetParcel(ptl.id);
-                DataContext = parcel;
-                new parcelWindow(parcel).ShowDialog();
-                myObservableCollectionParcel = new ObservableCollection<ParcelToList>(bL.GetParcelToLists());
-                DataContext = myObservableCollectionParcel;
+                if (ptl is null)
+                {
+                    MessageBox.Show($"choose a parcel", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    parcel = bL.GetParcel(ptl.id);
+                    DataContext = parcel;
+                    new parcelWindow(parcel).ShowDialog();
+                    myObservableCollectionParcel = new ObservableCollection<ParcelToList>(bL.GetParcelToLists());
+                    DataContext = myObservableCollectionParcel;
+                }
+               
             }
             catch (System.NullReferenceException ex) { MessageBox.Show(ex.Message + "the parcel is empty"); };
           

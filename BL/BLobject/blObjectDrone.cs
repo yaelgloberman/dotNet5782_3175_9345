@@ -348,7 +348,8 @@ namespace BL
                 drones[index].droneStatus = DroneStatus.available;
                 addDrone(drones[index], s.id);
             }
-            public IEnumerable<DroneToList> allDrones(Func<DroneToList, bool> predicate = null)
+        }
+        public IEnumerable<DroneToList> allDrones(Func<DroneToList, bool> predicate = null)
         {
             if (predicate == null)
             {

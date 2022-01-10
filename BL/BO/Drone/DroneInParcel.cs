@@ -12,7 +12,7 @@ namespace BO
         public Location location { get; set; }
         public override string ToString()
         {
-            return string.Format($"drone id:{id}, battery: {battery}$, location: {location} ");
+            return string.Format($"drone id:{id}, battery: {battery}%, location: {location} ");
         }
     }
 }

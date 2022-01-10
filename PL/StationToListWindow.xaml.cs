@@ -25,9 +25,6 @@ namespace PL
         IBl bL;
         ObservableCollection<BaseStationToList> myObservableCollection;
         private static BaseStationToList ptl = new();
-       // private static StationToListView StationToListView = new();
-
-
         public StationToListWindow(IBl bl)
         {
             InitializeComponent();
@@ -60,10 +57,18 @@ namespace PL
         {
             var station = new BaseStationToList();
             station = (BaseStationToList)StationToListView.SelectedItem;
-            DataContext = station;
-            new UpdateStationWindow(bL,station).ShowDialog();
-            myObservableCollection = new ObservableCollection<BaseStationToList>(bL.GetBaseStationToList());
-            DataContext = myObservableCollection;
+            if(station is null)
+            {
+                MessageBox.Show($"choose a station", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                DataContext = station;
+                new UpdateStationWindow(bL, station).ShowDialog();
+                myObservableCollection = new ObservableCollection<BaseStationToList>(bL.GetBaseStationToList());
+                DataContext = myObservableCollection;
+            }
+          
         }
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {

@@ -38,11 +38,16 @@ namespace PL
         {
             CustomerInList cil = (CustomerInList)customerListBox.SelectedItem;
             Customer customer = new();
-            customer = bL.GetCustomer(cil.id);
-            DataContext = customer;
-            new CustomerWindow(customer).ShowDialog();
-            myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bL.GetCustomersToList());
-            DataContext = myObservableCollectionCustomer;
+            if (cil == null)
+                MessageBox.Show($"choose a customer", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            else
+            {
+                customer = bL.GetCustomer(cil.id);
+                DataContext = customer;
+                new CustomerWindow(customer).ShowDialog();
+                myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bL.GetCustomersToList());
+                DataContext = myObservableCollectionCustomer;
+            }
         }
         private void btnAddCustomer_Click(object sender, RoutedEventArgs e)
         {
@@ -51,6 +56,5 @@ namespace PL
             myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bL.GetCustomersToList());
             DataContext = myObservableCollectionCustomer;
         }
-      
     }
 }
