@@ -1,43 +1,51 @@
 <?xml version="1.0"?>
 <ArrayOfDroneCharges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <droneCharges>
-    <droneId>499311861</droneId>
-    <stationId>126698382</stationId>
+    <droneId>335890144</droneId>
+    <stationId>335124963</stationId>
   </droneCharges>
   <droneCharges>
-    <droneId>729906842</droneId>
-    <stationId>285539750</stationId>
+    <droneId>384206692</droneId>
+    <stationId>729512587</stationId>
   </droneCharges>
   <droneCharges>
-    <droneId>680576308</droneId>
-    <stationId>285539750</stationId>
+    <droneId>381611654</droneId>
+    <stationId>335124963</stationId>
   </droneCharges>
   <droneCharges>
-    <droneId>500776198</droneId>
-    <stationId>126698382</stationId>
+    <droneId>665350538</droneId>
+    <stationId>729512587</stationId>
   </droneCharges>
   <droneCharges>
-    <droneId>522339546</droneId>
-    <stationId>285539750</stationId>
+    <droneId>694445774</droneId>
+    <stationId>729512587</stationId>
   </droneCharges>
   <droneCharges>
-    <droneId>729800273</droneId>
-    <stationId>126698382</stationId>
+    <droneId>805883400</droneId>
+    <stationId>335124963</stationId>
   </droneCharges>
   <droneCharges>
-    <droneId>510563960</droneId>
-    <stationId>126698382</stationId>
+    <droneId>166742364</droneId>
+    <stationId>729512587</stationId>
   </droneCharges>
   <droneCharges>
-    <droneId>609132568</droneId>
-    <stationId>126698382</stationId>
+    <droneId>937061267</droneId>
+    <stationId>729512587</stationId>
   </droneCharges>
   <droneCharges>
-    <droneId>324370963</droneId>
-    <stationId>285539750</stationId>
+    <droneId>12345679</droneId>
+    <stationId>729512587</stationId>
   </droneCharges>
   <droneCharges>
-    <droneId>618953227</droneId>
-    <stationId>126698382</stationId>
+    <droneId>12345987</droneId>
+    <stationId>335124963</stationId>
+  </droneCharges>
+  <droneCharges>
+    <droneId>12345670</droneId>
+    <stationId>335124963</stationId>
+  </droneCharges>
+  <droneCharges>
+    <droneId>284468653</droneId>
+    <stationId>729512587</stationId>
   </droneCharges>
 </ArrayOfDroneCharges>
