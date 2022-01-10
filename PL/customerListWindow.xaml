@@ -26,17 +26,17 @@ TargetType="Label">
 
         </Style>
 
-            <Style x:Key="myButton"
+        <Style x:Key="myButton"
  TargetType="Button">
-                <Setter Property="FontSize"
+            <Setter Property="FontSize"
  Value="18" />
-                <Setter Property="FontFamily"
+            <Setter Property="FontFamily"
  Value="Candara" />
-                <Setter Property="Background" Value="#FFFAE0D5" />
-                <Setter Property="FontWeight"
+            <Setter Property="Background" Value="#FFFAE0D5" />
+            <Setter Property="FontWeight"
  Value="Bold" />
-            </Style>
-        </Window.Resources>
+        </Style>
+    </Window.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -44,13 +44,16 @@ TargetType="Label">
             <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <ListView x:Name="customerListBox" Grid.Row="1" DataContext="{Binding}" ItemsSource="{Binding}" MouseDoubleClick="DoubleClick" UseLayoutRounding="True" FontSize="14" BorderBrush="#FFE5EACD" Background="#FFDFD9B7" Grid.ColumnSpan="5" >
+        <ListView x:Name="customerListBox" DataContext="{Binding}" ItemsSource="{Binding}" MouseDoubleClick="DoubleClick" UseLayoutRounding="True" FontSize="14" Grid.ColumnSpan="6" Margin="0,48,0,0" Grid.RowSpan="2" >
+            <ListView.Background>
+                <ImageBrush ImageSource="C:\Users\User\Source\Repos\dotNet5782_3175_934\PL\pics\pawel-czerwinski-qztBRIrU1FM-unsplash.jpg" Opacity="0.4"/>
+            </ListView.Background>
+            <ListView.BorderBrush>
+                <ImageBrush ImageSource="C:\Users\User\Source\Repos\dotNet5782_3175_934\PL\pics\pawel-czerwinski-qztBRIrU1FM-unsplash.jpg" Opacity="0.4"/>
+            </ListView.BorderBrush>
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

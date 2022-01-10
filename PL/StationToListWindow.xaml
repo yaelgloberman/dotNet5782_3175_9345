@@ -27,20 +27,22 @@
         </Style>
     </Window.Resources>
     <Grid>
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="51*"/>
             <RowDefinition Height="383*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <ListView x:Name="StationToListView"  DataContext="{Binding}"  MouseDoubleClick="DoubleClick" Grid.ColumnSpan="6" FontSize="16" FontStretch="Expanded" FontStyle="Italic" FontWeight="Bold" Height="Auto" Width="Auto" Margin="0,51,1,0" Grid.RowSpan="2">
+            <ListView.Background>
+                <ImageBrush ImageSource="C:\Users\User\Source\Repos\dotNet5782_3175_934\PL\pics\pawel-czerwinski-qztBRIrU1FM-unsplash.jpg" Opacity="0.4"/>
+            </ListView.Background>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="id" Width="100" DisplayMemberBinding="{Binding id}" />
@@ -63,20 +65,17 @@
                 <GridViewColumn/>
             </GridView>
         </ListView>
-        <Button Content="Available Slots"  Grid.Row="0" Click="Button_Click" Grid.Column="1" Style = "{StaticResource myButton}">
-
-        </Button>
-        <Button Content="Add Station" Click="Button_Click_Add" HorizontalAlignment="Stretch"  Style = "{StaticResource myButton}">
-            
-        </Button>
-        <Button Content="Refresh" Grid.Column="3" Click="Button_Click_2" HorizontalAlignment="Stretch" Height="Auto"  Style = "{StaticResource myButton}">
-            
-        </Button>
-        <Button x:Name="Close" Content="Close" Grid.Column="2"  Height="Auto" Width="Auto" Click="Button_Click_ChargingDrones" Style = "{StaticResource myButton}">
-         
-        </Button>
+        <Button Content="Available Slots"  Grid.Row="0" Click="Button_Click" Grid.Column="1" Style = "{StaticResource myButton}"/>
+        <Button Content="Add Station" Click="Button_Click_Add" HorizontalAlignment="Stretch"  Style = "{StaticResource myButton}"/>
+        <Button Content="Refresh" Grid.Column="3" Click="Button_Click_2" HorizontalAlignment="Stretch" Height="Auto"  Style = "{StaticResource myButton}"/>
+        <Button x:Name="Close" Content="Close" Grid.Column="2"  Height="Auto" Width="Auto" Click="Button_Click_ChargingDrones" Style = "{StaticResource myButton}"/>
         <Button x:Name="groupByAvlChargeS" Content="Group by CS" Grid.Column="4"  Style = "{StaticResource myButton}" Click="groupByAvlChargeS_Click">
-           
+            <Button.BorderBrush>
+                <LinearGradientBrush EndPoint="10,10" StartPoint="10,10">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#FFFCBCD4" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.BorderBrush>
         </Button>
     </Grid>
 </Window>

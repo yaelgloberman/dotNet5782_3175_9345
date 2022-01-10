@@ -48,4 +48,20 @@
     <droneId>284468653</droneId>
     <stationId>729512587</stationId>
   </droneCharges>
+  <droneCharges>
+    <droneId>12345675</droneId>
+    <stationId>729512587</stationId>
+  </droneCharges>
+  <droneCharges>
+    <droneId>983366185</droneId>
+    <stationId>729512587</stationId>
+  </droneCharges>
+  <droneCharges>
+    <droneId>12345678</droneId>
+    <stationId>729512587</stationId>
+  </droneCharges>
+  <droneCharges>
+    <droneId>87654321</droneId>
+    <stationId>335124963</stationId>
+  </droneCharges>
 </ArrayOfDroneCharges>

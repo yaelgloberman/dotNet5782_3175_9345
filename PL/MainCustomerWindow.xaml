@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="MainCustomerWindow" Height="450" Width="800">
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="C:\Users\User\Source\Repos\dotNet5782_3175_934\PL\dronePic.jpg"/>
+        </Grid.Background>
         <!--<Grid.Background>
             <ImageBrush ImageSource="C:\Users\rinaw\Source\Repos\dotNet5782_3175_9345\PL\dronePic.jpg" Opacity="0.4"/>
         </Grid.Background>-->

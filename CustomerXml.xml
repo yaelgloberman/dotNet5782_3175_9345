@@ -120,4 +120,24 @@
     <Password>JL</Password>
     <isCustomer>false</isCustomer>
   </Customer>
+  <Customer>
+    <id>211349345</id>
+    <name>Shifra</name>
+    <phoneNumber>0586503993</phoneNumber>
+    <longitude>35</longitude>
+    <latitude>32</latitude>
+    <isActive>true</isActive>
+    <Password>123</Password>
+    <isCustomer>false</isCustomer>
+  </Customer>
+  <Customer>
+    <id>211349345</id>
+    <name>Shifra</name>
+    <phoneNumber>0586503993</phoneNumber>
+    <longitude>35</longitude>
+    <latitude>32</latitude>
+    <isActive>true</isActive>
+    <Password>123</Password>
+    <isCustomer>false</isCustomer>
+  </Customer>
 </ArrayOfCustomer>

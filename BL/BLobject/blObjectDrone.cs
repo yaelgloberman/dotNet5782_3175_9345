@@ -59,6 +59,8 @@ namespace BL
                 drones.Add(dtl);
                 DO.droneCharges dc = new DO.droneCharges { droneId = droneId, stationId = stationId };
                 SendToCharge(droneId);
+              
+
             }
             catch (findException exp) { throw new dosntExisetException(exp.Message); }
         }

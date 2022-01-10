@@ -34,9 +34,9 @@ namespace PL
         {
             try
             {
-                if (myBl.CheckValidPassword(NameBox.Text, passwordBox.Text))
+                if (myBl.CheckValidPassword(NameBox.Text, passwordBox.Password))
                 {
-                   var C= myBl.GetCustomersToList().ToList().Find(x => x.Password == passwordBox.Text && x.isCustomer);
+                   var C= myBl.GetCustomersToList().ToList().Find(x => x.Password == passwordBox.Password && x.isCustomer);
                    var P1 = myBl.allParcels(x => x.sender.id == C.id || x.receive.id == C.id);
                     if (C != null)//varifyig the customer is a customer and not a worker 
                     { new MainCustomerWindow(C).ShowDialog();
@@ -100,9 +100,14 @@ namespace PL
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            GridPassword.Visibility = Visibility.Hidden;
-            GridUser.Visibility = Visibility.Visible;
+            new PasswordWindow().ShowDialog();
 
+
+        }
+
+        private void RadioButton_Click(object sender, RoutedEventArgs e)
+        {
+            new PasswordWindow().ShowDialog();
         }
     }
 }
