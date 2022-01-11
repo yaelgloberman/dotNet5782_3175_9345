@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <StationXml.xml>
   <Station>
-    <id>660033322</id>
-    <latitude>33.29660555007709</latitude>
-    <longitude>34.83541896181899</longitude>
-    <chargeSlots>5</chargeSlots>
+    <id>310699679</id>
+    <latitude>31.470211243010223</latitude>
+    <longitude>34.375791312044385</longitude>
+    <chargeSlots>91</chargeSlots>
     <name>Jerusalem</name>
   </Station>
   <Station>
-    <id>911136914</id>
-    <latitude>33.24775687737751</latitude>
-    <longitude>34.49177607493092</longitude>
-    <chargeSlots>72</chargeSlots>
+    <id>807320906</id>
+    <latitude>32.26031227207757</latitude>
+    <longitude>34.904198187684734</longitude>
+    <chargeSlots>81</chargeSlots>
     <name>Eilat</name>
   </Station>
 </StationXml.xml>

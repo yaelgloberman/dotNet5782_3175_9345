@@ -1,43 +1,27 @@
 <?xml version="1.0"?>
 <ArrayOfDroneCharges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <droneCharges>
-    <droneId>838692137</droneId>
-    <stationId>660033322</stationId>
+    <droneId>773035907</droneId>
+    <stationId>310699679</stationId>
   </droneCharges>
   <droneCharges>
-    <droneId>832918656</droneId>
-    <stationId>660033322</stationId>
+    <droneId>653836103</droneId>
+    <stationId>310699679</stationId>
   </droneCharges>
   <droneCharges>
-    <droneId>422272823</droneId>
-    <stationId>911136914</stationId>
+    <droneId>367791056</droneId>
+    <stationId>807320906</stationId>
   </droneCharges>
   <droneCharges>
-    <droneId>994192924</droneId>
-    <stationId>660033322</stationId>
+    <droneId>448198947</droneId>
+    <stationId>310699679</stationId>
   </droneCharges>
   <droneCharges>
-    <droneId>237712027</droneId>
-    <stationId>911136914</stationId>
+    <droneId>991263479</droneId>
+    <stationId>310699679</stationId>
   </droneCharges>
   <droneCharges>
-    <droneId>296942258</droneId>
-    <stationId>911136914</stationId>
-  </droneCharges>
-  <droneCharges>
-    <droneId>854794614</droneId>
-    <stationId>911136914</stationId>
-  </droneCharges>
-  <droneCharges>
-    <droneId>959215325</droneId>
-    <stationId>911136914</stationId>
-  </droneCharges>
-  <droneCharges>
-    <droneId>611449303</droneId>
-    <stationId>911136914</stationId>
-  </droneCharges>
-  <droneCharges>
-    <droneId>821277160</droneId>
-    <stationId>911136914</stationId>
+    <droneId>540443949</droneId>
+    <stationId>807320906</stationId>
   </droneCharges>
 </ArrayOfDroneCharges>
