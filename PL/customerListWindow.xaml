@@ -51,15 +51,34 @@ TargetType="Label">
             <ListView.Background>
                 <ImageBrush ImageSource="C:\Users\User\Source\Repos\dotNet5782_3175_934\PL\pics\pawel-czerwinski-qztBRIrU1FM-unsplash.jpg" Opacity="0.4"/>
             </ListView.Background>
+
             <ListView.BorderBrush>
                 <ImageBrush ImageSource="C:\Users\User\Source\Repos\dotNet5782_3175_934\PL\pics\pawel-czerwinski-qztBRIrU1FM-unsplash.jpg" Opacity="0.4"/>
             </ListView.BorderBrush>
-            <ListView.View>
+            <!--<ListView.View>
+                
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
+            </ListView.View>-->
+
+            <ListView.View>
+
+            <GridView>
+                <GridViewColumn Header="id" Width="100" DisplayMemberBinding="{Binding id}" />
+                <GridViewColumn Header=" Name" Width="100" DisplayMemberBinding="{Binding Name}" />
+                <GridViewColumn Header="PhoneNumber" Width="150" DisplayMemberBinding="{Binding PhoneNumber}" />
+                    <GridViewColumn Header="Parcels Delivered recieved" Width="200" DisplayMemberBinding="{Binding Parcles_Delivered_Recieved}" />
+                    <GridViewColumn Header=" Parcels Unrecieved" Width="130" DisplayMemberBinding="{Binding Parcels_Delivered_unrecieved}" />
+                    <GridViewColumn Header="Recieved Parcels" Width="150"  DisplayMemberBinding="{Binding Recieved_Parcels}" />
+                    <GridViewColumn Header=" Parcels in Deliver" Width="150" DisplayMemberBinding="{Binding ParcelsInDeliver}" />
+
+
+                </GridView>
             </ListView.View>
+
         </ListView>
+        
         <Button x:Name="btnAddCustomer" Content="add customer" Grid.Column="0" Grid.Row="0"  Style = "{StaticResource myButton}" Click="btnAddCustomer_Click" />
     </Grid>
 </Window>

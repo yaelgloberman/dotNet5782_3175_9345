@@ -56,9 +56,11 @@ namespace PL
             wndPassword.ShowDialog();
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+
+        private void btnWorkers_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("מוישי לך לישון ");
+            customerListWindow wndC = new customerListWindow(myBl,myBl);
+            wndC.ShowDialog();
         }
     }
 }

@@ -14,7 +14,11 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Grid>
-                            <Ellipse Width="175" Height="70" Fill="#FFE8B099" />
+                            <Rectangle Width="175" Height="70"  RadiusX="20" RadiusY="20">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="C:\Users\User\Source\Repos\dotNet5782_3175_934\PL\pics\290-2909182_button-png-blue-rectangle-button-icon.png" Stretch="UniformToFill"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
                             <ContentControl Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Black" />
                         </Grid>
                     </ControlTemplate>
@@ -30,30 +34,48 @@
 
 
 
-    <Grid>
+    <Grid x:Name="General" HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Width="Auto">
+        <Grid.Background>
+            <ImageBrush ImageSource="C:\Users\User\Source\Repos\dotNet5782_3175_934\PL\pics\rio-overview.jpg" Opacity="0.7"/>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
 
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="119*" />
+            <ColumnDefinition Width="41*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="80*" />
+            <RowDefinition Height="80*" />
+            <RowDefinition Height="80*" />
+            <RowDefinition Height="80*" />
+            <RowDefinition Height="80*" />
         </Grid.RowDefinitions>
-        <Grid.Background>
-            <ImageBrush ImageSource="/dronePic.jpg"/>
-        </Grid.Background>
-        <Button x:Name="btnShowDroneList" Content="Enter to see drone list" FontSize="15" FontStyle="Oblique" Click="Button_Click"  Grid.Column="0" Grid.Row="5"/>
-        <Button x:Name="btncustomerLists" Content="Enter to see customer list" FontSize="15" FontStyle="Oblique"  Click="customerLists_Click" Grid.Column="1" Grid.Row="5"/>
-        <Button x:Name="btnParcelLists" Content="Enter to see parcel list" FontSize="15" FontStyle="Oblique"   Grid.Column="2" Grid.Row="5" Click="btnParcelLists_Click"/>
-        <Button x:Name="btnStationLists" Content="Enter to see station list" FontSize="15" FontStyle="Oblique"   Grid.Column="3" Grid.Row="5" Click="btnStationLists_Click_1"/>
-        <Button Content="LOG OUT" HorizontalAlignment="Left" Margin="21,0,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
+
+        <Button x:Name="btnShowDroneList" Content="Enter to see drone list" FontSize="15" FontStyle="Oblique" Click="Button_Click"  Grid.Column="1" Height="Auto" Width="Auto" Margin="0,72,0,72" Grid.RowSpan="3"/>
+        <!--<Image Source="/dronePic.jpg" Grid.ColumnSpan="2" Grid.RowSpan="5" Margin="-160,0,-8,0" Width="Auto" >
+            <Image.OpacityMask>
+                <ImageBrush ImageSource="C:\Users\User\Source\Repos\dotNet5782_3175_934\PL\pics\rio-overview.jpg"/>
+            </Image.OpacityMask>
+        </Image>-->
+        <Button x:Name="btncustomerLists" Content="Enter to see customer list" FontSize="15" FontStyle="Oblique"  Click="customerLists_Click" Grid.Column="1" Grid.Row="2" Margin="0,86,0,0" Grid.RowSpan="2"/>
+        <Button x:Name="btnParcelLists" Content="Enter to see parcel list" FontSize="15" FontStyle="Oblique"   Grid.Column="1" Grid.Row="2" Click="btnParcelLists_Click" Height="Auto"/>
+        <Button x:Name="btnStationLists" Content="Enter to see station list" FontSize="15" FontStyle="Oblique" Click="btnStationLists_Click_1" Grid.Column="1" Width="Auto" Margin="0,0,0,87" Grid.RowSpan="2">
+            <Button.Background>
+                <ImageBrush/>
+            </Button.Background>
+        </Button>
+        <Button Content="LOG OUT" Click="Button_Click_1" Margin="-98,-5,285,5"/>
+        <Button x:Name="btnWorkerList" Content="Enter to see worker list" FontSize="15" FontStyle="Oblique"   Grid.Column="1" Grid.Row="4" Click="btnWorkers_Click" Height="72" Margin="10,0,0,0" VerticalAlignment="Center"/>
+
+        <!--<Image.OpacityMask>
+                <LinearGradientBrush StartPoint="0.1,0.1" EndPoint="0.75,0.75">
+                    <LinearGradientBrush.GradientStops>
+                        <GradientStop Offset="0" Color="Black"/>
+                        <GradientStop Offset="1" Color="Transparent"/>
+                    </LinearGradientBrush.GradientStops>
+                </LinearGradientBrush>
+            </Image.OpacityMask>
+        </Image>-->
 
     </Grid>
 </Window>

@@ -21,4 +21,8 @@
     {
         Awaitingcollection, OnTheWayToDestination
     }
+    public enum User
+    {
+        Worker, Customer
+    }
 }

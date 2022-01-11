@@ -27,10 +27,11 @@ namespace PL
 
         IBl bL;
 
-        public CustomerWindow()
+        public CustomerWindow()//add
         {
             InitializeComponent();
             bL = BlApi.BlFactory.GetBl();
+            ComboUser.ItemsSource = Enum.GetValues(typeof(BO.User));
             updateParcels.Visibility = Visibility.Hidden;
             sentParcels.Visibility = Visibility.Hidden;
             customerParcelGrid.Visibility = Visibility.Hidden;
@@ -100,12 +101,18 @@ namespace PL
                         throw new validException("the given latitude do not exist in this country/\n");
                     if ((Convert.ToInt32(txbLongitude.Text)) < 34.3 || (Convert.ToInt32(txbLongitude.Text)) > 35.5)
                         throw new validException("the given longitude do not exist in this country/\n");
+                var user = ComboUser.SelectedItem.ToString();
+                bool flag=false;
+                if (user == "Customer")
+                    flag = true;
+                
                 var c = new BO.Customer()
                 {
                     id = Convert.ToInt32(txbID.Text),
                     Name = txbName.Text,
                     PassWord = txbPassword.Text,
                         phoneNumber = txbPhoneNumber.Text,
+                        isCustomer=flag,
                         location = new Location()
                         {
                             longitude = Convert.ToDouble(txbLongitude.Text),
@@ -186,7 +193,7 @@ namespace PL
         {
             CustomerWindow wnd = new CustomerWindow(bL.GetCustomer(customerParcel.id));
             wnd.ShowDialog();
-        }
+        } 
 
         private void ReciveParcelsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -203,6 +210,8 @@ namespace PL
             try { new parcelWindow(bL.GetParcel(parcel.id)).ShowDialog(); }
             catch (dosntExisetException exp) { MessageBox.Show(exp.Message); }
         }
+
+
     }
 }
 

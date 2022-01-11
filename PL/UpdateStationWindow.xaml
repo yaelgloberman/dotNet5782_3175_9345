@@ -46,7 +46,7 @@
         </Grid>
 
 
-        <Grid x:Name="GridAdd" d:IsHidden="True">
+        <Grid x:Name="GridAdd">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="33*"/>
                 <ColumnDefinition Width="367*"/>
@@ -71,13 +71,13 @@
             </Grid>
         </Grid>
 
-        <Grid x:Name="GridStationinfo">
+        <Grid x:Name="GridStationinfo" d:IsHidden="True">
             <Grid.Background>
                 <ImageBrush ImageSource="C:\Users\User\Source\Repos\dotNet5782_3175_934\PL\dronePic.jpg" Opacity="0.4"/>
             </Grid.Background>
 
             <Label Content="Station Id:" HorizontalAlignment="Left" Margin="36,12,0,0" VerticalAlignment="Top" RenderTransformOrigin="3.65,-1.773" Height="26" Width="92"/>
-            <TextBox x:Name="stationIdText" IsEnabled="false"  HorizontalAlignment="Left" Margin="133,17,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"  Text="{Binding id,Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True }" IsReadOnly="true"/>
+            <TextBox x:Name="stationIdText" IsEnabled="false"  HorizontalAlignment="Left" Margin="133,17,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"  Text="{Binding id,Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True }" IsReadOnly="true" d:IsLocked="True"/>
             <Label Content="Name:" HorizontalAlignment="Left" Margin="36,51,0,0" VerticalAlignment="Top" RenderTransformOrigin="3.65,-1.773" Height="26" Width="92"/>
             <TextBox x:Name="txbNameText" IsEnabled="false"  HorizontalAlignment="Left" Margin="133,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"  Text="{Binding stationName,Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True }" IsReadOnly="true"/>
             <Label x:Name="latitudeRead" Content="Latitude:" HorizontalAlignment="Left" Margin="400,47,0,0" VerticalAlignment="Top"/>

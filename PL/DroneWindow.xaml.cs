@@ -29,10 +29,10 @@ namespace PL
 
         public DroneWindow()//add
         {
-          
+
             InitializeComponent();
             bL = BlApi.BlFactory.GetBl();
-            station.ItemsSource = bL.GetBaseStationToLists().Select(s=>s.id); //ספציפית פנויות
+            station.ItemsSource = bL.GetBaseStationToLists().Select(s => s.id); //ספציפית פנויות
             weightCategories.ItemsSource = Enum.GetValues(typeof(Weight));
             update.Visibility = Visibility.Hidden;
             droneInParcel.Visibility = Visibility.Hidden;
@@ -147,49 +147,49 @@ namespace PL
             }
         }
         private void btnSendToCharge_Click(object sender, RoutedEventArgs e)
+        {
+            try
             {
-                try
-                {
-                    bL.SendToCharge(Convert.ToInt32(txbDroneId.Text));
-                    MessageBox.Show("succsesfully drone sent to charge!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                    this.Close();
-                }
-                catch (Exception exp)
-                {
-                    MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                bL.SendToCharge(Convert.ToInt32(txbDroneId.Text));
+                MessageBox.Show("succsesfully drone sent to charge!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
             }
-
-            private void btnRelesingDrone_Click_1(object sender, RoutedEventArgs e)
+            catch (Exception exp)
             {
-                try
-                {
-
-                    TimeSpan t = DateTime.Now.TimeOfDay;
-                    bL.releasingDrone(Convert.ToInt32(txbDroneId.Text), t);
-                    MessageBox.Show("succsesfully relesing drone charge!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                    this.Close();
-                }
-                catch (Exception exp)
-                {
-                    MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                }
+                MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            private void btnMatchingDroneToParcel_Click(object sender, RoutedEventArgs e)
+        }
+
+        private void btnRelesingDrone_Click_1(object sender, RoutedEventArgs e)
+        {
+            try
             {
-                try
-                {
-                    bL.matchingDroneToParcel(Convert.ToInt32(txbDroneId.Text));
-                    MessageBox.Show("succsesfully matched drone to parcel!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                    this.Close();
-                }
-                catch (Exception exp)
-                {
-                    MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
 
-                }
+                TimeSpan t = DateTime.Now.TimeOfDay;
+                bL.releasingDrone(Convert.ToInt32(txbDroneId.Text), t);
+                MessageBox.Show("succsesfully relesing drone charge!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
             }
+            catch (Exception exp)
+            {
+                MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
+        }
+        private void btnMatchingDroneToParcel_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bL.matchingDroneToParcel(Convert.ToInt32(txbDroneId.Text));
+                MessageBox.Show("succsesfully matched drone to parcel!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
+        }
 
         private void btnDroneInParcelFull_Click(object sender, RoutedEventArgs e)
         {
@@ -198,4 +198,5 @@ namespace PL
             wnd.ShowDialog();
         }
     }
-    }
+}
+
