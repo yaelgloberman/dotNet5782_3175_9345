@@ -170,6 +170,7 @@ namespace BL
                 if (!(drone.droneStatus == DroneStatus.delivery))   //the drone pickedup but didnt delivert yet
                     throw new ExecutionTheDroneIsntAvilablle(" this drone is not in delivery");
                 var Location = new Location { longitude = station.longitude, latitude = station.latitude };
+                drone.parcelId = 0;
                 drone.batteryStatus = previoseBatteryStatus - (Distance(drone.location, Location) * GetChargeCapacity().chargeCapacityArr[(int)drone.weight]);
                 drone.location.latitude = station.latitude;
                 drone.location.longitude = station.longitude;
@@ -178,6 +179,7 @@ namespace BL
                 addDrone(drone, station.id);
                 parcel.delivered = DateTime.Now;   //מה זה זמן אספקה
                 var parcelBL = GetParcel(parcel.id);
+                parcelBL.droneInParcel.id = 0;
                 dal.deleteParcel(dal.GetParcel(parcel.id));
                 addParcel(parcelBL);
             }

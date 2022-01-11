@@ -19,18 +19,6 @@
     <deleted>false</deleted>
   </Drone>
   <Drone>
-    <id>364726229</id>
-    <model>Global Hawk</model>
-    <maxWeight>average</maxWeight>
-    <deleted>false</deleted>
-  </Drone>
-  <Drone>
-    <id>570660844</id>
-    <model>Pioneer</model>
-    <maxWeight>average</maxWeight>
-    <deleted>false</deleted>
-  </Drone>
-  <Drone>
     <id>604479190</id>
     <model>Fire Scout</model>
     <maxWeight>light</maxWeight>
@@ -43,20 +31,32 @@
     <deleted>false</deleted>
   </Drone>
   <Drone>
-    <id>903543939</id>
-    <model>Hunter</model>
-    <maxWeight>light</maxWeight>
-    <deleted>false</deleted>
-  </Drone>
-  <Drone>
     <id>723649089</id>
     <model>Stalker</model>
     <maxWeight>light</maxWeight>
     <deleted>false</deleted>
   </Drone>
   <Drone>
+    <id>903543939</id>
+    <model>Hunter</model>
+    <maxWeight>light</maxWeight>
+    <deleted>false</deleted>
+  </Drone>
+  <Drone>
     <id>562941135</id>
     <model>GNAT</model>
+    <maxWeight>average</maxWeight>
+    <deleted>false</deleted>
+  </Drone>
+  <Drone>
+    <id>570660844</id>
+    <model>Pioneer</model>
+    <maxWeight>average</maxWeight>
+    <deleted>false</deleted>
+  </Drone>
+  <Drone>
+    <id>364726229</id>
+    <model>Global Hawk</model>
     <maxWeight>average</maxWeight>
     <deleted>false</deleted>
   </Drone>

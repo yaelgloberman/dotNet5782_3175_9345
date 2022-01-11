@@ -43,34 +43,6 @@
     <isShipped>false</isShipped>
   </Parcel>
   <Parcel>
-    <id>10000070</id>
-    <senderId>66147172</senderId>
-    <targetId>23031956</targetId>
-    <priority>fast</priority>
-    <weight>average</weight>
-    <droneId>0</droneId>
-    <requested>2022-01-11T17:30:45.0961991+02:00</requested>
-    <scheduled xsi:nil="true" />
-    <pickedUp xsi:nil="true" />
-    <delivered xsi:nil="true" />
-    <isRecived>false</isRecived>
-    <isShipped>false</isShipped>
-  </Parcel>
-  <Parcel>
-    <id>10000071</id>
-    <senderId>88148853</senderId>
-    <targetId>47488520</targetId>
-    <priority>fast</priority>
-    <weight>average</weight>
-    <droneId>570660844</droneId>
-    <requested>2022-01-10T17:30:45.0962564+02:00</requested>
-    <scheduled>2022-01-11T17:30:45.0962572+02:00</scheduled>
-    <pickedUp>2022-01-13T17:30:45.0962576+02:00</pickedUp>
-    <delivered xsi:nil="true" />
-    <isRecived>false</isRecived>
-    <isShipped>false</isShipped>
-  </Parcel>
-  <Parcel>
     <id>10000072</id>
     <senderId>34162076</senderId>
     <targetId>79866319</targetId>
@@ -133,7 +105,35 @@
     <priority>fast</priority>
     <weight>light</weight>
     <droneId>0</droneId>
-    <requested>2022-01-11T17:30:45.0962644+02:00</requested>
+    <requested xsi:nil="true" />
+    <scheduled xsi:nil="true" />
+    <pickedUp xsi:nil="true" />
+    <delivered xsi:nil="true" />
+    <isRecived>false</isRecived>
+    <isShipped>false</isShipped>
+  </Parcel>
+  <Parcel>
+    <id>10000071</id>
+    <senderId>88148853</senderId>
+    <targetId>47488520</targetId>
+    <priority>fast</priority>
+    <weight>average</weight>
+    <droneId>0</droneId>
+    <requested xsi:nil="true" />
+    <scheduled xsi:nil="true" />
+    <pickedUp xsi:nil="true" />
+    <delivered xsi:nil="true" />
+    <isRecived>false</isRecived>
+    <isShipped>false</isShipped>
+  </Parcel>
+  <Parcel>
+    <id>10000070</id>
+    <senderId>66147172</senderId>
+    <targetId>23031956</targetId>
+    <priority>fast</priority>
+    <weight>average</weight>
+    <droneId>0</droneId>
+    <requested xsi:nil="true" />
     <scheduled xsi:nil="true" />
     <pickedUp xsi:nil="true" />
     <delivered xsi:nil="true" />

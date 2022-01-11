@@ -7,12 +7,16 @@ namespace BlApi
 {
     public interface IBl
     {
-        public chargeCapacity GetChargeCapacity();
+        #region ADD
         public void addStation(BaseStation stationToAdd);
         public void addDrone(DroneToList droneToAdd, int stationId);
         public void addDrone(int droneId, int stationId, string droneModel, Weight weight);
         public void addCustomer(BO.Customer CustomerToAdd);
         public int addParcel(BO.Parcel parcelToAdd);
+        #endregion
+        #region GET
+        public chargeCapacity GetChargeCapacity();
+
         public BaseStation GetStation(int id);
         
         public DroneToList GetDrone(int id);
@@ -41,6 +45,8 @@ namespace BlApi
         public ParcelStatus GetParcelStatus(int id);
         public Priority GetParcelPriorty(int id);
         public BO.CustomerInList GetCustomerToList(int id);
+        #endregion
+        #region UPDATE
         public void updateDroneName(int droneID, string dModel);
 
         public void updateStation(int stationID, int AvlblDCharges, string Name = " ");
@@ -57,6 +63,7 @@ namespace BlApi
         public BO.Drone returnsDrone(int id);
         public void matchingDroneToParcel(int droneID);
         public ParcelStatus parcelStatus(BO.Parcel parcel);
+        #endregion
         //public IEnumerable<DO.droneCharges> GetChargegingDrones();
         public bool CheckValidPassword(string name, string Password);///have to ask if i could make it public ??????
 
