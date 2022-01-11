@@ -15,9 +15,9 @@
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Grid>
                             <Rectangle Width="175" Height="70"  RadiusX="20" RadiusY="20">
-                                <Rectangle.Fill>
-                                    <ImageBrush ImageSource="C:\Users\User\Source\Repos\dotNet5782_3175_934\PL\pics\290-2909182_button-png-blue-rectangle-button-icon.png" Stretch="UniformToFill"/>
-                                </Rectangle.Fill>
+                                <!--<Rectangle.Fill>
+                                    <ImageBrush ImageSource="/pics/290-2909182_button-png-blue-rectangle-button-icon.png" Stretch="UniformToFill"/>
+                                </Rectangle.Fill>-->
                             </Rectangle>
                             <ContentControl Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Black" />
                         </Grid>
@@ -35,9 +35,9 @@
 
 
     <Grid x:Name="General" HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Width="Auto">
-        <Grid.Background>
-            <ImageBrush ImageSource="C:\Users\User\Source\Repos\dotNet5782_3175_934\PL\pics\rio-overview.jpg" Opacity="0.7"/>
-        </Grid.Background>
+        <!--<Grid.Background>
+            <ImageBrush ImageSource="/pics/rio-overview.jpg" Opacity="0.7"/>
+        </Grid.Background>-->
         <Grid.ColumnDefinitions>
 
             <ColumnDefinition Width="119*" />
@@ -66,16 +66,5 @@
         </Button>
         <Button Content="LOG OUT" Click="Button_Click_1" Margin="-98,-5,285,5"/>
         <Button x:Name="btnWorkerList" Content="Enter to see worker list" FontSize="15" FontStyle="Oblique"   Grid.Column="1" Grid.Row="4" Click="btnWorkers_Click" Height="72" Margin="10,0,0,0" VerticalAlignment="Center"/>
-
-        <!--<Image.OpacityMask>
-                <LinearGradientBrush StartPoint="0.1,0.1" EndPoint="0.75,0.75">
-                    <LinearGradientBrush.GradientStops>
-                        <GradientStop Offset="0" Color="Black"/>
-                        <GradientStop Offset="1" Color="Transparent"/>
-                    </LinearGradientBrush.GradientStops>
-                </LinearGradientBrush>
-            </Image.OpacityMask>
-        </Image>-->
-
     </Grid>
 </Window>

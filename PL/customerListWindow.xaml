@@ -48,9 +48,9 @@ TargetType="Label">
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <ListView x:Name="customerListBox" DataContext="{Binding}" ItemsSource="{Binding}" MouseDoubleClick="DoubleClick" UseLayoutRounding="True" FontSize="14" Grid.ColumnSpan="6" Margin="0,48,0,0" Grid.RowSpan="2" >
-            <ListView.Background>
+            <!--<ListView.Background>
                 <ImageBrush ImageSource="C:\Users\User\Source\Repos\dotNet5782_3175_934\PL\pics\pawel-czerwinski-qztBRIrU1FM-unsplash.jpg" Opacity="0.4"/>
-            </ListView.Background>
+            </ListView.Background>-->
 
             <ListView.BorderBrush>
                 <ImageBrush ImageSource="C:\Users\User\Source\Repos\dotNet5782_3175_934\PL\pics\pawel-czerwinski-qztBRIrU1FM-unsplash.jpg" Opacity="0.4"/>
