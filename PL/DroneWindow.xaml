@@ -14,9 +14,9 @@
         </Grid.ColumnDefinitions>
         <Grid Grid.ColumnSpan="2">
             <Grid x:Name="addDrone">
-                <Grid.Background>
+                <!--<Grid.Background>
                     <ImageBrush ImageSource="C:\Users\User\Source\Repos\dotNet5782_3175_934\PL\dronePic.jpg" Opacity="0.4"/>
-                </Grid.Background>
+                </Grid.Background>-->
                 <TextBox x:Name="id" HorizontalAlignment="Left" Margin="275,80,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" BorderBrush="#FF7273E0" />
                 <TextBox x:Name="model" HorizontalAlignment="Left" Margin="275,129,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" BorderBrush="#FF7273E0"/>
                 <ComboBox x:Name="weightCategories" HorizontalAlignment="Left" Margin="275,177,0,0" Text=""  VerticalAlignment="Top" Width="120" BorderBrush="#FF7273E0" OpacityMask="#FFDD9E9E" />

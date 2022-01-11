@@ -175,9 +175,12 @@ namespace BL
                 drone.location.longitude = station.longitude;
                 drone.droneStatus = DroneStatus.available;
                 dal.deleteDrone(dal.GetDrone(id));
+                drones.Remove(drone);
+                drone.parcelId = 0;
                 addDrone(drone, station.id);
                 parcel.delivered = DateTime.Now;   //מה זה זמן אספקה
                 var parcelBL = GetParcel(parcel.id);
+                parcelBL.droneInParcel.id = 0;
                 dal.deleteParcel(dal.GetParcel(parcel.id));
                 addParcel(parcelBL);
             }
@@ -195,7 +198,44 @@ namespace BL
         /// <exception cref="dosntExisetException"></exception>
         public void matchingDroneToParcel(int droneId)
         {
+            
 
+                //try
+                //{
+                //    var myDrone = returnsDrone(droneId);
+                //    var droneLoc = findClosestStationLocation(myDrone.location, false, BaseStationLocationslist());
+                //    var station = GetStations().ToList().Find(x => x.location.longitude == droneLoc.longitude && x.location.latitude == droneLoc.latitude);
+                //    if (myDrone.droneStatus != DroneStatus.available)
+                //        throw new unavailableException("the drone is unavailable\n");
+                //    DO.Parcel myParcel = findTheParcel(myDrone.weight, myDrone.location, myDrone.batteryStatus, DO.Proirities.emergency);
+                //    dal.attribute(myDrone.id, myParcel.id);
+                //    int index = drones.FindIndex(x => x.id == droneId);
+                //    drones.RemoveAt(index);
+                //    myDrone.droneStatus = DroneStatus.delivery;
+                //    myDrone.parcelInTransfer = new ParcelInTransfer();
+                //    myDrone.parcelInTransfer.id= myParcel.id;
+                //    myDrone.parcelInTransfer.parcelStatus = true;
+                //    var tempParcel = myParcel;
+                //    tempParcel.droneId = droneId;
+                //    tempParcel.scheduled = DateTime.Now;
+                //    dal.deleteParcel(myParcel);
+                //    dal.addParcel(tempParcel);
+                //    var tempD = new DroneToList()
+                //    {
+                //        id = myDrone.id,
+                //        droneModel = myDrone.droneModel,
+                //        batteryStatus = myDrone.batteryStatus,
+                //        weight = myDrone.weight,
+                //        droneStatus = DroneStatus.delivery,
+                //        location = new()
+                //        { latitude = myDrone.location.latitude, longitude= myDrone.location.longitude },
+                //        parcelId = myDrone.parcelInTransfer.id
+                //    };
+                //    drones.Add(tempD);
+
+
+                //}
+                //catch (BO.dosntExisetException exp) { throw new BO.dosntExisetException(exp.Message); }
             try
             {
                 var myDrone = GetDrone(droneId);

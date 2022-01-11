@@ -78,8 +78,9 @@ namespace PL
         }
         private void bgWorker_ProgressChanged(object sender, ProgressChangedEventArgs e) //changes what we see
         {
-           
+            int progress = e.ProgressPercentage;
         }
+
 
 
         private void updateDrone() => bgWorker.ReportProgress(0);
@@ -211,17 +212,28 @@ namespace PL
             DroneWindow wnd = new DroneWindow(bL.returnsDrone(droneParcel.id));  //צריך לחשוב איך אני שמה את הרחפן 
             wnd.ShowDialog();
         }
+        public void updateView()
+        {
+            var d = bL.returnsDrone(dr.id);
+            if (d.droneStatus == DroneStatus.delivery)
+            {
+                var p = new Parcel();
+                p = bL.GetParcel(d.parcelInTransfer.id);
+                weightCategories.ItemsSource = Enum.GetValues(typeof(Weight));
+                station.ItemsSource = Enum.GetValues(typeof(BaseStation));
+            }
+        }
 
         private void btnAutomatic_Click(object sender, RoutedEventArgs e)
         {
-            bgWorker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };
-            isRun = true;
-            bgWorker.DoWork += (sender, args) => bL.startDroneSimulation((int)args.Argument,updateDrone,checkStop);
-            bgWorker.ProgressChanged += (sender, args) => updateDrone();
-            bgWorker.RunWorkerCompleted += (sender, args) => isRun = false;
-            bgWorker.RunWorkerAsync(dr.id);
             try
             {
+                isRun = true;
+                bgWorker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };
+                bgWorker.DoWork += (sender, args) => bL.startDroneSimulation((int)args.Argument,updateDrone,checkStop);
+                bgWorker.RunWorkerCompleted += (sender, args) => isRun = false;
+                bgWorker.ProgressChanged += (sender, args) => updateDrone();
+                bgWorker.RunWorkerAsync(dr.id);
                 this.bgWorker.RunWorkerAsync();
             }
                 catch (Exception exp)

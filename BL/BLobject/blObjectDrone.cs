@@ -79,8 +79,11 @@ namespace BL
             droneToAdd.location.latitude = stationDl.latitude;
             droneToAdd.location.longitude = stationDl.longitude;
             if (droneToAdd.batteryStatus == 0) { droneToAdd.batteryStatus = (double)rand.Next(20, 40); }
-            if (droneToAdd.droneStatus == 0) { droneToAdd.droneStatus = DroneStatus.charge; DO.droneCharges DC = new droneCharges { droneId = droneToAdd.id, stationId = stationId }; dal.AddDroneCharge(DC);
+            if (droneToAdd.droneStatus == 0)
+            {
+                droneToAdd.droneStatus = DroneStatus.charge; DO.droneCharges DC = new droneCharges { droneId = droneToAdd.id, stationId = stationId }; dal.AddDroneCharge(DC);
             }
+          
             if (!(droneToAdd.id >= 10000000 && droneToAdd.id <= 1000000000))
                 throw new validException("the number of the drone id in invalid\n");
             if (!(droneToAdd.batteryStatus >= (double)0 && droneToAdd.batteryStatus <= (double)100))
@@ -192,7 +195,6 @@ namespace BL
             {
                 DroneToList droneBo = new DroneToList();
                 DO.Drone droneDo = dal.GetDrone(id);
-                
                 DroneToList drone = drones.ToList().Find(d => d.id == id);
                 droneBo.id = droneDo.id;
                 droneBo.droneModel = drone.droneModel;
@@ -308,6 +310,7 @@ namespace BL
             catch (deleteException exp) { throw new deleteException(exp.Message); }
             catch (findException exp) { throw new dosntExisetException(exp.Message); }
             addDrone(drones[droneIndex], station.id);
+            drones.RemoveAt(droneIndex);
             DO.droneCharges DC = new droneCharges { droneId = droneID, stationId = station.id };
             dal.AddDroneCharge(DC);
         }
@@ -351,6 +354,7 @@ namespace BL
                 dal.deleteDrone(d);
                 drones[index].droneStatus = DroneStatus.available;
                 addDrone(drones[index], s.id);
+                drones.RemoveAt(index);
             }
         }
         public IEnumerable<DroneToList> allDrones(Func<DroneToList, bool> predicate = null)

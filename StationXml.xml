@@ -4,14 +4,14 @@
     <id>267003762</id>
     <latitude>32.24429089950597</latitude>
     <longitude>34.97491594770686</longitude>
-    <chargeSlots>9</chargeSlots>
+    <chargeSlots>18</chargeSlots>
     <name>Jerusalem</name>
   </Station>
   <Station>
     <id>368347157</id>
     <latitude>31.92581874463978</latitude>
     <longitude>35.46991707401812</longitude>
-    <chargeSlots>47</chargeSlots>
+    <chargeSlots>56</chargeSlots>
     <name>Eilat</name>
   </Station>
 </StationXml.xml>

@@ -1,23 +1,11 @@
 <?xml version="1.0"?>
 <ArrayOfDroneCharges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <droneCharges>
-    <droneId>176033524</droneId>
-    <stationId>267003762</stationId>
-  </droneCharges>
-  <droneCharges>
     <droneId>570660844</droneId>
     <stationId>368347157</stationId>
   </droneCharges>
   <droneCharges>
     <droneId>604479190</droneId>
-    <stationId>267003762</stationId>
-  </droneCharges>
-  <droneCharges>
-    <droneId>903543939</droneId>
-    <stationId>267003762</stationId>
-  </droneCharges>
-  <droneCharges>
-    <droneId>723649089</droneId>
     <stationId>267003762</stationId>
   </droneCharges>
   <droneCharges>
@@ -30,6 +18,10 @@
   </droneCharges>
   <droneCharges>
     <droneId>521507534</droneId>
+    <stationId>267003762</stationId>
+  </droneCharges>
+  <droneCharges>
+    <droneId>723649089</droneId>
     <stationId>267003762</stationId>
   </droneCharges>
   <droneCharges>
