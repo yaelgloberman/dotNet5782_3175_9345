@@ -21,6 +21,7 @@ namespace PL
     /// </summary>
     public partial class PasswordWindow : Window
     {
+
         BlApi.IBl myBl;
         public PasswordWindow()
         {
@@ -29,15 +30,23 @@ namespace PL
             GridUser.Visibility = Visibility.Visible;
             GridPassword.Visibility = Visibility.Hidden;
             GridLogCustomer.Visibility = Visibility.Hidden; 
+
         }
+        //public PasswordWindow(BlApi.IBl bl)
+        //{
+        //    InitializeComponent();
+        //    myBl = BlApi.BlFactory.GetBl();
+        //    GridUser.Visibility = Visibility.Visible;
+        //    GridPassword.Visibility = Visibility.Hidden;
+        //    GridLogCustomer.Visibility = Visibility.Hidden;
+        //}
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (myBl.CheckValidPassword(NameBox.Text, passwordBox.Text))
+                if (myBl.CheckValidPassword(NameBox.Text, passwordBox.Password))
                 {
-                   var C= myBl.GetCustomersToList().ToList().Find(x => x.Password == passwordBox.Text && x.isCustomer);
-                   var P1 = myBl.allParcels(x => x.sender.id == C.id || x.receive.id == C.id);
+                   var C= myBl.GetCustomersToList().ToList().Find(x => x.Password == passwordBox.Password && x.isCustomer);
                     if (C != null)//varifyig the customer is a customer and not a worker 
                     { new MainCustomerWindow(C).ShowDialog();
                         Close();
@@ -62,16 +71,18 @@ namespace PL
 
         private void Button_Click_Worker(object sender, RoutedEventArgs e)
         {
+            GridUser.Visibility = Visibility.Hidden;
+            GridLogCustomer.Visibility = Visibility.Visible;
+            btnEnterCustomer.Visibility = Visibility.Hidden;
+            btnWorkerEnter.Visibility = Visibility.Visible;
 
-            // ridUser.Visibility = Visibility.Hidden;
-            try { new MainWindow().ShowDialog(); } catch(System.NullReferenceException exp) { MessageBox.Show(exp.Message); }
-            Close();
         }
 
         private void Button_Click_Customer(object sender, RoutedEventArgs e)
         {
             GridUser.Visibility = Visibility.Hidden;
-            GridLogCustomer.Visibility= Visibility.Visible; 
+            GridLogCustomer.Visibility= Visibility.Visible;
+            btnWorkerEnter.Visibility = Visibility.Hidden;
 
         }
 
@@ -100,9 +111,38 @@ namespace PL
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            GridPassword.Visibility = Visibility.Hidden;
-            GridUser.Visibility = Visibility.Visible;
+            new PasswordWindow().ShowDialog();
 
+
+        }
+
+        private void RadioButton_Click(object sender, RoutedEventArgs e)
+        {
+            new PasswordWindow().ShowDialog();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            try { new MainWindow().ShowDialog(); } catch (System.NullReferenceException exp) { MessageBox.Show(exp.Message); }
+            Close();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            if (myBl.CheckValidPassword(NameBox.Text, passwordBox.Password))
+            {
+                var C = myBl.GetCustomersToList().ToList().Find(x => x.Password == passwordBox.Password && !x.isCustomer);
+                if (C != null)//varifyig the customer is a customer and not a worker 
+                {
+                    new MainWindow().ShowDialog();
+                    Close();
+                }
+                else
+                    try { throw new dosntExisetException(); }
+                    catch (dosntExisetException exp) { MessageBox.Show("This Worker Dosent Exist"); }
+
+                // GridPassword.Visibility = Visibility.Hidden;
+            }
         }
     }
 }

@@ -554,7 +554,7 @@ namespace Dal
                 {
                     listOfAllCustomer.Remove(c);
                     c.isActive = true;
-                    listOfAllCustomer.Add(c);
+                    //listOfAllCustomer.Add(c);
                 }
             }
             else

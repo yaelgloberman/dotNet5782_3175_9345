@@ -15,6 +15,7 @@ namespace BO
         public List<ParcelCustomer> SentParcels { get; set; }
         public List<ParcelCustomer> ReceiveParcel { get; set; }
         public string PassWord { get; set; }
+        public bool isCustomer { get; set; }
         public override string ToString()
         {
             return string.Format($"id: {id}, Name: {Name}, Phone Number: 05{phoneNumber}, Location: {location}");/// didnt include the last 2 lists in the 2 string

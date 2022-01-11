@@ -19,19 +19,27 @@ namespace PL
     /// <summary>
     /// Interaction logic for customerListWindow.xaml
     /// </summary>
-   
     public partial class customerListWindow : Window
     {
         IBl bL;
         ObservableCollection<CustomerInList> myObservableCollectionCustomer;
         private static CustomerInList customerInList = new();
         private static Customer customer = new();
-       
+        bool isWorker = false;
+
         public customerListWindow(IBl bl)
         {
             InitializeComponent();
             this.bL = bl;
-            myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bl.GetCustomersToList());
+            myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bl.GetCustomersToList().Where(x=>x.isCustomer));
+            DataContext = myObservableCollectionCustomer;
+        }
+        public customerListWindow(IBl bl, IBl bl2)
+        {
+            InitializeComponent();
+            this.bL = bl;
+            bool isWorker = true;
+            myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bl.GetCustomersToList().Where(x => !x.isCustomer));
             DataContext = myObservableCollectionCustomer;
         }
         private void DoubleClick(object sender, MouseButtonEventArgs e)
@@ -45,7 +53,10 @@ namespace PL
                 customer = bL.GetCustomer(cil.id);
                 DataContext = customer;
                 new CustomerWindow(customer).ShowDialog();
-                myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bL.GetCustomersToList());
+                if( isWorker)
+                     myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bL.GetCustomersToList().Where(x => !x.isCustomer)); 
+                else
+                     myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bL.GetCustomersToList().Where(x => x.isCustomer)); 
                 DataContext = myObservableCollectionCustomer;
             }
         }
@@ -53,8 +64,10 @@ namespace PL
         {
             CustomerWindow wnd = new CustomerWindow();
             wnd.ShowDialog();
-            myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bL.GetCustomersToList());
-            DataContext = myObservableCollectionCustomer;
+            if (isWorker)
+                myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bL.GetCustomersToList().Where(x => !x.isCustomer));
+            else
+                myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bL.GetCustomersToList().Where(x => x.isCustomer)); DataContext = myObservableCollectionCustomer;
         }
     }
 }

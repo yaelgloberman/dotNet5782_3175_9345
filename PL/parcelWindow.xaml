@@ -8,8 +8,11 @@
         WindowStartupLocation="CenterScreen"
         Title="parcelWindow" Height="450" Width="800">
     <Grid>
-        
-        <Grid x:Name="lable" Background="#FFF4EEC5">
+
+        <Grid x:Name="lable" d:IsHidden="True">
+            <Grid.Background>
+                <ImageBrush ImageSource="C:\Users\User\Source\Repos\dotNet5782_3175_934\PL\dronePic.jpg" Opacity="0.2"/>
+            </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10" />
                 <ColumnDefinition Width="120" />
@@ -46,7 +49,7 @@
 
 
 
-        <Grid x:Name="general">
+        <Grid x:Name="general" d:IsHidden="True">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10" />
                 <ColumnDefinition Width="120" />
@@ -99,7 +102,7 @@
 
 
         </Grid>
-        <Grid x:Name="add" d:IsHidden="True">
+        <Grid x:Name="add">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10" />
                 <ColumnDefinition Width="120" />

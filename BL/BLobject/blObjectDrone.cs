@@ -59,6 +59,8 @@ namespace BL
                 drones.Add(dtl);
                 DO.droneCharges dc = new DO.droneCharges { droneId = droneId, stationId = stationId };
                 SendToCharge(droneId);
+              
+
             }
             catch (findException exp) { throw new dosntExisetException(exp.Message); }
         }
@@ -77,7 +79,8 @@ namespace BL
             droneToAdd.location.latitude = stationDl.latitude;
             droneToAdd.location.longitude = stationDl.longitude;
             if (droneToAdd.batteryStatus == 0) { droneToAdd.batteryStatus = (double)rand.Next(20, 40); }
-            if (droneToAdd.droneStatus == 0) { droneToAdd.droneStatus = DroneStatus.charge; }
+            if (droneToAdd.droneStatus == 0) { droneToAdd.droneStatus = DroneStatus.charge; DO.droneCharges DC = new droneCharges { droneId = droneToAdd.id, stationId = stationId }; dal.AddDroneCharge(DC);
+            }
             if (!(droneToAdd.id >= 10000000 && droneToAdd.id <= 1000000000))
                 throw new validException("the number of the drone id in invalid\n");
             if (!(droneToAdd.batteryStatus >= (double)0 && droneToAdd.batteryStatus <= (double)100))
@@ -335,6 +338,7 @@ namespace BL
                 double timeInMinutes = chargingTime.TotalMinutes;//converting the format to number of minutes, for instance, 1:30 to 90 minutes
                 timeInMinutes /= 60; //getting the time in hours 
                 drones[index].batteryStatus = timeInMinutes * GetChargeCapacity().pwrRateLoadingDrone + droneItem.batteryStatus; // the battery calculation
+                drones[index].batteryStatus = calcMinBatteryRequired(drones[index]);//not sure that if it needs to be 100%
                 if (droneItem.batteryStatus > 100) //battery can't has more than a 100 percent
                     droneItem.batteryStatus = 100;
                 drones[index].batteryStatus = calcMinBatteryRequired(drones[index]);//not sure that if it needs to be 100%

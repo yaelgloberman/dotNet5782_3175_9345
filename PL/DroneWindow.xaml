@@ -13,7 +13,10 @@
             <ColumnDefinition Width="367*"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.ColumnSpan="2">
-            <Grid x:Name="addDrone" Background="#FFF4EEC5" d:IsHidden="True">
+            <Grid x:Name="addDrone">
+                <Grid.Background>
+                    <ImageBrush ImageSource="C:\Users\User\Source\Repos\dotNet5782_3175_934\PL\dronePic.jpg" Opacity="0.4"/>
+                </Grid.Background>
                 <TextBox x:Name="id" HorizontalAlignment="Left" Margin="275,80,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" BorderBrush="#FF7273E0" />
                 <TextBox x:Name="model" HorizontalAlignment="Left" Margin="275,129,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" BorderBrush="#FF7273E0"/>
                 <ComboBox x:Name="weightCategories" HorizontalAlignment="Left" Margin="275,177,0,0" Text=""  VerticalAlignment="Top" Width="120" BorderBrush="#FF7273E0" OpacityMask="#FFDD9E9E" />
@@ -22,7 +25,7 @@
                 <Label Content="MODEL ID:" HorizontalAlignment="Left" Margin="70,120,0,0" VerticalAlignment="Top" Width="105" FontSize="20" FontStyle="Italic"/>
                 <Label Content="Weight Categories:" HorizontalAlignment="Left" Margin="70,170,0,0" VerticalAlignment="Top" Width="189" FontSize="20" FontStyle="Italic"/>
                 <Label Content="Station ID:" HorizontalAlignment="Left" Margin="70,220,0,0" VerticalAlignment="Top" Width="189" FontSize="20" FontStyle="Italic"/>
-                <Button x:Name="buttonAddDrone" Content="Add drone" HorizontalAlignment="Left" Margin="155,316,0,0" VerticalAlignment="Top" RenderTransformOrigin="-3.796,-0.785" Click="buttonAddDrone_Click" Height="37" Width="120" Background="#FFB0A0DC" FontStyle="Italic" FontSize="18"/>
+                <Button x:Name="buttonAddDrone" Content="Add drone" HorizontalAlignment="Left" Margin="155,316,0,0" VerticalAlignment="Top" RenderTransformOrigin="-3.796,-0.785" Click="buttonAddDrone_Click" Height="51" Width="146" Background="#FFD5BCC7" FontStyle="Italic" FontSize="18" BorderBrush="#FF7E2342" BorderThickness="10,10,10,10"/>
 
             </Grid>
             <Button x:Name="Exit" Content="X" HorizontalAlignment="Left" Margin="719,15,0,0" VerticalAlignment="Top" Width="23" RenderTransformOrigin="3.833,3.117" Background="#FFEB8C8C" Click="Exit_Click">

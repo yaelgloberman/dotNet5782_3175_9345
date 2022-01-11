@@ -40,7 +40,7 @@
         </Style>
     </Window.Resources>
 
-                <Grid>
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
             <RowDefinition Height="400*"/>
@@ -54,7 +54,10 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <ListView x:Name="parcelListBox" Grid.Row="1" ItemsSource="{Binding}" DataContext="{Binding}" MouseDoubleClick="DoubleClick" BorderBrush="#FFE5EACD" Background="#FFDFD9B7" Grid.ColumnSpan="7" FontSize="20" >
+        <ListView x:Name="parcelListBox" Grid.Row="1" ItemsSource="{Binding}" DataContext="{Binding}" MouseDoubleClick="DoubleClick" BorderBrush="#FFE5EACD" Grid.ColumnSpan="7" FontSize="20" >
+            <ListView.Background>
+                <ImageBrush ImageSource="C:\Users\User\Source\Repos\dotNet5782_3175_934\PL\pics\pawel-czerwinski-qztBRIrU1FM-unsplash.jpg" Opacity="0.4"/>
+            </ListView.Background>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="id" Width="100" DisplayMemberBinding="{Binding id}" />
@@ -78,16 +81,16 @@
         <Button x:Name="btnAddParcel" Content="add parcel" Grid.Column="0" Grid.Row="0" Click="btnAddParcel_Click" Style = "{StaticResource myButton}" />
         <Button x:Name="btnGroupByS" Content="Group by sender" Grid.Column="2" Grid.Row="0" Click="btnGroupByS_Click" Style = "{StaticResource myButton}" />
         <Button x:Name="btnGroupByR" Content="Group by recive" Grid.Column="3" Grid.Row="0" Click="btnGroupByR_Click_" Style = "{StaticResource myButton}" />
-        <Button Name="btnDeleteParcel" Content="delete parcel" Grid.Column="1" Grid.Row="0" Click="btnDeleteParcel_Click" Style = "{StaticResource myButton}"/>
+        <Button x:Name="btnDeleteParcel" Content="delete parcel" Grid.Column="1" Grid.Row="0" Click="btnDeleteParcel_Click" Style = "{StaticResource myButton}"/>
         <ComboBox x:Name="comboBoxStatusSelectorParcel" Grid.Column="5" Grid.Row="0"  SelectionChanged="selectStatusParcel"/>
         <Button x:Name="refresh" Content="refresh" Click="refresh_Click" Grid.Column="4" Style = "{StaticResource myButton}"/>
         <ComboBox x:Name="comboBoxDateFilter" Grid.Column="6" Grid.Row="0" SelectionChanged="comboBoxDateFilter_SelectionChanged">
-            <ComboBoxItem Content="today"></ComboBoxItem>
-            <ComboBoxItem Content="this week"></ComboBoxItem>
-            <ComboBoxItem Content="this month"></ComboBoxItem>
-            <ComboBoxItem Content="this year"></ComboBoxItem>
+            <ComboBoxItem Content="today"/>
+            <ComboBoxItem Content="this week"/>
+            <ComboBoxItem Content="this month"/>
+            <ComboBoxItem Content="this year"/>
         </ComboBox>
-        <Label Name="lblParcelStatus" Content="filter by status" Grid.Column="5" HorizontalAlignment="Center" Style = "{StaticResource myLable}" VerticalAlignment="Top" RenderTransformOrigin="-0.906,-0.26" Width="114" Height="30" />
-        <Label Name="lblDate" Content="filter by date" Grid.Column="6" HorizontalAlignment="Center" Style = "{StaticResource myLable}" VerticalAlignment="Top" Width="114" Height="30"/>
+        <Label x:Name="lblParcelStatus" Content="filter by status" Grid.Column="5" HorizontalAlignment="Center" Style = "{StaticResource myLable}" VerticalAlignment="Top" RenderTransformOrigin="-0.906,-0.26" Width="114" Height="30" />
+        <Label x:Name="lblDate" Content="filter by date" Grid.Column="6" HorizontalAlignment="Center" Style = "{StaticResource myLable}" VerticalAlignment="Top" Width="114" Height="30"/>
     </Grid>
 </Window>

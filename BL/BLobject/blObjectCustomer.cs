@@ -282,6 +282,7 @@ namespace BL
                 CustomerDo.longitude = CustomerToAdd.location.longitude;
                 CustomerDo.latitude = CustomerToAdd.location.latitude;
             CustomerDo.Password = CustomerToAdd.PassWord;
+            CustomerDo.isCustomer = CustomerToAdd.isCustomer;
                 CustomerDo.isActive = true;
                 try
                 {
