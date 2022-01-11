@@ -299,7 +299,6 @@ namespace BL
                 station.decreasingChargeSlots();
                 addStation(station);
             }
-            drones[droneIndex].batteryStatus = calcMinBatteryRequired(drones[droneIndex]);//not sure that if it needs to be 100%
             drones[droneIndex].location = station.location;
             drones[droneIndex].droneStatus = DroneStatus.charge;
             try { deleteDrone(droneID); }
@@ -338,6 +337,7 @@ namespace BL
                 drones[index].batteryStatus = timeInMinutes * GetChargeCapacity().pwrRateLoadingDrone + droneItem.batteryStatus; // the battery calculation
                 if (droneItem.batteryStatus > 100) //battery can't has more than a 100 percent
                     droneItem.batteryStatus = 100;
+                drones[index].batteryStatus = calcMinBatteryRequired(drones[index]);//not sure that if it needs to be 100%
                 var s = dal.GetStation(DC.stationId);
                 dal.deleteStation(s);
                 bstation.addingChargeSlots();

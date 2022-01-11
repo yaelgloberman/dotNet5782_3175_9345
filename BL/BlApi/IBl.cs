@@ -60,6 +60,7 @@ namespace BlApi
         //public IEnumerable<DO.droneCharges> GetChargegingDrones();
         public bool CheckValidPassword(string name, string Password);///have to ask if i could make it public ??????
 
+        public void startDroneSimulation(int id, Action updateDelegate, Func<bool> stopDelegate);
 
     }
 }

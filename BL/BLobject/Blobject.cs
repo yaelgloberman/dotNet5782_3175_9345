@@ -411,17 +411,14 @@ namespace BL
         /// <exception cref="dosntExisetException"></exception>
         private DO.Parcel findTheParcel(BO.Weight we, BO.Location a, double buttery, DO.Proirities pri)
         {
-
-
             double d, x;
             DO.Parcel theParcel = new DO.Parcel();
-
             BO.Location loc = new BO.Location();
             DO.Customer customer = new DO.Customer();
             double far = 1000000;
             //השאילתא אחראית למצוא את כל החבילות בעדיפות המבוקשת
-            var parcels = dal.GetParcels();
-            var tempParcel = from item in parcels
+             IEnumerable<DO.Parcel> parcels = dal.GetParcels();
+             var tempParcel = from item in parcels
                              where item.priority == pri
                              select item;
 
@@ -444,15 +441,16 @@ namespace BL
             }
             if (pri == DO.Proirities.emergency)//אם לא מצא בעדיפות הכי גבוהה מחפש בעדיפות מתחתיה
                 theParcel = findTheParcel(we, a, buttery, DO.Proirities.fast);
-
             if (pri == DO.Proirities.fast)
                 theParcel = findTheParcel(we, a, buttery, DO.Proirities.regular);
             if (theParcel.id == 0)
                 throw new dosntExisetException("ERROR! there is not a parcel that match to the drone ");
             return theParcel;
         }
-        #endregion
-        #region weight
+        public void startDroneSimulation(int id, Action updateDelegate, Func<bool> stopDelegate)
+        {
+            new Simulator(this, id, updateDelegate, stopDelegate);
+        }
         /// <summary>
         /// retruning if the drone is matching the parcels whieght
         /// </summary>
@@ -469,7 +467,6 @@ namespace BL
                 return true;
             return false;
         }
-        #endregion
         #region index Of Charge Capacity
         /// <summary>
         /// returning the index of charge capacity based on the weight
@@ -550,9 +547,9 @@ namespace BL
                 }
             }
             return 90;
+
         }
         #endregion
-
-
     }
 }
+#endregion

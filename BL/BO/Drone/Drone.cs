@@ -16,7 +16,7 @@ namespace BO
         public Location location { get; set; }
         public override string ToString()
         {
-            return string.Format($"id: {id}, Model: {droneModel}, the max weight: {weight}, drones battery Status: {Math.Round(batteryStatus)}%, drones  Status: {droneStatus}, Location: {location}\n parcel in transfer: {parcelInTransfer}  ");
+            return string.Format($"id: {id} Model: {droneModel} the max weight: {weight} drones battery Status:{Math.Round(batteryStatus)}% drones  Status: {droneStatus} Location: {location} parcel in transfer: {parcelInTransfer} ");
         }
     }
 }

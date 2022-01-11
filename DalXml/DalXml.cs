@@ -29,7 +29,7 @@ namespace Dal
         static readonly IDal instance = new DalXml();
        private DalXml() { }
         public static IDal Instance { get => instance; }
-    //  private DalXml() { Initialize(); } // default constructer calls on initialize func
+     // private DalXml() { Initialize(); } // default constructer calls on initialize func
         #region DS XML Files
         string configPath = @"ConfigXml.xml";
         string dronesPath = @"DroneXml.xml";
@@ -480,7 +480,7 @@ namespace Dal
         {
             List<droneCharges> listOfAlldroneCharges = XMLTools.LoadListFromXMLSerializer<droneCharges>(dronesPath);
             XElement stationRoot = XMLTools.LoadListFromXMLElement(stationPath);
-            //var s = GetDrone(droneId);
+            var s = GetDrone(droneId);
             GetStation(stationId);
             droneCharges dCharge = new ();
             Station tmpS = new();
@@ -635,6 +635,9 @@ namespace Dal
                 throw new findException("drone");
             DroneRoot.Remove(d);
             XMLTools.SaveListToXMLSerializer<Drone>(DroneRoot, dronesPath);
+
+
+         
 
         }
 

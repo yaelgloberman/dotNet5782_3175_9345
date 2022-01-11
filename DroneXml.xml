@@ -1,63 +1,63 @@
 <?xml version="1.0"?>
 <ArrayOfDrone xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Drone>
-    <id>499311861</id>
-    <model>Reaper</model>
-    <maxWeight>average</maxWeight>
-    <deleted>false</deleted>
-  </Drone>
-  <Drone>
-    <id>324370963</id>
+    <id>838692137</id>
     <model>Shadow</model>
     <maxWeight>average</maxWeight>
     <deleted>false</deleted>
   </Drone>
   <Drone>
-    <id>729800273</id>
+    <id>832918656</id>
     <model>Grey Eagle</model>
-    <maxWeight>average</maxWeight>
+    <maxWeight>light</maxWeight>
     <deleted>false</deleted>
   </Drone>
   <Drone>
-    <id>729906842</id>
+    <id>959215325</id>
     <model>Global Hawk</model>
     <maxWeight>light</maxWeight>
     <deleted>false</deleted>
   </Drone>
   <Drone>
-    <id>680576308</id>
+    <id>422272823</id>
     <model>Pioneer</model>
     <maxWeight>average</maxWeight>
     <deleted>false</deleted>
   </Drone>
   <Drone>
-    <id>500776198</id>
+    <id>994192924</id>
     <model>Fire Scout</model>
-    <maxWeight>average</maxWeight>
-    <deleted>false</deleted>
-  </Drone>
-  <Drone>
-    <id>522339546</id>
-    <model>Snowgoose</model>
     <maxWeight>light</maxWeight>
     <deleted>false</deleted>
   </Drone>
   <Drone>
-    <id>618953227</id>
+    <id>821277160</id>
     <model>Hunter</model>
     <maxWeight>average</maxWeight>
     <deleted>false</deleted>
   </Drone>
   <Drone>
-    <id>609132568</id>
+    <id>296942258</id>
+    <model>Stalker</model>
+    <maxWeight>light</maxWeight>
+    <deleted>false</deleted>
+  </Drone>
+  <Drone>
+    <id>854794614</id>
     <model>GNAT</model>
     <maxWeight>average</maxWeight>
     <deleted>false</deleted>
   </Drone>
   <Drone>
-    <id>510563960</id>
-    <model>Stalker</model>
+    <id>611449303</id>
+    <model>Reaper</model>
     <maxWeight>light</maxWeight>
+    <deleted>false</deleted>
+  </Drone>
+  <Drone>
+    <id>237712027</id>
+    <model>Snowgoose</model>
+    <maxWeight>average</maxWeight>
     <deleted>false</deleted>
   </Drone>
 </ArrayOfDrone>

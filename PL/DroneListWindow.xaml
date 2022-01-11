@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         
-    Title="DroneListWindow" Height="450" Width="800">
+    Title="DroneListWindow" Height="450" Width="840">
     <Window.Resources>
         <Style x:Key="myButton"
  TargetType="Button">
@@ -39,6 +39,9 @@
             <Setter Property="BorderThickness" Value="0.5"/>
 
         </Style>
+        
+        
+
     </Window.Resources>
     <Grid Name="MainGrid">
         <Grid.RowDefinitions>
@@ -52,6 +55,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+               
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
             <ComboBox x:Name="WeightSelector" Grid.Column="0"  SelectionChanged="selectWeight" />
@@ -64,16 +68,23 @@
             <Button x:Name="refresh" Content="refresh" Grid.Column="4" Grid.Row="0" Click="refresh_Click_1" Style = "{StaticResource myButton}"/>
 
         </Grid>
+     
         <ListView x:Name="DroneListView" ItemsSource="{Binding}" DataContext="{Binding}" HorizontalContentAlignment="Stretch" MouseDoubleClick="DoubleClick" BorderBrush="#FFE5EACD" Background="#FFDFD9B7" Margin="0,48,0,0" Grid.RowSpan="2">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="id" Width="100" DisplayMemberBinding="{Binding id}" />
-                    <GridViewColumn Header="drone Model" Width="100" DisplayMemberBinding="{Binding droneModel}" />
-                    <GridViewColumn Header="status" Width="100" DisplayMemberBinding="{Binding droneStatus }" />
-                    <GridViewColumn Header="weight" Width="100" DisplayMemberBinding="{Binding weight}" />
-                    <GridViewColumn Header="battery status" Width="80" DisplayMemberBinding="{Binding batteryStatus}" />
-                    <GridViewColumn Header="location" Width="200" DisplayMemberBinding="{Binding location}" />
-                    <GridViewColumn Header="parcel Id" Width="110" DisplayMemberBinding="{Binding parcelId}" />
+                    <GridViewColumn Header="id" Width="85" DisplayMemberBinding="{Binding id}" />
+                    <GridViewColumn Header="drone Model" Width="85" DisplayMemberBinding="{Binding droneModel}" />
+                    <GridViewColumn Header="status" Width="80" DisplayMemberBinding="{Binding droneStatus }" />
+                    <GridViewColumn Header="weight" Width="70" DisplayMemberBinding="{Binding weight}" />
+                    <GridViewColumn Header="battery" Width="50"  DisplayMemberBinding="{Binding batteryStatus}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ProgressBar x:Name="resultProgressBar" Height="15" Width="60" Background="Red" Foreground="Green"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="parcel Id" Width="80" DisplayMemberBinding="{Binding parcelId}" />
+                    <GridViewColumn Header="location" Width="380" DisplayMemberBinding="{Binding location}" />
                 </GridView>
             </ListView.View>
             <ListView.GroupStyle>
