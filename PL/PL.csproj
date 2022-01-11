@@ -18,7 +18,30 @@
 
   <ItemGroup>
     <Resource Include="dronePic.jpg" />
-    <Resource Include="pics\imageedit_1_3256771342.jpg" />
+    <Resource Include="pics\imageedit_1_3256771342.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="pics\290-2909182_button-png-blue-rectangle-button-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="pics\5159167.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="pics\gold-vip-icon-vector-3876920.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="pics\israel Map.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="pics\pawel-czerwinski-qztBRIrU1FM-unsplash.jpg">
+      <CopyToOutputDirectory>1</CopyToOutputDirectory>
+    </None>
+    <None Update="pics\rio-overview.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
