@@ -635,7 +635,6 @@ namespace Dal
         }
 
         #endregion
-      
         //public IEnumerable<Customer> GetCustomer(Func<Customer, bool> predicate = null)
         //=> predicate == null ? DataSource.Customers : DataSource.Customers.Where(predicate);
 

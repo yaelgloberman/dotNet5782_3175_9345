@@ -170,7 +170,7 @@ namespace BL
                             bl.matchingDroneToParcel(droneId);
                             Thread.Sleep(DELAY);
                         }
-                        catch
+                        catch(BO.AlreadyExistException)
                         {
                             bl.SendToCharge(droneId);
                             while (drone.batteryStatus != 90.0)
@@ -186,12 +186,20 @@ namespace BL
                             drone = bL.GetDrone(droneId);
                             Thread.Sleep(DELAY);
                         }
-                        bl.pickedUpParcelByDrone(droneId);
-                        Thread.Sleep(DELAY);
-                        bl.deliveryParcelToCustomer(droneId);
-                        Thread.Sleep(DELAY);
-                        drone = bL.GetDrone(droneId);
-
+                        catch(validException)
+                        {
+                            isRun = false;
+                        }
+                        if(isRun)
+                        {
+                            bl.pickedUpParcelByDrone(droneId);
+                            Thread.Sleep(DELAY);
+                            bl.deliveryParcelToCustomer(droneId);
+                            Thread.Sleep(DELAY);
+                            drone = bL.GetDrone(droneId);
+                        }
+                       
+                     
                     }
                     else
                     {
@@ -202,7 +210,6 @@ namespace BL
                             bl.releasingDrone(droneId, t);
                             bl.SendToCharge(droneId);
                             drone = bL.GetDrone(droneId);
-
                         }
                         bl.releasingDrone(droneId, t);
                         Thread.Sleep(DELAY);

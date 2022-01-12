@@ -13,12 +13,6 @@
     <deleted>false</deleted>
   </Drone>
   <Drone>
-    <id>434299388</id>
-    <model>Pioneer</model>
-    <maxWeight>light</maxWeight>
-    <deleted>false</deleted>
-  </Drone>
-  <Drone>
     <id>616245766</id>
     <model>Fire Scout</model>
     <maxWeight>average</maxWeight>
@@ -31,21 +25,15 @@
     <deleted>false</deleted>
   </Drone>
   <Drone>
-    <id>141490206</id>
-    <model>Hunter</model>
+    <id>434299388</id>
+    <model>Pioneer</model>
     <maxWeight>light</maxWeight>
     <deleted>false</deleted>
   </Drone>
   <Drone>
-    <id>155432177</id>
-    <model>Stalker</model>
+    <id>642135245</id>
+    <model>Reaper</model>
     <maxWeight>light</maxWeight>
-    <deleted>false</deleted>
-  </Drone>
-  <Drone>
-    <id>248484875</id>
-    <model>GNAT</model>
-    <maxWeight>average</maxWeight>
     <deleted>false</deleted>
   </Drone>
   <Drone>
@@ -55,8 +43,20 @@
     <deleted>false</deleted>
   </Drone>
   <Drone>
-    <id>642135245</id>
-    <model>Reaper</model>
+    <id>248484875</id>
+    <model>GNAT</model>
+    <maxWeight>average</maxWeight>
+    <deleted>false</deleted>
+  </Drone>
+  <Drone>
+    <id>155432177</id>
+    <model>Stalker</model>
+    <maxWeight>light</maxWeight>
+    <deleted>false</deleted>
+  </Drone>
+  <Drone>
+    <id>141490206</id>
+    <model>Hunter</model>
     <maxWeight>light</maxWeight>
     <deleted>false</deleted>
   </Drone>

@@ -235,12 +235,11 @@ namespace PL
                 bgWorker.RunWorkerCompleted += (sender, args) => isRun = false;
                 bgWorker.ProgressChanged += (sender, args) => updateDrone();
                 bgWorker.RunWorkerAsync(dr.id);
-                this.bgWorker.RunWorkerAsync();
             }
                 catch (Exception exp)
                 {
                 MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+                 }
 
         }
     }

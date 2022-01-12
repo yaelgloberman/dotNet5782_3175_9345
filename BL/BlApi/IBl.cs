@@ -29,7 +29,6 @@ namespace BlApi
         #region STATION
         public void addStation(BaseStation stationToAdd);
         public void updateStation(int stationID, int AvlblDCharges, string Name = " ");
-        public BaseStation GetStation(int id);
         public List<BaseStation> GetStations();
         public List<BaseStationToList> GetBaseStationToLists();
         public IEnumerable<BaseStationToList> allStations(Func<BaseStationToList, bool> predicate);
@@ -39,14 +38,13 @@ namespace BlApi
         public BO.CustomerInList GetCustomerToList(int id);
         public void updateCustomer(int customerID, string Name, string phoneNum);
 
-        public void addCustomer(BO.Customer CustomerToAdd);
         public List<BO.CustomerInList> GetCustomersToList();
         public List<BO.Customer> GetCustomers();
         public BO.Customer GetCustomer(int id);
         public BO.CustomerInParcel GetCustomerParcel(int id);
         #endregion
         #region PARCEL
-        public int addParcel(BO.Parcel parcelToAdd);
+
         public BO.Parcel GetParcel(int id);
 
         public IEnumerable<BO.ParcelToList> allParcelsToList(Func<BO.ParcelToList, bool> predicate = null);
@@ -59,28 +57,19 @@ namespace BlApi
         public List<ParcelCustomer> CustomerSentParcel(int customerID);
         public ParcelStatus GetParcelStatus(int id);
         public Priority GetParcelPriorty(int id);
-        public BO.CustomerInList GetCustomerToList(int id);
-        public void updateDroneName(int droneID, string dModel);
-
-        public void updateStation(int stationID, int AvlblDCharges, string Name = " ");
-        public void updateCustomer(int customerID, string Name, string phoneNum);
-
-        public void SendToCharge(int droneID);
+     
         public IEnumerable<BO.Parcel> allParcels(Func<BO.Parcel, bool> predicate);
         public void deleteParcel(int parcelId);
         public ParcelCustomer GetParcelToCustomer(int id);
 
         public void deliveryParcelToCustomer(int id);
-        public void pickedUpParcelByDrone(int droneID);
-        public BO.Drone returnsDrone(int id);
-        public void matchingDroneToParcel(int droneID);
+   
         public ParcelStatus parcelStatus(BO.Parcel parcel);
         //public IEnumerable<DO.droneCharges> GetChargegingDrones();
         public bool CheckValidPassword(string name, string Password);///have to ask if i could make it public ??????
 
         #endregion
         #region help functoions
-        public bool CheckValidPassword(string name, string Password);
         public void startDroneSimulation(int id, Action updateDelegate, Func<bool> stopDelegate);
         public chargeCapacity GetChargeCapacity();
         #endregion
