@@ -39,11 +39,13 @@ namespace Dal
         #region Get customer
         public Customer GetCustomer(int id)//function that gets id and finding the Customer in the Customers list and returns Customer
         {
-            foreach (Customer item in DataSource.Customers)
+            foreach (var item in from Customer item in DataSource.Customers
+                                 where item.id == id
+                                 select item)
             {
-                if (item.id == id)
-                    return item;
+                return item;
             }
+
             throw new findException("customer");
         }
         public IEnumerable<Customer> GetCustomer(Func<Customer, bool> predicate = null)
