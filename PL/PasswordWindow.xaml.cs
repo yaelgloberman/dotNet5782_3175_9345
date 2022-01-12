@@ -23,7 +23,7 @@ namespace PL
     {
 
         BlApi.IBl myBl;
-        public PasswordWindow()
+        public PasswordWindow()//user type- worker or customer
         {
             InitializeComponent();
             myBl = BlApi.BlFactory.GetBl();
@@ -32,6 +32,15 @@ namespace PL
             GridLogCustomer.Visibility = Visibility.Hidden; 
 
         }
+        public PasswordWindow(BlApi.IBl bl)//password window
+        {
+            InitializeComponent();
+            myBl = BlApi.BlFactory.GetBl();
+            GridUser.Visibility = Visibility.Hidden;
+            GridPassword.Visibility = Visibility.Visible;
+            GridLogCustomer.Visibility = Visibility.Hidden;
+        }
+
         //public PasswordWindow(BlApi.IBl bl)
         //{
         //    InitializeComponent();
@@ -90,10 +99,11 @@ namespace PL
         {
             GridLogCustomer.Visibility = Visibility.Hidden;
 
-            var wnd = new CustomerWindow();
-            wnd.ShowDialog();
             new CustomerWindow().ShowDialog();
-         //   Close();
+            this.Close();
+            new PasswordWindow( myBl).ShowDialog();
+            this.Close();
+         //  Close();
         }
 
         private void Button_Click_LogIn(object sender, RoutedEventArgs e)
@@ -106,12 +116,16 @@ namespace PL
 
         private void Button_Click_Back(object sender, RoutedEventArgs e)
         {
-            GridLogCustomer.Visibility=Visibility.Hidden;   
+            new PasswordWindow().ShowDialog();
+            this.Close();
+
         }
 
-        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        private void LogInBack_Click(object sender, RoutedEventArgs e)
         {
             new PasswordWindow().ShowDialog();
+            this.Close();
+
 
 
         }

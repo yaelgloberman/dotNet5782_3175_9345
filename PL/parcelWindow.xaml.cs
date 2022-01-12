@@ -74,6 +74,8 @@ namespace PL
             }
             else
             {
+                btnDroneParcelW.Visibility = Visibility.Hidden;
+
                 if (parcel.requested != null)
                 {
                     lblRequested.Visibility = Visibility.Visible;

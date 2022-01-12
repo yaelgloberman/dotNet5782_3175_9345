@@ -8,6 +8,7 @@ using DO;
 using BlApi;
 using DalApi;
 using System.Runtime.Serialization;
+using System.Runtime.CompilerServices;
 namespace BL
 {  
     public partial class BL : IBl
@@ -16,6 +17,7 @@ namespace BL
         /// <summary>
         /// adding a parcel to the datasource with all the bl fetures and throwing an exception if any of the users input was incorrect
         /// </summary>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public int addParcel(BO.Parcel parcelToAdd)
         {
             if (dal.GetParcels().ToList().Exists(item => item.id == parcelToAdd.id))
@@ -59,6 +61,7 @@ namespace BL
         /// <exception cref="dosntExisetException"></exception>
         #endregion
         #region Get parcels
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.ParcelToList GetParcelToList(int id)
         {
             BO.ParcelToList parcel = new();
@@ -90,7 +93,8 @@ namespace BL
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="dosntExisetException"></exception>
-       
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Parcel GetParcel(int id)
         {
             try
@@ -127,6 +131,7 @@ namespace BL
 
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public List<BO.Parcel> GetParcels()
         {
             List<BO.Parcel> parcels = new List<BO.Parcel>();
@@ -157,6 +162,7 @@ namespace BL
         /// <param name="id"></param>
         /// <exception cref="dosntExisetException"></exception>
         /// <exception cref="ExecutionTheDroneIsntAvilablle"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void deliveryParcelToCustomer(int id)
         {
     
@@ -202,6 +208,7 @@ namespace BL
         /// <param name="droneId"></param>
         /// <exception cref="unavailableException"></exception>
         /// <exception cref="dosntExisetException"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void matchingDroneToParcel(int droneId)
         {
            
@@ -228,6 +235,7 @@ namespace BL
         }
         #endregion
         #region returns parcel status
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public ParcelStatus parcelStatus(BO.Parcel parcel)
         {
             if (parcel.delivered != null)
@@ -250,6 +258,7 @@ namespace BL
         /// <param name="droneID"></param>
         /// <exception cref="dosntExisetException"></exception>
         /// <exception cref="validException"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void pickedUpParcelByDrone(int droneID)
         {
             var d = GetDrones().Find(x => x.id == droneID);
@@ -284,6 +293,7 @@ namespace BL
         }
         #endregion
         #region returns list of parcels
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BO.Parcel> allParcels(Func<BO.Parcel, bool> predicate)
         {
             if (predicate == null)
@@ -303,6 +313,7 @@ namespace BL
         }
         #endregion
         #region delete parcel
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void deleteParcel(int parcelId)
         {
             try

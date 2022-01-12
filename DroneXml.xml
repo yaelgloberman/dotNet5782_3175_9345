@@ -1,62 +1,62 @@
 <?xml version="1.0"?>
 <ArrayOfDrone xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Drone>
-    <id>687469965</id>
+    <id>504913549</id>
     <model>Shadow</model>
     <maxWeight>light</maxWeight>
     <deleted>false</deleted>
   </Drone>
   <Drone>
-    <id>413346838</id>
+    <id>539636573</id>
     <model>Grey Eagle</model>
     <maxWeight>light</maxWeight>
     <deleted>false</deleted>
   </Drone>
   <Drone>
-    <id>765470136</id>
-    <model>Global Hawk</model>
+    <id>828121393</id>
+    <model>Snowgoose</model>
     <maxWeight>average</maxWeight>
     <deleted>false</deleted>
   </Drone>
   <Drone>
-    <id>181909976</id>
-    <model>Pioneer</model>
-    <maxWeight>light</maxWeight>
-    <deleted>false</deleted>
-  </Drone>
-  <Drone>
-    <id>356684063</id>
-    <model>Fire Scout</model>
-    <maxWeight>light</maxWeight>
-    <deleted>false</deleted>
-  </Drone>
-  <Drone>
-    <id>284891742</id>
-    <model>GNAT</model>
-    <maxWeight>light</maxWeight>
-    <deleted>false</deleted>
-  </Drone>
-  <Drone>
-    <id>216434721</id>
-    <model>Stalker</model>
-    <maxWeight>light</maxWeight>
-    <deleted>false</deleted>
-  </Drone>
-  <Drone>
-    <id>442744653</id>
-    <model>Snowgoose</model>
-    <maxWeight>light</maxWeight>
-    <deleted>false</deleted>
-  </Drone>
-  <Drone>
-    <id>249102641</id>
+    <id>466783872</id>
     <model>Hunter</model>
     <maxWeight>average</maxWeight>
     <deleted>false</deleted>
   </Drone>
   <Drone>
-    <id>233636987</id>
+    <id>944647336</id>
+    <model>Stalker</model>
+    <maxWeight>light</maxWeight>
+    <deleted>false</deleted>
+  </Drone>
+  <Drone>
+    <id>441904845</id>
+    <model>GNAT</model>
+    <maxWeight>average</maxWeight>
+    <deleted>false</deleted>
+  </Drone>
+  <Drone>
+    <id>909196034</id>
+    <model>Pioneer</model>
+    <maxWeight>light</maxWeight>
+    <deleted>false</deleted>
+  </Drone>
+  <Drone>
+    <id>193237018</id>
+    <model>Fire Scout</model>
+    <maxWeight>light</maxWeight>
+    <deleted>false</deleted>
+  </Drone>
+  <Drone>
+    <id>266863444</id>
     <model>Reaper</model>
+    <maxWeight>light</maxWeight>
+    <deleted>false</deleted>
+  </Drone>
+  <Drone>
+    <id>528002463</id>
+    <model>Global Hawk</model>
     <maxWeight>average</maxWeight>
     <deleted>false</deleted>
   </Drone>

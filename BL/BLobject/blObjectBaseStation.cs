@@ -7,6 +7,7 @@ using BlApi;
 using BO;
 using DO;
 using System.Runtime.Serialization;
+using System.Runtime.CompilerServices;
 namespace BL
 {
     public partial class BL : IBl
@@ -18,6 +19,7 @@ namespace BL
         /// <param name="stationToAdd"></param>
         /// <exception cref="AlreadyExistException"></exception>
         /// <exception cref="validException"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void addStation(BaseStation stationToAdd)
         {
             if (dal.getStations().ToList().Exists(item => item.id == stationToAdd.id))
@@ -64,6 +66,7 @@ namespace BL
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="dosntExisetException"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BaseStationToList GetBaseStationToList(int id)
         {
             BaseStationToList baseStation = new();
@@ -87,6 +90,7 @@ namespace BL
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="dosntExisetException"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BaseStation GetStation(int id)
         {
             try
@@ -124,6 +128,7 @@ namespace BL
         /// <param name="Name"></param>
         /// <exception cref="validException"></exception>
         /// <exception cref="dosntExisetException"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void updateStation(int stationID, int AvlblDCharges, string Name)
         {
             try
@@ -160,6 +165,7 @@ namespace BL
         /// </summary>
         /// <returns></returns>
         /// <exception cref="dosntExisetException"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public List<BaseStationToList> GetBaseStationToLists()
         {
             List<BaseStationToList> baseStations = new();
@@ -172,6 +178,7 @@ namespace BL
             catch (ArgumentException) { throw new dosntExisetException(); }
             return baseStations;
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BaseStationToList> allStations(Func<BaseStationToList, bool> predicate)
         {
             if (predicate == null)
@@ -180,6 +187,7 @@ namespace BL
             }
             return GetBaseStationToLists().Where(predicate).ToList();
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public List<BaseStation> GetStations()
         {
             List<BaseStation> baseStations = new();

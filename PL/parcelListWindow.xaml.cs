@@ -23,10 +23,12 @@ namespace PL
     public partial class parcelListWindow : Window
     {
         IBl bL;
+        private bool isCustomer = false;
         ObservableCollection<ParcelToList> myObservableCollectionParcel;
         private static ParcelToList ptl = new();
         private static Parcel parcel = new();
         static ParcelStatus? statusFilter;
+        public  BO.Customer customer { get; set; }
         public parcelListWindow(IBl bl)
         {
             InitializeComponent();
@@ -35,10 +37,12 @@ namespace PL
             myObservableCollectionParcel = new ObservableCollection<ParcelToList>(bL.GetParcelToLists());
             DataContext = myObservableCollectionParcel;
         }
-        public parcelListWindow(IBl bl, BO.Customer customer)
+        public parcelListWindow(IBl bl, BO.Customer C1)
         {
             InitializeComponent();
             this.bL = bl;
+            customer = C1;
+            isCustomer = true;
             comboBoxStatusSelectorParcel.ItemsSource = Enum.GetValues(typeof(BO.ParcelStatus));
             myObservableCollectionParcel = new ObservableCollection<ParcelToList>(bL.GetParcelToLists().Where(x => x.senderName == customer.Name || x.receiveName == customer.Name));
             DataContext = myObservableCollectionParcel;
@@ -67,7 +71,10 @@ namespace PL
                     parcel = bL.GetParcel(ptl.id);
                     DataContext = parcel;
                     new parcelWindow(parcel).ShowDialog();
-                    myObservableCollectionParcel = new ObservableCollection<ParcelToList>(bL.GetParcelToLists());
+                    if(isCustomer)
+                        myObservableCollectionParcel = new ObservableCollection<ParcelToList>(bL.GetParcelToLists().Where(x => x.senderName == customer.Name || x.receiveName == customer.Name));
+                    else
+                      myObservableCollectionParcel = new ObservableCollection<ParcelToList>(bL.GetParcelToLists());
                     DataContext = myObservableCollectionParcel;
                 }
                
@@ -82,8 +89,11 @@ namespace PL
             {
                 ParcelToList p = (ParcelToList)parcelListBox.SelectedItem;
                 bL.deleteParcel(p.id);
-                MessageBox.Show("succsesfully delete parcel!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                myObservableCollectionParcel = new ObservableCollection<ParcelToList>(bL.GetParcelToLists());
+                MessageBox.Show("succsesfully delete parcel!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);                    myObservableCollectionParcel = new ObservableCollection<ParcelToList>(bL.GetParcelToLists());
+                if(isCustomer)
+                    myObservableCollectionParcel = new ObservableCollection<ParcelToList>(bL.GetParcelToLists().Where(x => x.senderName == customer.Name || x.receiveName == customer.Name));
+                else
+                    myObservableCollectionParcel = new ObservableCollection<ParcelToList>(bL.GetParcelToLists());
                 DataContext = myObservableCollectionParcel;
             }
             catch (Exception exp)

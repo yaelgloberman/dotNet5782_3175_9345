@@ -8,23 +8,17 @@
         Title="MainCustomerWindow" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.Background>
             <ImageBrush ImageSource="C:\Users\User\Desktop\‏‏תיקיה חדשה\PL\pics\rio-overview.jpg" Opacity="0.4"/>
@@ -32,12 +26,12 @@
         <!--<Grid.Background>
             <ImageBrush ImageSource="C:\Users\rinaw\Source\Repos\dotNet5782_3175_9345\PL\dronePic.jpg" Opacity="0.4"/>
         </Grid.Background>-->
-        <Button Content="Customer" HorizontalAlignment="Left" Margin="77,341,0,0" VerticalAlignment="Top" Height="39" Width="198" Click="Button_Click_Customer">
+        <Button Content="Customer" Click="Button_Click_Customer" Grid.ColumnSpan="2" Grid.Row="2">
             <Button.Background>
                 <ImageBrush ImageSource="C:\Users\User\Desktop\‏‏תיקיה חדשה\PL\pics\290-2909182_button-png-blue-rectangle-button-icon.png" Opacity="1"/>
             </Button.Background>
         </Button>
-        <Button Content="Parcel" HorizontalAlignment="Left" Margin="492,341,0,0" VerticalAlignment="Top" Height="39" Width="168" Click="Button_Click_Parcel">
+        <Button Content="Parcel" Click="Button_Click_Parcel" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Width="Auto">
             <Button.Background>
                 <ImageBrush ImageSource="C:\Users\User\Desktop\‏‏תיקיה חדשה\PL\pics\290-2909182_button-png-blue-rectangle-button-icon.png"/>
             </Button.Background>

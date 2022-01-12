@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
+using System.Runtime.CompilerServices;
 using DalApi;
 using BlApi;
 using Dal;
@@ -144,12 +145,14 @@ namespace BL
         /// recieving the dals version of the charge capacity - the battery usage of the parcels weight from the drone 
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public chargeCapacity GetChargeCapacity()
         {
             double[] arr = dal.ChargeCapacity();
             chargeCapacity chargingUsage = new chargeCapacity { pwrAvailable = arr[0], pwrLight = arr[1], pwrAverge = arr[2], pwrHeavy = arr[3], pwrRateLoadingDrone = arr[4], chargeCapacityArr = arr };
             return chargingUsage;
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public bool CheckValidPassword(string name, string Password)///have to ask if i could make it public ??????
         {
             try { var Customer1 = GetCustomersToList().ToList().Where(x => x.Name == name && x.Password == Password );
@@ -412,45 +415,6 @@ namespace BL
         /// <returns></returns>
         /// <exception cref="dosntExisetException"></exception>
         /// 
-
-        //private DO.Parcel findTheParcel(BO.Weight we, BO.Location a, double buttery, DO.Proirities pri)
-        //{
-        //    double d, x;
-        //    DO.Parcel theParcel = new DO.Parcel();
-        //    BO.Location loc = new BO.Location();
-        //    DO.Customer customer = new DO.Customer();
-        //    double far = 1000000;
-        //    //השאילתא אחראית למצוא את כל החבילות בעדיפות המבוקשת
-        //    var parcels = dal.UndiliveredParcels();
-        //    var tempParcel = from item in parcels
-        //                     where item.priority == pri
-        //                     select item;
-
-        //    foreach (var item in tempParcel)
-        //    {
-        //        customer = dal.GetCustomer(item.senderId);
-        //        loc.latitude = customer.latitude;
-        //        loc.longitude = customer.longitude;
-        //        chargeCapacity chargeCapacity = GetChargeCapacity();
-        //        d = Distance(a, loc);//המרחק בין מיקום נוכחי למיקום השולח
-        //        x = Distance(loc, new BO.Location { longitude = dal.GetCustomer(item.targetId).longitude, latitude = dal.GetCustomer(item.targetId).latitude });//המרחק בין מיקום שולח למיקום יעד
-        //        double fromCusToSta = Distance(new BO.Location { longitude = dal.GetCustomer(item.targetId).longitude, latitude = dal.GetCustomer(item.targetId).latitude }, findClosestStationLocation(new BO.Location { longitude = dal.GetCustomer(item.targetId).longitude, latitude = dal.GetCustomer(item.targetId).latitude }, false, BaseStationLocationslist()));
-        //        double butteryUse = x * chargeCapacity.chargeCapacityArr[(int)item.weight] + fromCusToSta * chargeCapacity.chargeCapacityArr[0] + d * chargeCapacity.chargeCapacityArr[0];
-        //        if (d < far && (buttery - butteryUse) > 0 && item.scheduled == null && weight(we, (BO.Weight)item.weight) == true)
-        //        {
-        //            far = d;
-        //            theParcel = item;
-        //            return theParcel;
-        //        }
-        //    }
-        //    if (pri == DO.Proirities.emergency)//אם לא מצא בעדיפות הכי גבוהה מחפש בעדיפות מתחתיה
-        //        theParcel = findTheParcel(we, a, buttery, DO.Proirities.fast);
-        //    if (pri == DO.Proirities.fast)
-        //        theParcel = findTheParcel(we, a, buttery, DO.Proirities.regular);
-        //    if (theParcel.id == 0)
-        //        throw new dosntExisetException("ERROR! there is not a parcel that match to the drone ");
-        //    return theParcel;
-        //}
 
         private DO.Parcel findTheParcel(BO.Weight we, BO.Location a, double buttery, DO.Proirities pri)
         {

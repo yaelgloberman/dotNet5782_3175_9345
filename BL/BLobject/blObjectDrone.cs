@@ -8,6 +8,7 @@ using BlApi;
 using BO;
 using DO;
 using System.Runtime.Serialization;
+using System.Runtime.CompilerServices;
 namespace BL
 {
     public partial class BL : IBl
@@ -23,6 +24,7 @@ namespace BL
         /// <exception cref="AlreadyExistException"></exception>
         /// <exception cref="validException"></exception>
         /// <exception cref="dosntExisetException"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void addDrone(int droneId, int stationId, string droneModel, Weight weight)
         {
             try
@@ -69,6 +71,7 @@ namespace BL
         /// <param name="stationId"></param>
         /// <exception cref="AlreadyExistException"></exception>
         /// <exception cref="validException"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void addDrone(DroneToList droneToAdd, int stationId)
         {
             if (dal.IEDroneList(x => x.id != 0).ToList().Exists(item => item.id == droneToAdd.id))
@@ -109,6 +112,7 @@ namespace BL
         /// </summary>
         /// <param name="droneID"></param>
         /// <exception cref="deleteException"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void deleteDrone(int droneID)
         {
             try
@@ -128,6 +132,7 @@ namespace BL
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="dosntExisetException"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Drone returnsDrone(int id)
         {
 
@@ -188,6 +193,7 @@ namespace BL
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="dosntExisetException"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public DroneToList GetDrone(int id)
         {
             try
@@ -218,6 +224,7 @@ namespace BL
                 throw new dosntExisetException(exp.Message);
             }
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public DroneInParcel GetDroneInParcel(int id)
         {
             try
@@ -246,6 +253,7 @@ namespace BL
         ///recieving the list of all the drones  from the data source and returning ot to the progrmmer with the bl Drone to list features
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public List<BO.DroneToList> GetDrones()
         {
             List<BO.DroneToList> drones = new List<BO.DroneToList>();
@@ -253,6 +261,7 @@ namespace BL
             { drones.Add(GetDrone(d.id)); }
             return drones;
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneToList> allDrones(Func<DroneToList, bool> predicate = null)
         {
             if (predicate == null)
@@ -269,6 +278,7 @@ namespace BL
         /// <param name="droneID"></param>
         /// <param name="dModel"></param>
         /// <exception cref="dosntExisetException"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void updateDroneName(int droneID, string dModel)
         {
             //int dIndex = GetDrones().FindIndex(x => x.id == droneID);
@@ -290,6 +300,7 @@ namespace BL
         /// <exception cref="dosntExisetException"></exception>
         /// <exception cref="unavailableException"></exception>
         /// <exception cref="deleteException"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void SendToCharge(int droneID)
         {
 
@@ -326,6 +337,7 @@ namespace BL
         /// <exception cref="findException"></exception>
         /// <exception cref="unavailableException"></exception>
         /// <exception cref="dosntExisetException"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void releasingDrone(int droneID, TimeSpan chargingTime)
         {
             DroneToList droneItem = new();

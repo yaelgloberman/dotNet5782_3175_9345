@@ -8,6 +8,7 @@ using BO;
 using DalApi;
 using BlApi;
 using System.Runtime.Serialization;
+using System.Runtime.CompilerServices;
 namespace BL
 {
     public partial class BL : IBl
@@ -18,6 +19,7 @@ namespace BL
         /// </summary>
         /// <param name="customerID"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public List<ParcelCustomer> CustomerReceiveParcel(int customerID)
         {
             List<BO.ParcelCustomer> recievedParcels = new List<ParcelCustomer>();
@@ -31,6 +33,7 @@ namespace BL
             }
             return recievedParcels;
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public List<ParcelCustomer> CustomerSentParcel(int customerID)
         {
             List<BO.ParcelCustomer> sentParcels = new List<ParcelCustomer>();
@@ -54,6 +57,7 @@ namespace BL
         /// <param name="phoneNum"></param>
         /// <exception cref="dosntExisetException"></exception>
         /// 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void updateCustomer(int customerID, string Name, string phoneNum)
         {
             try
@@ -68,6 +72,7 @@ namespace BL
         }
         #endregion
         #region Get functions
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public ParcelStatus GetParcelStatus(int id)
         {
             var parcelStatus = GetParcel(id);
@@ -79,6 +84,7 @@ namespace BL
                 return ParcelStatus.Created;
             return ParcelStatus.Assigned;
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Priority GetParcelPriorty(int id)
         {
             var priorty = GetParcel(id);
@@ -89,6 +95,7 @@ namespace BL
             if (Priority.regular != 0)
                 return Priority.regular;
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public ParcelCustomer GetParcelToCustomer(int id)
         {
             List<BO.Customer> customers = new List<BO.Customer>();
@@ -106,6 +113,7 @@ namespace BL
                 return pc;
             }
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public List<BO.Customer> GetCustomers()
         {
             List<BO.Customer> customers = new List<BO.Customer>();
@@ -129,6 +137,7 @@ namespace BL
         /// </summary>
         /// <param name="customerID"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.CustomerInList GetCustomerToList(int id)
         {
             try
@@ -160,6 +169,7 @@ namespace BL
         /// <returns></returns>
         /// 
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Customer GetCustomer(int id)
         {
             try
@@ -209,6 +219,7 @@ namespace BL
                 throw new validException(Fex.Message);
             }
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.CustomerInParcel GetCustomerParcel(int id)
         {
             try
@@ -228,6 +239,7 @@ namespace BL
 
         #endregion
         #region get customer
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<CustomerInList> GetCustomerToList()
         {
             List<CustomerInList> customerToLists = new();
@@ -253,14 +265,19 @@ namespace BL
         ///  recieving a list pf all the  customers (customer to list) form the  the datasource by recieving the id of the customer  and throwing an exception if the id was in correct
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public List<BO.CustomerInList> GetCustomersToList()
         {
             List<BO.CustomerInList> customers = new();
-            foreach (var c in dal.GetCustomerList())
-            { customers.Add(GetCustomerToList(c.id)); }
+            customers = (from item in dal.GetCustomerList()
+                         let c = GetCustomerToList(item.id)
+                         select c).ToList();
+            //foreach (var c in dal.GetCustomerList())
+            //{ customers.Add(GetCustomerToList(c.id)); }
             return customers;
+
         }
-        #endregion 
+        #endregion
         #region Add Customer
         /// <summary>
         /// adding a customer to the data source and with customer regular features and throwing an exception if any of the users info was incorrect
@@ -268,6 +285,7 @@ namespace BL
         /// <param name="CustomerToAdd"></param>
         /// <exception cref="validException"></exception>
         /// <exception cref="AlreadyExistException"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void addCustomer(BO.Customer CustomerToAdd)
         {
             if (!(CustomerToAdd.id >= 10000000 && CustomerToAdd.id <= 1000000000))
