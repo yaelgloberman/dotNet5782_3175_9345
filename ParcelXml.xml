@@ -131,11 +131,11 @@
     <senderId>67467348</senderId>
     <targetId>18657790</targetId>
     <priority>fast</priority>
-    <weight>average</weight>
-    <droneId>455662009</droneId>
+    <weight>light</weight>
+    <droneId>374974168</droneId>
     <requested xsi:nil="true" />
-    <scheduled>2022-01-11T16:41:10.2095454+02:00</scheduled>
-    <pickedUp>2022-01-12T02:41:10.2095508+02:00</pickedUp>
+    <scheduled>2022-01-11T22:55:07.8947757+02:00</scheduled>
+    <pickedUp xsi:nil="true" />
     <delivered xsi:nil="true" />
     <isRecived>false</isRecived>
     <isShipped>false</isShipped>

@@ -10,6 +10,10 @@ namespace BlApi
         #region DRONE
         public void addDrone(DroneToList droneToAdd, int stationId);
         public void addDrone(int droneId, int stationId, string droneModel, Weight weight);
+        public void addCustomer(BO.Customer CustomerToAdd);
+        public int addParcel(BO.Parcel parcelToAdd);
+        public BaseStation GetStation(int id);
+        
         public DroneToList GetDrone(int id);
         public DroneInParcel GetDroneInParcel(int id);
         public BO.Drone returnsDrone(int id);
@@ -55,12 +59,24 @@ namespace BlApi
         public List<ParcelCustomer> CustomerSentParcel(int customerID);
         public ParcelStatus GetParcelStatus(int id);
         public Priority GetParcelPriorty(int id);
-        public ParcelStatus parcelStatus(BO.Parcel parcel);
+        public BO.CustomerInList GetCustomerToList(int id);
+        public void updateDroneName(int droneID, string dModel);
+
+        public void updateStation(int stationID, int AvlblDCharges, string Name = " ");
+        public void updateCustomer(int customerID, string Name, string phoneNum);
+
+        public void SendToCharge(int droneID);
         public IEnumerable<BO.Parcel> allParcels(Func<BO.Parcel, bool> predicate);
         public void deleteParcel(int parcelId);
         public ParcelCustomer GetParcelToCustomer(int id);
 
         public void deliveryParcelToCustomer(int id);
+        public void pickedUpParcelByDrone(int droneID);
+        public BO.Drone returnsDrone(int id);
+        public void matchingDroneToParcel(int droneID);
+        public ParcelStatus parcelStatus(BO.Parcel parcel);
+        //public IEnumerable<DO.droneCharges> GetChargegingDrones();
+        public bool CheckValidPassword(string name, string Password);///have to ask if i could make it public ??????
 
         #endregion
         #region help functoions
