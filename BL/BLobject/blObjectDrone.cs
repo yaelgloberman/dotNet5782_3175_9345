@@ -303,7 +303,6 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void SendToCharge(int droneID)
         {
-
             DroneToList drone = new();
             BaseStation station = new();
             try { drone = GetDrone(droneID); }
@@ -313,20 +312,22 @@ namespace BL
             Location stationLocation = findClosestStationLocation(drone.location, false, BaseStationLocationslist());//not sure where and what its from
             station = GetStations().Find(x => x.location.longitude == stationLocation.longitude && x.location.latitude == stationLocation.latitude);
             int droneIndex = drones.ToList().FindIndex(x => x.id == droneID);
-            if (station.avilableChargeSlots > 0)
-            {
-                dal.deleteStation(dal.GetStation(station.id));
-                station.decreasingChargeSlots();
-                addStation(station);
-            }
+            //if (station.avilableChargeSlots > 0)
+            //{
+            //    dal.deleteStation(dal.GetStation(station.id));
+            //    station.decreasingChargeSlots();
+            //    addStation(station);
+            //}
+            drones[droneIndex].batteryStatus -= chargeCapacity[0] * Distance(drone.location, stationLocation);
             drones[droneIndex].location = station.location;
             drones[droneIndex].droneStatus = DroneStatus.charge;
-            try { deleteDrone(droneID); }
-            catch (deleteException exp) { throw new deleteException(exp.Message); }
-            catch (findException exp) { throw new dosntExisetException(exp.Message); }
-            addDrone(drones[droneIndex], station.id);
-            drones.RemoveAt(droneIndex);
-            DO.droneCharges DC = new droneCharges { droneId = droneID, stationId = station.id };
+            dal.SendToCharge(droneID, station.id);
+            //try { deleteDrone(droneID); }
+            //catch (deleteException exp) { throw new deleteException(exp.Message); }
+            //catch (findException exp) { throw new dosntExisetException(exp.Message); }
+            //addDrone(drones[droneIndex], station.id);
+            //drones.RemoveAt(droneIndex);
+            DO.droneCharges DC = new droneCharges { droneId = droneID, stationId = station.id ,enterToCharge=DateTime.Now};
             dal.AddDroneCharge(DC);
         }
         /// <summary>
@@ -337,46 +338,72 @@ namespace BL
         /// <exception cref="findException"></exception>
         /// <exception cref="unavailableException"></exception>
         /// <exception cref="dosntExisetException"></exception>
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        public void releasingDrone(int droneID, TimeSpan chargingTime)
+        //public void releasingDrone(int droneID, TimeSpan chargingTime)
+        //{ 
+        //{
+        //    DroneToList droneItem = new();
+        //    try { droneItem = GetDrones().Find(x => x.id == droneID); }
+        //    catch (DO.findException) { throw new findException(); }
+        //    if (droneItem.droneStatus != DroneStatus.charge)
+        //        throw new unavailableException("Cannot relese the drone because he isnt charge");
+        //    else
+        //    {
+        //        int index = drones.FindIndex(x => x.id == droneID);
+        //        DO.droneCharges DC = new();
+        //        try { DC = dal.chargingGetDroneList().ToList().Find(X => X.droneId == droneID); }
+        //        catch (findException exp) { throw new dosntExisetException(exp.Message); }
+        //        BaseStation bstation = new();
+        //        try { bstation = GetStation(DC.stationId); }
+        //        catch (findException exp) { throw new dosntExisetException(exp.Message); }
+        //        double timeInMinutes = chargingTime.TotalMinutes;//converting the format to number of minutes, for instance, 1:30 to 90 minutes
+        //        timeInMinutes /= 60; //getting the time in hours 
+        //        drones[index].batteryStatus = timeInMinutes * GetChargeCapacity().pwrRateLoadingDrone + droneItem.batteryStatus; // the battery calculation
+        //        drones[index].batteryStatus = calcMinBatteryRequired(drones[index]);//not sure that if it needs to be 100%
+        //        if (droneItem.batteryStatus > 100) //battery can't has more than a 100 percent
+        //            droneItem.batteryStatus = 100;
+        //        drones[index].batteryStatus = calcMinBatteryRequired(drones[index]);//not sure that if it needs to be 100%
+        //        var s = dal.GetStation(DC.stationId);
+        //        dal.deleteStation(s);
+        //        bstation.addingChargeSlots();
+        //        addStation(bstation);
+        //        dal.RemoveDroneCharge(DC);
+        //        var d = dal.GetDrone(droneID);
+        //        dal.deleteDrone(d);
+        //        drones[index].droneStatus = DroneStatus.available;
+        //        addDrone(drones[index], s.id);
+        //        drones.RemoveAt(index);
+        //    }
+        public void releasingDrone(int id)
         {
-            DroneToList droneItem = new();
-            try { droneItem = GetDrones().Find(x => x.id == droneID); }
-            catch (DO.findException) { throw new findException(); }
-            if (droneItem.droneStatus != DroneStatus.charge)
-                throw new unavailableException("Cannot relese the drone because he isnt charge");
-            else
+            try
             {
-                int index = drones.FindIndex(x => x.id == droneID);
+                DroneToList d = drones.Find(p => p.id == id);
                 DO.droneCharges DC = new();
-                try { DC = dal.chargingGetDroneList().ToList().Find(X => X.droneId == droneID); }
-                catch (findException exp) { throw new dosntExisetException(exp.Message); }
-                BaseStation bstation = new();
-                try { bstation = GetStation(DC.stationId); }
-                catch (findException exp) { throw new dosntExisetException(exp.Message); }
-                double timeInMinutes = chargingTime.TotalMinutes;//converting the format to number of minutes, for instance, 1:30 to 90 minutes
-                timeInMinutes /= 60; //getting the time in hours 
-                drones[index].batteryStatus = timeInMinutes * GetChargeCapacity().pwrRateLoadingDrone + droneItem.batteryStatus; // the battery calculation
-                drones[index].batteryStatus = calcMinBatteryRequired(drones[index]);//not sure that if it needs to be 100%
-                if (droneItem.batteryStatus > 100) //battery can't has more than a 100 percent
-                    droneItem.batteryStatus = 100;
-                drones[index].batteryStatus = calcMinBatteryRequired(drones[index]);//not sure that if it needs to be 100%
-                var s = dal.GetStation(DC.stationId);
-                dal.deleteStation(s);
-                bstation.addingChargeSlots();
-                addStation(bstation);
-                dal.RemoveDroneCharge(DC);
-                var d = dal.GetDrone(droneID);
-                dal.deleteDrone(d);
-                drones[index].droneStatus = DroneStatus.available;
-                addDrone(drones[index], s.id);
-                drones.RemoveAt(index);
+                    if (d.droneStatus == DroneStatus.charge)
+                    {
+                    try {  DC = dal.chargingGetDroneList().ToList().Find(X => X.droneId == id); }
+                    catch (findException exp) { throw new dosntExisetException(exp.Message); }
+                    double t = DateTime.Now.TimeOfDay.TotalSeconds;
+                    double total = t - DC.enterToCharge.TimeOfDay.TotalSeconds;
+                    d.batteryStatus += total * chargeCapacity[4];
+                    if (d.batteryStatus > 100)
+                        d.batteryStatus = 100;
+                    d.droneStatus = DroneStatus.available;
+                    dal.releasingDrone(DC);
+                    }
+                    else throw new validException("Error! the drone dont was in charge");
+                
+            }
+            catch (Exception e)
+            {
+                throw new validException(e.Message, e);
             }
         }
+    }
         #endregion
 
     }
-}
+
 
 
 

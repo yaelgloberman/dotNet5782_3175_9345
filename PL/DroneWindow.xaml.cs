@@ -136,7 +136,7 @@ namespace PL
             try
             {
                 ValidateString(txbUpdateModel.Text);
-                if (dr.droneModel == txbUpdateModel.Text)
+                if (dr.droneModel == bL.GetDrone(dr.id).droneModel)
                 {
                     MessageBox.Show("Please enter correct input", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
                     this.Close();
@@ -174,7 +174,7 @@ namespace PL
             {
 
                 TimeSpan t = DateTime.Now.TimeOfDay;
-                bL.releasingDrone(Convert.ToInt32(txbDroneId.Text), t);
+                bL.releasingDrone(Convert.ToInt32(txbDroneId.Text));
                 MessageBox.Show("succsesfully relesing drone charge!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
             }
@@ -206,7 +206,16 @@ namespace PL
         }
         private void bgWorker_ProgressChanged(object sender, ProgressChangedEventArgs e) //changes what we see
         {
-            int progress = e.ProgressPercentage;
+            try
+            {
+                var d = bL.returnsDrone(dr.id);
+                DataContext = d;
+            }
+
+            catch (Exception exp)
+            {
+                MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         private void updateDrone() => bgWorker.ReportProgress(0);
         private bool checkStop() => bgWorker.CancellationPending;
@@ -231,15 +240,15 @@ namespace PL
                 btnSendToCharge.Visibility = Visibility.Hidden;
                 isRun = true;
                 bgWorker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };
-                bgWorker.DoWork += (sender, args) => bL.startDroneSimulation((int)args.Argument,updateDrone,checkStop);
+                bgWorker.DoWork += (sender, args) => bL.startDroneSimulation((int)args.Argument, updateDrone, checkStop); 
                 bgWorker.RunWorkerCompleted += (sender, args) => isRun = false;
-                bgWorker.ProgressChanged += (sender, args) => updateDrone();
+                bgWorker.ProgressChanged += bgWorker_ProgressChanged;
                 bgWorker.RunWorkerAsync(dr.id);
             }
-                catch (Exception exp)
-                {
-                MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-                 }
+            catch (Exception exp)
+            {
+               MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
         }
     }

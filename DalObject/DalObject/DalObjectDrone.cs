@@ -60,6 +60,7 @@ namespace Dal
             DataSource.chargingDrones.Add(dCharge);//adding the drone to the drone chargiong list
         }
         #endregion
+
         #region releasing drone
         public void releasingDrone(droneCharges dC)//update function when we release a drone from its charging slot
         {
@@ -84,7 +85,7 @@ namespace Dal
             }
         }
         #endregion
-        #region deleteDrone
+        #region 
         public void deleteDrone(Drone d)
         {
             if (!DataSource.drones.Exists(item => item.id == d.id))

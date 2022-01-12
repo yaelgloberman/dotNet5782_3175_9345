@@ -22,7 +22,7 @@ namespace BlApi
         public IEnumerable<DroneToList> allDrones(Func<DroneToList, bool> predicate);
         public void updateDroneName(int droneID, string dModel);
         public void SendToCharge(int droneID);
-        public void releasingDrone(int droneID, TimeSpan chargingTime);
+        public void releasingDrone(int droneID);
 
         public void pickedUpParcelByDrone(int droneID);
         #endregion

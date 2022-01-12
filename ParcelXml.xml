@@ -91,11 +91,11 @@
     <priority>regular</priority>
     <weight>light</weight>
     <droneId>0</droneId>
-    <requested xsi:nil="true" />
-    <scheduled xsi:nil="true" />
-    <pickedUp xsi:nil="true" />
-    <delivered xsi:nil="true" />
-    <isRecived>false</isRecived>
+    <requested>2022-01-12T19:03:24.3374825+02:00</requested>
+    <scheduled>2022-01-12T09:21:51.7674698+02:00</scheduled>
+    <pickedUp>2022-01-12T19:21:51.7675255+02:00</pickedUp>
+    <delivered>2022-01-12T19:21:52.5636694+02:00</delivered>
+    <isRecived>true</isRecived>
     <isShipped>false</isShipped>
   </Parcel>
   <Parcel>
@@ -105,11 +105,11 @@
     <priority>regular</priority>
     <weight>light</weight>
     <droneId>0</droneId>
-    <requested xsi:nil="true" />
-    <scheduled xsi:nil="true" />
-    <pickedUp xsi:nil="true" />
-    <delivered xsi:nil="true" />
-    <isRecived>false</isRecived>
+    <requested>2022-01-12T19:03:24.3373433+02:00</requested>
+    <scheduled>2022-01-12T09:21:54.0308216+02:00</scheduled>
+    <pickedUp>2022-01-12T19:21:54.0308252+02:00</pickedUp>
+    <delivered>2022-01-12T19:21:54.7166718+02:00</delivered>
+    <isRecived>true</isRecived>
     <isShipped>false</isShipped>
   </Parcel>
   <Parcel>
@@ -119,11 +119,11 @@
     <priority>regular</priority>
     <weight>light</weight>
     <droneId>0</droneId>
-    <requested xsi:nil="true" />
-    <scheduled xsi:nil="true" />
-    <pickedUp xsi:nil="true" />
-    <delivered xsi:nil="true" />
-    <isRecived>false</isRecived>
+    <requested>2022-01-11T19:03:24.3280414+02:00</requested>
+    <scheduled>2022-01-12T19:03:24.33663+02:00</scheduled>
+    <pickedUp>2022-01-14T19:03:24.336693+02:00</pickedUp>
+    <delivered>2022-01-12T19:22:17.0657917+02:00</delivered>
+    <isRecived>true</isRecived>
     <isShipped>false</isShipped>
   </Parcel>
   <Parcel>

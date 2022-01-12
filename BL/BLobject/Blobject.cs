@@ -19,6 +19,7 @@ namespace BL
         internal IDal dal = DalFactory.GetDal();
         private static Random rand = new Random();
         private List<DroneToList> drones;
+        public double[] chargeCapacity;
         #region constractor
         /// <summary>
         /// the bl constructor that intializes the dron list in the bl and has access to the DAL
@@ -32,7 +33,8 @@ namespace BL
                 double minBatery = 0;
                 IEnumerable<DO.Drone> d = dal.IEDroneList(x => x.id != 0);
                 IEnumerable<DO.Parcel> p = dal.GetParcels();
-                chargeCapacity chargeCapacity = GetChargeCapacity();
+                chargeCapacity = dal.ChargeCapacity();
+                //chargeCapacity chargeCapacity = GetChargeCapacity();
                 foreach (var item in d)
                 {
                     BO.DroneToList drt = new DroneToList();
@@ -58,16 +60,16 @@ namespace BL
                             if (pr.pickedUp == null && pr.scheduled != null)//החבילה שויכה אבל עדיין לא נאספה
                             {
                                 drt.location = new Location { latitude = findClosestStationLocation(senderLocation, false, baseStationLocations).latitude, longitude = findClosestStationLocation(senderLocation, false, baseStationLocations).longitude };
-                                minBatery = Distance(drt.location, senderLocation) * chargeCapacity.chargeCapacityArr[0];
-                                minBatery += Distance(senderLocation, targetLocation) * chargeCapacity.chargeCapacityArr[(int)pr.weight];
-                                minBatery += Distance(targetLocation, new Location { latitude = findClosestStationLocation(targetLocation, false, baseStationLocations).latitude, longitude = findClosestStationLocation(targetLocation, false, baseStationLocations).longitude }) * chargeCapacity.chargeCapacityArr[0];
+                                minBatery = Distance(drt.location, senderLocation) * chargeCapacity[0];
+                                minBatery += Distance(senderLocation, targetLocation) * chargeCapacity[(int)pr.weight];
+                                minBatery += Distance(targetLocation, new Location { latitude = findClosestStationLocation(targetLocation, false, baseStationLocations).latitude, longitude = findClosestStationLocation(targetLocation, false, baseStationLocations).longitude }) * chargeCapacity[0];
                             }
                             if (pr.pickedUp != null && pr.delivered == null)//החבילה נאספה אבל עדיין לא הגיעה ליעד
                             {
                                 drt.location = new Location();
                                 drt.location = senderLocation;
-                                minBatery = Distance(targetLocation, new Location { latitude = findClosestStationLocation(targetLocation, false, baseStationLocations).latitude, longitude = findClosestStationLocation(targetLocation, false, baseStationLocations).longitude }) * chargeCapacity.chargeCapacityArr[0];
-                                minBatery += Distance(drt.location, targetLocation) * chargeCapacity.chargeCapacityArr[(int)pr.weight];
+                                minBatery = Distance(targetLocation, new Location { latitude = findClosestStationLocation(targetLocation, false, baseStationLocations).latitude, longitude = findClosestStationLocation(targetLocation, false, baseStationLocations).longitude }) * chargeCapacity[0];
+                                minBatery += Distance(drt.location, targetLocation) * chargeCapacity[(int)pr.weight];
                             }
                             if (minBatery > 100) { minBatery = 100; }
                             drt.batteryStatus = rnd.Next((int)minBatery, 101); // 100/;
@@ -124,7 +126,7 @@ namespace BL
                             drt.location = new Location { latitude = lst[l].latitude, longitude = lst[l].longitude };
                             Location Location1 = new Location { latitude = lst[l].latitude, longitude = lst[l].longitude };
 
-                            minBatery += Distance(drt.location, new Location { longitude = findClosestStationLocation(Location1, false, baseStationLocations).longitude, latitude = findClosestStationLocation(Location1, false, baseStationLocations).latitude }) * chargeCapacity.chargeCapacityArr[0];
+                            minBatery += Distance(drt.location, new Location { longitude = findClosestStationLocation(Location1, false, baseStationLocations).longitude, latitude = findClosestStationLocation(Location1, false, baseStationLocations).latitude }) * chargeCapacity[0];
 
                             if (minBatery > 100) { minBatery = 100; }
 
@@ -136,6 +138,7 @@ namespace BL
             }
         }
         #endregion
+
         #region help private function 
         private static double getRandomCordinatesBL(double num1, double num2)
         {
@@ -426,10 +429,10 @@ namespace BL
             double far = 1000000;
 
                 //The link is responsible for finding all packages in the requested priority
-                var p = dal.UndiliveredParcels();
-                IEnumerable<DO.Parcel> pr = new List<DO.Parcel>();
+            var p = dal.UndiliveredParcels();
+            IEnumerable<DO.Parcel> pr = new List<DO.Parcel>();
+           
                 pr = p.Where(item => item.priority == pri);
-
                 foreach (var item in pr)
                 {
                     c = dal.GetCustomer(item.senderId);
@@ -449,8 +452,8 @@ namespace BL
                         }
                     }
                 }
+                
             
-
             if (pri == DO.Proirities.emergency)//If not found the highest priority looking for the priority below it
                 theParcel = findTheParcel(we, a, buttery, DO.Proirities.fast);
 
