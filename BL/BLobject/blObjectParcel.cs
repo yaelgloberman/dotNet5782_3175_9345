@@ -35,11 +35,11 @@ namespace BL
                 targetId = parcelToAdd.receive.id,
                 weight = (WeightCatigories)parcelToAdd.weightCategorie,
                 priority = (Proirities)parcelToAdd.priority,
-                requested = null,
+                requested =DateTime.Now,
                 scheduled = null,
                 pickedUp = null,
                 delivered = null,
-                droneId = 0,
+                droneId =0
             };
            
             try
@@ -180,13 +180,14 @@ namespace BL
                 dal.deleteDrone(dal.GetDrone(id));
                 int droneIndex = drones.FindIndex(x => x.id == id);
                 drones.RemoveAt(droneIndex);
-                drone.parcelId = 0;
                 addDrone(drone, station.id);
-                parcel.delivered = DateTime.Now;   
                 var parcelBL = GetParcel(parcel.id);
-                parcelBL.droneInParcel.id = 0;
-                dal.deleteParcel(dal.GetParcel(parcel.id));
-                addParcel(parcelBL);
+                dal.DeliveryPackageCustomer(parcelBL.receive.id, parcelBL.id, (Proirities)parcelBL.priority);
+                //parcelBL.droneInParcel.id = 0;
+                //parcelBL.delivered=DateTime.Now;
+                //dal.deleteParcel(dal.GetParcel(parcel.id));
+                //parcel.droneId = 0;
+                //parcel.delivered = DateTime.Now;
             }
             catch (findException exp)
             {
@@ -264,7 +265,7 @@ namespace BL
                         int index = GetDrones().FindIndex(x => x.id == d.id);
                         drones.RemoveAt(index);
                         dal.deleteDrone(dal.GetDrone(droneID));
-                        d.batteryStatus = d.batteryStatus - Distance(d.location, new BO.Location { latitude = dal.GetCustomer(item.targetId).latitude, longitude = dal.GetCustomer(item.targetId).longitude }) * GetChargeCapacity().chargeCapacityArr[(int)(item.weight)];
+                        d.batteryStatus = d.batteryStatus - Distance(d.location, new BO.Location { latitude = dal.GetCustomer(item.targetId).latitude, longitude = dal.GetCustomer(item.targetId).longitude }) * chargeCapacity[(int)(item.weight)];
                         d.location.longitude = dal.GetCustomer(item.senderId).longitude;
                         d.location.latitude = dal.GetCustomer(item.senderId).latitude;
                         var par = item;

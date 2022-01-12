@@ -11,6 +11,7 @@ namespace DO
             public int droneId { set; get; }
 
             public int stationId { set; get; }
+            public DateTime enterToCharge { set; get; }
         }
     }
 

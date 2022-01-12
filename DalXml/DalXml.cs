@@ -33,7 +33,7 @@ namespace Dal
      
         private DalXml() { }
         public static IDal Instance { get => instance; }
-        //private DalXml() { Initialize(); } // default constructer calls on initialize func
+       // private DalXml() { Initialize(); } // default constructer calls on initialize func
         #region DS XML Files
         string configPath = @"ConfigXml.xml";
         string dronesPath = @"DroneXml.xml";
@@ -52,12 +52,15 @@ namespace Dal
         }
         public double[] ChargeCapacity()
         {
-            List<double> list = XMLTools.LoadListFromXMLSerializer<double>(configPath);
-
-            double[] arr = new double[100];
-            for (int i = 0; i < list.Count(); i++)
-            { arr[i] = list[i]; }
+            XElement dalConfig = XElement.Load(@"xml\dal-config.xml");
+            double heavy = Convert.ToDouble(dalConfig.Element("heavy").Value);
+            double average = Convert.ToDouble(dalConfig.Element("average").Value);
+            double rateLoadingDrone = Convert.ToDouble(dalConfig.Element("rateLoadingDrone").Value);
+            double available = Convert.ToDouble(dalConfig.Element("available").Value);
+            double light = Convert.ToDouble(dalConfig.Element("light").Value);
+            double[] arr = new double[] { light, average,heavy, rateLoadingDrone,available};
             return arr;
+
         }
 
         void CreateStation()
@@ -276,7 +279,7 @@ namespace Dal
         }
 
 
-    public void deleteStation(Station s)
+    public void r(Station s)
         {
             XElement stationRoot = XMLTools.LoadListFromXMLElement(stationPath);
             XElement stationElement = (from p in stationRoot.Elements()
@@ -391,11 +394,12 @@ namespace Dal
         {
             List<Parcel> listOfAllParcel = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelsPath);
             Parcel tmpP = GetParcel(pId);
-            //tmpP.isDelivered = true;
             Customer tmpC = GetCustomer(cID);
             listOfAllParcel.RemoveAll(m => m.id == tmpP.id);//removing the parcel with the given id
             tmpP.priority = proirity;
             tmpP.targetId = tmpC.id;
+            tmpP.droneId = 0;
+            tmpP.isRecived = true;
             tmpP.delivered = DateTime.Now;
             listOfAllParcel.Add(tmpP);
             XMLTools.SaveListToXMLSerializer<Parcel>(listOfAllParcel, parcelsPath);
@@ -487,15 +491,18 @@ namespace Dal
         public void SendToCharge(int droneId, int stationId)//update function that updates the station and drone when the drone is sent to chatge
 
         {
-            List<droneCharges> listOfAlldroneCharges = XMLTools.LoadListFromXMLSerializer<droneCharges>(dronesPath);
+            List<droneCharges> listOfAlldroneCharges = XMLTools.LoadListFromXMLSerializer<droneCharges>(dronesChatgePath);
             XElement stationRoot = XMLTools.LoadListFromXMLElement(stationPath);
             var s = GetDrone(droneId);
             GetStation(stationId);
             droneCharges dCharge = new ();
             Station tmpS = new();
             dCharge.stationId = stationId;//maching the drones id
+            dCharge.enterToCharge = DateTime.Now;
             object p = stationRoot.Elements().Where(s => int.Parse(s.Element("id").Value) == stationId);
-            stationRoot.Elements().Where(s => Convert.ToInt32( s.Elements("id")) == dCharge.stationId).Remove();
+            tmpS = GetStation(dCharge.stationId);
+            deleteStation(tmpS);
+           // stationRoot.Elements().Where(s => Convert.ToInt32( s.Elements("id")) == dCharge.stationId).Remove();
             tmpS.chargeSlots--;
             stationRoot.Add(tmpS);
             dCharge.droneId = droneId;
@@ -505,24 +512,20 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer<droneCharges>(listOfAlldroneCharges,dronesChatgePath);
 
         }
+
         public void releasingDrone(droneCharges dC)//update function when we release a drone from its charging slot
         {
-            List<Drone> listOfAllDrone = XMLTools.LoadListFromXMLSerializer<Drone>(dronesPath);
-            List<droneCharges> listOfAlldroneCharges = XMLTools.LoadListFromXMLSerializer<droneCharges>(dronesPath);
+            List<droneCharges> listOfAlldroneCharges = XMLTools.LoadListFromXMLSerializer<droneCharges>(dronesChatgePath);
             XElement stationRoot = XMLTools.LoadListFromXMLElement(stationPath);
-            Drone tmpD = GetDrone(dC.droneId);
             Station tmpS = GetStation(dC.stationId);
-            listOfAllDrone.RemoveAll(m => m.id == dC.droneId);//removing the drone with the given id
-            stationRoot.Elements().Where(s => Convert.ToInt32(s.Elements("id")) == dC.stationId).Remove();
-            //tmpD.status = DroneStatuses.available;
-            //tmpD.bateryStatus = 100;
-            listOfAllDrone.Add(tmpD);
+            deleteStation(tmpS);
+          //  stationRoot.Elements().Where(s => Convert.ToInt32(s.Elements("id")) == dC.stationId).Remove();
             tmpS.chargeSlots++;
             GetStationList().ToList().Add(tmpS);
             listOfAlldroneCharges.Remove(dC);//removing the drone from the drone charging list
             XMLTools.SaveListToXMLSerializer<droneCharges>(listOfAlldroneCharges, dronesChatgePath);
-            XMLTools.SaveListToXMLSerializer<Drone>(listOfAllDrone, dronesPath);
             XMLTools.SaveListToXMLElement(stationRoot, stationPath);
+
         }
         public void updateDrone(int droneId, string droneModel)
         {
@@ -639,10 +642,18 @@ namespace Dal
         //=> predicate == null ? DataSource.Customers : DataSource.Customers.Where(predicate);
 
 
-        //public void deleteStation(Station s)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public void deleteStation(Station s)
+        {
+
+            XElement stationRoot = XMLTools.LoadListFromXMLElement(stationPath);
+            XElement stationElement = (from p in stationRoot.Elements()
+                                       where Convert.ToInt32(p.Element("id").Value) == s.id
+                                       select p).FirstOrDefault();
+            if (stationElement == null)
+                throw new Exception("This station doesn't exist in system");
+            stationElement.Remove();
+            XMLTools.SaveListToXMLElement(stationRoot, stationPath);
+        }
         //public IEnumerable<Parcel> GetChargedDrone(Func<Parcel, bool> predicate = null)          
         //=> predicate == null ? DataSource.parcels : DataSource.parcels.Where(predicate);
 
