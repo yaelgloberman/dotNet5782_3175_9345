@@ -49,7 +49,7 @@
 
 
 
-        <Grid x:Name="general" d:IsHidden="True">
+        <Grid x:Name="general">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10" />
                 <ColumnDefinition Width="120" />
@@ -102,7 +102,7 @@
 
 
         </Grid>
-        <Grid x:Name="add">
+        <Grid x:Name="add" d:IsHidden="True">
             <!--<Grid.
             ground>
                 <ImageBrush ImageSource="/pics/5159167.jpg"/>

@@ -77,7 +77,7 @@ namespace BL
                 parcel.receiveName = dal.GetCustomer(dalParcel.targetId).name;
                 parcel.weight = (Weight)dalParcel.weight;
                 parcel.senderName = dal.GetCustomer(dalParcel.senderId).name;
-               parcel.parcelStatus= parcelStatus(GetParcel(parcel.id));
+                parcel.parcelStatus= parcelStatus(GetParcel(parcel.id));
                
             }
             catch (findException exp)
@@ -131,7 +131,6 @@ namespace BL
 
         /// </summary>
         /// <returns></returns>
-        [MethodImpl(MethodImplOptions.Synchronized)]
         public List<BO.Parcel> GetParcels()
         {
             List<BO.Parcel> parcels = new List<BO.Parcel>();
