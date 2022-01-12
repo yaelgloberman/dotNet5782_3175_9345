@@ -58,7 +58,7 @@
                     <GridViewColumn Header="drone Model" Width="100" DisplayMemberBinding="{Binding droneModel}" />
                     <GridViewColumn Header="status" Width="100" DisplayMemberBinding="{Binding droneStatus }" />
                     <GridViewColumn Header="weight" Width="100" DisplayMemberBinding="{Binding weight}" />
-                    <GridViewColumn Header="battery status" Width="80" DisplayMemberBinding="{Binding batteryStatus}" />
+                    <GridViewColumn Header="battery status" Width="80" DisplayMemberBinding="{Binding batteryStatus,StringFormat=\{0:#0.0\}%}" />
                     <GridViewColumn Header="location" Width="200" DisplayMemberBinding="{Binding location}" />
                     <GridViewColumn Header="parcel Id" Width="110" DisplayMemberBinding="{Binding parcelId}" />
                 </GridView>

@@ -59,7 +59,12 @@ namespace PL
             {
                 btnRelesingDrone.Visibility = Visibility.Visible;
             }
-           
+            if(drone.parcelInTransfer!=null)
+            {
+                btnOpenParcelId.Visibility = Visibility.Visible;
+
+            }
+
 
         }
         public DroneWindow(BO.DroneInParcel drone) //update
@@ -171,9 +176,7 @@ namespace PL
         private void btnRelesingDrone_Click_1(object sender, RoutedEventArgs e)
         {
             try
-            {
-
-                TimeSpan t = DateTime.Now.TimeOfDay;
+            { 
                 bL.releasingDrone(Convert.ToInt32(txbDroneId.Text));
                 MessageBox.Show("succsesfully relesing drone charge!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
@@ -238,10 +241,11 @@ namespace PL
                 btnRelesingDrone.Visibility = Visibility.Hidden;
                 btnModelUpdate.Visibility = Visibility.Hidden;
                 btnSendToCharge.Visibility = Visibility.Hidden;
+                btnMatchingDroneToParcel.Visibility = Visibility.Hidden;
                 isRun = true;
                 bgWorker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };
-                bgWorker.DoWork += (sender, args) => bL.startDroneSimulation((int)args.Argument, updateDrone, checkStop); 
-                bgWorker.RunWorkerCompleted += (sender, args) => isRun = false;
+                bgWorker.DoWork += (sender, args) => bL.startDroneSimulation((int)args.Argument, updateDrone, checkStop);
+                bgWorker.RunWorkerCompleted += BgWorker_RunWorkerCompleted;
                 bgWorker.ProgressChanged += bgWorker_ProgressChanged;
                 bgWorker.RunWorkerAsync(dr.id);
             }
@@ -250,6 +254,28 @@ namespace PL
                MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
+        }
+
+        private void BgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if(e.Cancelled)
+            {
+                MessageBox.Show($"The simulation has ended", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void btnCanceling_Click(object sender, RoutedEventArgs e)
+        {
+            if(bgWorker.WorkerSupportsCancellation==true)
+            {
+                bgWorker.CancelAsync();
+            }
+        }
+
+        private void btnOpenParcelId_Click(object sender, RoutedEventArgs e)
+        {
+            try { parcelWindow wnd = new parcelWindow(bL.GetParcel(dr.parcelInTransfer.id)); wnd.ShowDialog(); }
+            catch (System.NullReferenceException exp) { MessageBox.Show(exp.Message); }
         }
     }
     }

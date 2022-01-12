@@ -36,243 +36,234 @@ namespace BL
             bL.startDroneSimulation(drone.id, updateDrone, checkStop);
         }
 
-        //    public Simulator(BL bl, int droneId, Action updateDrone, Func<bool> func)
-        //    {
-        //        bL = bl;
-        //        drone = bL.GetDrone(droneId);
-        //        BO.Drone d = new();
-        //        d = bL.returnsDrone(drone.id);
-        //        if (drone.droneStatus==BO.DroneStatus.delivery)
-        //        {
-        //            if(bl.parcelStatus(bl.GetParcel(d.parcelInTransfer.id))==BO.ParcelStatus.Assigned)
-        //            {
-        //                bl.pickedUpParcelByDrone(droneId);
-        ////     // updateView();
-        //                Thread.Sleep(DELAY);
-        //            }
-        //            bl.deliveryParcelToCustomer(droneId);
-        //                // updateView();
-        //            Thread.Sleep(DELAY);
-        //        }
-        //        if (drone.droneStatus == BO.DroneStatus.charge)
-        //        {
-        //            while (drone.batteryStatus!=90)
-        //            {
-        //                Thread.Sleep(DELAY);
-        //                bl.releasingDrone(droneId, t);
-        //                bl.SendToCharge(droneId);
-        //                drone = bL.GetDrone(droneId);
-        //            }
-        //            bl.releasingDrone(droneId, t);
-        //            Thread.Sleep(DELAY);
-        //            bl.matchingDroneToParcel(droneId);
-        //            Thread.Sleep(DELAY);
-        //            bl.pickedUpParcelByDrone(droneId);
-        //            Thread.Sleep(DELAY);
-        //            bl.deliveryParcelToCustomer(droneId);
-        //            Thread.Sleep(DELAY);
-        //            drone = bL.GetDrone(droneId);
-
-        //        }
-        //        if (!bl.GetParcelToLists().Any(x=>x.parcelStatus==BO.ParcelStatus.Created))
-        //        {
-        //            isRun = false;
-        //        }
-        //        while(isRun)
-        //        {
-        //            if(drone.droneStatus==BO.DroneStatus.available)
-        //            {
-        //                try
-        //                {
-        //                    bl.matchingDroneToParcel(droneId);
-        //                    Thread.Sleep(DELAY);
-        //                    drone = bL.GetDrone(droneId);
-        //                }
-        //                catch
-        //                {
-        //                    bl.SendToCharge(droneId);
-        //                    while(d.batteryStatus!=90.0)
-        //                    {
-        //                        Thread.Sleep(DELAY);
-        //                        bl.SendToCharge(droneId);
-        //                        drone = bL.GetDrone(droneId);
-        //                    }
-        //                    bl.releasingDrone(droneId, t);
-        //                    Thread.Sleep(DELAY);
-        //                    bl.matchingDroneToParcel(droneId);
-        //                    Thread.Sleep(DELAY);
-        //                    drone = bL.GetDrone(droneId);
-
-        //                }
-        //                bl.pickedUpParcelByDrone(droneId);
-        //                Thread.Sleep(DELAY);
-        //                bl.deliveryParcelToCustomer(droneId);
-        //                Thread.Sleep(DELAY);
-        //                drone = bL.GetDrone(droneId);
-        //            }
-        //            if (!bl.GetParcelToLists().Any(x => x.parcelStatus == BO.ParcelStatus.Created))
-        //                isRun = false;
-        //        }
-        //        if (bL.GetParcelToLists().Count(x => x.parcelStatus == ParcelStatus.Created) == 0)
-        //            this.isRun = false;
-        //        drone = bL.GetDrone(droneId);
-
-        //    }
-
-
 
         public Simulator(BL bl, int droneId, Action updateDrone, Func<bool> func)
         {
+            BO.Drone d = new();
             bL = bl;
             drone = bL.GetDrone(droneId);
-            BO.Drone d = new();
-            d = bL.returnsDrone(drone.id);
-            if (isRun)
-            {
-                if (drone.droneStatus == BO.DroneStatus.delivery)
-                {
-                    if (d.parcelInTransfer.parcelStatus == false)
-                    {
-                        bl.pickedUpParcelByDrone(droneId);
-                        updateDrone();
-                        Thread.Sleep(DELAY);
-                        d = bL.returnsDrone(droneId);
-                    }
-                    bl.deliveryParcelToCustomer(droneId);
-                    updateDrone();
-                    Thread.Sleep(DELAY);
-                }
-                if (drone.droneStatus == BO.DroneStatus.charge)
-                {
-                    while (drone.batteryStatus != 100.0)
-                    {
-                        Thread.Sleep(DELAY);
-                        bl.releasingDrone(droneId);
-                        updateDrone();
-                        Thread.Sleep(DELAY);
-                        bl.SendToCharge(droneId);
-                        updateDrone();
-                        Thread.Sleep(DELAY);
-                        drone = bL.GetDrone(droneId);
-                    }
-                    bl.releasingDrone(droneId);
-                    updateDrone();
-                    Thread.Sleep(DELAY);
-                    try
-                    {
-                        bl.matchingDroneToParcel(droneId);
-                        updateDrone();
-                        Thread.Sleep(DELAY);
-                    }
-                    catch (BO.AlreadyExistException)
-                    {
-                        bl.SendToCharge(droneId);
-                        while (drone.batteryStatus != 100.0)
-                        {
-                            bl.releasingDrone(droneId);
-                            updateDrone();
-                            Thread.Sleep(DELAY);
-                            bl.SendToCharge(droneId);
-                            updateDrone();
-                            Thread.Sleep(DELAY);
-                            drone = bL.GetDrone(droneId);
-                        }
-                        bl.releasingDrone(droneId);
-                        updateDrone();
-                        Thread.Sleep(DELAY);
-                        drone = bL.GetDrone(droneId);
-                    }
-                    catch (validException)
-                    {
-                        isRun = false;
-                    }
-                    if (isRun)
-                    {
-                        bl.pickedUpParcelByDrone(droneId);
-                        updateDrone();
-                        Thread.Sleep(DELAY);
-                        bl.deliveryParcelToCustomer(droneId);
-                        updateDrone();
-                        Thread.Sleep(DELAY);
-                        drone = bL.GetDrone(droneId);
-                    }
-                  
-                }
-            }
             while (isRun)
             {
-                drone = bl.GetDrone(droneId);
                 if (drone.droneStatus == BO.DroneStatus.available)
                 {
-                    if (!(bL.GetParcelToLists().Count(x => bL.GetParcel(x.id).delivered == null)==0))
+                    if (!(bL.GetParcelToLists().Count(x => bL.GetParcel(x.id).delivered == null) == 0))
                     {
                         try
                         {
                             bl.matchingDroneToParcel(droneId);
                             updateDrone();
                             Thread.Sleep(DELAY);
-                        }
-                        catch(BO.AlreadyExistException)
-                        {
-                            bl.SendToCharge(droneId);
-                            while (drone.batteryStatus != 100.0)
-                            {
-                                bl.releasingDrone(droneId);
-                                updateDrone();
-                                Thread.Sleep(DELAY);
-                                bl.SendToCharge(droneId);
-                                updateDrone();
-                                Thread.Sleep(DELAY);
-                                drone = bL.GetDrone(droneId);
-                            }
-                            bl.releasingDrone(droneId);
-                            updateDrone();
-                            Thread.Sleep(DELAY);
-                        }
-                        catch(validException)
-                        {
-                            isRun = false;
-                        }
-                        if(isRun)
-                        {
                             bl.pickedUpParcelByDrone(droneId);
                             updateDrone();
                             Thread.Sleep(DELAY);
                             bl.deliveryParcelToCustomer(droneId);
                             updateDrone();
                             Thread.Sleep(DELAY);
-                            drone = bL.GetDrone(droneId);
                         }
-                    }
-                    else
-                    {
-                        bl.SendToCharge(droneId);
-                        updateDrone();
-                        Thread.Sleep(DELAY);
-                        while (drone.batteryStatus != 100.0)
+                        catch (AlreadyExistException)
                         {
-                            bl.releasingDrone(droneId);
-                            updateDrone();
-                            Thread.Sleep(DELAY);
                             bl.SendToCharge(droneId);
+                            while (drone.batteryStatus < 100)
+                            {
+                                Thread.Sleep(DELAY);
+                                bl.releasingDrone(droneId);
+                                drone = bl.GetDrone(droneId);
+                                bl.SendToCharge(droneId);
+                                updateDrone();
+                                drone = bl.GetDrone(droneId);
+                            }
+                            bl.releasingDrone(droneId);
+                            drone = bl.GetDrone(droneId);
                             updateDrone();
                             Thread.Sleep(DELAY);
-                            drone = bL.GetDrone(droneId);
+                            drone = bl.GetDrone(droneId);
                         }
-                        bl.releasingDrone(droneId);
-                        updateDrone();
-                        Thread.Sleep(DELAY);
+                        catch (validException)
+                        {
+                            isRun = false;
+                        }
                     }
                 }
-                if ((bL.GetDrones().Count(x => x.parcelId == 0) == 0)) ;
+                if (drone.droneStatus == BO.DroneStatus.charge)
+                {
+                    bl.SendToCharge(droneId);
+                    while (drone.batteryStatus < 100)
+                    {
+                        Thread.Sleep(DELAY);
+                        bl.releasingDrone(droneId);
+                        drone = bl.GetDrone(droneId);
+                        bl.SendToCharge(droneId);
+                        updateDrone();
+                        drone = bl.GetDrone(droneId);
+                    }
+                    bl.releasingDrone(droneId);
+                    drone = bl.GetDrone(droneId);
+                    updateDrone();
+                    Thread.Sleep(DELAY);
+                }
+                if (drone.droneStatus == BO.DroneStatus.delivery)
+                {
+                    d = bL.returnsDrone(drone.id);
+                    if (d.parcelInTransfer.parcelStatus == false)
+                    {
+                        bl.pickedUpParcelByDrone(droneId);
+                        updateDrone();
+                        Thread.Sleep(DELAY);
+                    }
+                    bl.deliveryParcelToCustomer(droneId);
+                    updateDrone();
+                    Thread.Sleep(DELAY);
+                }
+                drone = bl.GetDrone(droneId);
+                if ((bL.GetDrones().Count(x => x.parcelId == 0) == 0))
                     isRun = false;
             }
         }
     }
-
-    
 }
+            //bL = bl;
+            //drone = bL.GetDrone(droneId);
+            //BO.Drone d = new();
+            //d = bL.returnsDrone(drone.id);
+            //while (isRun)
+            //{
+            //    if (drone.droneStatus == BO.DroneStatus.delivery)
+            //    {
+            //        if (d.parcelInTransfer.parcelStatus == false)
+            //        {
+            //            bl.pickedUpParcelByDrone(droneId);
+            //            updateDrone();
+            //            Thread.Sleep(DELAY);
+            //            d = bL.returnsDrone(droneId);
+            //        }
+            //        bl.deliveryParcelToCustomer(droneId);
+            //        updateDrone();
+            //        Thread.Sleep(DELAY);
+            //        d = bL.returnsDrone(droneId);
+            //    }
+            //    if (drone.droneStatus == BO.DroneStatus.charge)
+            //    {
+            //        while (drone.batteryStatus != 100.0)
+            //        {
+            //            Thread.Sleep(DELAY);
+            //            bl.releasingDrone(droneId);
+            //            updateDrone();
+            //            Thread.Sleep(DELAY);
+            //            bl.SendToCharge(droneId);
+            //            updateDrone();
+            //            Thread.Sleep(DELAY);
+            //            drone = bL.GetDrone(droneId);
+            //        }
+            //        bl.releasingDrone(droneId);
+            //        updateDrone();
+            //        Thread.Sleep(DELAY);
+            //        try
+            //        {
+            //            bl.matchingDroneToParcel(droneId);
+            //            updateDrone();
+            //            Thread.Sleep(DELAY);
+            //        }
+            //        catch (BO.AlreadyExistException)
+            //        {
+            //            bl.SendToCharge(droneId);
+            //            while (drone.batteryStatus != 100.0)
+            //            {
+            //                bl.releasingDrone(droneId);
+            //                updateDrone();
+            //                Thread.Sleep(DELAY);
+            //                bl.SendToCharge(droneId);
+            //                updateDrone();
+            //                Thread.Sleep(DELAY);
+            //                drone = bL.GetDrone(droneId);
+            //            }
+            //            bl.releasingDrone(droneId);
+            //            updateDrone();
+            //            Thread.Sleep(DELAY);
+            //            drone = bL.GetDrone(droneId);
+            //        }
+            //        catch (validException)
+            //        {
+            //            isRun = false;
+            //        }
+            //        if (isRun)
+            //        {
+            //            bl.pickedUpParcelByDrone(droneId);
+            //            updateDrone();
+            //            Thread.Sleep(DELAY);
+            //            bl.deliveryParcelToCustomer(droneId);
+            //            updateDrone();
+            //            Thread.Sleep(DELAY);
+            //            drone = bL.GetDrone(droneId);
+            //        }
+                  
+            //    }
+            
+            //    drone = bl.GetDrone(droneId);
+            //    if (drone.droneStatus == BO.DroneStatus.available)
+            //    {
+            //        if (!(bL.GetParcelToLists().Count(x => bL.GetParcel(x.id).delivered == null)==0))
+            //        {
+            //            try
+            //            {
+            //                bl.matchingDroneToParcel(droneId);
+            //                updateDrone();
+            //                Thread.Sleep(DELAY);
 
-
+            //                if (isRun)
+            //                {
+            //                    bl.pickedUpParcelByDrone(droneId);
+            //                    updateDrone();
+            //                    Thread.Sleep(DELAY);
+            //                    bl.deliveryParcelToCustomer(droneId);
+            //                    updateDrone();
+            //                    Thread.Sleep(DELAY);
+            //                    drone = bL.GetDrone(droneId);
+            //                }
+            //            }
+            //            catch (BO.AlreadyExistException)
+            //            {
+            //                bl.SendToCharge(droneId);
+            //                while (drone.batteryStatus != 100.0)
+            //                {
+            //                    bl.releasingDrone(droneId);
+            //                    updateDrone();
+            //                    Thread.Sleep(DELAY);
+            //                    bl.SendToCharge(droneId);
+            //                    updateDrone();
+            //                    Thread.Sleep(DELAY);
+            //                    drone = bL.GetDrone(droneId);
+            //                }
+            //                bl.releasingDrone(droneId);
+            //                updateDrone();
+            //                Thread.Sleep(DELAY);
+            //            }
+            //            catch (validException)
+            //            {
+            //                isRun = false;
+            //            }
+            //        }
+            //        else
+            //        {
+            //            bl.SendToCharge(droneId);
+            //            updateDrone();
+            //            Thread.Sleep(DELAY);
+            //            while (drone.batteryStatus != 100.0)
+            //            {
+            //                bl.releasingDrone(droneId);
+            //                updateDrone();
+            //                Thread.Sleep(DELAY);
+            //                bl.SendToCharge(droneId);
+            //                updateDrone();
+            //                Thread.Sleep(DELAY);
+            //                drone = bL.GetDrone(droneId);
+            //            }
+            //            bl.releasingDrone(droneId);
+            //            updateDrone();
+            //            Thread.Sleep(DELAY);
+            //        }
+            //    }
+            //    if ((bL.GetDrones().Count(x => x.parcelId == 0) == 0)) 
+            //        isRun = false;
+            //}
 
 
