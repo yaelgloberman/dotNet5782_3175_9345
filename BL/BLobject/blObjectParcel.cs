@@ -223,7 +223,8 @@ namespace BL
                 addDrone(myDrone, station.id);
             }
             catch (findException exp) { throw new dosntExisetException(exp.Message); }
-            catch(dosntExisetException ex) { throw new dosntExisetException(ex.Message); }
+            catch(dosntExisetException ex) { throw new Exception(ex.Message); }
+            catch(validException ex) { throw new validException(ex.Message); }
         }
         #endregion
         #region returns parcel status

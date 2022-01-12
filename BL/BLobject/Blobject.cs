@@ -461,10 +461,8 @@ namespace BL
             DO.Customer c = new DO.Customer();
             double far = 1000000;
 
-            lock (dal)
-            {
                 //The link is responsible for finding all packages in the requested priority
-                var p = dal.GetParcelList();
+                var p = dal.UndiliveredParcels();
                 IEnumerable<DO.Parcel> pr = new List<DO.Parcel>();
                 pr = p.Where(item => item.priority == pri);
 
@@ -475,7 +473,7 @@ namespace BL
                     b.longitude = c.longitude;
                     d = Distance(a, b);//המרחק בין מיקום נוכחי למיקום השולח
                     x = Distance(b, new Location { longitude = dal.GetCustomer(item.targetId).longitude, latitude = dal.GetCustomer(item.targetId).latitude });//המרחק בין מיקום שולח למיקום יעד
-                    double fromCusToSta = Distance(new Location { longitude = dal.GetCustomer(item.targetId).longitude, latitude = dal.GetCustomer(item.targetId).latitude }, findClosestStationLocation(new Location { longitude = dal.GetCustomer(item.targetId).longitude, latitude = dal.GetCustomer(item.targetId).latitude },  false, BaseStationLocationslist()));
+                    double fromCusToSta = Distance(new Location { longitude = dal.GetCustomer(item.targetId).longitude, latitude = dal.GetCustomer(item.targetId).latitude }, findClosestStationLocation(new Location { longitude = dal.GetCustomer(item.targetId).longitude, latitude = dal.GetCustomer(item.targetId).latitude }, false, BaseStationLocationslist()));
                     double butteryUse = x * GetChargeCapacity().chargeCapacityArr[indexOfChargeCapacity(item.weight)] + fromCusToSta * GetChargeCapacity().chargeCapacityArr[0] + d * GetChargeCapacity().chargeCapacityArr[0];
                     if (d < far && (buttery - butteryUse) > 0 && item.scheduled == null)
                     {
@@ -487,7 +485,7 @@ namespace BL
                         }
                     }
                 }
-            }
+            
 
             if (pri == DO.Proirities.emergency)//If not found the highest priority looking for the priority below it
                 theParcel = findTheParcel(we, a, buttery, DO.Proirities.fast);
@@ -495,11 +493,17 @@ namespace BL
             if (pri == DO.Proirities.fast)
                 theParcel = findTheParcel(we, a, buttery, DO.Proirities.regular);
             if (theParcel.id == 0)
+            {
+                if (dal.UndiliveredParcels().Count(x => (Weight)x.weight == we) == 0) 
+                {
+                    throw new validException("there is no parcel that can be matched bcs weight");
+                }
                 throw new findException("ERROR! there is not a parcel that match to the drone ");
+
+            }
             return theParcel;
 
         }
-
         public void startDroneSimulation(int id, Action updateDelegate, Func<bool> stopDelegate)
         {
             new Simulator(this, id, updateDelegate, stopDelegate);

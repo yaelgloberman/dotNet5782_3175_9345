@@ -234,13 +234,12 @@ namespace PL
                 bgWorker.DoWork += (sender, args) => bL.startDroneSimulation((int)args.Argument,updateDrone,checkStop);
                 bgWorker.RunWorkerCompleted += (sender, args) => isRun = false;
                 bgWorker.ProgressChanged += (sender, args) => updateDrone();
-               bgWorker.RunWorkerAsync(dr.id);
-               // this.bgWorker.RunWorkerAsync();
+                bgWorker.RunWorkerAsync(dr.id);
             }
                 catch (Exception exp)
                 {
                 MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+                 }
 
         }
     }

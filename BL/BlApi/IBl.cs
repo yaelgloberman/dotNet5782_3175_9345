@@ -38,14 +38,13 @@ namespace BlApi
         public BO.CustomerInList GetCustomerToList(int id);
         public void updateCustomer(int customerID, string Name, string phoneNum);
 
-        //public void addCustomer(BO.Customer CustomerToAdd);
         public List<BO.CustomerInList> GetCustomersToList();
         public List<BO.Customer> GetCustomers();
         public BO.Customer GetCustomer(int id);
         public BO.CustomerInParcel GetCustomerParcel(int id);
         #endregion
         #region PARCEL
-        //public int addParcel(BO.Parcel parcelToAdd);
+
         public BO.Parcel GetParcel(int id);
 
         public IEnumerable<BO.ParcelToList> allParcelsToList(Func<BO.ParcelToList, bool> predicate = null);
@@ -59,13 +58,12 @@ namespace BlApi
         public ParcelStatus GetParcelStatus(int id);
         public Priority GetParcelPriorty(int id);
      
-
         public IEnumerable<BO.Parcel> allParcels(Func<BO.Parcel, bool> predicate);
         public void deleteParcel(int parcelId);
         public ParcelCustomer GetParcelToCustomer(int id);
 
         public void deliveryParcelToCustomer(int id);
-
+   
         public ParcelStatus parcelStatus(BO.Parcel parcel);
         //public IEnumerable<DO.droneCharges> GetChargegingDrones();
         public bool CheckValidPassword(string name, string Password);///have to ask if i could make it public ??????

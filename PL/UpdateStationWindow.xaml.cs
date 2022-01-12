@@ -74,7 +74,6 @@ namespace PL
             try
             {
 
-
                     BaseStation s = new BaseStation();
                     s = bL.GetStation(Convert.ToInt32(Txbid.Text));
                     if (TxbNameUpdate.Text == s.stationName && Convert.ToInt32(TxbchargeSlots.Text) == s.avilableChargeSlots)

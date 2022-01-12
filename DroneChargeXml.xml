@@ -36,4 +36,24 @@
     <droneId>687469965</droneId>
     <stationId>175907386</stationId>
   </droneCharges>
+  <droneCharges>
+    <droneId>820438286</droneId>
+    <stationId>531571040</stationId>
+  </droneCharges>
+  <droneCharges>
+    <droneId>155432177</droneId>
+    <stationId>769400981</stationId>
+  </droneCharges>
+  <droneCharges>
+    <droneId>248484875</droneId>
+    <stationId>531571040</stationId>
+  </droneCharges>
+  <droneCharges>
+    <droneId>434299388</droneId>
+    <stationId>531571040</stationId>
+  </droneCharges>
+  <droneCharges>
+    <droneId>642135245</droneId>
+    <stationId>531571040</stationId>
+  </droneCharges>
 </ArrayOfDroneCharges>
