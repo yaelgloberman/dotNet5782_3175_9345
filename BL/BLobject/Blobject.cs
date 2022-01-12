@@ -18,10 +18,7 @@ namespace BL
         internal IDal dal = DalFactory.GetDal();
         private static Random rand = new Random();
         private List<DroneToList> drones;
-        private static double getRandomCordinatesBL(double num1, double num2)
-        {
-            return (rand.NextDouble() * (num2 - num1) + num1);
-        }
+        #region constractor
         /// <summary>
         /// the bl constructor that intializes the dron list in the bl and has access to the DAL
         /// </summary>
@@ -32,7 +29,7 @@ namespace BL
                 bool flag = false;
                 Random rnd = new Random();
                 double minBatery = 0;
-                IEnumerable<DO.Drone> d = dal.GetDrones();
+                IEnumerable<DO.Drone> d = dal.IEDroneList(x => x.id != 0);
                 IEnumerable<DO.Parcel> p = dal.GetParcels();
                 chargeCapacity chargeCapacity = GetChargeCapacity();
                 foreach (var item in d)
@@ -137,6 +134,12 @@ namespace BL
                 }
             }
         }
+        #endregion
+        #region help private function 
+        private static double getRandomCordinatesBL(double num1, double num2)
+        {
+            return (rand.NextDouble() * (num2 - num1) + num1);
+        }
         /// <summary>
         /// recieving the dals version of the charge capacity - the battery usage of the parcels weight from the drone 
         /// </summary>
@@ -158,6 +161,7 @@ namespace BL
             { throw new  dosntExisetException(exp.Message); }
 
         }
+        #endregion
         #region Get Used ChargingSlots
         /// <summary>
         /// a function that returns the unavailable chatrged slots
@@ -178,7 +182,6 @@ namespace BL
 
         }
         #endregion
-       
         #region Get Drone Battery
         /// <summary>
         /// the function recieves the current battery ststaus of teh drone in the bl
@@ -221,10 +224,10 @@ namespace BL
                         weight = (Weight)parcel.weight,
                         priority = (Priority)parcel.priority,
                         parcelStatus = (ParcelStatus)2,
-                        CustomerInParcel = new CustomerInParcel()    //לא יודעת בדיוק מה להציב במשתנים האלו
+                        CustomerInParcel = new CustomerInParcel()   
                         {
-                            id = parcel.id,   //זה
-                            name = dal.GetCustomerName(id),  //זה
+                            id = parcel.id,   
+                            name = dal.GetCustomerName(id),
                         }
                     });
             return tempParcel;
@@ -242,12 +245,12 @@ namespace BL
             return new Location { latitude = station.latitude, longitude = station.longitude };
         }
         #endregion
+        #region find Drone Location
         /// <summary>
         /// finding the drone location 
         /// </summary>
         /// <param name="drone"></param>
         /// <returns></returns>
-        #region find Drone Location
         private Location findDroneLocation(DroneToList drone)
         {
             if (drone.droneStatus == DroneStatus.delivery)
@@ -311,7 +314,6 @@ namespace BL
             return d;
         }
         #endregion
-
         #region function that helps get locations
         /// <summary>
         /// reterns a list of all the station locations
@@ -409,6 +411,8 @@ namespace BL
         /// <param name="pri"></param>
         /// <returns></returns>
         /// <exception cref="dosntExisetException"></exception>
+        /// 
+
         private DO.Parcel findTheParcel(BO.Weight we, BO.Location a, double buttery, DO.Proirities pri)
         {
             double d, x;
@@ -417,8 +421,8 @@ namespace BL
             DO.Customer customer = new DO.Customer();
             double far = 1000000;
             //השאילתא אחראית למצוא את כל החבילות בעדיפות המבוקשת
-             IEnumerable<DO.Parcel> parcels = dal.GetParcels();
-             var tempParcel = from item in parcels
+            var parcels = dal.UndiliveredParcels();
+            var tempParcel = from item in parcels
                              where item.priority == pri
                              select item;
 
@@ -447,6 +451,7 @@ namespace BL
                 throw new dosntExisetException("ERROR! there is not a parcel that match to the drone ");
             return theParcel;
         }
+       
         public void startDroneSimulation(int id, Action updateDelegate, Func<bool> stopDelegate)
         {
             new Simulator(this, id, updateDelegate, stopDelegate);

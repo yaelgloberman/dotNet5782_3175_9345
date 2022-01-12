@@ -29,7 +29,7 @@ namespace PL
         {
             InitializeComponent();
             this.bL = bl;
-            myObservableCollection = new ObservableCollection<BaseStationToList>(bL.GetBaseStationToList());
+            myObservableCollection = new ObservableCollection<BaseStationToList>(bL.allStations(x => x.id != 0));
             DataContext = myObservableCollection;
             StationToListView.Items.Clear();
             StationToListView.ItemsSource = myObservableCollection;
@@ -48,7 +48,7 @@ namespace PL
         {
             UpdateStationWindow wnd = new UpdateStationWindow(bL);
             wnd.ShowDialog();
-            myObservableCollection = new ObservableCollection<BaseStationToList>(bL.GetBaseStationToList());
+            myObservableCollection = new ObservableCollection<BaseStationToList>(bL.allStations(x=> x.id!=0));
             DataContext = myObservableCollection;
             StationToListView.ItemsSource = bL.GetBaseStationToLists().ToList();
 
@@ -65,14 +65,14 @@ namespace PL
             {
                 DataContext = station;
                 new UpdateStationWindow(bL, station).ShowDialog();
-                myObservableCollection = new ObservableCollection<BaseStationToList>(bL.GetBaseStationToList());
+                myObservableCollection = new ObservableCollection<BaseStationToList>(bL.allStations(x => x.id != 0));
                 DataContext = myObservableCollection;
             }
           
         }
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            StationToListView.ItemsSource = bL.GetBaseStationToList();
+            StationToListView.ItemsSource = bL.allStations(x => x.id != 0);
 
         }
 

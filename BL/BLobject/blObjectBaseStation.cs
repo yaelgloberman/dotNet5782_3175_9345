@@ -81,7 +81,6 @@ namespace BL
             }
             return baseStation;
         }
-        #endregion
         /// <summary>
         /// the programmer recieves  a station in a form of a basestation(reguslar) feateres from  the dal(originally from the datat source
         /// </summary>
@@ -115,40 +114,8 @@ namespace BL
                 throw new dosntExisetException(exp.Message);
             }
         }
-        /// <summary>
-        /// returns all the basestations in a form of a list form the datasource returns in the bl version of a basestation( station to list) fetatures
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="dosntExisetException"></exception>
-        public List<BaseStationToList> GetBaseStationToLists()
-        {
-            List<BaseStationToList> baseStations = new();
-            try
-            {
-                var stationsDal = dal.GetStationList().ToList();
-                foreach (var s in stationsDal)
-                { baseStations.Add(GetBaseStationToList(s.id)); }
-            }
-            catch (ArgumentException) { throw new dosntExisetException(); }
-            return baseStations;
-        }
-        /// <summary>
-        /// returns all the basestations in a form of a list form the datasource returns in the bl version of a basestation(regular) fetatures
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="dosntExisetException"></exception>
-        public List<BaseStation> GetStations()
-        {
-            List<BaseStation> baseStations = new();
-            try
-            {
-                var stationsDal = dal.GetStationList().ToList();
-                foreach (var s in stationsDal)
-                { baseStations.Add(GetStation(s.id)); }
-            }
-            catch (ArgumentException) { throw new dosntExisetException(); }
-            return baseStations;
-        }
+        #endregion
+        #region update
         /// <summary>
         /// an update function that updates a stations name  or available charge slots (or both)
         /// </summary>
@@ -186,21 +153,24 @@ namespace BL
                 throw new BlUpdateException(ex.Message);
             }
         }
-        public IEnumerable<BaseStationToList> GetBaseStationToList()
+        #endregion
+        #region returns station list
+        /// <summary>
+        /// returns all the basestations in a form of a list form the datasource returns in the bl version of a basestation( station to list) fetatures
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="dosntExisetException"></exception>
+        public List<BaseStationToList> GetBaseStationToLists()
         {
-            List<BaseStationToList> baseStationToLists = new();
-            foreach (var item in dal.GetStationList())
+            List<BaseStationToList> baseStations = new();
+            try
             {
-                BaseStationToList station = new BaseStationToList
-                {
-                    id = item.id,
-                    stationName = item.name,
-                    avilableChargeSlots = item.chargeSlots,
-                    unavilableChargeSlots = getUnvailableChargeSlots(item.id),
-                };
-                baseStationToLists.Add(station);
+                var stationsDal = dal.GetStationList().ToList();
+                foreach (var s in stationsDal)
+                { baseStations.Add(GetBaseStationToList(s.id)); }
             }
-            return baseStationToLists.Take(baseStationToLists.Count).ToList();
+            catch (ArgumentException) { throw new dosntExisetException(); }
+            return baseStations;
         }
         public IEnumerable<BaseStationToList> allStations(Func<BaseStationToList, bool> predicate)
         {
@@ -210,6 +180,19 @@ namespace BL
             }
             return GetBaseStationToLists().Where(predicate).ToList();
         }
+        public List<BaseStation> GetStations()
+        {
+            List<BaseStation> baseStations = new();
+            try
+            {
+                var stationsDal = dal.GetStationList().ToList();
+                foreach (var s in stationsDal)
+                { baseStations.Add(GetStation(s.id)); }
+            }
+            catch (ArgumentException) { throw new dosntExisetException(); }
+            return baseStations;
+        }
+        #endregion
     }
 }
 

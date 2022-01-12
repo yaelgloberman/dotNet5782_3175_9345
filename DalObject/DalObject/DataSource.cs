@@ -11,7 +11,7 @@ namespace Dal
         /// <summary>
         /// creating list from each object . drone,pardel,station,Customer,chargingDrones
         /// </summary>
-
+        #region Initialize help
         internal static string[] CapatalLetters = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "L" };
         internal static string[] stationName = { "Jerusalem", "Eilat" };
         internal static string[] droneName = { "Reaper", "Shadow", "Grey Eagle", "Global Hawk", "Pioneer", "Fire Scout", "Snowgoose", "Hunter", "Stalker", "GNAT", "Wing Loong II", "AVENGER", "Apollo Earthly", "AirHaven", "indRazer", "Godspeed", "Phantom", "Novotek", "Tri-Propeller", "WikiDrone" };
@@ -21,7 +21,7 @@ namespace Dal
         internal static List<Station> stations = new List<Station>();
         internal static List<Customer> Customers = new List<Customer>();
         internal static List<droneCharges> chargingDrones = new List<droneCharges>();
-
+        #endregion
         internal class Config
         {
             internal static int parcelSerial = 10000000;
@@ -34,16 +34,7 @@ namespace Dal
         }
         static Random r = new Random();
         int num = r.Next();
-        /// <summary>
-        /// function that gets cordinates and return the fordinate with floating point
-        /// </summary>
-        /// <param name="cordinate"></param>
-        /// <returns></returns>
-      
-        private static double getRandomCordinates(double num1, double num2)
-        {
-            return (r.NextDouble() * (num2 - num1) + num1);
-        }
+       
         public static void Initialize()
         {
             DataSource.createCustomer();
@@ -51,6 +42,7 @@ namespace Dal
             DataSource.CreateParcel();
             DataSource.CreateStation();
         }
+        #region Create Station
         static void CreateStation()
         {
             for (int i = 0; i < 2; i++)
@@ -65,6 +57,8 @@ namespace Dal
                 });
             }
         }
+        #endregion
+        #region Create drone
         static void CreateDrone()
         {
             for (int i = 0; i < 10; i++)
@@ -77,6 +71,8 @@ namespace Dal
                 });
             }
         }
+        #endregion
+        #region Create Customer
         static void createCustomer()
         {
             string p = CapatalLetters[10];
@@ -106,7 +102,8 @@ namespace Dal
                     isCustomer = false,
                 });
         }
-
+        #endregion
+        #region Create Parcel
         static void CreateParcel()
         {
             for (int i = 0; i < 10; i++)
@@ -142,6 +139,16 @@ namespace Dal
                 parcels.Add(parcel);
             }
             Config.numberId++;
+        }
+        #endregion
+        /// <summary>
+        /// function that gets cordinates and return the fordinate with floating point
+        /// </summary>
+        /// <param name="cordinate"></param>
+        /// <returns></returns>
+        private static double getRandomCordinates(double num1, double num2)
+        {
+            return (r.NextDouble() * (num2 - num1) + num1);
         }
     }
 

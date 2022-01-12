@@ -124,8 +124,6 @@ namespace BL
             d = bL.returnsDrone(drone.id);
             if (isRun)
             {
-                //if (!bl.getParcelsList().Any(x => x.parcelStatus == BO.ParcelStatus.created))
-                //    checkRun = false;
                 if (drone.droneStatus == BO.DroneStatus.delivery)
                 {
                     if (d.parcelInTransfer.parcelStatus == false)
@@ -143,7 +141,7 @@ namespace BL
                     while (drone.batteryStatus != 90.0)
                     {
                         Thread.Sleep(DELAY);
-                        bl.releasingDrone(droneId, t);        //fix this!!!!!
+                        bl.releasingDrone(droneId, t);       
                         bl.SendToCharge(droneId);
                         drone = bL.GetDrone(droneId);
 
@@ -158,16 +156,14 @@ namespace BL
                     bl.deliveryParcelToCustomer(droneId);
                     Thread.Sleep(DELAY);
                     drone = bL.GetDrone(droneId);
-
                 }
             }
-
             while (isRun)
             {
                 drone = bl.GetDrone(droneId);
                 if (drone.droneStatus == BO.DroneStatus.available)
                 {
-                    if (!(bL.GetParcelToLists().Count(x => x.parcelStatus == ParcelStatus.Created) == 0))
+                    if (!(bL.GetParcelToLists().Count(x => bL.GetParcel(x.id).delivered == null)==0))
                     {
                         try
                         {
@@ -212,6 +208,8 @@ namespace BL
                         Thread.Sleep(DELAY);
                     }
                 }
+                if ((bL.GetParcelToLists().Count(x => bL.GetParcel(x.id).delivered == null) == 0))
+                    isRun = false;
             }
         }
     }

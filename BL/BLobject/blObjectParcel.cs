@@ -9,13 +9,13 @@ using BlApi;
 using DalApi;
 using System.Runtime.Serialization;
 namespace BL
-{
-    /// <summary>
-    /// adding a parcel to the datasource with all the bl fetures and throwing an exception if any of the users input was incorrect
-    /// </summary>
+{  
     public partial class BL : IBl
     {
         #region Add Parcel
+        /// <summary>
+        /// adding a parcel to the datasource with all the bl fetures and throwing an exception if any of the users input was incorrect
+        /// </summary>
         public int addParcel(BO.Parcel parcelToAdd)
         {
             if (dal.GetParcels().ToList().Exists(item => item.id == parcelToAdd.id))
@@ -58,6 +58,7 @@ namespace BL
         /// <returns></returns>
         /// <exception cref="dosntExisetException"></exception>
         #endregion
+        #region Get parcels
         public BO.ParcelToList GetParcelToList(int id)
         {
             BO.ParcelToList parcel = new();
@@ -119,6 +120,8 @@ namespace BL
                 throw new dosntExisetException(exp.Message);
             }
         }
+        #endregion
+        #region returns list of parcels 
         /// <summary>
         // recieving a list of all the parcels from the data source and returning ot to the progrmmer with the bl parcel (regular) features
 
@@ -132,14 +135,10 @@ namespace BL
                 foreach (var p in dal.GetParcelList())
                 { parcels.Add(GetParcel(p.id)); }
             }
-            catch(dosntExisetException exp)
+            catch (dosntExisetException exp)
             { throw new dosntExisetException(exp.Message); }
             return parcels;
         }
-        /// <summary>
-        /// recieving a list of all the parcels from the data source and returning ot to the progrmmer with the bl parcel (regular) features
-        /// </summary>
-        /// <returns></returns>
         public List<BO.ParcelToList> GetParcelToLists()
         {
             List<ParcelToList> lst = new List<ParcelToList>();//create the list
@@ -149,6 +148,9 @@ namespace BL
             }
             return lst;
         }
+
+        #endregion
+        #region delivery Parcel To Customer
         /// <summary>
         /// upadte function that updates the drone nd the parcel when the package was delivvered to the customer
         /// </summary>
@@ -175,10 +177,11 @@ namespace BL
                 drone.location.longitude = station.longitude;
                 drone.droneStatus = DroneStatus.available;
                 dal.deleteDrone(dal.GetDrone(id));
-                drones.Remove(drone);
+                int droneIndex = drones.FindIndex(x => x.id == id);
+                drones.RemoveAt(droneIndex);
                 drone.parcelId = 0;
                 addDrone(drone, station.id);
-                parcel.delivered = DateTime.Now;   //מה זה זמן אספקה
+                parcel.delivered = DateTime.Now;   
                 var parcelBL = GetParcel(parcel.id);
                 parcelBL.droneInParcel.id = 0;
                 dal.deleteParcel(dal.GetParcel(parcel.id));
@@ -190,6 +193,8 @@ namespace BL
             }
             catch (ExecutionTheDroneIsntAvilablle exp) { throw new ExecutionTheDroneIsntAvilablle(exp.Message); }
         }
+        #endregion
+        #region matching Drone To Parcel
         /// <summary>
         /// an update function that matches a drone to its parcel - updates the drone and the parcel while finding the perfect parcel to match the drone
         /// </summary>
@@ -198,44 +203,7 @@ namespace BL
         /// <exception cref="dosntExisetException"></exception>
         public void matchingDroneToParcel(int droneId)
         {
-            
-
-                //try
-                //{
-                //    var myDrone = returnsDrone(droneId);
-                //    var droneLoc = findClosestStationLocation(myDrone.location, false, BaseStationLocationslist());
-                //    var station = GetStations().ToList().Find(x => x.location.longitude == droneLoc.longitude && x.location.latitude == droneLoc.latitude);
-                //    if (myDrone.droneStatus != DroneStatus.available)
-                //        throw new unavailableException("the drone is unavailable\n");
-                //    DO.Parcel myParcel = findTheParcel(myDrone.weight, myDrone.location, myDrone.batteryStatus, DO.Proirities.emergency);
-                //    dal.attribute(myDrone.id, myParcel.id);
-                //    int index = drones.FindIndex(x => x.id == droneId);
-                //    drones.RemoveAt(index);
-                //    myDrone.droneStatus = DroneStatus.delivery;
-                //    myDrone.parcelInTransfer = new ParcelInTransfer();
-                //    myDrone.parcelInTransfer.id= myParcel.id;
-                //    myDrone.parcelInTransfer.parcelStatus = true;
-                //    var tempParcel = myParcel;
-                //    tempParcel.droneId = droneId;
-                //    tempParcel.scheduled = DateTime.Now;
-                //    dal.deleteParcel(myParcel);
-                //    dal.addParcel(tempParcel);
-                //    var tempD = new DroneToList()
-                //    {
-                //        id = myDrone.id,
-                //        droneModel = myDrone.droneModel,
-                //        batteryStatus = myDrone.batteryStatus,
-                //        weight = myDrone.weight,
-                //        droneStatus = DroneStatus.delivery,
-                //        location = new()
-                //        { latitude = myDrone.location.latitude, longitude= myDrone.location.longitude },
-                //        parcelId = myDrone.parcelInTransfer.id
-                //    };
-                //    drones.Add(tempD);
-
-
-                //}
-                //catch (BO.dosntExisetException exp) { throw new BO.dosntExisetException(exp.Message); }
+           
             try
             {
                 var myDrone = GetDrone(droneId);
@@ -254,7 +222,10 @@ namespace BL
                 addDrone(myDrone, station.id);
             }
             catch (findException exp) { throw new dosntExisetException(exp.Message); }
+            catch(dosntExisetException ex) { throw new Exception(ex.Message); }
         }
+        #endregion
+        #region returns parcel status
         public ParcelStatus parcelStatus(BO.Parcel parcel)
         {
             if (parcel.delivered != null)
@@ -269,6 +240,8 @@ namespace BL
             else
                 return ParcelStatus.Created;
         }
+        #endregion
+        #region pick up parcel by drone
         /// <summary>
         /// an update function that upadtes the parcel an dthe drone when the parcel was picked up by the drone but was still not delivered to its customer 
         /// </summary>
@@ -307,6 +280,8 @@ namespace BL
             }
             throw new validException("the drone cant picked up the parcel because the parcel is not matching to him");
         }
+        #endregion
+        #region returns list of parcels
         public IEnumerable<BO.Parcel> allParcels(Func<BO.Parcel, bool> predicate)
         {
             if (predicate == null)
@@ -315,7 +290,7 @@ namespace BL
             }
             return GetParcels().Where(predicate).ToList();
         }
-        public IEnumerable<BO.ParcelToList> allParcelsToList(Func<BO.ParcelToList, bool> predicate = null)
+        public IEnumerable<ParcelToList> allParcelsToList(Func<ParcelToList, bool> predicate = null)
         {
             var parcel = GetParcelToLists();
             if (predicate == null)
@@ -324,27 +299,8 @@ namespace BL
             }
             return parcel.Where(predicate).ToList();
         }
-
-        public IEnumerable<ParcelToList> GetParcelToList()
-        {
-            List<ParcelToList> parcelToLists = new();
-            foreach (var item in dal.GetParcelList())
-            {
-                BO.Parcel parcel1 = GetParcel(item.id);
-                ParcelToList parcel = new ParcelToList
-                {
-                    id = item.id,
-                    senderName = parcel1.sender.name,
-                    receiveName = parcel1.receive.name,
-                    weight = (Weight)item.weight,
-                    priority = (Priority)item.priority,
-                    parcelStatus = parcelStatus(parcel1)
-                    
-                };
-                parcelToLists.Add(parcel);//hi
-            }
-            return parcelToLists.Take(parcelToLists.Count).ToList();
-        }
+        #endregion
+        #region delete parcel
         public void deleteParcel(int parcelId)
         {
             try
@@ -354,5 +310,6 @@ namespace BL
             }
             catch (findException) { throw new deleteException("cant delete this parcel\n"); }
         }
+        #endregion
     }
 }

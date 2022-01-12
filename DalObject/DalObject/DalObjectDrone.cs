@@ -7,19 +7,23 @@ using DalApi;
 using DO;
 namespace Dal
 {
-    sealed partial class DalObject:IDal
+    sealed partial class DalObject : IDal
     {
+        #region check drone
         public bool checkDrone(int id)
         {
             return DataSource.drones.Any(d => d.id == id);
-
         }
+        #endregion
+        #region add drone
         public void addDrone(Drone d)
         {
             if (DataSource.drones.Exists(item => item.id == d.id))
                 throw new AddException("drone already exist");
             DataSource.drones.Add(d);
         }
+        #endregion
+        #region get drone
         public Drone GetDrone(int id)//function that gets id and finding the drone in the drones list and returns drone 
         {
             Drone? tmp = null;
@@ -38,10 +42,11 @@ namespace Dal
             }
             return (Drone)tmp;
         }
+        #endregion
+        #region send to charge
         public void SendToCharge(int droneId, int stationId)//update function that updates the station and drone when the drone is sent to chatge
         {
-            //GetDrone(droneId);
-            //GetStation(stationId);
+
             droneCharges dCharge = new droneCharges();
             Station tmpS = new Station();
             dCharge.stationId = stationId;//maching the drones id
@@ -53,45 +58,40 @@ namespace Dal
             dCharge.stationId = stationId;
             DataSource.chargingDrones.Add(dCharge);//adding the drone to the drone chargiong list
         }
+        #endregion
+        #region releasing drone
         public void releasingDrone(droneCharges dC)//update function when we release a drone from its charging slot
         {
             Drone tmpD = GetDrone(dC.droneId);
             Station tmpS = GetStation(dC.stationId);
             DataSource.drones.RemoveAll(m => m.id == dC.droneId);//removing the parcel with the given id
             DataSource.stations.RemoveAll(s => s.id == dC.stationId);
-            //tmpD.status = DroneStatuses.available;
-            //tmpD.bateryStatus = 100;
             DataSource.drones.Add(tmpD);
             tmpS.chargeSlots++;
             GetStationList().ToList().Add(tmpS);
             DataSource.chargingDrones.Remove(dC);//removing the drone from the drone charging list
         }
-        public void updateDrone(int droneId,string droneModel)
+        #endregion
+        #region update drone
+        public void updateDrone(int droneId, string droneModel)
         {
             bool flag = false;
-            DataSource.drones.ForEach(d => { if (d.id == droneId) { d.model = droneModel; flag = true; } }); 
+            DataSource.drones.ForEach(d => { if (d.id == droneId) { d.model = droneModel; flag = true; } });
             if (!flag)
             {
                 throw new findException("could not find drone");
             }
-
         }
+        #endregion
+        #region deleteDrone
         public void deleteDrone(Drone d)
         {
             if (!DataSource.drones.Exists(item => item.id == d.id))
                 throw new findException("drone");
             DataSource.drones.Remove(d);
         }
-
-        public IEnumerable<Drone> GetDrones()
-        {
-            var droneList = DataSource.drones;
-            foreach (Drone item in droneList)
-            {
-                yield return item;
-            }
-        }
-       
+        #endregion
+        #region IEnumerable Drone List
         public IEnumerable<Drone> IEDroneList(Func<Drone, bool> predicate = null)
         {
             List<Drone> droneList = new List<Drone>();
@@ -102,9 +102,8 @@ namespace Dal
             }
             return DataSource.drones.Where(predicate).ToList();
         }
-       
+        #endregion
     }
-
 }
 
 

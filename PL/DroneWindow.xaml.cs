@@ -76,15 +76,7 @@ namespace PL
             update.Visibility = Visibility.Hidden;
           
         }
-        private void bgWorker_ProgressChanged(object sender, ProgressChangedEventArgs e) //changes what we see
-        {
-            int progress = e.ProgressPercentage;
-        }
-
-
-
-        private void updateDrone() => bgWorker.ReportProgress(0);
-        private bool checkStop() => bgWorker.CancellationPending;
+      
 
         public static void ValidateString(string string1)
         {
@@ -212,6 +204,12 @@ namespace PL
             DroneWindow wnd = new DroneWindow(bL.returnsDrone(droneParcel.id));  //צריך לחשוב איך אני שמה את הרחפן 
             wnd.ShowDialog();
         }
+        private void bgWorker_ProgressChanged(object sender, ProgressChangedEventArgs e) //changes what we see
+        {
+            int progress = e.ProgressPercentage;
+        }
+        private void updateDrone() => bgWorker.ReportProgress(0);
+        private bool checkStop() => bgWorker.CancellationPending;
         public void updateView()
         {
             var d = bL.returnsDrone(dr.id);
@@ -228,6 +226,9 @@ namespace PL
         {
             try
             {
+                btnRelesingDrone.Visibility = Visibility.Hidden;
+                btnModelUpdate.Visibility = Visibility.Hidden;
+                btnSendToCharge.Visibility = Visibility.Hidden;
                 isRun = true;
                 bgWorker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };
                 bgWorker.DoWork += (sender, args) => bL.startDroneSimulation((int)args.Argument,updateDrone,checkStop);

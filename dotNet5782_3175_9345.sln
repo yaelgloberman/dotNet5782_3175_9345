@@ -31,7 +31,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{B4068A40-AB09-4279-A35B-4DBD0FD92594}"
 	ProjectSection(SolutionItems) = preProject
 		xml\dal-config.xml = xml\dal-config.xml
-		DroneXml.xml = DroneXml.xml
 		ParcelXml.xml = ParcelXml.xml
 	EndProjectSection
 EndProject

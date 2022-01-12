@@ -10,10 +10,13 @@ namespace Dal
 {
     sealed partial class DalObject : IDal
     {
+        #region check customer
         public bool checkCustomer(int id)
         {
             return DataSource.Customers.Any(c => c.id == id);
         }
+        #endregion
+        #region add customer
         public void addCustomer(Customer c)
         {
 
@@ -30,18 +33,22 @@ namespace Dal
                     throw new AddException("Customer already exist");
             }
             DataSource.Customers.Add(c);
-
         }
-
+        #endregion
+        #region Get customer
         public Customer GetCustomer(int id)//function that gets id and finding the Customer in the Customers list and returns Customer
         {
-            foreach(Customer item in DataSource.Customers)
+            foreach (Customer item in DataSource.Customers)
             {
                 if (item.id == id)
                     return item;
             }
             throw new findException("customer");
         }
+        public IEnumerable<Customer> GetCustomer(Func<Customer, bool> predicate = null)
+    => predicate == null ? DataSource.Customers : DataSource.Customers.Where(predicate);
+        #endregion
+        #region returns IEnumerable (customers/recive/shipped)
         public IEnumerable<Customer> GetCustomers()
         { 
             return DataSource.Customers;
@@ -58,7 +65,8 @@ namespace Dal
             DataSource.parcels.ForEach(p => { if (p.targetId == customerId && p.isShipped) parcelTemp.ToList().Add(p); });
             return parcelTemp;
         }
-        
+        #endregion
+        #region delete
         public void deleteCustomer(Customer c)
         {
             if (!DataSource.Customers.Exists(item => item.id == c.id))
@@ -67,12 +75,15 @@ namespace Dal
             c.isActive = false;
             DataSource.Customers.Add(c);
         }
+        #endregion
+        #region returns customer name
         public string GetCustomerName(int id)
         {
             string name=GetCustomer(id).name;
             return name;
         }
-
+        #endregion
+        #region update
         public void updateCustomer(int customerId, Customer c)
         {
             try
@@ -88,8 +99,7 @@ namespace Dal
                 throw new findException("could not find customer");
             }
         }
-        public IEnumerable<Customer> GetCustomer(Func<Customer, bool> predicate = null)
-      => predicate == null ? DataSource.Customers : DataSource.Customers.Where(predicate);
+        #endregion
     }
 }
     

@@ -27,7 +27,7 @@ namespace BL
         {
             try
             {
-                if (dal.GetDrones().ToList().Exists(item => item.id == droneId))
+                if (dal.IEDroneList(x=>x.id!=0).ToList().Exists(item => item.id == droneId))
                     throw new AlreadyExistException("Drone already exist");
                 if (!(droneId >= 10000000 && droneId < 1000000000))
                     throw new validException("the number of the drone id in invalid\n");
@@ -45,7 +45,7 @@ namespace BL
                 dtl.droneModel = droneModel;
                 dtl.weight = weight;
                 dtl.batteryStatus = (double)rand.Next(20, 40);
-                dtl.droneStatus = DroneStatus.available; ///עכשיו שיניתי את זה שזה יהיה פנוי ולא CHARGE
+                dtl.droneStatus = DroneStatus.available; 
                 dtl.location = new Location();
                 dtl.location.latitude = stationDl.latitude;
                 dtl.location.longitude = stationDl.longitude;
@@ -59,8 +59,6 @@ namespace BL
                 drones.Add(dtl);
                 DO.droneCharges dc = new DO.droneCharges { droneId = droneId, stationId = stationId };
                 SendToCharge(droneId);
-              
-
             }
             catch (findException exp) { throw new dosntExisetException(exp.Message); }
         }
@@ -73,7 +71,7 @@ namespace BL
         /// <exception cref="validException"></exception>
         public void addDrone(DroneToList droneToAdd, int stationId)
         {
-            if (dal.GetDrones().ToList().Exists(item => item.id == droneToAdd.id))
+            if (dal.IEDroneList(x => x.id != 0).ToList().Exists(item => item.id == droneToAdd.id))
                 throw new AlreadyExistException("Drone already exist");
             DO.Station stationDl = dal.GetStation(stationId);
             droneToAdd.location.latitude = stationDl.latitude;
@@ -83,7 +81,6 @@ namespace BL
             {
                 droneToAdd.droneStatus = DroneStatus.charge; DO.droneCharges DC = new droneCharges { droneId = droneToAdd.id, stationId = stationId }; dal.AddDroneCharge(DC);
             }
-          
             if (!(droneToAdd.id >= 10000000 && droneToAdd.id <= 1000000000))
                 throw new validException("the number of the drone id in invalid\n");
             if (!(droneToAdd.batteryStatus >= (double)0 && droneToAdd.batteryStatus <= (double)100))
@@ -105,12 +102,13 @@ namespace BL
             drones.Add(droneToAdd);
         }
         #endregion
+        #region DELETE DRONE
+
         /// <summary>
         /// deleting a drone for the datasource  and throwing an exception of the drone was not found
         /// </summary>
         /// <param name="droneID"></param>
         /// <exception cref="deleteException"></exception>
-        #region DELETE DRONE
         public void deleteDrone(int droneID)
         {
             try
@@ -120,9 +118,10 @@ namespace BL
                 dal.deleteDrone(dal.GetDrone(droneID));
 
             }
-            catch (findException exp) { throw new deleteException("cant delete this drone\n"); }
+            catch (findException exp) { throw new deleteException (exp.Message); }
         }
         #endregion
+        #region returns drone
         /// <summary>
         /// recieving a drone from the data source and returning ot to the progrmmer with the bl Drone (regular) features
         /// </summary>
@@ -180,7 +179,7 @@ namespace BL
             }
             return d;
         }
-        //#endregion
+        #endregion
         #region Get Drone
         /// <summary>
         /// recieving a drone from the data source and returning ot to the progrmmer with the bl Drone to list features
@@ -219,11 +218,6 @@ namespace BL
                 throw new dosntExisetException(exp.Message);
             }
         }
-
-
-
-
-
         public DroneInParcel GetDroneInParcel(int id)
         {
             try
@@ -246,10 +240,10 @@ namespace BL
             }
 
         }
-
+        #endregion
+        #region returns the list
         /// <summary>
         ///recieving the list of all the drones  from the data source and returning ot to the progrmmer with the bl Drone to list features
-
         /// </summary>
         /// <returns></returns>
         public List<BO.DroneToList> GetDrones()
@@ -259,6 +253,16 @@ namespace BL
             { drones.Add(GetDrone(d.id)); }
             return drones;
         }
+        public IEnumerable<DroneToList> allDrones(Func<DroneToList, bool> predicate = null)
+        {
+            if (predicate == null)
+            {
+                return drones.Take(drones.Count).ToList();
+            }
+            return GetDrones().Where(predicate).ToList();
+        }
+        #endregion
+        #region update functions
         /// <summary>
         /// an update function  that updates teh drone name  and model with recieving the drones id
         /// </summary>
@@ -357,17 +361,10 @@ namespace BL
                 drones.RemoveAt(index);
             }
         }
-        public IEnumerable<DroneToList> allDrones(Func<DroneToList, bool> predicate = null)
-        {
-            if (predicate == null)
-            {
-                return drones.Take(drones.Count).ToList();
-            }
-            return GetDrones().Where(predicate).ToList();
-        }
+        #endregion
+
     }
 }
-#endregion
 
 
 

@@ -91,7 +91,7 @@ namespace PL
                     {
                         ValidateString(TxbNameUpdate.Text);
                          bL.updateStation(Convert.ToInt32(TxbIdUpdate.Text), Convert.ToInt32(TxbChargeSlotsUpdate.Text), TxbNameUpdate.Text);//have to find the right id
-                         var st = bL.GetBaseStationToList();
+                         var st = bL.allStations(x => x.id != 0);
                          MessageBox.Show("succsesfully update station!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
 
                     }

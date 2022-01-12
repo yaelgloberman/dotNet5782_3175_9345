@@ -24,12 +24,16 @@ namespace Dal
         internal static List<Station> stations = new List<Station>();
         internal static List<Customer> Customers = new List<Customer>();
         internal static List<droneCharges> chargingDrones = new List<droneCharges>();
-
+        private static double getRandomCordinates(double num1, double num2)
+        {
+            return (random.NextDouble() * (num2 - num1) + num1);
+        }
         public static Random random = new();
         static readonly IDal instance = new DalXml();
-       private DalXml() { }
+     
+        private DalXml() { }
         public static IDal Instance { get => instance; }
-    // private DalXml() { Initialize(); } // default constructer calls on initialize func
+        //private DalXml() { Initialize(); } // default constructer calls on initialize func
         #region DS XML Files
         string configPath = @"ConfigXml.xml";
         string dronesPath = @"DroneXml.xml";
@@ -37,11 +41,7 @@ namespace Dal
         string parcelsPath = @"ParcelXml.xml";
         string customersPath = @"CustomerXml.xml";
         string stationPath = @"StationXml.xml";
-        private static double getRandomCordinates(double num1, double num2)
-        {
-            return (random.NextDouble() * (num2 - num1) + num1);
-        }
-
+        #region Initialize
         public void Initialize()
         {
             createCustomer();
@@ -50,7 +50,15 @@ namespace Dal
             CreateStation();
 
         }
+        public double[] ChargeCapacity()
+        {
+            List<double> list = XMLTools.LoadListFromXMLSerializer<double>(configPath);
 
+            double[] arr = new double[100];
+            for (int i = 0; i < list.Count(); i++)
+            { arr[i] = list[i]; }
+            return arr;
+        }
 
         void CreateStation()
         {
@@ -168,34 +176,43 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer(listOfAllParcel, parcelsPath);
             XMLTools.SaveListToXMLSerializer(listOfAllDrone, dronesPath);
         }
-
+        #endregion
+        #region charging drone
         public IEnumerable<droneCharges> chargingGetDroneList()
         {
             IEnumerable<droneCharges> chargingList = XMLTools.LoadListFromXMLSerializer<droneCharges>(dronesChatgePath);
             return from droneCharge in chargingList
                    select droneCharge;//לעשות קלון 
         }
-
-        public IEnumerable<Customer> GetCustomerList()
+        public droneCharges GetChargedDrone(int id)//finding a drone in the drone charging list
         {
-
-            List<Customer> listOfAllCustomer = XMLTools.LoadListFromXMLSerializer<Customer>(customersPath);
-            return listOfAllCustomer;
+            droneCharges? dronecharges = null;
+            List<droneCharges> listOfAllDroneCharge = XMLTools.LoadListFromXMLSerializer<droneCharges>(dronesChatgePath);
+            dronecharges = listOfAllDroneCharge.Find(x => x.droneId == id);
+            if (dronecharges != null)
+                return (droneCharges)dronecharges;
+            throw new findException("The drone charge in path doesn't exist");
         }
-
-        public IEnumerable<Drone> GetDroneList()
+        public void AddDroneCharge(droneCharges droneCharges)
         {
-            IEnumerable<Drone> listOfDrone = XMLTools.LoadListFromXMLSerializer<Drone>(dronesPath);
-            return from drone in listOfDrone
-                   select drone;
-        }
+            var listOfAllDroneCharge = XMLTools.LoadListFromXMLSerializer<droneCharges>(dronesChatgePath);
+            if (!(listOfAllDroneCharge.Exists(x => x.droneId == droneCharges.droneId)))
+            {
 
-        public IEnumerable<Parcel> GetParcelList()
-        {
-            IEnumerable<Parcel> listOfAllParcel = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelsPath);
-            return from parcel in listOfAllParcel
-                   select parcel;
+                listOfAllDroneCharge.Add(droneCharges);
+                XMLTools.SaveListToXMLSerializer<droneCharges>(listOfAllDroneCharge, dronesChatgePath);
+            }
         }
+        public void RemoveDroneCharge(droneCharges droneCharges)
+        {
+            List<droneCharges> listOfAllDroneCharge = XMLTools.LoadListFromXMLSerializer<droneCharges>(dronesChatgePath);
+            listOfAllDroneCharge.Remove(droneCharges);
+            XMLTools.SaveListToXMLSerializer<droneCharges>(listOfAllDroneCharge, dronesChatgePath);
+
+        }
+        #endregion
+        #region station funcyions
+
         public IEnumerable<Station> GetStationList()
         {
 
@@ -302,10 +319,18 @@ namespace Dal
             Station station = new Station();
             return station.chargeSlots;
         }
+        #endregion
+        #region parcels functions
         public bool checkParcel(int id)
         {
             List<Parcel> listOfAllParcel = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelsPath);
             return listOfAllParcel.Any(p => p.id == id);
+        }
+        public IEnumerable<Parcel> GetParcelList()
+        {
+            IEnumerable<Parcel> listOfAllParcel = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelsPath);
+            return from parcel in listOfAllParcel
+                   select parcel;
         }
         public int addParcel(Parcel p)
         {
@@ -399,64 +424,48 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer<Parcel>(listOfAllParcel, parcelsPath);
         }
 
-        //******************************************* ADDED FUNCTIONS FOR THE BL************************************************
         public List<Parcel> UndiliveredParcels()
         {
             List<Parcel> listOfAllParcel = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelsPath);
             List<Parcel> unDeliveredP = new List<Parcel>();
-            DateTime dateTime_Help = new DateTime(0, 0, 0);
+            DateTime ? dateTime_Help = null;
             foreach (Parcel p in listOfAllParcel)
             {
-                if (p.delivered == dateTime_Help && p.droneId > 0)
+                if (p.delivered == dateTime_Help && p.droneId == 0)
                     unDeliveredP.Add(p);
             }
             XMLTools.SaveListToXMLSerializer<Parcel>(listOfAllParcel, parcelsPath);
             return unDeliveredP;
         }
-        //public IEnumerable<Parcel> GetChargedDrone(Func<Parcel, bool> predicate = null)          
-        //=> predicate == null ? DataSource.parcels : DataSource.parcels.Where(predicate);
-
-        public droneCharges GetChargedDrone(int id)//finding a drone in the drone charging list
-        {
-            droneCharges? dronecharges = null;
-            List<droneCharges> listOfAllDroneCharge = XMLTools.LoadListFromXMLSerializer<droneCharges>(dronesChatgePath);
-            dronecharges = listOfAllDroneCharge.Find(x => x.droneId == id);
-            if (dronecharges != null)
-                return (droneCharges)dronecharges;
-            throw new findException("The drone charge in path doesn't exist");
-        }
-        public void AddDroneCharge(droneCharges droneCharges)
-        {
-            var listOfAllDroneCharge = XMLTools.LoadListFromXMLSerializer<droneCharges>(dronesChatgePath);
-            if(!(listOfAllDroneCharge.Exists(x=>x.droneId==droneCharges.droneId)))
-            {
-
-                listOfAllDroneCharge.Add(droneCharges);
-                XMLTools.SaveListToXMLSerializer<droneCharges>(listOfAllDroneCharge, dronesChatgePath);
-            }
-        }
-        public void RemoveDroneCharge(droneCharges droneCharges)
-        {
-            List<droneCharges> listOfAllDroneCharge = XMLTools.LoadListFromXMLSerializer<droneCharges>(dronesChatgePath);
-            listOfAllDroneCharge.Remove(droneCharges);
-            XMLTools.SaveListToXMLSerializer<droneCharges>(listOfAllDroneCharge, dronesChatgePath);
-
-        }
+        #endregion
+        #region drone functions
         public IEnumerable<droneCharges> GetDroneIdInStation(int id)
         {
             var listOfAlldroneCharges = XMLTools.LoadListFromXMLSerializer<droneCharges>(dronesChatgePath);
             var list = from droneCharges in listOfAlldroneCharges
-                       where (droneCharges.stationId==id)
+                       where (droneCharges.stationId == id)
                        select droneCharges;
             return list;
         }
-        //public IEnumerable<droneCharges> GetChargedDrone(Func<droneCharges, bool> predicate = null)
-        // => predicate == null ? DataSource.chargingDrones : DataSource.chargingDrones.Where(predicate);
-
+        public IEnumerable<Drone> GetDroneList()
+        {
+            IEnumerable<Drone> listOfDrone = XMLTools.LoadListFromXMLSerializer<Drone>(dronesPath);
+            return from drone in listOfDrone
+                   select drone;
+        }
         public bool CheckDrone(int id)
         {
             List<Drone> listOfAllDrone = XMLTools.LoadListFromXMLSerializer<Drone>(dronesPath);
             return listOfAllDrone.Any(d => d.id == id);
+        }
+        public void deleteDrone(Drone d)
+        {
+            List<Drone> DroneRoot = XMLTools.LoadListFromXMLSerializer<Drone>(dronesPath);
+            if (!DroneRoot.Exists(item => item.id == d.id))
+                throw new findException("drone");
+            DroneRoot.Remove(d);
+            XMLTools.SaveListToXMLSerializer<Drone>(DroneRoot, dronesPath);
+
         }
         public void addDrone(Drone d)
         {
@@ -540,6 +549,15 @@ namespace Dal
                        select Drone;
             return list;
         }
+        #endregion
+        #region customer functions
+        public IEnumerable<Customer> GetCustomerList()
+        {
+
+            List<Customer> listOfAllCustomer = XMLTools.LoadListFromXMLSerializer<Customer>(customersPath);
+            return listOfAllCustomer;
+        }
+
         public bool checkCustomer(int id)
         {
             List<Customer> listOfAllCustomer = XMLTools.LoadListFromXMLSerializer<Customer>(customersPath);
@@ -592,15 +610,6 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer<Parcel>(listOfAllParcel, parcelsPath);
             return listOfAllParcel;
         }
-
-        //public void deleteCustomer(Customer c)
-        //{
-        //    if (!DataSource.Customers.Exists(item => item.id == c.id))
-        //        throw new findException("Customer");
-        //    DataSource.Customers.Remove(c);
-        //    c.isActive = false;
-        //    DataSource.Customers.Add(c);
-        //}
         public string GetCustomerName(int id)
         {
             string name = GetCustomer(id).name;
@@ -624,37 +633,25 @@ namespace Dal
                 throw new findException("could not find customer");
             }
         }
+
+        #endregion
+      
         //public IEnumerable<Customer> GetCustomer(Func<Customer, bool> predicate = null)
         //=> predicate == null ? DataSource.Customers : DataSource.Customers.Where(predicate);
 
-        public void deleteDrone(Drone d)
-        {
-            List<Drone> DroneRoot = XMLTools.LoadListFromXMLSerializer<Drone>(dronesPath);
-            if (!DroneRoot.Exists(item => item.id == d.id))
-                throw new findException("drone");
-            DroneRoot.Remove(d);
-            XMLTools.SaveListToXMLSerializer<Drone>(DroneRoot, dronesPath);
-
-
-         
-
-        }
 
         //public void deleteStation(Station s)
         //{
         //    throw new NotImplementedException();
         //}
+        //public IEnumerable<Parcel> GetChargedDrone(Func<Parcel, bool> predicate = null)          
+        //=> predicate == null ? DataSource.parcels : DataSource.parcels.Where(predicate);
 
-        
-        public double[] ChargeCapacity()
-        {
-            List<double> list = XMLTools.LoadListFromXMLSerializer<double>(configPath);
 
-            double[] arr = new double[100];
-            for (int i = 0; i < list.Count(); i++)
-            { arr[i] = list[i]; }
-            return arr;
-        }
+
+        //public IEnumerable<droneCharges> GetChargedDrone(Func<droneCharges, bool> predicate = null)
+        // => predicate == null ? DataSource.chargingDrones : DataSource.chargingDrones.Where(predicate);
+
     }
 }
 
