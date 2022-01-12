@@ -1,63 +1,63 @@
 <?xml version="1.0"?>
 <ArrayOfDrone xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Drone>
-    <id>820438286</id>
-    <model>Grey Eagle</model>
-    <maxWeight>average</maxWeight>
-    <deleted>false</deleted>
-  </Drone>
-  <Drone>
-    <id>492773412</id>
-    <model>Global Hawk</model>
+    <id>687469965</id>
+    <model>Shadow</model>
     <maxWeight>light</maxWeight>
     <deleted>false</deleted>
   </Drone>
   <Drone>
-    <id>434299388</id>
+    <id>413346838</id>
+    <model>Grey Eagle</model>
+    <maxWeight>light</maxWeight>
+    <deleted>false</deleted>
+  </Drone>
+  <Drone>
+    <id>765470136</id>
+    <model>Global Hawk</model>
+    <maxWeight>average</maxWeight>
+    <deleted>false</deleted>
+  </Drone>
+  <Drone>
+    <id>181909976</id>
     <model>Pioneer</model>
     <maxWeight>light</maxWeight>
     <deleted>false</deleted>
   </Drone>
   <Drone>
-    <id>616245766</id>
+    <id>356684063</id>
     <model>Fire Scout</model>
-    <maxWeight>average</maxWeight>
-    <deleted>false</deleted>
-  </Drone>
-  <Drone>
-    <id>460102934</id>
-    <model>Snowgoose</model>
     <maxWeight>light</maxWeight>
     <deleted>false</deleted>
   </Drone>
   <Drone>
-    <id>141490206</id>
-    <model>Hunter</model>
+    <id>284891742</id>
+    <model>GNAT</model>
     <maxWeight>light</maxWeight>
     <deleted>false</deleted>
   </Drone>
   <Drone>
-    <id>155432177</id>
+    <id>216434721</id>
     <model>Stalker</model>
     <maxWeight>light</maxWeight>
     <deleted>false</deleted>
   </Drone>
   <Drone>
-    <id>248484875</id>
-    <model>GNAT</model>
-    <maxWeight>average</maxWeight>
-    <deleted>false</deleted>
-  </Drone>
-  <Drone>
-    <id>455662009</id>
-    <model>Shadow</model>
-    <maxWeight>average</maxWeight>
-    <deleted>false</deleted>
-  </Drone>
-  <Drone>
-    <id>642135245</id>
-    <model>Reaper</model>
+    <id>442744653</id>
+    <model>Snowgoose</model>
     <maxWeight>light</maxWeight>
+    <deleted>false</deleted>
+  </Drone>
+  <Drone>
+    <id>249102641</id>
+    <model>Hunter</model>
+    <maxWeight>average</maxWeight>
+    <deleted>false</deleted>
+  </Drone>
+  <Drone>
+    <id>233636987</id>
+    <model>Reaper</model>
+    <maxWeight>average</maxWeight>
     <deleted>false</deleted>
   </Drone>
 </ArrayOfDrone>

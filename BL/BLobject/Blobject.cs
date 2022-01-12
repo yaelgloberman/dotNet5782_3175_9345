@@ -413,45 +413,93 @@ namespace BL
         /// <exception cref="dosntExisetException"></exception>
         /// 
 
+        //private DO.Parcel findTheParcel(BO.Weight we, BO.Location a, double buttery, DO.Proirities pri)
+        //{
+        //    double d, x;
+        //    DO.Parcel theParcel = new DO.Parcel();
+        //    BO.Location loc = new BO.Location();
+        //    DO.Customer customer = new DO.Customer();
+        //    double far = 1000000;
+        //    //השאילתא אחראית למצוא את כל החבילות בעדיפות המבוקשת
+        //    var parcels = dal.UndiliveredParcels();
+        //    var tempParcel = from item in parcels
+        //                     where item.priority == pri
+        //                     select item;
+
+        //    foreach (var item in tempParcel)
+        //    {
+        //        customer = dal.GetCustomer(item.senderId);
+        //        loc.latitude = customer.latitude;
+        //        loc.longitude = customer.longitude;
+        //        chargeCapacity chargeCapacity = GetChargeCapacity();
+        //        d = Distance(a, loc);//המרחק בין מיקום נוכחי למיקום השולח
+        //        x = Distance(loc, new BO.Location { longitude = dal.GetCustomer(item.targetId).longitude, latitude = dal.GetCustomer(item.targetId).latitude });//המרחק בין מיקום שולח למיקום יעד
+        //        double fromCusToSta = Distance(new BO.Location { longitude = dal.GetCustomer(item.targetId).longitude, latitude = dal.GetCustomer(item.targetId).latitude }, findClosestStationLocation(new BO.Location { longitude = dal.GetCustomer(item.targetId).longitude, latitude = dal.GetCustomer(item.targetId).latitude }, false, BaseStationLocationslist()));
+        //        double butteryUse = x * chargeCapacity.chargeCapacityArr[(int)item.weight] + fromCusToSta * chargeCapacity.chargeCapacityArr[0] + d * chargeCapacity.chargeCapacityArr[0];
+        //        if (d < far && (buttery - butteryUse) > 0 && item.scheduled == null && weight(we, (BO.Weight)item.weight) == true)
+        //        {
+        //            far = d;
+        //            theParcel = item;
+        //            return theParcel;
+        //        }
+        //    }
+        //    if (pri == DO.Proirities.emergency)//אם לא מצא בעדיפות הכי גבוהה מחפש בעדיפות מתחתיה
+        //        theParcel = findTheParcel(we, a, buttery, DO.Proirities.fast);
+        //    if (pri == DO.Proirities.fast)
+        //        theParcel = findTheParcel(we, a, buttery, DO.Proirities.regular);
+        //    if (theParcel.id == 0)
+        //        throw new dosntExisetException("ERROR! there is not a parcel that match to the drone ");
+        //    return theParcel;
+        //}
+
         private DO.Parcel findTheParcel(BO.Weight we, BO.Location a, double buttery, DO.Proirities pri)
         {
             double d, x;
             DO.Parcel theParcel = new DO.Parcel();
-            BO.Location loc = new BO.Location();
-            DO.Customer customer = new DO.Customer();
-            double far = 1000000;
-            //השאילתא אחראית למצוא את כל החבילות בעדיפות המבוקשת
-            var parcels = dal.UndiliveredParcels();
-            var tempParcel = from item in parcels
-                             where item.priority == pri
-                             select item;
 
-            foreach (var item in tempParcel)
+            Location b = new Location();
+            DO.Customer c = new DO.Customer();
+            double far = 1000000;
+
+            lock (dal)
             {
-                customer = dal.GetCustomer(item.senderId);
-                loc.latitude = customer.latitude;
-                loc.longitude = customer.longitude;
-                chargeCapacity chargeCapacity = GetChargeCapacity();
-                d = Distance(a, loc);//המרחק בין מיקום נוכחי למיקום השולח
-                x = Distance(loc, new BO.Location { longitude = dal.GetCustomer(item.targetId).longitude, latitude = dal.GetCustomer(item.targetId).latitude });//המרחק בין מיקום שולח למיקום יעד
-                double fromCusToSta = Distance(new BO.Location { longitude = dal.GetCustomer(item.targetId).longitude, latitude = dal.GetCustomer(item.targetId).latitude }, findClosestStationLocation(new BO.Location { longitude = dal.GetCustomer(item.targetId).longitude, latitude = dal.GetCustomer(item.targetId).latitude }, false, BaseStationLocationslist()));
-                double butteryUse = x * chargeCapacity.chargeCapacityArr[(int)item.weight] + fromCusToSta * chargeCapacity.chargeCapacityArr[0] + d * chargeCapacity.chargeCapacityArr[0];
-                if (d < far && (buttery - butteryUse) > 0 && item.scheduled == null && weight(we, (BO.Weight)item.weight) == true)
+                //The link is responsible for finding all packages in the requested priority
+                var p = dal.GetParcelList();
+                IEnumerable<DO.Parcel> pr = new List<DO.Parcel>();
+                pr = p.Where(item => item.priority == pri);
+
+                foreach (var item in pr)
                 {
-                    far = d;
-                    theParcel = item;
-                    return theParcel;
+                    c = dal.GetCustomer(item.senderId);
+                    b.latitude = c.latitude;
+                    b.longitude = c.longitude;
+                    d = Distance(a, b);//המרחק בין מיקום נוכחי למיקום השולח
+                    x = Distance(b, new Location { longitude = dal.GetCustomer(item.targetId).longitude, latitude = dal.GetCustomer(item.targetId).latitude });//המרחק בין מיקום שולח למיקום יעד
+                    double fromCusToSta = Distance(new Location { longitude = dal.GetCustomer(item.targetId).longitude, latitude = dal.GetCustomer(item.targetId).latitude }, findClosestStationLocation(new Location { longitude = dal.GetCustomer(item.targetId).longitude, latitude = dal.GetCustomer(item.targetId).latitude },  false, BaseStationLocationslist()));
+                    double butteryUse = x * GetChargeCapacity().chargeCapacityArr[indexOfChargeCapacity(item.weight)] + fromCusToSta * GetChargeCapacity().chargeCapacityArr[0] + d * GetChargeCapacity().chargeCapacityArr[0];
+                    if (d < far && (buttery - butteryUse) > 0 && item.scheduled == null)
+                    {
+                        if (weight(we, (Weight)item.weight) == true)
+                        {
+                            far = d;
+                            theParcel = item;
+                            return theParcel;
+                        }
+                    }
                 }
             }
-            if (pri == DO.Proirities.emergency)//אם לא מצא בעדיפות הכי גבוהה מחפש בעדיפות מתחתיה
+
+            if (pri == DO.Proirities.emergency)//If not found the highest priority looking for the priority below it
                 theParcel = findTheParcel(we, a, buttery, DO.Proirities.fast);
+
             if (pri == DO.Proirities.fast)
                 theParcel = findTheParcel(we, a, buttery, DO.Proirities.regular);
             if (theParcel.id == 0)
-                throw new dosntExisetException("ERROR! there is not a parcel that match to the drone ");
+                throw new findException("ERROR! there is not a parcel that match to the drone ");
             return theParcel;
+
         }
-       
+
         public void startDroneSimulation(int id, Action updateDelegate, Func<bool> stopDelegate)
         {
             new Simulator(this, id, updateDelegate, stopDelegate);

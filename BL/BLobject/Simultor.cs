@@ -9,6 +9,12 @@ using System.Threading;
 using DalApi;
 using BlApi;
 using BO;
+
+using System.Windows;
+
+using System.Windows.Input;
+
+
 using System.Runtime.Serialization;
 namespace BL
 {
@@ -172,19 +178,27 @@ namespace BL
                         }
                         catch
                         {
-                            bl.SendToCharge(droneId);
-                            while (drone.batteryStatus != 90.0)
+                            try
                             {
-                                Thread.Sleep(DELAY);
-                                bl.releasingDrone(droneId, t);
                                 bl.SendToCharge(droneId);
+                                while (drone.batteryStatus != 90.0)
+                                {
+                                    Thread.Sleep(DELAY);
+                                    bl.releasingDrone(droneId, t);
+                                    bl.SendToCharge(droneId);
+                                    drone = bL.GetDrone(droneId);
+                                }
+                                bl.releasingDrone(droneId, t);
+                                Thread.Sleep(DELAY);
+                                bl.matchingDroneToParcel(droneId);
                                 drone = bL.GetDrone(droneId);
+                                Thread.Sleep(DELAY);
+                            }catch(dosntExisetException exp)
+                            {
+                                
+                                isRun = false;
                             }
-                            bl.releasingDrone(droneId, t);
-                            Thread.Sleep(DELAY);
-                            bl.matchingDroneToParcel(droneId);
-                            drone = bL.GetDrone(droneId);
-                            Thread.Sleep(DELAY);
+
                         }
                         bl.pickedUpParcelByDrone(droneId);
                         Thread.Sleep(DELAY);
@@ -208,7 +222,7 @@ namespace BL
                         Thread.Sleep(DELAY);
                     }
                 }
-                if ((bL.GetParcelToLists().Count(x => bL.GetParcel(x.id).delivered == null) == 0))
+                if ((bL.GetDrones().Count(x => x.parcelId == 0) == 0)) ;
                     isRun = false;
             }
         }
