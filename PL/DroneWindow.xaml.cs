@@ -62,8 +62,12 @@ namespace PL
             if(drone.parcelInTransfer!=null)
             {
                 btnOpenParcelId.Visibility = Visibility.Visible;
-
             }
+            bgWorker = new()
+            {
+                WorkerReportsProgress = true,
+                WorkerSupportsCancellation = true
+            };
 
 
         }
@@ -243,7 +247,6 @@ namespace PL
                 btnSendToCharge.Visibility = Visibility.Hidden;
                 btnMatchingDroneToParcel.Visibility = Visibility.Hidden;
                 isRun = true;
-                bgWorker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };
                 bgWorker.DoWork += (sender, args) => bL.startDroneSimulation((int)args.Argument, updateDrone, checkStop);
                 bgWorker.RunWorkerCompleted += BgWorker_RunWorkerCompleted;
                 bgWorker.ProgressChanged += bgWorker_ProgressChanged;

@@ -1,50 +1,56 @@
 <?xml version="1.0"?>
 <ArrayOfDrone xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Drone>
-    <id>171574460</id>
-    <model>Reaper</model>
-    <maxWeight>average</maxWeight>
-    <deleted>false</deleted>
-  </Drone>
-  <Drone>
-    <id>738623953</id>
+    <id>474833689</id>
     <model>Shadow</model>
     <maxWeight>average</maxWeight>
     <deleted>false</deleted>
   </Drone>
   <Drone>
-    <id>117216870</id>
+    <id>470577352</id>
+    <model>Grey Eagle</model>
+    <maxWeight>average</maxWeight>
+    <deleted>false</deleted>
+  </Drone>
+  <Drone>
+    <id>504438298</id>
     <model>Global Hawk</model>
     <maxWeight>light</maxWeight>
     <deleted>false</deleted>
   </Drone>
   <Drone>
-    <id>372615837</id>
+    <id>850929996</id>
     <model>Pioneer</model>
-    <maxWeight>average</maxWeight>
+    <maxWeight>light</maxWeight>
     <deleted>false</deleted>
   </Drone>
   <Drone>
-    <id>365016114</id>
+    <id>762077836</id>
     <model>Fire Scout</model>
     <maxWeight>light</maxWeight>
     <deleted>false</deleted>
   </Drone>
   <Drone>
-    <id>343699769</id>
-    <model>Stalker</model>
-    <maxWeight>light</maxWeight>
-    <deleted>false</deleted>
-  </Drone>
-  <Drone>
-    <id>835931570</id>
-    <model>GNAT</model>
-    <maxWeight>light</maxWeight>
-    <deleted>false</deleted>
-  </Drone>
-  <Drone>
-    <id>847453812</id>
+    <id>268984416</id>
     <model>Snowgoose</model>
+    <maxWeight>average</maxWeight>
+    <deleted>false</deleted>
+  </Drone>
+  <Drone>
+    <id>558188033</id>
+    <model>Hunter</model>
+    <maxWeight>light</maxWeight>
+    <deleted>false</deleted>
+  </Drone>
+  <Drone>
+    <id>616242508</id>
+    <model>Stalker</model>
+    <maxWeight>average</maxWeight>
+    <deleted>false</deleted>
+  </Drone>
+  <Drone>
+    <id>302052850</id>
+    <model>GNAT</model>
     <maxWeight>light</maxWeight>
     <deleted>false</deleted>
   </Drone>
