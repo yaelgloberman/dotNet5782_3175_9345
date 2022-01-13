@@ -41,13 +41,13 @@
     <enterToCharge>0001-01-01T00:00:00</enterToCharge>
   </droneCharges>
   <droneCharges>
-    <droneId>611886968</droneId>
+    <droneId>990090899</droneId>
     <stationId>284060071</stationId>
     <enterToCharge>0001-01-01T00:00:00</enterToCharge>
   </droneCharges>
   <droneCharges>
-    <droneId>990090899</droneId>
+    <droneId>611886968</droneId>
     <stationId>284060071</stationId>
-    <enterToCharge>0001-01-01T00:00:00</enterToCharge>
+    <enterToCharge>2022-01-13T11:52:14.462394+02:00</enterToCharge>
   </droneCharges>
 </ArrayOfDroneCharges>

@@ -15,6 +15,8 @@ using System.Collections.ObjectModel;
 
 using BO;
 using BlApi;
+using System.ComponentModel;
+
 namespace PL
 {
     /// <summary>
@@ -29,6 +31,7 @@ namespace PL
         private static Drone drone = new();
         static Weight? weightFilter;
         static DroneStatus? statusFilter;
+
 
         public DroneListWindow(IBl bl)
         {
@@ -102,13 +105,12 @@ namespace PL
             {
                 drone = bL.returnsDrone(drtl.id);
                 DataContext = drone;
-                new DroneWindow(drone).ShowDialog();
+                new DroneWindow(drone,this).ShowDialog();
                 myObservableCollectionDrone = new ObservableCollection<DroneToList>(bL.GetDrones());
                 DataContext = myObservableCollectionDrone;
             }  
 
         }
-
 
         private void refresh_Click_1(object sender, RoutedEventArgs e)
         {
@@ -116,6 +118,12 @@ namespace PL
             WeightSelector.SelectedIndex = -1;
             statusSelector.SelectedIndex = -1;
         }
+        public void Worker_ProgressChangedDTL(object sender, ProgressChangedEventArgs e)
+        {
+            myObservableCollectionDrone = new ObservableCollection<DroneToList>(bL.GetDrones());
+            DataContext = myObservableCollectionDrone;
+        }
+
 
         private void groupByStatus_Click(object sender, RoutedEventArgs e)
         {

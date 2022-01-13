@@ -37,12 +37,6 @@
     <deleted>false</deleted>
   </Drone>
   <Drone>
-    <id>611886968</id>
-    <model>Snowgoose</model>
-    <maxWeight>light</maxWeight>
-    <deleted>false</deleted>
-  </Drone>
-  <Drone>
     <id>990090899</id>
     <model>Hunter</model>
     <maxWeight>average</maxWeight>

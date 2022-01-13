@@ -26,6 +26,7 @@ namespace PL
         private static DroneToList drt = new();
         private static Drone dr = new();
         private static DroneInParcel droneParcel = new();
+        private DroneListWindow dlw;
         public BackgroundWorker bgWorker { set; get; }//set- to enable to add functions to the events of the thread
         bool isRun;
         bool isClose = true;
@@ -41,8 +42,9 @@ namespace PL
             droneInParcel.Visibility = Visibility.Hidden;
 
         }
-        public DroneWindow(BO.Drone drone) //update
+        public DroneWindow(BO.Drone drone ,DroneListWindow droneListWindow=null) //update
         {
+           
             InitializeComponent();
             bL = BlApi.BlFactory.GetBl();
             this.DataContext = drone;
@@ -68,10 +70,12 @@ namespace PL
                 WorkerReportsProgress = true,
                 WorkerSupportsCancellation = true
             };
+            dlw = droneListWindow;
+
 
 
         }
-        public DroneWindow(BO.DroneInParcel drone) //update
+        public DroneWindow(BO.DroneInParcel drone) 
         {
             InitializeComponent();
             bL = BlApi.BlFactory.GetBl();
@@ -250,6 +254,7 @@ namespace PL
                 bgWorker.DoWork += (sender, args) => bL.startDroneSimulation((int)args.Argument, updateDrone, checkStop);
                 bgWorker.RunWorkerCompleted += BgWorker_RunWorkerCompleted;
                 bgWorker.ProgressChanged += bgWorker_ProgressChanged;
+                bgWorker.ProgressChanged += dlw.Worker_ProgressChangedDTL;
                 bgWorker.RunWorkerAsync(dr.id);
             }
             catch (Exception exp)
@@ -258,12 +263,13 @@ namespace PL
             }
 
         }
+    
 
         private void BgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if(!e.Cancelled)
             {
-                MessageBox.Show($"The simulation has ended", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("The simulation has ended", "ERROR", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
