@@ -15,9 +15,9 @@
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Grid>
                             <Rectangle Width="175" Height="70"  RadiusX="20" RadiusY="20">
-                                <!--<Rectangle.Fill>
-                                    <ImageBrush ImageSource="/pics/290-2909182_button-png-blue-rectangle-button-icon.png" Stretch="UniformToFill"/>
-                                </Rectangle.Fill>-->
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="/WhatsApp Image 2022-01-13 at 10.33.04 (1).jpeg"/>
+                                </Rectangle.Fill>
                             </Rectangle>
                             <ContentControl Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Black" />
                         </Grid>
@@ -35,9 +35,10 @@
 
 
     <Grid x:Name="General" HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Width="Auto">
-        <!--<Grid.Background>
-            <ImageBrush ImageSource="/pics/rio-overview.jpg" Opacity="0.7"/>
-        </Grid.Background>-->
+        <Grid.Background>
+            <ImageBrush ImageSource="/WhatsApp Image 2022-01-13 at 10.33.04.jpeg"/>
+        </Grid.Background>
+
         <Grid.ColumnDefinitions>
 
             <ColumnDefinition Width="119*" />
@@ -52,11 +53,6 @@
         </Grid.RowDefinitions>
 
         <Button x:Name="btnShowDroneList" Content="Enter to see drone list" FontSize="15" FontStyle="Oblique" Click="Button_Click"  Grid.Column="1" Height="Auto" Width="Auto" Margin="0,72,0,72" Grid.RowSpan="3"/>
-        <!--<Image Source="/dronePic.jpg" Grid.ColumnSpan="2" Grid.RowSpan="5" Margin="-160,0,-8,0" Width="Auto" >
-            <Image.OpacityMask>
-                <ImageBrush ImageSource="C:\Users\User\Source\Repos\dotNet5782_3175_934\PL\pics\rio-overview.jpg"/>
-            </Image.OpacityMask>
-        </Image>-->
         <Button x:Name="btncustomerLists" Content="Enter to see customer list" FontSize="15" FontStyle="Oblique"  Click="customerLists_Click" Grid.Column="1" Grid.Row="2" Margin="0,86,0,0" Grid.RowSpan="2"/>
         <Button x:Name="btnParcelLists" Content="Enter to see parcel list" FontSize="15" FontStyle="Oblique"   Grid.Column="1" Grid.Row="2" Click="btnParcelLists_Click" Height="Auto"/>
         <Button x:Name="btnStationLists" Content="Enter to see station list" FontSize="15" FontStyle="Oblique" Click="btnStationLists_Click_1" Grid.Column="1" Width="Auto" Margin="0,0,0,87" Grid.RowSpan="2">

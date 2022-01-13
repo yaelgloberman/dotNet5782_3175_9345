@@ -12,6 +12,7 @@
     <None Remove="imageedit_1_3256771342.jpg" />
     <None Remove="logooo.png" />
     <None Remove="WhatsApp Image 2022-01-13 at 10.33.03.jpeg" />
+    <None Remove="WhatsApp Image 2022-01-13 at 10.33.04 %281%29.jpeg" />
     <None Remove="WhatsApp Image 2022-01-13 at 10.33.04 %282%29.jpeg" />
     <None Remove="WhatsApp Image 2022-01-13 at 10.33.04.jpeg" />
     <None Remove="WhatsApp Image 2022-01-13 at 10.33.05.jpeg" />
@@ -30,6 +31,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="WhatsApp Image 2022-01-13 at 10.33.03.jpeg" />
+    <Resource Include="WhatsApp Image 2022-01-13 at 10.33.04 (1).jpeg" />
     <Resource Include="WhatsApp Image 2022-01-13 at 10.33.04 (2).jpeg" />
     <Resource Include="WhatsApp Image 2022-01-13 at 10.33.04.jpeg" />
     <Resource Include="WhatsApp Image 2022-01-13 at 10.33.05.jpeg" />

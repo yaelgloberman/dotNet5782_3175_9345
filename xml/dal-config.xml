@@ -5,7 +5,7 @@
     <list class="DalObject" namespace="Dal">DalXml</list>
     <xml>DalXml</xml>
   </dal-packages>
-  <parcelSerial>1000214</parcelSerial>
+  <parcelSerial>1000224</parcelSerial>
   <available>0.05</available>
   <light>0.005</light>`
   <heavy>0.05</heavy><average>0.3</average><rateLoadingDrone>0.5</rateLoadingDrone></config>
