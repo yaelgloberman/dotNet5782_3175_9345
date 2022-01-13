@@ -44,6 +44,8 @@
             <Label Name="lblScheduled"  Content="scheduled:" Grid.Column="1" Grid.Row="7"  FontSize="20"/>
             <Label Name="lblDelivered"  Content="delivered:" Grid.Column="1" Grid.Row="9"  FontSize="20"/>
             <Label Name="lblPickedUp"  Content="pickedUp:" Grid.Column="1" Grid.Row="8" FontSize="20" />
+            <Image HorizontalAlignment="Left" Height="78" Margin="289,51,0,0" VerticalAlignment="Top" Width="212" Source="/logooo.png"/>
+
         </Grid>
 
 
@@ -97,6 +99,7 @@
             <CheckBox x:Name="checkBoxAgree" Content="do you agree to pick up the parcel and deliverd it? " Grid.Column="4" Grid.ColumnSpan="5" Grid.Row="8" HorizontalAlignment="Right"  IsChecked="False"  FontSize="18"   />
             <TextBlock x:Name="dronInParcel" Text="{Binding droneInParcel.id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="5" Height="30" FontSize="18" Margin="43,7,5,6" />
             <Label x:Name="lblDronInParcel" Content="drone in parcel:" Grid.Row="5" Grid.ColumnSpan="2" Grid.Column="1" FontSize="20" />
+            <Image HorizontalAlignment="Left" Height="78" Margin="289,51,0,0" VerticalAlignment="Top" Width="212" Source="/logooo.png"/>
 
 
 
@@ -135,6 +138,7 @@
             <ComboBox x:Name="comboBoxW" Grid.Column="2" Grid.Row="3"  />
             <ComboBox x:Name="comboBoxP" Grid.Column="2" Grid.Row="4"/>
             <Button x:Name="btnAddParcel" Content="add"  Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="9" Click="btnAddParcel_Click"  FontSize="20"/>
+            <Image HorizontalAlignment="Left" Height="78" Margin="289,51,0,0" VerticalAlignment="Top" Width="212" Source="/logooo.png"/>
 
 
         </Grid>
