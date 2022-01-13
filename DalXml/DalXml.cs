@@ -32,7 +32,7 @@ namespace Dal
         public static Random random = new();
         static readonly IDal instance = new DalXml();
      
-     //  private DalXml() { }
+     //    private DalXml() { }
         public static IDal Instance { get => instance; }
        private DalXml() { Initialize(); } // default constructer calls on initialize func
         #region DS XML Files
