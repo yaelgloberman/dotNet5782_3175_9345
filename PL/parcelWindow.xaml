@@ -10,9 +10,9 @@
     <Grid>
 
         <Grid x:Name="lable" d:IsHidden="True">
-            <!--<Grid.Background>
-                <ImageBrush ImageSource="C:\Users\User\Source\Repos\dotNet5782_3175_934\PL\dronePic.jpg" Opacity="0.2"/>
-            </Grid.Background>-->
+            <Grid.Background>
+                <ImageBrush ImageSource="/WhatsApp Image 2022-01-13 at 10.33.03.jpeg"/>
+            </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10" />
                 <ColumnDefinition Width="120" />
@@ -103,10 +103,10 @@
 
         </Grid>
         <Grid x:Name="add" d:IsHidden="True">
-            <!--<Grid.
-            ground>
-                <ImageBrush ImageSource="/pics/5159167.jpg"/>
-            </Grid.Background>-->
+            <Grid.Background>
+                <ImageBrush ImageSource="/WhatsApp Image 2022-01-13 at 10.33.04 (2).jpeg"/>
+            </Grid.Background>
+           
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10" />
                 <ColumnDefinition Width="120" />
