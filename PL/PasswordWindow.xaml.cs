@@ -29,7 +29,8 @@ namespace PL
             myBl = BlApi.BlFactory.GetBl();
             GridUser.Visibility = Visibility.Visible;
             GridPassword.Visibility = Visibility.Hidden;
-            GridLogCustomer.Visibility = Visibility.Hidden; 
+            GridLogCustomer.Visibility = Visibility.Hidden;
+            resetPasword.Visibility = Visibility.Hidden;
 
         }
         public PasswordWindow(BlApi.IBl bl)//password window
@@ -39,16 +40,11 @@ namespace PL
             GridUser.Visibility = Visibility.Hidden;
             GridPassword.Visibility = Visibility.Visible;
             GridLogCustomer.Visibility = Visibility.Hidden;
+            resetPasword.Visibility = Visibility.Hidden;
+
         }
 
-        //public PasswordWindow(BlApi.IBl bl)
-        //{
-        //    InitializeComponent();
-        //    myBl = BlApi.BlFactory.GetBl();
-        //    GridUser.Visibility = Visibility.Visible;
-        //    GridPassword.Visibility = Visibility.Hidden;
-        //    GridLogCustomer.Visibility = Visibility.Hidden;
-        //}
+ 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -98,12 +94,9 @@ namespace PL
         private void Button_Click_CreateAccount(object sender, RoutedEventArgs e)
         {
             GridLogCustomer.Visibility = Visibility.Hidden;
-
             new CustomerWindow().ShowDialog();
-            this.Close();
             new PasswordWindow( myBl).ShowDialog();
             this.Close();
-         //  Close();
         }
 
         private void Button_Click_LogIn(object sender, RoutedEventArgs e)
@@ -157,6 +150,44 @@ namespace PL
 
                 // GridPassword.Visibility = Visibility.Hidden;
             }
+        }
+
+        private void btnForgetPasword_Click(object sender, RoutedEventArgs e)
+        {
+            resetPasword.Visibility = Visibility.Visible;
+        }
+
+        private void btnEnter_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var c = myBl.GetCustomer(Convert.ToInt32(txbEnterId.Text));
+                if(c.id!=0)
+                {
+                    if(c.Name!= txbEnterName.Text)
+                    {
+                        throw new validException("the name does not matched to the customer id");
+                    }
+                    myBl.CheckValidPassword(myBl.GetCustomer(Convert.ToInt32(txbEnterId.Text)).Name, txbEnterYourNewP.Text);
+                    myBl.resetPassword(Convert.ToInt32(txbEnterId.Text), txbEnterYourNewP.Text);
+                    MessageBox.Show("succsesfully reset password!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+              else
+                {
+                    throw new validException("the id is not valid");
+                }
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
+
+        }
+
+        private void closeButtom_Click(object sender, RoutedEventArgs e)
+        {
+            resetPasword.Visibility = Visibility.Hidden;
         }
     }
 }

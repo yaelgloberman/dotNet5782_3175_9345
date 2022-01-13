@@ -261,7 +261,7 @@ namespace PL
 
         private void BgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if(e.Cancelled)
+            if(!e.Cancelled)
             {
                 MessageBox.Show($"The simulation has ended", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }

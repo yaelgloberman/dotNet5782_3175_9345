@@ -35,6 +35,7 @@ namespace BlApi
 
         #endregion
         #region CUSTOMER
+        public void resetPassword(int id, string password);
         public BO.CustomerInList GetCustomerToList(int id);
         public void updateCustomer(int customerID, string Name, string phoneNum);
 

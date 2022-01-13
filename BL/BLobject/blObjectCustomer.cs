@@ -318,6 +318,14 @@ namespace BL
             }
         }
         #endregion
+      
+        public void resetPassword(int id,string password)
+        {
+            DO.Customer co = dal.GetCustomer(id);
+            co.Password = password;
+            dal.updateCustomer(id, co);
+          
+        }
     }
 }
 

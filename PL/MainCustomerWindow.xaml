@@ -20,21 +20,21 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid.Background>
+        <!--<Grid.Background>
             <ImageBrush ImageSource="C:\Users\User\Desktop\‏‏תיקיה חדשה\PL\pics\rio-overview.jpg" Opacity="0.4"/>
-        </Grid.Background>
+        </Grid.Background>-->
         <!--<Grid.Background>
             <ImageBrush ImageSource="C:\Users\rinaw\Source\Repos\dotNet5782_3175_9345\PL\dronePic.jpg" Opacity="0.4"/>
         </Grid.Background>-->
         <Button Content="Customer" Click="Button_Click_Customer" Grid.ColumnSpan="2" Grid.Row="2">
-            <Button.Background>
+            <!--<Button.Background>
                 <ImageBrush ImageSource="C:\Users\User\Desktop\‏‏תיקיה חדשה\PL\pics\290-2909182_button-png-blue-rectangle-button-icon.png" Opacity="1"/>
-            </Button.Background>
+            </Button.Background>-->
         </Button>
         <Button Content="Parcel" Click="Button_Click_Parcel" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Width="Auto">
-            <Button.Background>
+            <!--<Button.Background>
                 <ImageBrush ImageSource="C:\Users\User\Desktop\‏‏תיקיה חדשה\PL\pics\290-2909182_button-png-blue-rectangle-button-icon.png"/>
-            </Button.Background>
+            </Button.Background>-->
         </Button>
 
     </Grid>

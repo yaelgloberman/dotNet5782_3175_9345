@@ -32,7 +32,7 @@ namespace Dal
         public static Random random = new();
         static readonly IDal instance = new DalXml();
      
-     //  private DalXml() { }
+       //private DalXml() { }
         public static IDal Instance { get => instance; }
        private DalXml() { Initialize(); } // default constructer calls on initialize func
         #region DS XML Files
@@ -669,6 +669,7 @@ namespace Dal
                 throw new findException("could not find customer");
             }
         }
+     
 
         #endregion
         //public IEnumerable<Customer> GetCustomer(Func<Customer, bool> predicate = null)
