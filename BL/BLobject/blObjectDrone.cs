@@ -193,7 +193,6 @@ namespace BL
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="dosntExisetException"></exception>
-        [MethodImpl(MethodImplOptions.Synchronized)]
         public DroneToList GetDrone(int id)
         {
             try
@@ -223,8 +222,8 @@ namespace BL
             {
                 throw new dosntExisetException(exp.Message);
             }
+            catch(Exception e) { throw new dosntExisetException(e.Message); }
         }
-        [MethodImpl(MethodImplOptions.Synchronized)]
         public DroneInParcel GetDroneInParcel(int id)
         {
             try

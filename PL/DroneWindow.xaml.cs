@@ -269,10 +269,14 @@ namespace PL
 
         private void btnCanceling_Click(object sender, RoutedEventArgs e)
         {
-            if(bgWorker.WorkerSupportsCancellation==true)
+            try
             {
-                bgWorker.CancelAsync();
+                if (bgWorker.WorkerSupportsCancellation == true)
+                {
+                    bgWorker.CancelAsync();
+                }
             }
+            catch (Exception exp) {; }
         }
 
         private void btnOpenParcelId_Click(object sender, RoutedEventArgs e)
