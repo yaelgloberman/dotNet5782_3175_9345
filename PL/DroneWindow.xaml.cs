@@ -22,7 +22,6 @@ namespace PL
     /// </summary>
     public partial class DroneWindow : Window
     {
-        //private BlApi.IBl bl = BlApi.BlFactory.GetBl();
         private static DroneToList drt = new();
         private static Drone dr = new();
         private static DroneInParcel droneParcel = new();
@@ -31,18 +30,26 @@ namespace PL
         bool isRun;
         bool isClose = true;
         IBl bL;
-        public DroneWindow()//add
+        #region constructor
+        /// <summary>
+        /// drone window constructor using this when the user wants to add a drone 
+        /// </summary>
+        public DroneWindow()
         {
-
             InitializeComponent();
             bL = BlApi.BlFactory.GetBl();
-            station.ItemsSource = bL.GetBaseStationToLists().Select(s => s.id); //ספציפית פנויות
+            station.ItemsSource = bL.GetBaseStationToLists().Select(s => s.id);
             weightCategories.ItemsSource = Enum.GetValues(typeof(Weight));
             update.Visibility = Visibility.Hidden;
             droneInParcel.Visibility = Visibility.Hidden;
-
         }
-        public DroneWindow(BO.Drone drone ,DroneListWindow droneListWindow=null) //update
+        /// <summary>
+        /// the drone constructor using this when the user wants to update the drone by the buttons 
+        /// and the buttons visibillity only when the drone can do the diffrent activities
+        /// </summary>
+        /// <param name="drone"></param>
+        /// <param name="droneListWindow"></param>
+        public DroneWindow(BO.Drone drone ,DroneListWindow droneListWindow=null)
         {
            
             InitializeComponent();
@@ -72,9 +79,11 @@ namespace PL
             };
             dlw = droneListWindow;
 
-
-
         }
+        /// <summary>
+        /// constructor that gets a drone in parcel
+        /// </summary>
+        /// <param name="drone"></param>
         public DroneWindow(BO.DroneInParcel drone) 
         {
             InitializeComponent();
@@ -87,10 +96,13 @@ namespace PL
             btnMatchingDroneToParcel.Visibility = Visibility.Hidden;
             btnRelesingDrone.Visibility = Visibility.Hidden;
             update.Visibility = Visibility.Hidden;
-          
         }
-      
-
+        #endregion
+        #region function that cheks the string validation
+        /// <summary>
+        /// function that cheks the string validation
+        /// </summary>
+        /// <param name="string1"></param>
         public static void ValidateString(string string1)
         {
             List<string> invalidChars = new List<string>() { "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-" };
@@ -113,7 +125,14 @@ namespace PL
                 }
             }
         }
-        private void buttonAddDrone_Click(object sender, RoutedEventArgs e)//have to change this to binding
+        #endregion
+        #region add drone button
+        /// <summary>
+        /// function that add a drone
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonAddDrone_Click(object sender, RoutedEventArgs e)
         {
 
             try
@@ -139,10 +158,13 @@ namespace PL
 
             }
         }
-        private void Exit_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
+        #endregion
+        #region buttons that updating the drone
+        /// <summary>
+        /// function that updating the drone name
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
@@ -167,6 +189,12 @@ namespace PL
 
             }
         }
+        
+        /// <summary>
+        /// function that sending the drone to charge in a station if function cant it shows massage box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSendToCharge_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -180,11 +208,16 @@ namespace PL
                 MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        /// <summary>
+        ///function that realising the drone to charge in a station if function cant it shows massage box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 
         private void btnRelesingDrone_Click_1(object sender, RoutedEventArgs e)
         {
             try
-            { 
+            {
                 bL.releasingDrone(Convert.ToInt32(txbDroneId.Text));
                 MessageBox.Show("succsesfully relesing drone charge!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
@@ -195,6 +228,11 @@ namespace PL
 
             }
         }
+        /// <summary>
+        /// function that matching the drone to charge in a station if function cant it shows massage box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnMatchingDroneToParcel_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -209,12 +247,39 @@ namespace PL
 
             }
         }
+
+        #endregion
+        #region exit button
+        /// <summary>
+        /// function that closing the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+        #endregion
+        #region button that opens a drone that mached to a parcel
+        /// <summary>
+        /// function that opening the drone that mached to a parcel  
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDroneInParcelFull_Click(object sender, RoutedEventArgs e)
         {
 
-            DroneWindow wnd = new DroneWindow(bL.returnsDrone(droneParcel.id));  //צריך לחשוב איך אני שמה את הרחפן 
+            DroneWindow wnd = new DroneWindow(bL.returnsDrone(droneParcel.id));  
             wnd.ShowDialog();
         }
+        #endregion
+        #region function the help the simulator
+
+        /// <summary>
+        /// function that updaing the window while the simulator is runing
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void bgWorker_ProgressChanged(object sender, ProgressChangedEventArgs e) //changes what we see
         {
             try
@@ -228,8 +293,12 @@ namespace PL
                 MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         private void updateDrone() => bgWorker.ReportProgress(0);
         private bool checkStop() => bgWorker.CancellationPending;
+        /// <summary>
+        /// functions that updating the window
+        /// </summary>
         public void updateView()
         {
             var d = bL.returnsDrone(dr.id);
@@ -241,7 +310,11 @@ namespace PL
                 station.ItemsSource = Enum.GetValues(typeof(BaseStation));
             }
         }
-
+        /// <summary>
+        /// the button that start the simulation 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAutomatic_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -263,7 +336,11 @@ namespace PL
             }
 
         }
-    
+        /// <summary>
+        /// function that if the sumilation cancalled showing a massage box that it ended
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 
         private void BgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -272,7 +349,11 @@ namespace PL
                 MessageBox.Show("The simulation has ended", "ERROR", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
-
+        /// <summary>
+        /// function that when you press the button the simulator is ending
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCanceling_Click(object sender, RoutedEventArgs e)
         {
             if(bgWorker.WorkerSupportsCancellation==true)
@@ -280,11 +361,22 @@ namespace PL
                 bgWorker.CancelAsync();
             }
         }
-
+        #endregion
+        #region showing full parcel mached to drone
+        /// <summary>
+        /// function that opening the parcel window and presenting the parcel that is matched to the drone
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnOpenParcelId_Click(object sender, RoutedEventArgs e)
         {
-            try { parcelWindow wnd = new parcelWindow(bL.GetParcel(dr.parcelInTransfer.id)); wnd.ShowDialog(); }
+            try
+            {
+                parcelWindow wnd = new parcelWindow(bL.GetParcel(dr.parcelInTransfer.id));
+                wnd.ShowDialog(); 
+            }
             catch (System.NullReferenceException exp) { MessageBox.Show(exp.Message); }
         }
+        #endregion
     }
-    }
+}

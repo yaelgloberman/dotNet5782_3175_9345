@@ -36,7 +36,7 @@ namespace BL
             bL.startDroneSimulation(drone.id, updateDrone, checkStop);
         }
 
-
+        
         public Simulator(BL bl, int droneId, Action updateDrone, Func<bool> func)
         {
             BO.Drone d = new();

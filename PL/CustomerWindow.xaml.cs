@@ -26,8 +26,11 @@ namespace PL
         private static CustomerInParcel customerParcel = new();
 
         IBl bL;
-
-        public CustomerWindow()//add
+        #region constructor
+        /// <summary>
+        /// constructor to the customer window opens up when we want to add customer
+        /// </summary>
+        public CustomerWindow()
         {
             InitializeComponent();
             bL = BlApi.BlFactory.GetBl();
@@ -37,7 +40,11 @@ namespace PL
             customerParcelGrid.Visibility = Visibility.Hidden;
 
         }
-        public CustomerWindow(BO.Customer CO) //update
+        /// <summary>
+        /// constructor that we use when we want to update customer 
+        /// </summary>
+        /// <param name="CO"></param>
+        public CustomerWindow(BO.Customer CO) 
         {
             InitializeComponent();
             bL = BlApi.BlFactory.GetBl();
@@ -50,6 +57,10 @@ namespace PL
             txbLatitude.IsReadOnly = true;
             txbLongitude.IsReadOnly = true;
         }
+        /// <summary>
+        /// constructor that gets customer in parcel
+        /// </summary>
+        /// <param name="CO"></param>
         public CustomerWindow(BO.CustomerInParcel CO) 
         {
             InitializeComponent();
@@ -61,7 +72,12 @@ namespace PL
             general.Visibility = Visibility.Hidden;
             updateParcels.Visibility = Visibility.Hidden;
         }
-
+        #endregion
+        #region Validate String
+        /// <summary>
+        /// function that checks string validatios
+        /// </summary>
+        /// <param name="string1"></param>
         public static void ValidateString(string string1)
         {
             List<string> invalidChars = new List<string>() { "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-" };
@@ -84,6 +100,13 @@ namespace PL
                 }
             }
         }
+        #endregion
+        #region add customer button
+        /// <summary>
+        /// function that add a customer 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAddCustomer_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -105,7 +128,6 @@ namespace PL
                 bool flag=false;
                 if (user == "Customer")
                     flag = true;
-                
                 var c = new BO.Customer()
                 {
                     id = Convert.ToInt32(txbID.Text),
@@ -130,18 +152,20 @@ namespace PL
 
             }
         }
-
-      
-
+        #endregion
+        #region update customer phone number and name
+        /// <summary>
+        /// functions that let the user to change the customer name and phone number
+        /// if the user didnt change the text nut pressed on update the program showw a massage box
+        /// that tells the user tio change the inpur
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnUpdateCustomer_Click(object sender, RoutedEventArgs e)
         {
 
             try
             {
-                //deliverObservableCollection = new ObservableCollection<ParcelCustomer>(customer.parcelsdelivered);
-                //sentParcelsListView.DataContext = deliverObservableCollection;
-                //receiveObservableCollection = new ObservableCollection<ParcelinCustomer>(customer.parcelsOrdered);
-                //receivedParcelsList.DataContext = receiveObservableCollection;
                 Customer c = new();
                 c = bL.GetCustomer(Convert.ToInt32(txbID.Text));
                 if(txbName.Text==c.Name && txbPhoneNumber.Text==c.phoneNumber)
@@ -169,6 +193,13 @@ namespace PL
 
             }
         }
+        #endregion
+        #region sent parces and recivie parcels list
+        /// <summary>
+        /// button that showns all the sent parcels of the customer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSentParcels_Click(object sender, RoutedEventArgs e)
         {
             sentParcels.Visibility = Visibility.Visible;
@@ -177,8 +208,13 @@ namespace PL
             updateParcels.Visibility = Visibility.Hidden;
             general.Visibility = Visibility.Hidden;
             sentParcelsListView.ItemsSource = customer.SentParcels;
-
         }
+        /// <summary>
+        /// button that showns all the recive parcels of the customer
+
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnReceiveParcel_Click(object sender, RoutedEventArgs e)
         {
             sentParcels.Visibility = Visibility.Hidden;
@@ -188,13 +224,20 @@ namespace PL
             ReciveParcelsListView.ItemsSource = customer.ReceiveParcel;
           
         }
-
+        #endregion
+        #region opens full customer
+        /// <summary>
+        /// opens up the full customer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnFullCustomer_Click(object sender, RoutedEventArgs e)
         {
             CustomerWindow wnd = new CustomerWindow(bL.GetCustomer(customerParcel.id));
             wnd.ShowDialog();
-        } 
-
+        }
+        #endregion
+        #region recive parcels list view and sent parcels lidt view mouse double click
         private void ReciveParcelsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var parcel = new ParcelCustomer();
@@ -202,7 +245,6 @@ namespace PL
             try { new parcelWindow(bL.GetParcel(parcel.id)).ShowDialog(); }
             catch (dosntExisetException exp) { MessageBox.Show(exp.Message); }
         }
-
         private void sentParcelsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var parcel = new ParcelCustomer();
@@ -210,7 +252,7 @@ namespace PL
             try { new parcelWindow(bL.GetParcel(parcel.id)).ShowDialog(); }
             catch (dosntExisetException exp) { MessageBox.Show(exp.Message); }
         }
-
+        #endregion
 
     }
 }

@@ -25,15 +25,23 @@ namespace PL
         ObservableCollection<CustomerInList> myObservableCollectionCustomer;
         private static CustomerInList customerInList = new();
         private static Customer customer = new();
-        bool isWorker = false;
-
+        #region constructor
+        /// <summary>
+        /// the constructor gets ibl and opens the customer window
+        /// </summary>
+        /// <param name="bl"></param>
         public customerListWindow(IBl bl)
         {
             InitializeComponent();
             this.bL = bl;
-            myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bl.GetCustomersToList().Where(x=>x.isCustomer));
+            myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bl.GetCustomersToList().Where(x => x.isCustomer));
             DataContext = myObservableCollectionCustomer;
         }
+        /// <summary>
+        /// the constructor getting 2 IBL member 
+        /// </summary>
+        /// <param name="bl"></param>
+        /// <param name="bl2"></param>
         public customerListWindow(IBl bl, IBl bl2)
         {
             InitializeComponent();
@@ -42,6 +50,14 @@ namespace PL
             myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bl.GetCustomersToList().Where(x => !x.isCustomer));
             DataContext = myObservableCollectionCustomer;
         }
+        #endregion
+        #region double click
+        /// <summary>
+        ///  the function opens the customer from the customers list 
+        ///  if the user didnt choose a customer (pressed on empty spase in list ) msassage box shows
+        ///  /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DoubleClick(object sender, MouseButtonEventArgs e)
         {
             CustomerInList cil = (CustomerInList)customerListBox.SelectedItem;
@@ -53,13 +69,21 @@ namespace PL
                 customer = bL.GetCustomer(cil.id);
                 DataContext = customer;
                 new CustomerWindow(customer).ShowDialog();
-                if( isWorker)
+                if(isWorker)
                      myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bL.GetCustomersToList().Where(x => !x.isCustomer)); 
                 else
                      myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bL.GetCustomersToList().Where(x => x.isCustomer)); 
                 DataContext = myObservableCollectionCustomer;
             }
         }
+        #endregion
+        #region add customer button
+        /// <summary>
+        /// function that opens ythe add customer window 
+        /// if the customer is a worker the functio returns only the worker customers
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAddCustomer_Click(object sender, RoutedEventArgs e)
         {
             CustomerWindow wnd = new CustomerWindow();
@@ -67,7 +91,9 @@ namespace PL
             if (isWorker)
                 myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bL.GetCustomersToList().Where(x => !x.isCustomer));
             else
-                myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bL.GetCustomersToList().Where(x => x.isCustomer)); DataContext = myObservableCollectionCustomer;
+                myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bL.GetCustomersToList().Where(x => x.isCustomer));
+            DataContext = myObservableCollectionCustomer;
         }
+        #endregion
     }
 }
