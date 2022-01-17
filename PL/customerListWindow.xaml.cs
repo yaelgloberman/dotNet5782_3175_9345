@@ -26,7 +26,10 @@ namespace PL
         private static CustomerInList customerInList = new();
         private static Customer customer = new();
         bool isWorker = false;
-
+        /// <summary>
+        /// the constructor of a regular customers 
+        /// </summary>
+        /// <param name="bl"></param>
         public customerListWindow(IBl bl)
         {
             InitializeComponent();
@@ -34,14 +37,24 @@ namespace PL
             myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bl.GetCustomersToList().Where(x=>x.isCustomer));
             DataContext = myObservableCollectionCustomer;
         }
+        /// <summary>
+        /// the constryuctor of workers
+        /// </summary>
+        /// <param name="bl"></param>
+        /// <param name="bl2"></param>
         public customerListWindow(IBl bl, IBl bl2)
         {
             InitializeComponent();
             this.bL = bl;
-            bool isWorker = true;
+            isWorker = true;
             myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bl.GetCustomersToList().Where(x => !x.isCustomer));
             DataContext = myObservableCollectionCustomer;
         }
+        /// <summary>
+        /// to see the details of the customer and the ability to update
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DoubleClick(object sender, MouseButtonEventArgs e)
         {
             CustomerInList cil = (CustomerInList)customerListBox.SelectedItem;
@@ -60,6 +73,11 @@ namespace PL
                 DataContext = myObservableCollectionCustomer;
             }
         }
+        /// <summary>
+        /// the adding act of a customer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAddCustomer_Click(object sender, RoutedEventArgs e)
         {
             CustomerWindow wnd = new CustomerWindow();

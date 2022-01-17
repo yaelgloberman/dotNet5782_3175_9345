@@ -25,7 +25,9 @@ namespace PL
         private static ParcelToList parcelToList = new();
         private static Parcel parcel = new();
         BlApi.IBl bL;
-
+        /// <summary>
+        /// adding a parcel 
+        /// </summary>
         public parcelWindow()//add
         {
             bL = BlApi.BlFactory.GetBl();
@@ -36,6 +38,10 @@ namespace PL
             comboBoxS.ItemsSource = bL.GetCustomersToList().Select(s=>s.id);
             comboBoxR.ItemsSource = bL.GetCustomersToList().Select(s=>s.id);
         }
+        /// <summary>
+        /// updating a parcel and the info ->hididng and dihiding the appropiate buttons based on the selected parcel
+        /// </summary>
+        /// <param name="ptl"></param>
         public parcelWindow(BO.Parcel ptl) //update
         {
             InitializeComponent();
@@ -96,6 +102,11 @@ namespace PL
                 txbPickedUp.Visibility = Visibility.Visible;
             }
         }
+        /// <summary>
+        /// sending the parcel to delivery
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDeliveryToCustomer_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -109,6 +120,11 @@ namespace PL
                 MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        /// <summary>
+        /// updating the system when the drone pickes up the parcel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnPickUpParcelByDrone_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -127,7 +143,11 @@ namespace PL
                 MessageBox.Show($"{exp.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        /// <summary>
+        /// adding a parcel to the system 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAddParcel_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -163,19 +183,32 @@ namespace PL
 
             }
         }
-
+        /// <summary>
+        /// brings you to the details of the drone that is assigned with the parcel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDroneParcel_Click(object sender, RoutedEventArgs e)
         {
             try { DroneWindow wnd = new DroneWindow(bL.returnsDrone(parcel.droneInParcel.id)); wnd.ShowDialog(); }
             catch (System.NullReferenceException exp) { MessageBox.Show(exp.Message); }
 
         }
-
+        /// <summary>
+        /// brings you to the info of the customer that sent the parcel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCustomerSParcel_Click(object sender, RoutedEventArgs e)
         {
             CustomerWindow wnd = new CustomerWindow(bL.GetCustomerParcel(parcel.sender.id));
             wnd.ShowDialog();
         }
+        /// <summary>
+        /// brings you to the info of the customer that is supposed to recieve the parcel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCustomerRParcel_Click(object sender, RoutedEventArgs e)
         {
 

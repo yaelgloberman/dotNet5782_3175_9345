@@ -23,6 +23,9 @@ namespace PL
     {
 
         BlApi.IBl myBl;
+        /// <summary>
+        /// the first window - the user chooses if he is a customer or a worker
+        /// </summary>
         public PasswordWindow()//user type- worker or customer
         {
             InitializeComponent();
@@ -33,6 +36,10 @@ namespace PL
             resetPasword.Visibility = Visibility.Hidden;
 
         }
+        /// <summary>
+        /// the password that the customer goes in as a worker or a costomer
+        /// </summary>
+        /// <param name="bl"></param>
         public PasswordWindow(BlApi.IBl bl)//password window
         {
             InitializeComponent();
@@ -44,7 +51,11 @@ namespace PL
 
         }
 
- 
+ /// <summary>
+ /// whne pressed enter after the user eneters the password - check of the password is valid->customer
+ /// </summary>
+ /// <param name="sender"></param>
+ /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -68,12 +79,21 @@ namespace PL
                 passwordBox.Clear();    
             }
         }
+        /// <summary>
+        /// clears data of the password and name
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_cancel(object sender, RoutedEventArgs e)
         {
             NameBox.Clear();
             passwordBox.Clear();
         }
-
+        /// <summary>
+        /// the password window for a worker
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_Worker(object sender, RoutedEventArgs e)
         {
             GridUser.Visibility = Visibility.Hidden;
@@ -82,7 +102,11 @@ namespace PL
             btnWorkerEnter.Visibility = Visibility.Visible;
 
         }
-
+        /// <summary>
+        /// opens the password window for the customer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_Customer(object sender, RoutedEventArgs e)
         {
             GridUser.Visibility = Visibility.Hidden;
@@ -90,7 +114,11 @@ namespace PL
             btnWorkerEnter.Visibility = Visibility.Hidden;
 
         }
-
+        /// <summary>
+        /// bring you to the adding customer window where you can add a user
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_CreateAccount(object sender, RoutedEventArgs e)
         {
             GridLogCustomer.Visibility = Visibility.Hidden;
@@ -98,7 +126,11 @@ namespace PL
             new PasswordWindow( myBl).ShowDialog();
             this.Close();
         }
-
+        /// <summary>
+        /// brings you to the password window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_LogIn(object sender, RoutedEventArgs e)
         {
             GridPassword.Visibility = Visibility.Visible;
@@ -106,7 +138,11 @@ namespace PL
             GridUser.Visibility = Visibility.Hidden;
             GridLogCustomer.Visibility = Visibility.Hidden;
         }
-
+        /// <summary>
+        /// brings you back to teh begining of the project - users type choice
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_Back(object sender, RoutedEventArgs e)
         {
             new PasswordWindow().ShowDialog();
@@ -122,18 +158,31 @@ namespace PL
 
 
         }
-
+        /// <summary>
+        /// brings you back to teh begining of the project - users type choice
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param n
         private void RadioButton_Click(object sender, RoutedEventArgs e)
         {
             new PasswordWindow().ShowDialog();
         }
+        /// <summary>
+        /// vip brings you straight to see all of the options
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             try { new MainWindow().ShowDialog(); } catch (System.NullReferenceException exp) { MessageBox.Show(exp.Message); }
             Close();
         }
-
+        /// <summary>
+        /// checking the password after entered for worker
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             if (myBl.CheckValidPassword(NameBox.Text, passwordBox.Password))
@@ -156,7 +205,11 @@ namespace PL
         {
             resetPasword.Visibility = Visibility.Visible;
         }
-
+        /// <summary>
+        /// the ability to update the password if you forgot it 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnEnter_Click(object sender, RoutedEventArgs e)
         {
             try

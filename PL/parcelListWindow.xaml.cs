@@ -29,6 +29,10 @@ namespace PL
         private static Parcel parcel = new();
         static ParcelStatus? statusFilter;
         public  BO.Customer customer { get; set; }
+        /// <summary>
+        /// constructor to see all the parcels in the system 
+        /// </summary>
+        /// <param name="bl"></param>
         public parcelListWindow(IBl bl)
         {
             InitializeComponent();
@@ -37,6 +41,11 @@ namespace PL
             myObservableCollectionParcel = new ObservableCollection<ParcelToList>(bL.GetParcelToLists());
             DataContext = myObservableCollectionParcel;
         }
+        /// <summary>
+        /// constructior to see all the parcels that the given costomer has
+        /// </summary>
+        /// <param name="bl"></param>
+        /// <param name="C1"></param>
         public parcelListWindow(IBl bl, BO.Customer C1)
         {
             InitializeComponent();
@@ -47,6 +56,11 @@ namespace PL
             myObservableCollectionParcel = new ObservableCollection<ParcelToList>(bL.GetParcelToLists().Where(x => x.senderName == customer.Name || x.receiveName == customer.Name));
             DataContext = myObservableCollectionParcel;
         }
+        /// <summary>
+        /// adding a parcel to the system 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAddParcel_Click(object sender, RoutedEventArgs e)
         {
             parcelWindow wnd = new parcelWindow();
@@ -54,7 +68,11 @@ namespace PL
             myObservableCollectionParcel = new ObservableCollection<ParcelToList>(bL.GetParcelToLists());
             DataContext = myObservableCollectionParcel;
         }
-
+        /// <summary>
+        /// details of the parcel and the ability to update by double cliicking 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DoubleClick(object sender, RoutedEventArgs e)
         {
             try
@@ -82,7 +100,11 @@ namespace PL
             catch (System.NullReferenceException ex) { MessageBox.Show(ex.Message + "the parcel is empty"); };
           
         }
-
+        /// <summary>
+        /// delete parcel from the systom by selcting it
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDeleteParcel_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -103,13 +125,21 @@ namespace PL
             }
 
         }
-
+        /// <summary>
+        /// selecting the item in the list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDeleteParcel_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             ParcelToList p = (ParcelToList)parcelListBox.SelectedItem;
 
         }
-
+        /// <summary>
+        /// grouping the parcels by the given feature->sender
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnGroupByS_Click(object sender, RoutedEventArgs e)
         {
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(parcelListBox.ItemsSource);
@@ -118,14 +148,22 @@ namespace PL
         }
 
 
-
+        /// <summary>
+        ///  grouping the parcels by the given feature->reciever
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnGroupByR_Click_(object sender, RoutedEventArgs e)
         {
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(parcelListBox.ItemsSource);
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("receiveName");
             view.GroupDescriptions.Add(groupDescription);
         }
-   
+   /// <summary>
+   /// filtering the list based on the selected feature from the combo box
+   /// </summary>
+   /// <param name="sender"></param>
+   /// <param name="e"></param>
         private void selectStatusParcel(object sender, SelectionChangedEventArgs e)
         {
             if (comboBoxStatusSelectorParcel.SelectedIndex != -1)
@@ -135,12 +173,24 @@ namespace PL
 
             }
         }
+        /// <summary>
+        /// refreshing the list to the most recent changes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void refresh_Click(object sender, RoutedEventArgs e)
         {
-            parcelListBox.ItemsSource = bL.GetParcelToLists();
+            if (isCustomer)
+                parcelListBox.ItemsSource=bL.GetParcelToLists().Where(x => x.senderName == customer.Name || x.receiveName == customer.Name);
+            else
+                parcelListBox.ItemsSource = bL.GetParcelToLists();
             comboBoxStatusSelectorParcel.SelectedIndex = -1;
         }
-
+        /// <summary>
+        /// combo box filtering the parcels based on the feature selected by the combo box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void comboBoxDateFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             IEnumerable<ParcelToList> ptl = new List<ParcelToList>();

@@ -24,9 +24,11 @@ namespace PL
         private static CustomerInList customerInList = new();
         private static Customer customer = new();
         private static CustomerInParcel customerParcel = new();
-
+        private bool isWorker = false;
         IBl bL;
-
+        /// <summary>
+        /// cinstructor for the customer window add
+        /// </summary>
         public CustomerWindow()//add
         {
             InitializeComponent();
@@ -37,6 +39,10 @@ namespace PL
             customerParcelGrid.Visibility = Visibility.Hidden;
 
         }
+        /// <summary>
+        /// constructor of update customer
+        /// </summary>
+        /// <param name="CO"></param>
         public CustomerWindow(BO.Customer CO) //update
         {
             InitializeComponent();
@@ -46,10 +52,16 @@ namespace PL
             addCustomer.Visibility = Visibility.Hidden;
             sentParcels.Visibility = Visibility.Hidden;
             customerParcelGrid.Visibility = Visibility.Hidden;
-            txbID.IsReadOnly = true;
-            txbLatitude.IsReadOnly = true;
-            txbLongitude.IsReadOnly = true;
+            btnAddCustomer.Visibility = Visibility.Hidden;
+            lblUser.Visibility = Visibility.Hidden;
+            ComboUser.Visibility = Visibility.Hidden;
+            isWorker = true;
+            txbName.IsReadOnly = false;
         }
+        /// <summary>
+        /// constructor of the customer in parcel window
+        /// </summary>
+        /// <param name="CO"></param>
         public CustomerWindow(BO.CustomerInParcel CO) 
         {
             InitializeComponent();
@@ -61,6 +73,10 @@ namespace PL
             general.Visibility = Visibility.Hidden;
             updateParcels.Visibility = Visibility.Hidden;
         }
+        /// <summary>
+        /// function to check the valisdity of  string
+        /// </summary>
+        /// <param name="string1"></param>
 
         public static void ValidateString(string string1)
         {
@@ -84,6 +100,11 @@ namespace PL
                 }
             }
         }
+        /// <summary>
+        /// the act after you add a costomer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAddCustomer_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -132,16 +153,17 @@ namespace PL
         }
 
       
-
+        /// <summary>
+        /// the act after the click of aupdate customer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnUpdateCustomer_Click(object sender, RoutedEventArgs e)
         {
 
             try
             {
-                //deliverObservableCollection = new ObservableCollection<ParcelCustomer>(customer.parcelsdelivered);
-                //sentParcelsListView.DataContext = deliverObservableCollection;
-                //receiveObservableCollection = new ObservableCollection<ParcelinCustomer>(customer.parcelsOrdered);
-                //receivedParcelsList.DataContext = receiveObservableCollection;
+          
                 Customer c = new();
                 c = bL.GetCustomer(Convert.ToInt32(txbID.Text));
                 if(txbName.Text==c.Name && txbPhoneNumber.Text==c.phoneNumber)
@@ -169,6 +191,11 @@ namespace PL
 
             }
         }
+        /// <summary>
+        /// sent parcels- to see the list pf  all of the parcels that were sent of the customer 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSentParcels_Click(object sender, RoutedEventArgs e)
         {
             sentParcels.Visibility = Visibility.Visible;
@@ -179,6 +206,11 @@ namespace PL
             sentParcelsListView.ItemsSource = customer.SentParcels;
 
         }
+        /// <summary>
+        /// to see the list of all the parcels the customner recieved 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnReceiveParcel_Click(object sender, RoutedEventArgs e)
         {
             sentParcels.Visibility = Visibility.Hidden;
@@ -188,12 +220,21 @@ namespace PL
             ReciveParcelsListView.ItemsSource = customer.ReceiveParcel;
           
         }
-
+        /// <summary>
+        /// to see the customers details
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnFullCustomer_Click(object sender, RoutedEventArgs e)
         {
             CustomerWindow wnd = new CustomerWindow(bL.GetCustomer(customerParcel.id));
             wnd.ShowDialog();
         } 
+        /// <summary>
+        /// to see the details of the parcels of a customer 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 
         private void ReciveParcelsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -202,7 +243,11 @@ namespace PL
             try { new parcelWindow(bL.GetParcel(parcel.id)).ShowDialog(); }
             catch (dosntExisetException exp) { MessageBox.Show(exp.Message); }
         }
-
+        /// <summary>
+        /// to see the details of a sent parcel list veiw
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void sentParcelsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var parcel = new ParcelCustomer();

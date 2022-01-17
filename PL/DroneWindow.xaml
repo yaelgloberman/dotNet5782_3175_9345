@@ -43,46 +43,57 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.ColumnSpan="10">
-            <Grid x:Name="update">
-                <Image HorizontalAlignment="Left" Height="78" VerticalAlignment="Top" Width="212" Source="/logooo.png" Margin="289,354,0,0" />
-                <Image HorizontalAlignment="Left" Height="78" VerticalAlignment="Top" Width="212" Source="/logooo.png" Margin="289,354,0,0" />
+            <Grid x:Name="update" RenderTransformOrigin="0.494,0.505" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="32*"/>
+                    <RowDefinition Height="25*"/>
+                    <RowDefinition Height="25*"/>
+                    <RowDefinition Height="135*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="15*"/>
+                    <ColumnDefinition Width="17*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image HorizontalAlignment="Left" Height="78" VerticalAlignment="Top" Width="212" Source="/logooo.png" Margin="289,190,0,0" Grid.ColumnSpan="2" Grid.Row="3" />
+                <Image HorizontalAlignment="Left" Height="78" VerticalAlignment="Top" Width="212" Source="/logooo.png" Margin="289,190,0,0" Grid.ColumnSpan="2" Grid.Row="3" />
                 <Label x:Name="lblUpdateModel" Content="Model:" HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top" Width="108" RenderTransformOrigin="0.572,1.265"/>
-                <Label x:Name="lblStatus" Content="Stattus:"  HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top" Width="127"/>
-                <Label x:Name="lblBattery" Content="Battery:" HorizontalAlignment="Left" Margin="10,111,0,0" VerticalAlignment="Top" Width="149"/>
-                <Label x:Name="lblParcelID" Content="Parcel ID:" HorizontalAlignment="Left" Margin="10,137,0,0" VerticalAlignment="Top" Width="127"/>
-                <Label x:Name="lblLongitude" Content="Longitude:" HorizontalAlignment="Left" Margin="10,163,0,0" VerticalAlignment="Top" Width="127"/>
-                <TextBox x:Name="txbUpdateModel" Margin="74,36,555,0" Text="{Binding droneModel, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" TextWrapping="Wrap" VerticalAlignment="Top" Height="19"  BorderBrush="#FFC789CD"/>
+                <Label x:Name="lblStatus" Content="Stattus:"  HorizontalAlignment="Left" Margin="10,21,0,0" VerticalAlignment="Top" Width="127" Grid.Row="1"/>
+                <Label x:Name="lblBattery" Content="Battery:" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" Width="149" Grid.Row="1" Grid.RowSpan="2"/>
+                <Label x:Name="lblParcelID" Content="Parcel ID:" HorizontalAlignment="Left" Margin="10,23,0,0" VerticalAlignment="Top" Width="127" Grid.Row="2"/>
+                <Label x:Name="lblLongitude" Content="Longitude:" HorizontalAlignment="Left" Margin="10,49,0,0" VerticalAlignment="Top" Width="127" Grid.Row="2" Grid.RowSpan="2"/>
+                <TextBox x:Name="txbUpdateModel" Margin="74,36,130,0" Text="{Binding droneModel, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" TextWrapping="Wrap" VerticalAlignment="Top" Height="19"  BorderBrush="#FFC789CD"/>
                 <Label x:Name="lblDroneId" Content="ID:" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="108" RenderTransformOrigin="0.572,1.265"/>
-                <TextBox x:Name="txbDroneId" Text="{Binding id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Top" Height="19" IsReadOnly="True" BorderBrush="#FFC789CD" Margin="74,10,555,0" IsEnabled="False" />
-                <Label x:Name="lblWeight" Content="Weight:" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top" Width="108" RenderTransformOrigin="0.572,1.265" />
-                <Label x:Name="lblLatitude" Content="Latitude:" HorizontalAlignment="Left" Margin="10,189,0,0" VerticalAlignment="Top" Width="127"/>
-                <TextBox x:Name="txbStatus" Margin="74,92,548,0" Text="{Binding droneStatus, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True"  BorderBrush="#FFC789CD" IsEnabled="False" />
-                <TextBox x:Name="txbWeight" Margin="74,66,554,0" Text="{Binding weight, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True"  BorderBrush="#FFC789CD" IsEnabled="False" />
-                <TextBox x:Name="txbBattery" Margin="74,116,548,0" Text="{Binding batteryStatus, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True" BorderBrush="#FFC789CD" IsEnabled="False" />
-                <TextBox x:Name="txbParcelID" Margin="74,144,548,0" Text="{Binding parcelInTransfer.id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"   TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True" BorderBrush="#FFC789CD" IsEnabled="False" />
-                <TextBox x:Name="txbLongitude" Margin="74,170,548,0" Text="{Binding location.longitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True" BorderBrush="#FFC789CD" IsEnabled="False"/>
-                <TextBox x:Name="txbLatitude" Margin="74,194,548,0" Text="{Binding location.latitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True" Background="White" BorderBrush="#FFC789CD"  IsEnabled="False" />
-                <Button x:Name="btnModelUpdate" Content="update model" HorizontalAlignment="Left" Margin="300,66,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Width="220" Height="25"  Style = "{StaticResource myButton}" Visibility="Hidden" />
-                <Button x:Name="btnSendToCharge" Content="sendig drone to charge" HorizontalAlignment="Left" Margin="324,29,0,380"  Click="btnSendToCharge_Click"  Width="220" Height="25"  Style = "{StaticResource myButton}"    >
-                    <Button.RenderTransform>
+                <TextBox x:Name="txbDroneId" Text="{Binding id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Top" Height="19" IsReadOnly="True" BorderBrush="#FFC789CD" Margin="74,10,130,0" IsEnabled="False" />
+                <Label x:Name="lblWeight" Content="Weight:" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top" Width="108" RenderTransformOrigin="0.572,1.265" Grid.RowSpan="2" />
+                <Label x:Name="lblLatitude" Content="Latitude:" HorizontalAlignment="Left" Margin="10,25,0,0" VerticalAlignment="Top" Width="127" Grid.Row="3"/>
+                <TextBox x:Name="txbStatus" Margin="74,28,123,0" Text="{Binding droneStatus, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True"  BorderBrush="#FFC789CD" IsEnabled="False" Grid.Row="1" />
+                <TextBox x:Name="txbWeight" Margin="74,2,129,0" Text="{Binding weight, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True"  BorderBrush="#FFC789CD" IsEnabled="False" Grid.Row="1" />
+                <TextBox x:Name="txbBattery" Margin="74,2,123,0" Text="{Binding batteryStatus, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True" BorderBrush="#FFC789CD" IsEnabled="False" Grid.Row="2" />
+                <TextBox x:Name="txbParcelID" Margin="74,30,123,0" Text="{Binding parcelInTransfer.id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"   TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True" BorderBrush="#FFC789CD" IsEnabled="False" Grid.Row="2" />
+                <TextBox x:Name="txbLongitude" Margin="74,6,123,0" Text="{Binding location.longitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True" BorderBrush="#FFC789CD" IsEnabled="False" Grid.Row="3"/>
+                <TextBox x:Name="txbLatitude" Margin="74,30,123,0" Text="{Binding location.latitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True" Background="White" BorderBrush="#FFC789CD"  IsEnabled="False" Grid.Row="3" />
+                <Button x:Name="btnModelUpdate"  Content="update model" HorizontalAlignment="Left" Margin="0,2,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Width="220" Height="25"  Style = "{StaticResource myButton}" Grid.Row="1" Grid.Column="1">
+                    <!--<Button.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
                             <SkewTransform/>
                             <RotateTransform Angle="-0.042"/>
                             <TranslateTransform/>
                         </TransformGroup>
-                    </Button.RenderTransform>
+                    </Button.RenderTransform>-->
                 </Button>
-                <Button x:Name="btnRelesingDrone" Content="realising drone from charge" HorizontalAlignment="Left" Margin="300,110,0,287"  RenderTransformOrigin="0.247,0.904"  Click="btnRelesingDrone_Click_1" Width="220" Height="25"  Style = "{StaticResource myButton}" Visibility="Hidden"/>
-                <Button x:Name="btnMatchingDroneToParcel" Content="Matching Drone to parcel" HorizontalAlignment="Left" Margin="300,21,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Click="btnMatchingDroneToParcel_Click"  Width="220" Height="25"  Style = "{StaticResource myButton}" Visibility="Hidden"  />
-                <Button x:Name="btnAutomatic" Content="Automatic" HorizontalAlignment="Left" Margin="144,238,0,0" VerticalAlignment="Top" Width="120" Height="30"  Style = "{StaticResource Button}"  Click="btnAutomatic_Click"/>
-                <Button x:Name="btnCanceling" Content="Canceling" HorizontalAlignment="Left" Margin="11,238,0,0" VerticalAlignment="Top" Width="120" Height="30"  Style = "{StaticResource Button}" Click="btnCanceling_Click" Background="#FFFCF3E2" />
-                <Button x:Name="btnOpenParcelId" Content="Enter to the parcel" HorizontalAlignment="Left"  Margin="276,129,0,0" VerticalAlignment="Top"  Width="220" Height="25"  Style = "{StaticResource myButton}" Click="btnOpenParcelId_Click" Visibility="Hidden" />
+                <Button x:Name="btnRelesingDrone" Visibility="Hidden" Content="realising drone from charge" HorizontalAlignment="Left" Margin="0,2,0,0"  RenderTransformOrigin="0.247,0.904"  Click="btnRelesingDrone_Click_1" Width="220" Height="25"  Style = "{StaticResource myButton}" Grid.Row="2" Grid.Column="1"/>
+                <Button x:Name="btnMatchingDroneToParcel" Visibility="Hidden" Content="Matching Drone to parcel" HorizontalAlignment="Left" Margin="0,21,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Click="btnMatchingDroneToParcel_Click"  Width="220" Height="25"  Style = "{StaticResource myButton}" Grid.Column="1"  />
+                <Button x:Name="btnAutomatic" Content="Automatic" HorizontalAlignment="Left" Margin="144,74,0,0" VerticalAlignment="Top" Width="120" Height="30"  Style = "{StaticResource Button}"  Click="btnAutomatic_Click" Grid.Row="3"/>
+                <Button x:Name="btnCanceling" Content="Canceling" HorizontalAlignment="Left" Margin="11,74,0,0" VerticalAlignment="Top" Width="120" Height="30"  Style = "{StaticResource Button}" Click="btnCanceling_Click" Background="#FFFCF3E2" Grid.Row="3" />
+                <Button x:Name="btnOpenParcelId" Visibility="Hidden" Content="Enter to the parcel" HorizontalAlignment="Left"  Margin="0,41,0,0" VerticalAlignment="Top"  Width="220" Height="25"  Style = "{StaticResource myButton}" Click="btnOpenParcelId_Click" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" />
+                <Button x:Name="btnSendToCharge" Visibility="Hidden" Content="sendig drone to charge" HorizontalAlignment="Left" Margin="0,2,0,0"   Click="btnSendToCharge_Click"  Height="25"  Width="220"  Style = "{StaticResource myButton}"  Grid.Column="1" Grid.Row="2" />
                 <Grid.Background>
                     <ImageBrush ImageSource="\dronePic.jpg" Opacity="0.4"/>
                 </Grid.Background>
             </Grid>
-            <Grid x:Name="addDrone">
+            <Grid x:Name="addDrone" d:IsHidden="True">
                 <Grid.Background>
                     <ImageBrush ImageSource="\dronePic.jpg" Opacity="0.4"/>
                 </Grid.Background>
@@ -98,7 +109,7 @@
                 <Button x:Name="buttonAddDrone" Content="Add drone" HorizontalAlignment="Left" Margin="155,316,0,0" VerticalAlignment="Top" RenderTransformOrigin="-3.796,-0.785" Click="buttonAddDrone_Click" Height="51" Width="146" Background="#FFD5BCC7" FontStyle="Italic" FontSize="18" BorderBrush="#FF7E2342" BorderThickness="10,10,10,10"/>
 
             </Grid>
-            <Button x:Name="Exit" Content="X" HorizontalAlignment="Left" Margin="719,15,0,0" VerticalAlignment="Top" Width="23" RenderTransformOrigin="3.833,3.117" Background="#FFEB8C8C" Click="Exit_Click">
+            <Button x:Name="Exit" Content="X" HorizontalAlignment="Left" Margin="719,15,0,0" VerticalAlignment="Top" Width="23" RenderTransformOrigin="3.833,3.117" Background="#FFEB8C8C" Click="Exit_Click" d:IsHidden="True">
                 <Button.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleX="-1"/>
@@ -109,7 +120,7 @@
                 </Button.RenderTransform>
             </Button>
 
-            <Grid x:Name="droneInParcel"  d:IsHidden="True">
+            <Grid x:Name="droneInParcel" d:IsHidden="True">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />

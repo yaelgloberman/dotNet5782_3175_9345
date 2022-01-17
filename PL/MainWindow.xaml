@@ -13,8 +13,8 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Grid>
-                            <Rectangle Width="175" Height="70"  RadiusX="20" RadiusY="20">
+                        <Grid>                               
+                            <Rectangle Width="175" Height="70"  RadiusX="40" RadiusY="40">
                                 <Rectangle.Fill>
                                     <ImageBrush ImageSource="/WhatsApp Image 2022-01-13 at 10.33.04 (1).jpeg"/>
                                 </Rectangle.Fill>

@@ -32,14 +32,6 @@ namespace PL
 
 
         }
-        //public MainCustomerWindow(BO.Parcel P)
-        //{
-        //    InitializeComponent();
-        //    myBl = BL.BL.Instance;
-        //    P1=P;
-
-        //}
-
         private void Button_Click_Customer(object sender, RoutedEventArgs e)
         {
             new CustomerWindow(C1).ShowDialog();
