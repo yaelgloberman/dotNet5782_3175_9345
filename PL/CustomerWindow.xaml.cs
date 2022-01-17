@@ -126,7 +126,6 @@ namespace PL
                 bool flag=false;
                 if (user == "Customer")
                     flag = true;
-                
                 var c = new BO.Customer()
                 {
                     id = Convert.ToInt32(txbID.Text),
@@ -204,6 +203,9 @@ namespace PL
             updateParcels.Visibility = Visibility.Hidden;
             general.Visibility = Visibility.Hidden;
             sentParcelsListView.ItemsSource = customer.SentParcels;
+        }
+        /// <summary>
+        /// button that showns all the recive parcels of the customer
 
         }
         /// <summary>
@@ -255,7 +257,7 @@ namespace PL
             try { new parcelWindow(bL.GetParcel(parcel.id)).ShowDialog(); }
             catch (dosntExisetException exp) { MessageBox.Show(exp.Message); }
         }
-
+        #endregion
 
     }
 }

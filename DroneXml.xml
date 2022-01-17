@@ -7,6 +7,12 @@
     <deleted>false</deleted>
   </Drone>
   <Drone>
+    <id>802595797</id>
+    <model>Grey Eagle</model>
+    <maxWeight>average</maxWeight>
+    <deleted>false</deleted>
+  </Drone>
+  <Drone>
     <id>458636460</id>
     <model>Shadow</model>
     <maxWeight>light</maxWeight>
@@ -57,6 +63,12 @@
   <Drone>
     <id>450219096</id>
     <model>Global Hawk</model>
+    <maxWeight>light</maxWeight>
+    <deleted>false</deleted>
+  </Drone>
+  <Drone>
+    <id>641457340</id>
+    <model>Shadow</model>
     <maxWeight>light</maxWeight>
     <deleted>false</deleted>
   </Drone>

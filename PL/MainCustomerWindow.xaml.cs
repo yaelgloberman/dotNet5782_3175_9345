@@ -23,19 +23,20 @@ namespace PL
         BlApi.IBl myBl;
         BO.Customer C1;
         BO.Parcel P1;
+        #region constructor
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="c"></param>
         public MainCustomerWindow(BO.CustomerInList c)
         {
             InitializeComponent();
             myBl = BL.BL.Instance;
             C1 = myBl.GetCustomer(c.id);
-            
-
-
         }
         private void Button_Click_Customer(object sender, RoutedEventArgs e)
         {
             new CustomerWindow(C1).ShowDialog();
-            
         }
 
         private void Button_Click_Parcel(object sender, RoutedEventArgs e)

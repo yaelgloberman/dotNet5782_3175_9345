@@ -34,7 +34,7 @@ namespace PL
         {
             InitializeComponent();
             this.bL = bl;
-            myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bl.GetCustomersToList().Where(x=>x.isCustomer));
+            myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bl.GetCustomersToList().Where(x => x.isCustomer));
             DataContext = myObservableCollectionCustomer;
         }
         /// <summary>
@@ -66,7 +66,7 @@ namespace PL
                 customer = bL.GetCustomer(cil.id);
                 DataContext = customer;
                 new CustomerWindow(customer).ShowDialog();
-                if( isWorker)
+                if(isWorker)
                      myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bL.GetCustomersToList().Where(x => !x.isCustomer)); 
                 else
                      myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bL.GetCustomersToList().Where(x => x.isCustomer)); 
@@ -85,7 +85,9 @@ namespace PL
             if (isWorker)
                 myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bL.GetCustomersToList().Where(x => !x.isCustomer));
             else
-                myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bL.GetCustomersToList().Where(x => x.isCustomer)); DataContext = myObservableCollectionCustomer;
+                myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bL.GetCustomersToList().Where(x => x.isCustomer));
+            DataContext = myObservableCollectionCustomer;
         }
+        #endregion
     }
 }
