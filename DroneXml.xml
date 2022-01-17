@@ -19,12 +19,6 @@
     <deleted>false</deleted>
   </Drone>
   <Drone>
-    <id>450219096</id>
-    <model>Global Hawk</model>
-    <maxWeight>light</maxWeight>
-    <deleted>false</deleted>
-  </Drone>
-  <Drone>
     <id>377162181</id>
     <model>Fire Scout</model>
     <maxWeight>light</maxWeight>
@@ -57,6 +51,12 @@
   <Drone>
     <id>318483633</id>
     <model>Pioneer</model>
+    <maxWeight>light</maxWeight>
+    <deleted>false</deleted>
+  </Drone>
+  <Drone>
+    <id>450219096</id>
+    <model>Global Hawk</model>
     <maxWeight>light</maxWeight>
     <deleted>false</deleted>
   </Drone>
