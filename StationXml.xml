@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<StationXml.xml>
+  <Station>
+    <id>323628894</id>
+    <latitude>32.63659965821383</latitude>
+    <longitude>35.024545813316735</longitude>
+    <chargeSlots>41</chargeSlots>
+    <name>Jerusalem</name>
+  </Station>
+  <Station>
+    <id>553253724</id>
+    <latitude>31.289595842496304</latitude>
+    <longitude>34.836567509424206</longitude>
+    <chargeSlots>53</chargeSlots>
+    <name>Eilat</name>
+  </Station>
+  <Station>
+    <id>356204343</id>
+    <latitude>31.24627947716335</latitude>
+    <longitude>35.124673512403234</longitude>
+    <chargeSlots>62</chargeSlots>
+    <name>Jerusalem</name>
+  </Station>
+  <Station>
+    <id>163717150</id>
+    <latitude>33.277018296754456</latitude>
+    <longitude>34.84045138495995</longitude>
+    <chargeSlots>92</chargeSlots>
+    <name>Eilat</name>
+  </Station>id: 356204343, Name: Jerusalem,  Longitude: 35° 7' 28.824646'' N, Latitude: 31° 14' 46.606117'' E, charge Slots: 61 id: 356204343, Name: Jerusalem,  Longitude: 35° 7' 28.824646'' N, Latitude: 31° 14' 46.606117'' E, charge Slots: 61 <Station><id>483128592</id><latitude>31.700689313887008</latitude><longitude>34.77539623979265</longitude><chargeSlots>88</chargeSlots><name>Jerusalem</name></Station><Station><id>576638737</id><latitude>31.268036245167274</latitude><longitude>34.52680052175503</longitude><chargeSlots>72</chargeSlots><name>Eilat</name></Station></StationXml.xml>

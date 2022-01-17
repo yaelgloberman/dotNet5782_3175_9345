@@ -256,7 +256,7 @@ namespace ConsoleUI_BL
                                                     string input = Console.ReadLine();
                                                     int.TryParse(input, out droneId);
                                                     TimeSpan.TryParse(input, out chargingTime);
-                                                    try { bl.releasingDrone(droneId, chargingTime); }
+                                                    try { bl.releasingDrone(droneId); }
                                                     catch (dosntExisetException exp) { Console.WriteLine(exp.Message); }
                                                     catch (unavailableException exp) { Console.WriteLine(exp.Message); }
                                                 }
