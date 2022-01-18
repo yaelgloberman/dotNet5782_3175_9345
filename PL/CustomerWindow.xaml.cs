@@ -62,7 +62,7 @@ namespace PL
         /// constructor of the customer in parcel window
         /// </summary>
         /// <param name="CO"></param>
-        public CustomerWindow(BO.CustomerInParcel CO) 
+        public CustomerWindow(BO.CustomerInParcel CO)
         {
             InitializeComponent();
             bL = BlApi.BlFactory.GetBl();
@@ -109,21 +109,21 @@ namespace PL
         {
             try
             {
-                if (txbName.Text == "" ||txbID.Text == "" || txbPhoneNumber.Text == "" || txbLongitude.Text == ""|| txbLatitude.Text=="")
+                if (txbName.Text == "" || txbID.Text == "" || txbPhoneNumber.Text == "" || txbLongitude.Text == "" || txbLatitude.Text == "")
                 {
-                   throw new Exception("Please enter correct input");
+                    throw new Exception("Please enter correct input");
                 }
                 ValidateString(txbName.Text);
                 if (!(Convert.ToInt32(txbID.Text) >= 10000000 && Convert.ToInt32(txbID.Text) <= 1000000000))
-                        throw new validException("the id number of the drone is invalid\n");
-                    if (!(Convert.ToInt32(txbPhoneNumber.Text) >= 500000000 && (Convert.ToInt32(txbPhoneNumber.Text)) <= 0589999999))
-                        throw new validException("the phone number of the Customer is invalid\n");
-                    if ((Convert.ToInt32(txbLatitude.Text)) < (double)31 || (Convert.ToInt32(txbLatitude.Text)) > 33.3)
-                        throw new validException("the given latitude do not exist in this country/\n");
-                    if ((Convert.ToInt32(txbLongitude.Text)) < 34.3 || (Convert.ToInt32(txbLongitude.Text)) > 35.5)
-                        throw new validException("the given longitude do not exist in this country/\n");
+                    throw new validException("the id number of the drone is invalid\n");
+                if (!(Convert.ToInt32(txbPhoneNumber.Text) >= 500000000 && (Convert.ToInt32(txbPhoneNumber.Text)) <= 0589999999))
+                    throw new validException("the phone number of the Customer is invalid\n");
+                if ((Convert.ToInt32(txbLatitude.Text)) < (double)31 || (Convert.ToInt32(txbLatitude.Text)) > 33.3)
+                    throw new validException("the given latitude do not exist in this country/\n");
+                if ((Convert.ToInt32(txbLongitude.Text)) < 34.3 || (Convert.ToInt32(txbLongitude.Text)) > 35.5)
+                    throw new validException("the given longitude do not exist in this country/\n");
                 var user = ComboUser.SelectedItem.ToString();
-                bool flag=false;
+                bool flag = false;
                 if (user == "Customer")
                     flag = true;
                 var c = new BO.Customer()
@@ -131,18 +131,18 @@ namespace PL
                     id = Convert.ToInt32(txbID.Text),
                     Name = txbName.Text,
                     PassWord = txbPassword.Text,
-                        phoneNumber = txbPhoneNumber.Text,
-                        isCustomer=flag,
-                        location = new Location()
-                        {
-                            longitude = Convert.ToDouble(txbLongitude.Text),
-                            latitude = Convert.ToDouble(txbLatitude.Text)
-                        }
-                    };
-                    bL.addCustomer(c);
-                    MessageBox.Show("succsesfully added a customer!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                    this.Close();
-                
+                    phoneNumber = txbPhoneNumber.Text,
+                    isCustomer = flag,
+                    location = new Location()
+                    {
+                        longitude = Convert.ToDouble(txbLongitude.Text),
+                        latitude = Convert.ToDouble(txbLatitude.Text)
+                    }
+                };
+                bL.addCustomer(c);
+                MessageBox.Show("succsesfully added a customer!", "Succeeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
+
             }
             catch (Exception exp)
             {
@@ -151,7 +151,7 @@ namespace PL
             }
         }
 
-      
+
         /// <summary>
         /// the act after the click of aupdate customer
         /// </summary>
@@ -162,10 +162,10 @@ namespace PL
 
             try
             {
-          
+
                 Customer c = new();
                 c = bL.GetCustomer(Convert.ToInt32(txbID.Text));
-                if(txbName.Text==c.Name && txbPhoneNumber.Text==c.phoneNumber)
+                if (txbName.Text == c.Name && txbPhoneNumber.Text == c.phoneNumber)
                 {
                     MessageBox.Show("Please enter diffrent name or phone number", "Error input", MessageBoxButton.OK, MessageBoxImage.Error);
                     this.Close();
@@ -207,7 +207,7 @@ namespace PL
         /// <summary>
         /// button that showns all the recive parcels of the customer
 
-        }
+
         /// <summary>
         /// to see the list of all the parcels the customner recieved 
         /// </summary>
@@ -220,7 +220,7 @@ namespace PL
             updateParcels.Visibility = Visibility.Hidden;
             general.Visibility = Visibility.Hidden;
             ReciveParcelsListView.ItemsSource = customer.ReceiveParcel;
-          
+
         }
         /// <summary>
         /// to see the customers details
@@ -231,7 +231,7 @@ namespace PL
         {
             CustomerWindow wnd = new CustomerWindow(bL.GetCustomer(customerParcel.id));
             wnd.ShowDialog();
-        } 
+        }
         /// <summary>
         /// to see the details of the parcels of a customer 
         /// </summary>
@@ -257,10 +257,10 @@ namespace PL
             try { new parcelWindow(bL.GetParcel(parcel.id)).ShowDialog(); }
             catch (dosntExisetException exp) { MessageBox.Show(exp.Message); }
         }
-        #endregion
-
     }
 }
+    
+
 
 
 

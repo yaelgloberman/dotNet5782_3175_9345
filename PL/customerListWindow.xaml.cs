@@ -88,6 +88,5 @@ namespace PL
                 myObservableCollectionCustomer = new ObservableCollection<CustomerInList>(bL.GetCustomersToList().Where(x => x.isCustomer));
             DataContext = myObservableCollectionCustomer;
         }
-        #endregion
     }
 }
