@@ -111,8 +111,18 @@
     <isCustomer>true</isCustomer>
   </Customer>
   <Customer>
+    <id>211349345</id>
+    <name>Rina</name>
+    <phoneNumber>0586503939</phoneNumber>
+    <longitude>35</longitude>
+    <latitude>32</latitude>
+    <isActive>true</isActive>
+    <Password>12</Password>
+    <isCustomer>true</isCustomer>
+  </Customer>
+  <Customer>
     <id>98514671</id>
-    <name>Shifra</name>
+    <name>ShifraWexler</name>
     <phoneNumber>0562798240</phoneNumber>
     <longitude>35.14308589382241</longitude>
     <latitude>31.908806666968765</latitude>
@@ -121,13 +131,13 @@
     <isCustomer>true</isCustomer>
   </Customer>
   <Customer>
-    <id>211349345</id>
-    <name>Rina</name>
-    <phoneNumber>0586503939</phoneNumber>
+    <id>12344567</id>
+    <name>Aviva</name>
+    <phoneNumber>0524321231</phoneNumber>
     <longitude>35</longitude>
     <latitude>32</latitude>
     <isActive>true</isActive>
-    <Password>12</Password>
+    <Password>Aviva12</Password>
     <isCustomer>true</isCustomer>
   </Customer>
 </ArrayOfCustomer>

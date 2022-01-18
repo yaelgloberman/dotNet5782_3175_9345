@@ -77,20 +77,20 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Label x:Name="read_" Content="id:" Grid.Column="1" FontSize="22"/>
-            <Label x:Name="lblName" Content="name:" Grid.Column="1" Grid.Row="1" FontSize="22"/>
-            <Label x:Name="lblPhoneNumber" Content="phone number:" Grid.Column="1" Grid.Row="2" FontSize="22" Grid.ColumnSpan="2"/>
-            <Label x:Name="lblLongitude" Content="longitude:" Grid.Column="1" Grid.Row="3" FontSize="22"/>
-            <Label x:Name="lblLatitude" Content="latitude:" Grid.Column="1" Grid.Row="4" FontSize="22"/>
-            <Label x:Name="lblPassword" Content="Password:" Grid.Column="1" Grid.Row="5" FontSize="22"/>
-            <Label x:Name="lblUser" Content="User Status:" Grid.Column="1" Grid.Row="6" FontSize="22"/>
-            <TextBox x:Name="txbID" Text="{Binding id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="0"  Grid.Column="3" Height="48" VerticalAlignment="Top" Margin="0,10,0,10" />
-            <TextBox x:Name="txbName" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=true}"   Grid.Column="3" Grid.Row="1" Margin="0,10,0,10"/>
-            <TextBox x:Name="txbPhoneNumber" Text="{Binding phoneNumber, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="2" Margin="0,10,0,10"/>
-            <TextBox x:Name="txbLongitude" Text="{Binding location.longitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="3" Margin="0,10,0,10"/>
-            <TextBox x:Name="txbLatitude" Text="{Binding location.latitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="4" Margin="0,10,0,10"/>
-            <TextBox x:Name="txbPassword" Text="{Binding PassWord, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="5" Margin="0,10,0,10" />
-            <Button x:Name="btnAddCustomer" Content="add" Grid.Row="8" Click="btnAddCustomer_Click"  BorderBrush="#FF852D52" BorderThickness="10,10,10,10" Grid.ColumnSpan="6" HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Width="Auto" IsEnabled="False" />
+            <Label x:Name="readA" Content="id:" Grid.Column="1" FontSize="22"/>
+            <Label x:Name="lblNameA" Content="name:" Grid.Column="1" Grid.Row="1" FontSize="22"/>
+            <Label x:Name="lblPhoneNumberA" Content="phone number:" Grid.Column="1" Grid.Row="2" FontSize="22" Grid.ColumnSpan="2"/>
+            <Label x:Name="lblLongitudeA" Content="longitude:" Grid.Column="1" Grid.Row="3" FontSize="22"/>
+            <Label x:Name="lblLatitudeA" Content="latitude:" Grid.Column="1" Grid.Row="4" FontSize="22"/>
+            <Label x:Name="lblPasswordA" Content="Password:" Grid.Column="1" Grid.Row="5" FontSize="22"/>
+            <Label x:Name="lblUserA" Content="User Status:" Grid.Column="1" Grid.Row="6" FontSize="22"/>
+            <TextBox x:Name="txbIDA" Text="{Binding id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="0"  Grid.Column="3" Height="48" VerticalAlignment="Top" Margin="0,10,0,10" />
+            <TextBox x:Name="txbNameA" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=true}"   Grid.Column="3" Grid.Row="1" Margin="0,10,0,10"/>
+            <TextBox x:Name="txbPhoneNumberA" Text="{Binding phoneNumber, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="2" Margin="0,10,0,10"/>
+            <TextBox x:Name="txbLongitudeA" Text="{Binding location.longitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="3" Margin="0,10,0,10"/>
+            <TextBox x:Name="txbLatitudeA" Text="{Binding location.latitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="4" Margin="0,10,0,10"/>
+            <TextBox x:Name="txbPasswordA" Text="{Binding PassWord, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="5" Margin="0,10,0,10" />
+            <Button x:Name="btnAddCustomer" Content="add" Grid.Row="8" Click="btnAddCustomer_Click"  BorderBrush="#FF852D52" BorderThickness="10,10,10,10" Grid.ColumnSpan="6" HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Width="Auto"  />
             <ComboBox x:Name="ComboUser"  Grid.Column="3" Grid.Row="6" Height="Auto" Margin="0,10,0,10" />
             <Grid.Background>
                 <ImageBrush ImageSource="\dronePic.jpg" Opacity="0.4"/>
@@ -118,6 +118,19 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+            <Label x:Name="read_" Content="id:" Grid.Column="1" FontSize="22"/>
+            <Label x:Name="lblName" Content="name:" Grid.Column="1" Grid.Row="1" FontSize="22"/>
+            <Label x:Name="lblPhoneNumber" Content="phone number:" Grid.Column="1" Grid.Row="2" FontSize="22" Grid.ColumnSpan="2"/>
+            <Label x:Name="lblLongitude" Content="longitude:" Grid.Column="1" Grid.Row="3" FontSize="22"/>
+            <Label x:Name="lblLatitude" Content="latitude:" Grid.Column="1" Grid.Row="4" FontSize="22"/>
+            <Label x:Name="lblPassword" Content="Password:" Grid.Column="1" Grid.Row="5" FontSize="22"/>
+            <Label x:Name="lblUser" Content="User Status:" Grid.Column="1" Grid.Row="6" FontSize="22"/>
+            <TextBox x:Name="txbID"  Text="{Binding id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" IsEnabled="False" Grid.Row="0"  Grid.Column="3" Height="48" VerticalAlignment="Top" Margin="0,10,0,10" />
+            <TextBox x:Name="txbName" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=true}"   Grid.Column="3" Grid.Row="1" Margin="0,10,0,10"/>
+            <TextBox x:Name="txbPhoneNumber" Text="{Binding phoneNumber, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="2" Margin="0,10,0,10"/>
+            <TextBox x:Name="txbLongitude" IsEnabled="False" Text="{Binding location.longitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="3" Margin="0,10,0,10"/>
+            <TextBox x:Name="txbLatitude" IsEnabled="False" Text="{Binding location.latitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="4" Margin="0,10,0,10"/>
+            <TextBox x:Name="txbPassword" IsEnabled="False" Text="{Binding PassWord, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="5" Margin="0,10,0,10" />
             <Button x:Name="btnUpdateCustomer" Content="update customer" Grid.Column="1" Grid.Row="7" Click="btnUpdateCustomer_Click" Style = "{StaticResource myButton}"/>
             <Button x:Name="btnSentParcels" Content="SentParcels" Grid.Column="2" Grid.Row="7" Click="btnSentParcels_Click" Style = "{StaticResource myButton}" />
             <Button x:Name="btnReceiveParcel" Content="ReceiveParcel" Grid.Column="3" Grid.Row="7" Click="btnReceiveParcel_Click"  Style = "{StaticResource myButton}" />

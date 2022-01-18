@@ -56,7 +56,6 @@ namespace PL
             lblUser.Visibility = Visibility.Hidden;
             ComboUser.Visibility = Visibility.Hidden;
             isWorker = true;
-            txbName.IsReadOnly = false;
         }
         /// <summary>
         /// constructor of the customer in parcel window
@@ -109,18 +108,18 @@ namespace PL
         {
             try
             {
-                if (txbName.Text == "" || txbID.Text == "" || txbPhoneNumber.Text == "" || txbLongitude.Text == "" || txbLatitude.Text == "")
+                if (txbNameA.Text == "" || txbIDA.Text == "" || txbPhoneNumberA.Text == "" || txbLongitudeA.Text == "" || txbLatitudeA.Text == "")
                 {
                     throw new Exception("Please enter correct input");
                 }
-                ValidateString(txbName.Text);
-                if (!(Convert.ToInt32(txbID.Text) >= 10000000 && Convert.ToInt32(txbID.Text) <= 1000000000))
-                    throw new validException("the id number of the drone is invalid\n");
-                if (!(Convert.ToInt32(txbPhoneNumber.Text) >= 500000000 && (Convert.ToInt32(txbPhoneNumber.Text)) <= 0589999999))
+                ValidateString(txbNameA.Text);
+                if (!(Convert.ToInt32(txbIDA.Text) >= 10000000 && Convert.ToInt32(txbIDA.Text) <= 1000000000))
+                    throw new validException("the id number of the customer is invalid\n");
+                if (!(Convert.ToInt32(txbPhoneNumberA.Text) >= 500000000 && (Convert.ToInt32(txbPhoneNumberA.Text)) <= 0589999999))
                     throw new validException("the phone number of the Customer is invalid\n");
-                if ((Convert.ToInt32(txbLatitude.Text)) < (double)31 || (Convert.ToInt32(txbLatitude.Text)) > 33.3)
+                if ((Convert.ToInt32(txbLatitudeA.Text)) < (double)31 || (Convert.ToInt32(txbLatitudeA.Text)) > 33.3)
                     throw new validException("the given latitude do not exist in this country/\n");
-                if ((Convert.ToInt32(txbLongitude.Text)) < 34.3 || (Convert.ToInt32(txbLongitude.Text)) > 35.5)
+                if ((Convert.ToInt32(txbLongitudeA.Text)) < 34.3 || (Convert.ToInt32(txbLongitudeA.Text)) > 35.5)
                     throw new validException("the given longitude do not exist in this country/\n");
                 var user = ComboUser.SelectedItem.ToString();
                 bool flag = false;
@@ -128,15 +127,15 @@ namespace PL
                     flag = true;
                 var c = new BO.Customer()
                 {
-                    id = Convert.ToInt32(txbID.Text),
-                    Name = txbName.Text,
-                    PassWord = txbPassword.Text,
-                    phoneNumber = txbPhoneNumber.Text,
+                    id = Convert.ToInt32(txbIDA.Text),
+                    Name = txbNameA.Text,
+                    PassWord = txbPasswordA.Text,
+                    phoneNumber = txbPhoneNumberA.Text,
                     isCustomer = flag,
                     location = new Location()
                     {
-                        longitude = Convert.ToDouble(txbLongitude.Text),
-                        latitude = Convert.ToDouble(txbLatitude.Text)
+                        longitude = Convert.ToDouble(txbLongitudeA.Text),
+                        latitude = Convert.ToDouble(txbLatitudeA.Text)
                     }
                 };
                 bL.addCustomer(c);

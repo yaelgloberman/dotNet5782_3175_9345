@@ -15,20 +15,6 @@
     <isShipped>false</isShipped>
   </Parcel>
   <Parcel>
-    <id>1000461</id>
-    <senderId>79694717</senderId>
-    <targetId>58309542</targetId>
-    <priority>fast</priority>
-    <weight>average</weight>
-    <droneId>0</droneId>
-    <requested>2022-01-17T22:33:06.7325164+02:00</requested>
-    <scheduled xsi:nil="true" />
-    <pickedUp xsi:nil="true" />
-    <delivered xsi:nil="true" />
-    <isRecived>false</isRecived>
-    <isShipped>false</isShipped>
-  </Parcel>
-  <Parcel>
     <id>1000463</id>
     <senderId>98514671</senderId>
     <targetId>36710265</targetId>
@@ -38,20 +24,6 @@
     <requested>2022-01-16T22:33:06.7325707+02:00</requested>
     <scheduled>2022-01-17T22:33:06.7325711+02:00</scheduled>
     <pickedUp>2022-01-19T22:33:06.7325716+02:00</pickedUp>
-    <delivered xsi:nil="true" />
-    <isRecived>false</isRecived>
-    <isShipped>false</isShipped>
-  </Parcel>
-  <Parcel>
-    <id>1000464</id>
-    <senderId>62939525</senderId>
-    <targetId>19051029</targetId>
-    <priority>fast</priority>
-    <weight>average</weight>
-    <droneId>682098244</droneId>
-    <requested>2022-01-12T15:20:30.9847035+02:00</requested>
-    <scheduled>2022-01-13T15:20:30.9847041+02:00</scheduled>
-    <pickedUp>2022-01-15T15:20:30.9847047+02:00</pickedUp>
     <delivered xsi:nil="true" />
     <isRecived>false</isRecived>
     <isShipped>false</isShipped>
@@ -85,20 +57,6 @@
     <isShipped>false</isShipped>
   </Parcel>
   <Parcel>
-    <id>1000247</id>
-    <senderId>96859990</senderId>
-    <targetId>88178771</targetId>
-    <priority>fast</priority>
-    <weight>light</weight>
-    <droneId>0</droneId>
-    <requested>2022-01-12T15:20:30.984632+02:00</requested>
-    <scheduled>2022-01-13T15:20:30.9846743+02:00</scheduled>
-    <pickedUp>2022-01-15T15:20:30.9846878+02:00</pickedUp>
-    <delivered>2022-01-13T15:22:33.323118+02:00</delivered>
-    <isRecived>true</isRecived>
-    <isShipped>false</isShipped>
-  </Parcel>
-  <Parcel>
     <id>1000459</id>
     <senderId>19051029</senderId>
     <targetId>98514671</targetId>
@@ -110,20 +68,6 @@
     <pickedUp>2022-01-19T22:33:06.7325135+02:00</pickedUp>
     <delivered>2022-01-18T02:03:37.7408695+02:00</delivered>
     <isRecived>true</isRecived>
-    <isShipped>false</isShipped>
-  </Parcel>
-  <Parcel>
-    <id>1000256</id>
-    <senderId>68953878</senderId>
-    <targetId>68367827</targetId>
-    <priority>regular</priority>
-    <weight>average</weight>
-    <droneId>296470304</droneId>
-    <requested>2022-01-17T22:33:06.7325727+02:00</requested>
-    <scheduled>2022-01-17T16:03:38.9078941+02:00</scheduled>
-    <pickedUp>2022-01-18T02:03:38.9079415+02:00</pickedUp>
-    <delivered xsi:nil="true" />
-    <isRecived>false</isRecived>
     <isShipped>false</isShipped>
   </Parcel>
   <Parcel>
@@ -152,20 +96,6 @@
     <pickedUp>2022-01-19T22:33:06.7325758+02:00</pickedUp>
     <delivered>2022-01-18T02:05:00.0107711+02:00</delivered>
     <isRecived>true</isRecived>
-    <isShipped>false</isShipped>
-  </Parcel>
-  <Parcel>
-    <id>1000457</id>
-    <senderId>62206226</senderId>
-    <targetId>79694717</targetId>
-    <priority>fast</priority>
-    <weight>average</weight>
-    <droneId>529636982</droneId>
-    <requested>2022-01-16T22:33:06.7287935+02:00</requested>
-    <scheduled>2022-01-17T16:06:23.0505689+02:00</scheduled>
-    <pickedUp>2022-01-18T02:06:23.0505938+02:00</pickedUp>
-    <delivered xsi:nil="true" />
-    <isRecived>false</isRecived>
     <isShipped>false</isShipped>
   </Parcel>
 </ArrayOfParcel>
