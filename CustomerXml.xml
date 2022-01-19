@@ -1,143 +1,133 @@
 <?xml version="1.0"?>
 <ArrayOfCustomer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Customer>
-    <id>44691885</id>
-    <name>Adina</name>
-    <phoneNumber>0597909115</phoneNumber>
-    <longitude>34.50268044481179</longitude>
-    <latitude>31.76026140510117</latitude>
-    <isActive>false</isActive>
-    <Password>BL</Password>
-    <isCustomer>true</isCustomer>
-  </Customer>
-  <Customer>
-    <id>62939525</id>
-    <name>Yaeli</name>
-    <phoneNumber>0520383682</phoneNumber>
-    <longitude>35.3339650922613</longitude>
-    <latitude>31.858306125438915</latitude>
-    <isActive>false</isActive>
-    <Password>DL</Password>
-    <isCustomer>true</isCustomer>
-  </Customer>
-  <Customer>
-    <id>58309542</id>
-    <name>Shirel</name>
-    <phoneNumber>0593611901</phoneNumber>
-    <longitude>35.49994346685705</longitude>
-    <latitude>32.57972091910416</latitude>
-    <isActive>false</isActive>
-    <Password>EL</Password>
-    <isCustomer>true</isCustomer>
-  </Customer>
-  <Customer>
-    <id>62206226</id>
-    <name>Yisca</name>
-    <phoneNumber>0549634389</phoneNumber>
-    <longitude>34.58710458180266</longitude>
-    <latitude>32.980452351588966</latitude>
-    <isActive>false</isActive>
-    <Password>FL</Password>
-    <isCustomer>true</isCustomer>
-  </Customer>
-  <Customer>
-    <id>36710265</id>
-    <name>Ruchama</name>
-    <phoneNumber>0511641797</phoneNumber>
-    <longitude>35.468768412977816</longitude>
-    <latitude>32.00694060656565</latitude>
-    <isActive>false</isActive>
-    <Password>GL</Password>
-    <isCustomer>true</isCustomer>
-  </Customer>
-  <Customer>
-    <id>19051029</id>
-    <name>Noa</name>
-    <phoneNumber>0534391373</phoneNumber>
-    <longitude>35.25457130025819</longitude>
-    <latitude>31.31167165586337</latitude>
-    <isActive>false</isActive>
-    <Password>HL</Password>
-    <isCustomer>true</isCustomer>
-  </Customer>
-  <Customer>
-    <id>33620783</id>
-    <name>Dan</name>
-    <phoneNumber>0592518050</phoneNumber>
-    <longitude>34.5900302985171</longitude>
-    <latitude>33.051542495680756</latitude>
-    <isActive>false</isActive>
-    <Password>IL</Password>
-    <isCustomer>true</isCustomer>
-  </Customer>
-  <Customer>
-    <id>383197708</id>
-    <name>Dan</name>
-    <phoneNumber>059786912</phoneNumber>
-    <longitude>34.967027732481725</longitude>
-    <latitude>31.655316431939283</latitude>
-    <isActive>false</isActive>
-    <Password>IL</Password>
-    <isCustomer>false</isCustomer>
-  </Customer>
-  <Customer>
-    <id>824615296</id>
-    <name>Eliezer</name>
-    <phoneNumber>0581762069</phoneNumber>
-    <longitude>34.8123510528879</longitude>
-    <latitude>31.993228790021142</latitude>
-    <isActive>false</isActive>
-    <Password>JL</Password>
-    <isCustomer>false</isCustomer>
-  </Customer>
-  <Customer>
-    <id>79694717</id>
+    <id>50120729</id>
     <name>Eliana</name>
-    <phoneNumber>0553115368</phoneNumber>
-    <longitude>34.41685988778102</longitude>
-    <latitude>32.350785272638674</latitude>
+    <phoneNumber>0565273327</phoneNumber>
+    <longitude>34.46704038128584</longitude>
+    <latitude>31.61618006113739</latitude>
     <isActive>false</isActive>
     <Password>AL</Password>
     <isCustomer>true</isCustomer>
   </Customer>
   <Customer>
-    <id>98514671</id>
-    <name>ShifraWexler</name>
-    <phoneNumber>0562798240</phoneNumber>
-    <longitude>35.14308589382241</longitude>
-    <latitude>31.908806666968765</latitude>
+    <id>55923673</id>
+    <name>Adina</name>
+    <phoneNumber>0562620129</phoneNumber>
+    <longitude>34.716818554520984</longitude>
+    <latitude>32.02712262139056</latitude>
+    <isActive>false</isActive>
+    <Password>BL</Password>
+    <isCustomer>true</isCustomer>
+  </Customer>
+  <Customer>
+    <id>25686735</id>
+    <name>Shifra</name>
+    <phoneNumber>0514947980</phoneNumber>
+    <longitude>34.408640038086396</longitude>
+    <latitude>33.098306360746875</latitude>
     <isActive>false</isActive>
     <Password>CL</Password>
     <isCustomer>true</isCustomer>
   </Customer>
   <Customer>
-    <id>12344567</id>
-    <name>Aviva</name>
-    <phoneNumber>0524321231</phoneNumber>
-    <longitude>35</longitude>
-    <latitude>32</latitude>
-    <isActive>true</isActive>
-    <Password>Aviva12</Password>
+    <id>25695268</id>
+    <name>Yaeli</name>
+    <phoneNumber>0537113853</phoneNumber>
+    <longitude>34.98339004511171</longitude>
+    <latitude>31.56769520890326</latitude>
+    <isActive>false</isActive>
+    <Password>DL</Password>
     <isCustomer>true</isCustomer>
   </Customer>
   <Customer>
-    <id>98104415</id>
-    <name>EliezerCustomer</name>
-    <phoneNumber>0582502785</phoneNumber>
-    <longitude>34.46135646913264</longitude>
-    <latitude>31.397602308726682</latitude>
+    <id>54749099</id>
+    <name>Shirel</name>
+    <phoneNumber>0574532182</phoneNumber>
+    <longitude>34.79010445982688</longitude>
+    <latitude>31.124207325849778</latitude>
+    <isActive>false</isActive>
+    <Password>EL</Password>
+    <isCustomer>true</isCustomer>
+  </Customer>
+  <Customer>
+    <id>16876228</id>
+    <name>Yisca</name>
+    <phoneNumber>0579651658</phoneNumber>
+    <longitude>34.53124932135979</longitude>
+    <latitude>32.94306418902383</latitude>
+    <isActive>false</isActive>
+    <Password>FL</Password>
+    <isCustomer>true</isCustomer>
+  </Customer>
+  <Customer>
+    <id>80823524</id>
+    <name>Ruchama</name>
+    <phoneNumber>0574235519</phoneNumber>
+    <longitude>34.35990918020713</longitude>
+    <latitude>31.93361857046076</latitude>
+    <isActive>false</isActive>
+    <Password>GL</Password>
+    <isCustomer>true</isCustomer>
+  </Customer>
+  <Customer>
+    <id>47004617</id>
+    <name>Noa</name>
+    <phoneNumber>0579470571</phoneNumber>
+    <longitude>35.36682096583155</longitude>
+    <latitude>31.931689523547742</latitude>
+    <isActive>false</isActive>
+    <Password>HL</Password>
+    <isCustomer>true</isCustomer>
+  </Customer>
+  <Customer>
+    <id>17093887</id>
+    <name>Dan</name>
+    <phoneNumber>0529737639</phoneNumber>
+    <longitude>35.24818824797319</longitude>
+    <latitude>31.664355642145665</latitude>
+    <isActive>false</isActive>
+    <Password>IL</Password>
+    <isCustomer>true</isCustomer>
+  </Customer>
+  <Customer>
+    <id>91407395</id>
+    <name>Eliezer</name>
+    <phoneNumber>0511593049</phoneNumber>
+    <longitude>34.51021065498246</longitude>
+    <latitude>31.41163651757484</latitude>
     <isActive>false</isActive>
     <Password>JL</Password>
     <isCustomer>true</isCustomer>
   </Customer>
   <Customer>
-    <id>211349345</id>
-    <name>Rina</name>
-    <phoneNumber>0586503939</phoneNumber>
+    <id>282003187</id>
+    <name>Dan</name>
+    <phoneNumber>0590855526</phoneNumber>
+    <longitude>35.490281552630606</longitude>
+    <latitude>32.623117221157585</latitude>
+    <isActive>false</isActive>
+    <Password>IL</Password>
+    <isCustomer>false</isCustomer>
+  </Customer>
+  <Customer>
+    <id>123354109</id>
+    <name>Eliezer</name>
+    <phoneNumber>0540612769</phoneNumber>
+    <longitude>34.80677598030622</longitude>
+    <latitude>32.28703372883007</latitude>
+    <isActive>false</isActive>
+    <Password>JL</Password>
+    <isCustomer>false</isCustomer>
+  </Customer>
+  <Customer>
+    <id>12345671</id>
+    <name>Alex</name>
+    <phoneNumber>0556781234</phoneNumber>
     <longitude>35</longitude>
     <latitude>32</latitude>
     <isActive>true</isActive>
-    <Password>Rina123</Password>
-    <isCustomer>true</isCustomer>
+    <Password>Shifra12</Password>
+    <isCustomer>false</isCustomer>
   </Customer>
 </ArrayOfCustomer>

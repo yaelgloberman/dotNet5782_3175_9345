@@ -1,58 +1,33 @@
 <?xml version="1.0"?>
 <ArrayOfDroneCharges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <droneCharges>
-    <droneId>458636460</droneId>
-    <stationId>558976796</stationId>
+    <droneId>674853058</droneId>
+    <stationId>815659012</stationId>
     <enterToCharge>0001-01-01T00:00:00</enterToCharge>
   </droneCharges>
   <droneCharges>
-    <droneId>113336784</droneId>
-    <stationId>558976796</stationId>
+    <droneId>481717388</droneId>
+    <stationId>574917415</stationId>
     <enterToCharge>0001-01-01T00:00:00</enterToCharge>
   </droneCharges>
   <droneCharges>
-    <droneId>529636982</droneId>
-    <stationId>558976796</stationId>
+    <droneId>581824130</droneId>
+    <stationId>574917415</stationId>
     <enterToCharge>0001-01-01T00:00:00</enterToCharge>
   </droneCharges>
   <droneCharges>
-    <droneId>318483633</droneId>
-    <stationId>558976796</stationId>
-    <enterToCharge>2022-01-18T00:30:50.1129138+02:00</enterToCharge>
-  </droneCharges>
-  <droneCharges>
-    <droneId>296470304</droneId>
-    <stationId>558976796</stationId>
+    <droneId>862222996</droneId>
+    <stationId>574917415</stationId>
     <enterToCharge>0001-01-01T00:00:00</enterToCharge>
   </droneCharges>
   <droneCharges>
-    <droneId>809781443</droneId>
-    <stationId>558976796</stationId>
+    <droneId>446590303</droneId>
+    <stationId>815659012</stationId>
     <enterToCharge>0001-01-01T00:00:00</enterToCharge>
   </droneCharges>
   <droneCharges>
-    <droneId>450219096</droneId>
-    <stationId>558976796</stationId>
-    <enterToCharge>2022-01-18T01:56:21.1319002+02:00</enterToCharge>
-  </droneCharges>
-  <droneCharges>
-    <droneId>802595797</droneId>
-    <stationId>586072525</stationId>
-    <enterToCharge>0001-01-01T00:00:00</enterToCharge>
-  </droneCharges>
-  <droneCharges>
-    <droneId>237244012</droneId>
-    <stationId>558976796</stationId>
-    <enterToCharge>2022-01-18T02:05:45.0693965+02:00</enterToCharge>
-  </droneCharges>
-  <droneCharges>
-    <droneId>377162181</droneId>
-    <stationId>586072525</stationId>
-    <enterToCharge>0001-01-01T00:00:00</enterToCharge>
-  </droneCharges>
-  <droneCharges>
-    <droneId>325532753</droneId>
-    <stationId>558976796</stationId>
+    <droneId>541013077</droneId>
+    <stationId>815659012</stationId>
     <enterToCharge>0001-01-01T00:00:00</enterToCharge>
   </droneCharges>
 </ArrayOfDroneCharges>
