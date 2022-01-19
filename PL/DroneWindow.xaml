@@ -73,7 +73,7 @@
                 <TextBox x:Name="txbParcelID" Margin="74,30,123,0" Text="{Binding parcelInTransfer.id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"   TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True" BorderBrush="#FFC789CD" IsEnabled="False" Grid.Row="2" />
                 <TextBox x:Name="txbLongitude" Margin="74,6,123,0" Text="{Binding location.longitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True" BorderBrush="#FFC789CD" IsEnabled="False" Grid.Row="3"/>
                 <TextBox x:Name="txbLatitude" Margin="74,30,123,0" Text="{Binding location.latitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" IsReadOnly="True" Background="White" BorderBrush="#FFC789CD"  IsEnabled="False" Grid.Row="3" />
-                <Button x:Name="btnModelUpdate"  Content="update model" HorizontalAlignment="Left" Margin="0,2,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Width="220" Height="25"  Style = "{StaticResource myButton}" Grid.Row="1" Grid.Column="1">
+                <Button x:Name="btnModelUpdate"  Content="update model" Click="Button_Click_Update" HorizontalAlignment="Left" Margin="0,2,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.904" Width="220" Height="25"  Style = "{StaticResource myButton}" Grid.Row="1" Grid.Column="1">
                     <!--<Button.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>

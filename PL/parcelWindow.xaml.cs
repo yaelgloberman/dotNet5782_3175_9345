@@ -33,6 +33,7 @@ namespace PL
             bL = BlApi.BlFactory.GetBl();
             InitializeComponent();
             general.Visibility = Visibility.Hidden;
+            //lable.Visibility = Visibility.Hidden;
             comboBoxP.ItemsSource = Enum.GetValues(typeof(BO.Priority));
             comboBoxW.ItemsSource = Enum.GetValues(typeof(BO.Weight));
             comboBoxS.ItemsSource = bL.GetCustomersToList().Select(s=>s.id);
@@ -192,7 +193,6 @@ namespace PL
         {
             try { DroneWindow wnd = new DroneWindow(bL.returnsDrone(parcel.droneInParcel.id)); wnd.ShowDialog(); }
             catch (System.NullReferenceException exp) { MessageBox.Show(exp.Message); }
-
         }
         /// <summary>
         /// brings you to the info of the customer that sent the parcel
@@ -211,10 +211,8 @@ namespace PL
         /// <param name="e"></param>
         private void btnCustomerRParcel_Click(object sender, RoutedEventArgs e)
         {
-
             CustomerWindow wnd = new CustomerWindow(bL.GetCustomerParcel(parcel.receive.id));
             wnd.ShowDialog();
-
         }
 
 

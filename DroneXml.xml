@@ -19,12 +19,6 @@
     <deleted>false</deleted>
   </Drone>
   <Drone>
-    <id>325532753</id>
-    <model>Hunter</model>
-    <maxWeight>average</maxWeight>
-    <deleted>false</deleted>
-  </Drone>
-  <Drone>
     <id>809781443</id>
     <model>Stalker</model>
     <maxWeight>average</maxWeight>
@@ -51,6 +45,12 @@
   <Drone>
     <id>529636982</id>
     <model>Reaper</model>
+    <maxWeight>average</maxWeight>
+    <deleted>false</deleted>
+  </Drone>
+  <Drone>
+    <id>325532753</id>
+    <model>Hunter122</model>
     <maxWeight>average</maxWeight>
     <deleted>false</deleted>
   </Drone>

@@ -41,11 +41,6 @@
     <enterToCharge>0001-01-01T00:00:00</enterToCharge>
   </droneCharges>
   <droneCharges>
-    <droneId>641457340</droneId>
-    <stationId>558976796</stationId>
-    <enterToCharge>0001-01-01T00:00:00</enterToCharge>
-  </droneCharges>
-  <droneCharges>
     <droneId>237244012</droneId>
     <stationId>558976796</stationId>
     <enterToCharge>2022-01-18T02:05:45.0693965+02:00</enterToCharge>

@@ -9,107 +9,11 @@
         Title="parcelWindow" Height="450" Width="800">
     <Grid>
 
-        <Grid x:Name="lable" d:IsHidden="True">
-            <Grid.Background>
-                <ImageBrush ImageSource="/WhatsApp Image 2022-01-13 at 10.33.03.jpeg"/>
-            </Grid.Background>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10" />
-                <ColumnDefinition Width="120" />
-                <ColumnDefinition Width="90" />
-                <ColumnDefinition Width="100" />
-                <ColumnDefinition Width="70" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Label Name="lblSender" Content="sender:" Grid.Column="1" Grid.Row="1"  FontSize="20" />
-            <Label Name="lblRecive" Content="recive:" Grid.Column="1" Grid.Row="2" FontSize="20" />
-            <Label Name="lblWeight" Content="weight:" Grid.Column="1" Grid.Row="3"  FontSize="20" />
-            <Label Name="lblPriority" Content="priority:" Grid.Column="1" Grid.Row="4" FontSize="20" />
-            <Label Name="lblRequested"  Content="Created:" Grid.Column="1" Grid.Row="6"  FontSize="20"/>
-            <Label Name="lblScheduled"  Content="scheduled:" Grid.Column="1" Grid.Row="7"  FontSize="20"/>
-            <Label Name="lblDelivered"  Content="delivered:" Grid.Column="1" Grid.Row="9"  FontSize="20"/>
-            <Label Name="lblPickedUp"  Content="pickedUp:" Grid.Column="1" Grid.Row="8" FontSize="20" />
-            <Image HorizontalAlignment="Left" Height="78" Margin="289,51,0,0" VerticalAlignment="Top" Width="212" Source="/logooo.png"/>
-
-        </Grid>
-
-
-
-
-        <Grid x:Name="general">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10" />
-                <ColumnDefinition Width="120" />
-                <ColumnDefinition Width="90" />
-                <ColumnDefinition Width="100" />
-                <ColumnDefinition Width="70" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Label x:Name="lblId" Content="id:" Grid.Row="0"  Grid.Column="1" FontSize="20"/>
-            <TextBlock Name="txbID" Text="{Binding id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="0"  Grid.Column="2" Grid.ColumnSpan="2"  FontSize="20" Height="30" />
-            <Label Name="lblSenderId" Content="id:" Grid.Column="2" Grid.Row="1"  FontSize="20" />
-            <Label Name="lblSenderName" Content="name:" Grid.Column="4" Grid.Row="1"  FontSize="20" />
-            <Label Name="lblReciveName" Content="name:" Grid.Column="4" Grid.Row="2"  FontSize="20" />
-            <Label Name="lblReciveId" Content="id:" Grid.Column="2" Grid.Row="2"  FontSize="20" />
-            <TextBlock Name="txbSenderId" Text="{Binding sender.id , Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"   Grid.Column="3" Grid.Row="1"  FontSize="20"  Height="30"/>
-            <TextBlock Name="txbSenderName" Text="{Binding sender.name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"   Grid.Column="5" Grid.Row="1"  FontSize="20"  Height="30" Margin="0,7,0,0" VerticalAlignment="Top" />
-            <TextBlock Name="txbReciveId" Text="{Binding receive.id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="2"  FontSize="20"  Height="30" />
-            <TextBlock Name="txbReciveName" Text="{Binding receive.name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="5" Grid.Row="2"  FontSize="20"  Height="30"/>
-            <TextBlock Name="txbWeight" Text="{Binding weightCategorie, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.Row="3"  FontSize="20"  Height="30" />
-            <TextBlock Name="txbPriority" Text="{Binding priority, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="2" FontSize="20"  Height="30"/>
-            <TextBlock Name="txbRequested"  Text="{Binding requested, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.Row="6" Grid.ColumnSpan="2" FontSize="18"  Height="30"/>
-            <TextBlock Name="txbScheduled"  Text="{Binding scheduled, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.Row="7" Grid.ColumnSpan="2"  FontSize="18"  Height="30"/>
-            <TextBlock Name="txbDeliverd"  Text="{Binding delivered, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="9"  FontSize="18"  Height="30"/>
-            <TextBlock Name="txbPickedUp" Text="{Binding pickedUp,Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.Row="8"  Grid.ColumnSpan="2"  FontSize="18" Height="30" />
-            <Button x:Name="btnDeliveryToCustomer" Content="delivery parcel to customer"   Grid.Column="5" Grid.Row="9" Grid.ColumnSpan="2"  Visibility="Hidden"  Click="btnDeliveryToCustomer_Click" Background="#FFF6DBA1" FontFamily="Baskerville Old Face"  IsEnabled="{Binding ElementName=checkBoxAgree, Path=IsChecked,UpdateSourceTrigger=PropertyChanged}"  FontSize="20"/>
-            <Button x:Name="btnPickUpParcelByDrone" Content="pick up parcel by drone" Grid.Column="5" Grid.Row="9" Grid.ColumnSpan="2" Visibility="Hidden"  Click="btnPickUpParcelByDrone_Click"  Background="#FFF6DBA1" FontFamily="Baskerville Old Face"   IsEnabled="{Binding ElementName=checkBoxAgree, Path=IsChecked,UpdateSourceTrigger=PropertyChanged}"  FontSize="20"/>
-            <Button x:Name="btnDroneParcelW" Content="open drone view"   Grid.Column="3" Grid.Row="5" Width="100" Grid.ColumnSpan="3" HorizontalAlignment="Center" Click="btnDroneParcel_Click" Height="30" FontSize="18" Background="#FFF6DBA1"/>
-            <Button x:Name="btnCustomerSenderParcelW" Content="open customer S view"  HorizontalAlignment="Center"  Grid.Column="7" Grid.Row="2" Grid.ColumnSpan="3" Height="30" Click="btnCustomerSParcel_Click" FontSize="18" Background="#FFF6DBA1"  />
-            <Button x:Name="btnCustomerReciverParcelW" Content="open customer R view" HorizontalAlignment="Center" Grid.Column="7" Grid.ColumnSpan="3" Grid.Row="1" Height="30" Click="btnCustomerRParcel_Click"  FontSize="18" Background="#FFF6DBA1"  />
-            <CheckBox x:Name="checkBoxAgree" Content="do you agree to pick up the parcel and deliverd it? " Grid.Column="4" Grid.ColumnSpan="5" Grid.Row="8" HorizontalAlignment="Right"  IsChecked="False"  FontSize="18"   />
-            <TextBlock x:Name="dronInParcel" Text="{Binding droneInParcel.id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="5" Height="30" FontSize="18" Margin="43,7,5,6" />
-            <Label x:Name="lblDronInParcel" Content="drone in parcel:" Grid.Row="5" Grid.ColumnSpan="2" Grid.Column="1" FontSize="20" />
-            <Image HorizontalAlignment="Left" Height="78" Margin="289,51,0,0" VerticalAlignment="Top" Width="212" Source="/logooo.png"/>
-
-
-
-
-        </Grid>
-        <Grid x:Name="add" d:IsHidden="True">
+        <Grid x:Name="add">
             <Grid.Background>
                 <ImageBrush ImageSource="/WhatsApp Image 2022-01-13 at 10.33.04 (2).jpeg"/>
             </Grid.Background>
-           
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10" />
                 <ColumnDefinition Width="120" />
@@ -139,6 +43,108 @@
             <ComboBox x:Name="comboBoxP" Grid.Column="2" Grid.Row="4"/>
             <Button x:Name="btnAddParcel" Content="add"  Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="9" Click="btnAddParcel_Click"  FontSize="20"/>
             <Image HorizontalAlignment="Left" Height="78" Margin="289,51,0,0" VerticalAlignment="Top" Width="212" Source="/logooo.png"/>
+            <Label Grid.Column="1" HorizontalAlignment="Left" Margin="45,10,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+            <Label Content="RECIVER ID" Grid.Column="1" Grid.Row="2" RenderTransformOrigin="0.658,2.336" Height="Auto" Margin="0,0,0,0" Width="Auto"/>
+            <Label Content="WEIGHT" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Width="Auto"/>
+            <Label Content="PROIRITY " Grid.Column="1" Grid.Row="4" Height="Auto" Width="Auto"/>
+            <Label Content="SENDER ID" Grid.Column="1" Grid.Row="1" Height="Auto" Width="Auto"/>
+
+
+        </Grid>
+
+        <Grid x:Name="lable" d:IsHidden="True">
+            <Grid.Background>
+                <ImageBrush ImageSource="/WhatsApp Image 2022-01-13 at 10.33.03.jpeg"/>
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="90" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label x:Name="lblSender" Content="sender:" Grid.Column="1" Grid.Row="1"  FontSize="20" />
+            <Label x:Name="lblRecive" Content="recive:" Grid.Column="1" Grid.Row="2" FontSize="20" />
+            <Label x:Name="lblWeight" Content="weight:" Grid.Column="1" Grid.Row="3"  FontSize="20" />
+            <Label x:Name="lblPriority" Content="priority:" Grid.Column="1" Grid.Row="4" FontSize="20" />
+            <Label x:Name="lblRequested"  Content="Created:" Grid.Column="1" Grid.Row="6"  FontSize="20"/>
+            <Label x:Name="lblScheduled"  Content="scheduled:" Grid.Column="1" Grid.Row="7"  FontSize="20"/>
+            <Label x:Name="lblDelivered"  Content="delivered:" Grid.Column="1" Grid.Row="9"  FontSize="20"/>
+            <Label x:Name="lblPickedUp"  Content="pickedUp:" Grid.Column="1" Grid.Row="8" FontSize="20" />
+            <Image HorizontalAlignment="Left" Height="78" Margin="289,51,0,0" VerticalAlignment="Top" Width="212" Source="/logooo.png"/>
+
+        </Grid>
+
+
+
+
+        <Grid x:Name="general" d:IsHidden="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="90" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label x:Name="lblId" Content="id:" Grid.Row="0"  Grid.Column="1" FontSize="20"/>
+            <TextBlock x:Name="txbID" Text="{Binding id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="0"  Grid.Column="2" Grid.ColumnSpan="2"  FontSize="20" Height="30" />
+            <Label x:Name="lblSenderId" Content="id:" Grid.Column="2" Grid.Row="1"  FontSize="20" />
+            <Label x:Name="lblSenderName" Content="name:" Grid.Column="4" Grid.Row="1"  FontSize="20" />
+            <Label x:Name="lblReciveName" Content="name:" Grid.Column="4" Grid.Row="2"  FontSize="20" />
+            <Label x:Name="lblReciveId" Content="id:" Grid.Column="2" Grid.Row="2"  FontSize="20" />
+            <TextBlock x:Name="txbSenderId" Text="{Binding sender.id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"   Grid.Column="3" Grid.Row="1"  FontSize="20"  Height="30"/>
+            <TextBlock x:Name="txbSenderName" Text="{Binding sender.name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"   Grid.Column="5" Grid.Row="1"  FontSize="20"  Height="30" Margin="0,7,0,0" VerticalAlignment="Top" />
+            <TextBlock x:Name="txbReciveId" Text="{Binding receive.id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="3" Grid.Row="2"  FontSize="20"  Height="30" />
+            <TextBlock x:Name="txbReciveName" Text="{Binding receive.name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="5" Grid.Row="2"  FontSize="20"  Height="30"/>
+            <TextBlock x:Name="txbWeight" Text="{Binding weightCategorie, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.Row="3"  FontSize="20"  Height="30" />
+            <TextBlock x:Name="txbPriority" Text="{Binding priority, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="2" FontSize="20"  Height="30"/>
+            <TextBlock x:Name="txbRequested"  Text="{Binding requested, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.Row="6" Grid.ColumnSpan="2" FontSize="18"  Height="30"/>
+            <TextBlock x:Name="txbScheduled"  Text="{Binding scheduled, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.Row="7" Grid.ColumnSpan="2"  FontSize="18"  Height="30"/>
+            <TextBlock x:Name="txbDeliverd"  Text="{Binding delivered, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="9"  FontSize="18"  Height="30"/>
+            <TextBlock x:Name="txbPickedUp" Text="{Binding pickedUp, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Column="2" Grid.Row="8"  Grid.ColumnSpan="2"  FontSize="18" Height="30" />
+            <Button x:Name="btnDeliveryToCustomer" Content="delivery parcel to customer"   Grid.Column="5" Grid.Row="9" Grid.ColumnSpan="2"  Visibility="Hidden"  Click="btnDeliveryToCustomer_Click" Background="#FFF6DBA1" FontFamily="Baskerville Old Face"  IsEnabled="{Binding IsChecked, ElementName=checkBoxAgree, UpdateSourceTrigger=PropertyChanged}"  FontSize="20"/>
+            <Button x:Name="btnPickUpParcelByDrone" Content="pick up parcel by drone" Grid.Column="5" Grid.Row="9" Grid.ColumnSpan="2" Visibility="Hidden"  Click="btnPickUpParcelByDrone_Click"  Background="#FFF6DBA1" FontFamily="Baskerville Old Face"   IsEnabled="{Binding IsChecked, ElementName=checkBoxAgree, UpdateSourceTrigger=PropertyChanged}"  FontSize="20"/>
+            <Button x:Name="btnDroneParcelW" Content="open drone view"   Grid.Column="3" Grid.Row="5" Width="100" Grid.ColumnSpan="3" HorizontalAlignment="Center" Click="btnDroneParcel_Click" Height="30" FontSize="18" Background="#FFF6DBA1"/>
+            <Button x:Name="btnCustomerSenderParcelW" Content="open customer S view"  HorizontalAlignment="Center"  Grid.Column="7" Grid.Row="2" Grid.ColumnSpan="3" Height="30" Click="btnCustomerSParcel_Click" FontSize="18" Background="#FFF6DBA1"  />
+            <Button x:Name="btnCustomerReciverParcelW" Content="open customer R view" HorizontalAlignment="Center" Grid.Column="7" Grid.ColumnSpan="3" Grid.Row="1" Height="30" Click="btnCustomerRParcel_Click"  FontSize="18" Background="#FFF6DBA1"  />
+            <CheckBox x:Name="checkBoxAgree" Content="do you agree to pick up the parcel and deliverd it? " Grid.Column="4" Grid.ColumnSpan="5" Grid.Row="8" HorizontalAlignment="Right"  IsChecked="False"  FontSize="18"   />
+            <TextBlock x:Name="dronInParcel" Text="{Binding droneInParcel.id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="5" Height="30" FontSize="18" Margin="43,7,5,6" />
+            <Label x:Name="lblDronInParcel" Content="drone in parcel:" Grid.Row="5" Grid.ColumnSpan="2" Grid.Column="1" FontSize="20" />
+            <Image HorizontalAlignment="Left" Height="78" Margin="289,51,0,0" VerticalAlignment="Top" Width="212" Source="/logooo.png"/>
+
+
 
 
         </Grid>
